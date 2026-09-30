@@ -30,6 +30,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
+    @property --g { syntax: "<number>"; inherits: true; initial-value: 0; }
+    @property --sp { syntax: "<number>"; inherits: true; initial-value: 0; }
     /* ===== ТЕМЫ: тёмная «космос» (по умолчанию) и светлая «рассвет» ===== */
     :root {
       --bg: #07070a;
@@ -157,11 +159,34 @@
 
     /* ===== ФОН: звёздное небо (Pexels #1341279, Kai Pilger) / светлый «рассвет» ===== */
     .bg-space {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      position: fixed; inset: -4%; z-index: 0; pointer-events: none;
       background: radial-gradient(80% 60% at 50% 30%, transparent, rgba(7, 7, 10, 0.55)), url("img/bg-space.jpg") center / cover;
-      transition: opacity 0.5s;
+      transition: opacity 0.5s; animation: skyDrift 160s ease-in-out infinite alternate;
     }
+    /* небо очень медленно поворачивается — как ночное небо над головой */
+    @keyframes skyDrift { from { transform: rotate(-1deg) scale(1.03); } to { transform: rotate(1.6deg) scale(1.07) translate3d(-0.8%, 0.6%, 0); } }
     html[data-theme="light"] .bg-space { opacity: 0; }
+    /* мерцающие звёзды (три слоя со своим ритмом; точки расставляет скрипт) и редкие падающие звёзды */
+    .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    html[data-theme="light"] .stars { display: none; }
+    .stars i {
+      position: absolute; width: var(--sz, 2px); height: var(--sz, 2px); border-radius: 50%; background: var(--c, #eef1ff);
+      box-shadow: 0 0 var(--bl, 0px) var(--c, #eef1ff); opacity: 0.2;
+      animation: twinkle var(--du, 4s) ease-in-out var(--de, 0s) infinite;
+    }
+    @keyframes twinkle { 0%, 100% { opacity: 0.18; } 50% { opacity: 1; } }
+    .shoot {
+      position: absolute; width: 170px; height: 1.6px; border-radius: 2px; opacity: 0; transform-origin: 0 50%;
+      background: linear-gradient(90deg, #fff, rgba(255, 214, 180, 0.55) 35%, transparent);
+    }
+    .shoot.s1 { left: 80%; top: 12%; animation: shoot 13s linear 3s infinite; }
+    .shoot.s2 { left: 38%; top: 6%; animation: shoot 21s linear 10s infinite; }
+    @keyframes shoot {
+      0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-24deg); }
+      1.2% { opacity: 1; }
+      6.5% { opacity: 0; transform: translate3d(-380px, 170px, 0) rotate(-24deg); }
+      100% { opacity: 0; transform: translate3d(-380px, 170px, 0) rotate(-24deg); }
+    }
     .bg-sky {
       position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s;
       background:
@@ -242,9 +267,23 @@
        При прокрутке уезжает вбок, уменьшается и дальше «едет» рядом, медленно вращаясь (положение задаёт скрипт). */
     .world {
       position: fixed; left: 0; top: 0; width: 1000px; height: 1000px; z-index: 0; pointer-events: none;
-      transform-origin: 50% 50%; opacity: 0; transition: opacity 1.2s ease;
+      transform-origin: 50% 50%; opacity: 0; transition: opacity 1.2s ease; will-change: transform;
     }
     .world.ready { opacity: 1; }
+    /* Путь планеты растянут на всю страницу: у «Обо мне» пройдена примерно треть, дальше — больше.
+       Где браузер умеет анимации по прокрутке, он двигает планету сам — плавно, без рывков и запаздывания.
+       Точки пути (--wx0 … --ws1) считает скрипт от положения ноутбука. */
+    @keyframes worldPath {
+      from { transform: translate3d(var(--wx0, 0px), var(--wy0, 0px), 0) scale(1); }
+      to { transform: translate3d(var(--wx1, 0px), var(--wy1, 0px), 0) scale(var(--ws1, 1)); }
+    }
+    @keyframes glowOff { to { --g: 1; } }
+    @keyframes heroOut { to { --sp: 1; } }
+    @supports (animation-timeline: scroll()) {
+      .world { animation: worldPath linear both; animation-timeline: scroll(root block); }
+      .laptop { animation: glowOff linear both; animation-timeline: scroll(root block); animation-range: 0 70vh; }
+      .hero { animation: heroOut linear both; animation-timeline: scroll(root block); animation-range: 0 80vh; }
+    }
     .world-glow {
       position: absolute; left: -40%; right: -40%; top: -30%; height: 62%;
       background: radial-gradient(40% 44% at 58% 76%, var(--glow-core), var(--glow-soft) 36%, transparent 70%);
@@ -524,16 +563,63 @@
 
     /* ===== ОБО МНЕ ===== */
     .section { padding: 96px 0; position: relative; }
-    .about-grid { display: grid; grid-template-columns: 380px 1fr; gap: 60px; align-items: center; }
+    .about-grid { display: grid; grid-template-columns: 380px 1fr; gap: 60px; align-items: start; }
     .section-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.12; letter-spacing: -0.02em; margin: 20px 0 22px; }
     .about-text { font-size: 18px; line-height: 1.7; color: var(--text-2); margin-bottom: 28px; }
     .about-text b { color: var(--text); font-weight: 600; }
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .feature { padding: 20px 18px; }
-    .feature .num { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); margin-bottom: 12px; display: block; }
-    .feature h4 { font-size: 16px; font-weight: 600; line-height: 1.3; margin-bottom: 8px; color: var(--text); }
-    .feature p { font-size: 14px; line-height: 1.5; color: var(--text-3); }
-    .feature:hover { transform: translateY(-3px); }
+    /* Три карточки-строки: номер · заголовок и коротко · «+». По нажатию строка плавно раскрывается,
+       подробности — в две колонки (слева описание, справа список). */
+    .features { display: grid; gap: 10px; }
+    .feature { padding: 0; overflow: hidden; }
+    .feature:hover { transform: translateY(-2px); }
+    .ft-h { margin: 0; font: inherit; }
+    .ft-head {
+      display: grid; grid-template-columns: 40px 1fr 30px; column-gap: 14px; align-items: start;
+      width: 100%; padding: 17px 18px; border: 0; background: none; color: inherit; font: inherit;
+      text-align: left; cursor: pointer; border-radius: inherit;
+    }
+    .ft-head:focus-visible { outline-offset: -3px; }
+    .feature .num { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); padding-top: 3px; }
+    .ft-title { display: block; font-size: 16.5px; font-weight: 600; line-height: 1.3; color: var(--text); margin-bottom: 4px; }
+    .ft-short { display: block; font-size: 14px; line-height: 1.5; color: var(--text-3); }
+    /* «+» поворачивается в «×» */
+    .plus {
+      position: relative; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line-strong);
+      transition: transform 0.55s cubic-bezier(0.2, 1.4, 0.4, 1), background 0.3s, border-color 0.3s;
+    }
+    .plus::before, .plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; margin: -0.75px 0 0 -6px; border-radius: 2px; background: var(--text-2); transition: background 0.3s; }
+    .plus::after { transform: rotate(90deg); }
+    .ft-head:hover .plus { border-color: var(--accent); }
+    .feature.open .plus { transform: rotate(135deg); background: var(--glow-solid); border-color: transparent; }
+    .feature.open .plus::before, .feature.open .plus::after { background: #140c06; }
+    /* открытая строка: светящаяся рамка и линия, которая прорисовывается сверху слева направо */
+    .feature::before { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 2px; background: var(--grad); transform: scaleX(0); transform-origin: left; transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .feature.open::before { transform: scaleX(1); }
+    .feature.open { background: color-mix(in srgb, var(--bg-2) 80%, transparent); border-color: color-mix(in srgb, var(--glow-solid) 45%, transparent); box-shadow: 0 24px 50px -28px var(--glow-soft); }
+    /* плавное раскрытие по высоте (0fr → 1fr) + текст выплывает */
+    .ft-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .feature.open .ft-more { grid-template-rows: 1fr; }
+    .ft-clip { overflow: hidden; min-height: 0; }
+    .ft-body {
+      padding: 2px 18px 20px 72px; font-size: 14.5px; line-height: 1.55; color: var(--text-2);
+      opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .feature.open .ft-body { opacity: 1; transform: none; transition-delay: 0.15s; }
+    .ft-cols { display: grid; grid-template-columns: 1.05fr 1fr; gap: 12px 28px; align-items: start; }
+    .ft-body p + p { margin-top: 10px; }
+    .ft-label { display: block; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; }
+    .ft-body ul { list-style: none; display: grid; gap: 7px; }
+    .ft-body li { position: relative; padding-left: 16px; }
+    .ft-body li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.75; }
+    .ft-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-weight: 600; color: var(--accent); text-decoration: none; }
+    .ft-link .arr { transition: transform 0.25s; }
+    .ft-link:hover .arr { transform: translateY(3px); }
+    @media (max-width: 600px) {
+      .ft-head { grid-template-columns: 30px 1fr 28px; column-gap: 10px; padding: 15px 14px; }
+      .plus { width: 28px; height: 28px; }
+      .ft-body { padding: 0 14px 18px; }
+      .ft-cols { grid-template-columns: 1fr; }
+    }
 
     .flip { perspective: 1200px; cursor: pointer; border-radius: var(--r-lg); }
     .flip-inner { position: relative; width: 100%; height: 520px; transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
@@ -702,7 +788,10 @@
       .soon-pill { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-tex, .world-sun::before { animation: none; }
+      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space, .stars i { animation: none; }
+      .shoot { display: none; }
+      .stars i { opacity: 0.7; }
+      .ft-more, .ft-body, .plus, .feature::before { transition: none; }
       .js .reveal, .js .hero-late { opacity: 1; transform: none; transition: none; }
       .tw-caret { animation: none; }
       .scene, .lid, .laptop, .phone, .phone-wrap, .phone-glass, .screen > *, .js .laptop .win, .js .laptop .dock, .js .laptop .menubar { transition: none !important; }
@@ -713,6 +802,7 @@
 <body>
 
   <div class="bg-space" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"><span class="shoot s1"></span><span class="shoot s2"></span></div>
   <div class="bg-sky" aria-hidden="true"></div>
   <div class="bg-grain" aria-hidden="true"></div>
   <div class="world" id="world" aria-hidden="true">
@@ -886,9 +976,72 @@
             Часто сайту не&nbsp;нужен новый дизайн. Клиентов теряют из-за незаметных мелочей: запутанной навигации, медленной загрузки, формы, до&nbsp;которой никто не&nbsp;доходит. Я&nbsp;разбираю продукт, нахожу такие места и&nbsp;исправляю их&nbsp;— чтобы заявок и&nbsp;посетителей стало <b>заметно больше</b>.
           </p>
           <div class="features">
-            <div class="feature glass glow reveal"><span class="num">01</span><h4>Нахожу, где теряются клиенты</h4><p>Смотрю на&nbsp;сайт глазами посетителя: где он&nbsp;путается, ждёт или уходит.</p></div>
-            <div class="feature glass glow reveal"><span class="num">02</span><h4>Исправляю причину</h4><p>Без правок ради галочки&nbsp;— меняю то, что реально мешает заявкам.</p></div>
-            <div class="feature glass glow reveal"><span class="num">03</span><h4>Автоматизирую рутину</h4><p>Боты и&nbsp;формы, которые записывают, отвечают и&nbsp;присылают заявки в&nbsp;Telegram.</p></div>
+            <div class="feature glass glow reveal">
+              <h3 class="ft-h"><button class="ft-head" type="button" aria-expanded="false" aria-controls="ft-1">
+                <span class="num">01</span>
+                <span class="ft-text"><span class="ft-title">Нахожу, где теряются клиенты</span><span class="ft-short">Смотрю на&nbsp;сайт глазами посетителя: где он&nbsp;путается, ждёт или уходит.</span></span>
+                <span class="plus" aria-hidden="true"></span>
+              </button></h3>
+              <div class="ft-more" id="ft-1" inert><div class="ft-clip"><div class="ft-body"><div class="ft-cols">
+                <div>
+                  <p>Прохожу путь клиента от&nbsp;первого экрана до&nbsp;заявки&nbsp;— с&nbsp;телефона и&nbsp;с&nbsp;компьютера.</p>
+                  <p>На&nbsp;выходе&nbsp;— короткий список проблем по&nbsp;важности: что исправить в&nbsp;первую очередь.</p>
+                </div>
+                <div>
+                  <span class="ft-label">Что проверяю</span>
+                  <ul>
+                    <li>быстро&nbsp;ли грузится страница;</li>
+                    <li>понятно&nbsp;ли за&nbsp;5&nbsp;секунд, что вы предлагаете и&nbsp;сколько это стоит;</li>
+                    <li>легко&nbsp;ли найти контакты и&nbsp;оставить заявку;</li>
+                    <li>не&nbsp;ломается&nbsp;ли вёрстка на&nbsp;телефоне.</li>
+                  </ul>
+                </div>
+              </div></div></div></div>
+            </div>
+            <div class="feature glass glow reveal">
+              <h3 class="ft-h"><button class="ft-head" type="button" aria-expanded="false" aria-controls="ft-2">
+                <span class="num">02</span>
+                <span class="ft-text"><span class="ft-title">Исправляю причину</span><span class="ft-short">Без правок ради галочки&nbsp;— меняю то, что реально мешает заявкам.</span></span>
+                <span class="plus" aria-hidden="true"></span>
+              </button></h3>
+              <div class="ft-more" id="ft-2" inert><div class="ft-clip"><div class="ft-body"><div class="ft-cols">
+                <div>
+                  <p>Не&nbsp;перекрашиваю кнопки наугад, а&nbsp;устраняю то, что нашёл при проверке.</p>
+                  <p>Каждое изменение объясняю простыми словами: что было, что стало и&nbsp;зачем.</p>
+                </div>
+                <div>
+                  <span class="ft-label">Что исправляю</span>
+                  <ul>
+                    <li>ускоряю загрузку и&nbsp;довожу мобильную версию;</li>
+                    <li>упрощаю навигацию и&nbsp;формы;</li>
+                    <li>переписываю непонятные тексты и&nbsp;заголовки;</li>
+                    <li>делаю заметными цену, контакты и&nbsp;кнопку заявки.</li>
+                  </ul>
+                </div>
+              </div></div></div></div>
+            </div>
+            <div class="feature glass glow reveal">
+              <h3 class="ft-h"><button class="ft-head" type="button" aria-expanded="false" aria-controls="ft-3">
+                <span class="num">03</span>
+                <span class="ft-text"><span class="ft-title">Автоматизирую рутину</span><span class="ft-short">Боты и&nbsp;формы, которые записывают, отвечают и&nbsp;присылают заявки в&nbsp;Telegram.</span></span>
+                <span class="plus" aria-hidden="true"></span>
+              </button></h3>
+              <div class="ft-more" id="ft-3" inert><div class="ft-clip"><div class="ft-body"><div class="ft-cols">
+                <div>
+                  <p>Снимаю с&nbsp;вас повторяющиеся задачи&nbsp;— вы тратите время на&nbsp;клиентов, а&nbsp;не&nbsp;на&nbsp;переписку.</p>
+                  <a class="ft-link" href="#cases">Пример&nbsp;— мой бот FadePoint <span class="arr">↓</span></a>
+                </div>
+                <div>
+                  <span class="ft-label">Что могу настроить</span>
+                  <ul>
+                    <li>Telegram-бот записывает клиентов на&nbsp;свободное время;</li>
+                    <li>вы сразу получаете уведомление о&nbsp;каждой записи;</li>
+                    <li>заявки с&nbsp;сайта приходят в&nbsp;Telegram, а&nbsp;не&nbsp;теряются в&nbsp;почте;</li>
+                    <li>на&nbsp;частые вопросы бот отвечает сам.</li>
+                  </ul>
+                </div>
+              </div></div></div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -1254,58 +1407,95 @@
     }
 
 
-    // ===== Планета: в начале под ноутбуком, при прокрутке уезжает вбок, уменьшается и «едет» рядом =====
+    // ===== Планета: в начале — под ноутбуком; при прокрутке плавно уезжает вправо и уменьшается до среднего размера =====
+    // Путь растянут на всю страницу. Где браузер умеет анимации по прокрутке — двигает он сам (CSS),
+    // иначе — скрипт, напрямую от прокрутки, без «догонялок».
     function initWorld() {
       const hero = document.querySelector(".hero");
       const world = document.getElementById("world");
       const scene = document.querySelector(".scene");
-      const clamp = (v) => Math.min(1, Math.max(0, v));
-      let D = 1000, cx0 = 0, cy0 = 0;
-
-      // стартовое положение считаем от ноутбука (при нулевой прокрутке)
-      const measure = () => {
-        const vw = window.innerWidth;
-        const narrow = vw < 700;
-        D = Math.round(narrow ? vw * 1.5 : Math.min(1150, vw * 0.8));
-        world.style.width = world.style.height = D + "px";
-        const r = scene.getBoundingClientRect();
-        const sceneTop = r.top + window.scrollY;
-        const top0 = sceneTop + r.height * (narrow ? 0.95 : 0.86); // верх планеты — за нижней частью ноутбука
-        cx0 = vw * 0.5;
-        cy0 = top0 + D / 2;
-      };
       const laptop = document.getElementById("laptop");
-      const easeIO = (v) => (v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2);
-      let yS = window.scrollY, running = false;
-      const render = (y) => {
+      const cssTimeline = !!(window.CSS && CSS.supports("animation-timeline: scroll()"));
+      const clamp = (v) => Math.min(1, Math.max(0, v));
+      const pageTop = (el) => { let t = 0; for (; el; el = el.offsetParent) t += el.offsetTop; return t; };
+      let path = null, lastW = 0;
+
+      const measure = () => {
         const vw = window.innerWidth, vh = window.innerHeight;
         const narrow = vw < 700;
-        hero.style.setProperty("--sp", clamp(y / (hero.offsetHeight * 0.8)).toFixed(3));
-        const p = easeIO(clamp(y / (vh * 1.35)));                     // длинный и мягкий путь
-        laptop.style.setProperty("--g", clamp(y / (vh * 0.7)).toFixed(3)); // подсветка контура гаснет сверху вниз
-        const d1 = narrow ? 76 : Math.min(210, vw * 0.15);          // размер «спутника»
-        const cx1 = vw - d1 * (narrow ? 0.42 : 0.4);                 // прижат к краю, наполовину за экраном
-        const cy1 = narrow ? vh - d1 / 2 - 90 : vh * 0.74;
-        const cx = cx0 + (cx1 - cx0) * p;
-        const cy = (cy0 - y) * (1 - p) + cy1 * p;                    // сначала едет вместе со страницей
-        const sc = 1 + (d1 / D - 1) * p;
-        world.style.transform = `translate3d(${(cx - D / 2).toFixed(1)}px, ${(cy - D / 2).toFixed(1)}px, 0) scale(${sc.toFixed(4)})`;
+        lastW = vw;
+        const D = Math.round(narrow ? vw * 1.5 : Math.min(1150, vw * 0.8));            // размер в начале
+        const d1 = narrow ? vw * 0.5 : Math.min(380, vw * 0.27);                       // в конце — средний
+        const top0 = pageTop(scene) + scene.offsetHeight * (narrow ? 0.95 : 0.86);     // верх планеты — за низом ноутбука
+        const cx1 = vw - d1 * 0.12, cy1 = vh * (narrow ? 0.8 : 0.72);                  // в конце — справа, чуть за краем
+        path = { x0: vw / 2 - D / 2, y0: top0, x1: cx1 - D / 2, y1: cy1 - D / 2, s1: d1 / D };
+        world.style.width = world.style.height = D + "px";
+        world.style.setProperty("--wx0", path.x0.toFixed(1) + "px");
+        world.style.setProperty("--wy0", path.y0.toFixed(1) + "px");
+        world.style.setProperty("--wx1", path.x1.toFixed(1) + "px");
+        world.style.setProperty("--wy1", path.y1.toFixed(1) + "px");
+        world.style.setProperty("--ws1", path.s1.toFixed(4));
       };
-      // сглаживание: каждое мгновение подтягиваемся к настоящей прокрутке на 9% — без рывков колёсика
-      const frame = () => {
-        const y = window.scrollY;
-        yS += (y - yS) * (reduceMotion ? 1 : 0.09);
-        if (Math.abs(y - yS) < 0.4) yS = y;
-        render(yS);
-        if (yS !== y) requestAnimationFrame(frame); else running = false;
+      const render = () => {
+        const y = window.scrollY, vh = window.innerHeight;
+        const t = clamp(y / Math.max(1, document.documentElement.scrollHeight - vh));
+        const x = path.x0 + (path.x1 - path.x0) * t, yy = path.y0 + (path.y1 - path.y0) * t, sc = 1 + (path.s1 - 1) * t;
+        world.style.transform = `translate3d(${x.toFixed(1)}px, ${yy.toFixed(1)}px, 0) scale(${sc.toFixed(4)})`;
+        laptop.style.setProperty("--g", clamp(y / (vh * 0.7)).toFixed(3));   // подсветка контура гаснет сверху вниз
+        hero.style.setProperty("--sp", clamp(y / (vh * 0.8)).toFixed(3));
       };
-      const update = () => render(yS);
-      const onScroll = () => { if (!running) { running = true; requestAnimationFrame(frame); } };
-      measure(); update();
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", () => { measure(); onScroll(); });
-      // после появления ноутбука пересчитать (он въезжает с анимацией) и показать планету
-      setTimeout(() => { measure(); update(); world.classList.add("ready"); }, reduceMotion ? 0 : 900);
+      let ticking = false;
+      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; render(); }); } };
+
+      measure();
+      if (!cssTimeline) { render(); window.addEventListener("scroll", onScroll, { passive: true }); }
+      window.addEventListener("resize", () => {
+        // на телефоне при прокрутке прячется адресная строка — меняется только высота; пересчёт не нужен (иначе планета дёрнется)
+        if (window.innerWidth === lastW && window.matchMedia("(pointer: coarse)").matches) return;
+        measure();
+        if (!cssTimeline) render();
+      });
+      // после загрузки шрифтов и появления ноутбука — пересчитать и показать планету
+      setTimeout(() => { measure(); if (!cssTimeline) render(); world.classList.add("ready"); }, reduceMotion ? 0 : 900);
+    }
+
+    // Мерцающие звёзды: 70 отдельных точек, у каждой свой размер, цвет и ритм мерцания
+    function initStars() {
+      const box = document.querySelector(".stars");
+      if (!box) return;
+      let seed = 11;
+      const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      const frag = document.createDocumentFragment();
+      for (let k = 0; k < 70; k++) {
+        const star = document.createElement("i");
+        const big = rnd() < 0.14, warm = rnd() < 0.25;
+        star.style.left = (rnd() * 100).toFixed(2) + "%";
+        star.style.top = (rnd() * 100).toFixed(2) + "%";
+        star.style.setProperty("--sz", (big ? 2.4 : 1.2 + rnd()).toFixed(1) + "px");
+        star.style.setProperty("--bl", big ? "5px" : "0px");
+        star.style.setProperty("--c", warm ? "#ffd8b8" : "#eef1ff");
+        star.style.setProperty("--du", (2.8 + rnd() * 4.5).toFixed(2) + "s");
+        star.style.setProperty("--de", (-rnd() * 6).toFixed(2) + "s");
+        frag.appendChild(star);
+      }
+      box.appendChild(frag);
+    }
+
+    // Карточки «01 / 02 / 03» в «Обо мне»: по нажатию плавно раскрываются (открыта одна за раз)
+    function initFeatures() {
+      const cards = Array.from(document.querySelectorAll(".feature"));
+      const setOpen = (card, open) => {
+        card.classList.toggle("open", open);
+        card.querySelector(".ft-head").setAttribute("aria-expanded", String(open));
+        card.querySelector(".ft-more").toggleAttribute("inert", !open);
+      };
+      cards.forEach((card) => {
+        card.querySelector(".ft-head").addEventListener("click", () => {
+          const open = !card.classList.contains("open");
+          cards.forEach((c) => { if (c !== card) setOpen(c, false); });
+          setOpen(card, open);
+        });
+      });
     }
 
     // Спокойное появление блоков при прокрутке
@@ -1313,7 +1503,13 @@
       const items = document.querySelectorAll(".reveal");
       if (reduceMotion || !("IntersectionObserver" in window)) { items.forEach((el) => el.classList.add("in")); return; }
       const io = new IntersectionObserver((entries) => {
-        entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+        entries.forEach((en) => {
+          if (!en.isIntersecting) return;
+          const el = en.target;
+          el.classList.add("in");
+          io.unobserve(el);
+          setTimeout(() => { el.style.transitionDelay = ""; }, 1300);
+        });
       }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
       items.forEach((el, i) => {
         el.style.transitionDelay = (el.classList.contains("feature") ? (i % 3) * 0.1 : 0) + "s";
@@ -1370,6 +1566,8 @@
     initReveal();
     initCursor();
     initWorld();
+    initStars();
+    initFeatures();
   </script>
 </body>
 </html>
