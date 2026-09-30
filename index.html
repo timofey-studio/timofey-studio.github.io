@@ -400,6 +400,65 @@
       transform: scale(1.03);
     }
 
+    /* Два слоя портрета: ч/б снизу, дуотон сверху — проявляется при наведении */
+    .photo-box .photo-bw,
+    .photo-box .photo-duo {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* Страховка для Chrome: слои с анимацией внутри 3D-карточки не должны «просвечивать» */
+    .card-face-front {
+      transform: rotateY(0deg);
+      z-index: 2;
+    }
+
+    .photo-box .photo-duo {
+      opacity: 0;
+      transition: opacity 0.9s ease, transform 0.5s ease;
+    }
+
+    @media (hover: hover) {
+      .flip-card-container:hover .photo-box .photo-duo {
+        opacity: 1;
+      }
+    }
+
+    /* Кадр «Timofey» в блоке «Обо мне» */
+    .about-photo {
+      margin: 6px 0 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      position: relative;
+    }
+
+    .about-photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .about-photo:hover img {
+      transform: scale(1.03);
+    }
+
+    .about-photo figcaption {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      background: rgba(6, 7, 10, 0.78);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+
     /* Заглушка вместо фото: монограмма на тонированной сетке */
     .photo-placeholder {
       width: 100%;
@@ -1244,10 +1303,9 @@
             <div class="card-face card-face-front">
               <div class="photo-box">
                 <div class="click-hint"><span>↻</span> Нажмите для инфо</div>
-                <!-- Место для фото -->
-                <div class="photo-placeholder" aria-hidden="true">
-                  <span class="photo-monogram">ТЧ</span>
-                </div>
+                <!-- Портрет: ч/б, при наведении плавно проявляется дуотон в цветах сайта -->
+                <img class="photo-bw" src="img/tima-bw.jpg" alt="Тимофей Чешегоров" width="760" height="950" />
+                <img class="photo-duo" src="img/tima-duo.jpg" alt="" aria-hidden="true" width="760" height="950" loading="lazy" />
                 <div class="front-badge">
                   <div>
                     <div style="font-weight: 600; font-size: 14px;">Тимофей Чешегоров</div>
@@ -1324,6 +1382,11 @@
               <p>Фокус на конверсию, глубину просмотра и масштабирование вашей целевой аудитории.</p>
             </div>
           </div>
+
+          <figure class="about-photo">
+            <img src="img/tima-train.jpg" alt="Тимофей на вокзале на фоне цистерны с надписью Timofey" width="1200" height="675" loading="lazy" />
+            <figcaption>Даже поезда знают, как меня зовут 🚂</figcaption>
+          </figure>
         </div>
 
       </div>
