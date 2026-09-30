@@ -169,12 +169,8 @@
     /* мерцающие звёзды (три слоя со своим ритмом; точки расставляет скрипт) и редкие падающие звёзды */
     .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
     html[data-theme="light"] .stars { display: none; }
-    .stars i {
-      position: absolute; width: var(--sz, 2px); height: var(--sz, 2px); border-radius: 50%; background: var(--c, #eef1ff);
-      box-shadow: 0 0 var(--bl, 0px) var(--c, #eef1ff); opacity: 0.2;
-      animation: twinkle var(--du, 4s) ease-in-out var(--de, 0s) infinite;
-    }
-    @keyframes twinkle { 0%, 100% { opacity: 0.18; } 50% { opacity: 1; } }
+    /* все звёзды рисуются на одном холсте (один слой — почти без нагрузки на видеокарту) */
+    .stars canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     .shoot {
       position: absolute; width: 170px; height: 1.6px; border-radius: 2px; opacity: 0; transform-origin: 0 50%;
       background: linear-gradient(90deg, #fff, rgba(255, 214, 180, 0.55) 35%, transparent);
@@ -310,13 +306,6 @@
       animation: flare 5s ease-in-out infinite;
     }
     .brandmark { translate: 0 calc(var(--sp, 0) * -60px); }
-    /* Маленькая луна в небе — освещена со стороны солнца */
-    .moon {
-      position: absolute; left: 5%; top: 36%; width: clamp(34px, 3.6vw, 60px); aspect-ratio: 1; border-radius: 50%; z-index: 0; pointer-events: none;
-      background: radial-gradient(circle at 35% 70%, #d9d3cb, #6e6964 45%, #1a1918 75%);
-      box-shadow: -4px 6px 24px -6px var(--glow-soft);
-    }
-    html[data-theme="light"] .moon { background: radial-gradient(circle at 35% 70%, #fff, #e3ddd5 50%, #bdb6ad 80%); }
     /* Название сайта огромными буквами за ноутбуком (как STARK на референсе) */
     .brandmark {
       position: absolute; left: 50%; top: 10px; transform: translateX(-50%); z-index: 1; pointer-events: none; white-space: nowrap;
@@ -343,7 +332,7 @@
     }
     html[data-theme="light"] .bezel { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.10) inset, 0 0 0 2px #c9c6c1, 0 0 0 3px #a19e99, 0 40px 90px -20px rgba(60, 40, 20, 0.3), 0 0 calc(var(--lw) * 0.1) var(--glow-key); }
     /* --g от 0 до 1 задаёт скрипт при прокрутке: 0 — светится весь контур, 1 — погас */
-    .lid-glow, .lid-bloom {
+    .lid-glow {
       position: absolute; pointer-events: none; backface-visibility: hidden;
       --a: calc(var(--g, 0) * 180deg); --f: calc(min(var(--g, 0) * 400, 16) * 1deg);
       background: conic-gradient(from 0deg, #fff6ea, var(--glow-text) 10%, var(--glow-solid) 30%, var(--glow-core) 50%, var(--glow-solid) 70%, var(--glow-text) 90%, #fff6ea);
@@ -352,11 +341,9 @@
       mask: conic-gradient(from 0deg, transparent var(--a), #000 calc(var(--a) + var(--f)), #000 calc(360deg - var(--a) - var(--f)), transparent calc(360deg - var(--a))), linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       mask-composite: intersect, exclude;
     }
-    .lid-glow { inset: -3px; padding: 2.5px; border-radius: calc(var(--lw) * 0.028) calc(var(--lw) * 0.028) 8px 8px; }
-    .lid-bloom { inset: -12px; padding: 11px; border-radius: calc(var(--lw) * 0.036) calc(var(--lw) * 0.036) 16px 16px; opacity: 0.4; }
-    .js .laptop:not(.on) .lid-glow, .js .laptop:not(.on) .lid-bloom { opacity: 0; }
+    .lid-glow { inset: -3px; padding: 2px; border-radius: calc(var(--lw) * 0.028) calc(var(--lw) * 0.028) 8px 8px; }
+    .js .laptop:not(.on) .lid-glow { opacity: 0; }
     .lid-glow { transition: opacity 1s ease; }
-    .lid-bloom { transition: opacity 1s ease; }
     .bezel .cam { position: absolute; top: calc(var(--lw) * 0.005); left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #1e2a33; box-shadow: 0 0 0 2px #0c0c0e; }
     .lid-back { position: absolute; inset: 0; transform: rotateY(180deg); backface-visibility: hidden; border-radius: calc(var(--lw) * 0.026) calc(var(--lw) * 0.026) 6px 6px; background: var(--lid-back); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
     .deck {
@@ -486,6 +473,35 @@
     .p-screen::before { content: ""; position: absolute; top: 2.3%; left: 50%; width: 31%; height: 8cqw; transform: translateX(-50%); border-radius: 999px; background: #000; z-index: 3; }
     .p-screen::after { content: ""; position: absolute; bottom: 1.6%; left: 50%; width: 36%; height: 1.4cqw; transform: translateX(-50%); border-radius: 999px; background: #fff; opacity: 0.92; z-index: 3; }
     html[data-theme="light"] .p-screen::after { background: #000; opacity: 0.85; }
+    /* заставка с эмблемой — пока на ноутбуке печатается заголовок */
+    .p-splash {
+      position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4.5cqw;
+      background: radial-gradient(60% 40% at 50% 46%, var(--glow-deep), transparent 72%), var(--tg-bg);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero.phone-ready .p-splash { opacity: 0; transform: scale(1.08); pointer-events: none; }
+    .p-splash.gone { display: none; }
+    .p-emblem {
+      position: relative; width: 36cqw; height: 36cqw; border-radius: 28%; display: grid; place-items: center;
+      font-family: var(--font-display); font-weight: 700; font-size: 12cqw;
+      background: linear-gradient(150deg, #26262b, #0d0d10); border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    html[data-theme="light"] .p-emblem { background: linear-gradient(150deg, #ffffff, #ece8e2); border-color: rgba(0, 0, 0, 0.08); }
+    /* вокруг эмблемы крутится кольцо света и пульсирует мягкое свечение (только поворот и прозрачность — лёгкие анимации) */
+    .p-emblem::before {
+      content: ""; position: absolute; inset: -14%; border-radius: 50%;
+      background: conic-gradient(transparent 0 55%, var(--glow-text) 80%, var(--glow-solid) 92%, transparent);
+      -webkit-mask: radial-gradient(closest-side, transparent 90%, #000 91%, #000 97%, transparent 98%);
+      mask: radial-gradient(closest-side, transparent 90%, #000 91%, #000 97%, transparent 98%);
+      animation: emblemSpin 1.8s linear infinite;
+    }
+    .p-emblem::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 10cqw -1cqw var(--glow-soft); opacity: 0.3; animation: emblemGlow 2.4s ease-in-out infinite; z-index: -1; }
+    @keyframes emblemSpin { to { transform: rotate(360deg); } }
+    @keyframes emblemGlow { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+    .p-brand { font-family: var(--font-mono); font-size: 3.6cqw; letter-spacing: 0.4em; color: var(--tg-sub); padding-left: 0.4em; }
+    .p-load { display: flex; gap: 1.6cqw; }
+    .p-load i { width: 1.8cqw; height: 1.8cqw; border-radius: 50%; background: var(--glow-text); animation: dots 1s infinite; }
+    .p-load i:nth-child(2) { animation-delay: 0.15s; } .p-load i:nth-child(3) { animation-delay: 0.3s; }
     .p-status { display: flex; justify-content: space-between; align-items: center; padding: 5cqw 8cqw 2cqw; font-size: 4.2cqw; font-weight: 600; background: var(--tg-head); }
     .p-head { display: flex; align-items: center; gap: 3cqw; padding: 2.2cqw 4.5cqw 3cqw; background: var(--tg-head); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15); }
     .p-head .back { color: var(--tg-link); font-size: 7cqw; line-height: 1; }
@@ -532,6 +548,25 @@
     .hero-under .hero-more { display: none; }
     .services { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; }
     .chip { font-family: var(--font-mono); font-size: 13px; padding: 8px 13px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); color: var(--text-2); backdrop-filter: blur(10px); }
+    /* плашки услуг: при наведении по ним пробегает блик, текст переливается цветами свечения, рамка светится */
+    .services .chip { position: relative; overflow: hidden; transition: transform 0.35s cubic-bezier(0.2, 1.4, 0.4, 1), border-color 0.3s, box-shadow 0.3s; }
+    .services .chip > span { position: relative; z-index: 1; }
+    .services .chip::before {
+      content: ""; position: absolute; inset: 0; transform: translateX(-120%);
+      background: linear-gradient(110deg, transparent 25%, color-mix(in srgb, var(--glow-text) 30%, transparent) 45%, rgba(255, 255, 255, 0.5) 50%, color-mix(in srgb, var(--glow-text) 30%, transparent) 55%, transparent 75%);
+    }
+    .services .chip:hover, .services .chip:active {
+      transform: translateY(-3px); border-color: color-mix(in srgb, var(--glow-solid) 60%, transparent);
+      box-shadow: 0 10px 26px -12px var(--glow-soft), inset 0 0 14px -6px var(--glow-soft);
+    }
+    .services .chip:hover::before, .services .chip:active::before { animation: chipShine 1.3s ease-in-out infinite; }
+    .services .chip:hover > span, .services .chip:active > span {
+      background: linear-gradient(90deg, var(--text), var(--glow-text), var(--glow-solid), var(--glow-text), var(--text)); background-size: 300% 100%;
+      -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+      animation: chipText 2.4s linear infinite;
+    }
+    @keyframes chipShine { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
+    @keyframes chipText { from { background-position: 0% 0; } to { background-position: 300% 0; } }
 
     .btn {
       display: inline-flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer;
@@ -751,7 +786,6 @@
     @media (max-width: 700px) {
       .hero { --lw: 84vw; padding: calc(12px + 13vw) 0 60px; }
       .brandmark { font-size: 15vw; top: 16px; }
-      .moon { display: none; }
       .phone-wrap { width: calc(var(--lw) * 0.3); bottom: calc(var(--lw) * -0.3); }
       .hero-under { margin-top: calc(var(--lw) * 0.36 + 10px); }
       .win-robot, .menubar a, .dock, .menubar .on { display: none; }
@@ -788,9 +822,9 @@
       .soon-pill { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space, .stars i { animation: none; }
+      .p-emblem, .p-emblem::before, .p-load i, .services .chip::before, .services .chip > span,
+      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space { animation: none; }
       .shoot { display: none; }
-      .stars i { opacity: 0.7; }
       .ft-more, .ft-body, .plus, .feature::before { transition: none; }
       .js .reveal, .js .hero-late { opacity: 1; transform: none; transition: none; }
       .tw-caret { animation: none; }
@@ -802,7 +836,7 @@
 <body>
 
   <div class="bg-space" aria-hidden="true"></div>
-  <div class="stars" aria-hidden="true"><span class="shoot s1"></span><span class="shoot s2"></span></div>
+  <div class="stars" aria-hidden="true"><canvas id="starCanvas"></canvas><span class="shoot s1"></span><span class="shoot s2"></span></div>
   <div class="bg-sky" aria-hidden="true"></div>
   <div class="bg-grain" aria-hidden="true"></div>
   <div class="world" id="world" aria-hidden="true">
@@ -838,7 +872,6 @@
 
   <!-- HERO: ноутбук под углом слева, телефон справа; за ними — горизонт тёмной планеты -->
   <section class="hero" id="top">
-    <div class="moon" aria-hidden="true"></div>
     <div class="brandmark" aria-hidden="true">TIMOFEY</div>
 
     <div class="stage" id="stage">
@@ -847,7 +880,6 @@
         <div class="laptop" id="laptop">
           <div class="lid">
             <div class="lid-back" aria-hidden="true"></div>
-            <div class="lid-bloom" aria-hidden="true"></div>
             <div class="lid-glow" aria-hidden="true"></div>
             <div class="bezel">
               <span class="cam" aria-hidden="true"></span>
@@ -910,6 +942,11 @@
       <div class="phone-wrap" aria-hidden="true">
         <div class="phone">
           <div class="p-screen">
+            <div class="p-splash">
+              <span class="p-emblem"><span class="grad-text">ТЧ</span></span>
+              <span class="p-brand">TIMOFEY</span>
+              <span class="p-load"><i></i><i></i><i></i></span>
+            </div>
             <div class="p-status"><span>9:41</span><svg viewBox="0 0 34 12" width="22" height="8" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="18" y="1" width="14" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="3" width="9" height="6" rx="1.5"/></svg></div>
             <div class="p-head"><span class="back">‹</span><span class="av">FP</span><span><b>FadePoint Barbershop</b><span>бот</span></span></div>
             <div class="p-chat" id="phoneChat">
@@ -935,7 +972,7 @@
       <div>
         <div class="hero-more-slot" id="heroMoreSlot"></div>
         <div class="services hero-late">
-          <span class="chip">Сайты и&nbsp;лендинги</span><span class="chip">Telegram-боты</span><span class="chip">Презентации</span><span class="chip">Видео и&nbsp;рилсы</span><span class="chip">Карточки для маркетплейсов</span>
+          <span class="chip"><span>Сайты и&nbsp;лендинги</span></span><span class="chip"><span>Telegram-боты</span></span><span class="chip"><span>Презентации</span></span><span class="chip"><span>Видео и&nbsp;рилсы</span></span><span class="chip"><span>Карточки для маркетплейсов</span></span>
         </div>
       </div>
     </div>
@@ -1268,7 +1305,8 @@
       narrow.addEventListener ? narrow.addEventListener("change", place) : narrow.addListener(place);
 
       if (reduceMotion) {
-        hero.classList.add("shown", "phone-in");
+        hero.classList.add("shown", "phone-in", "phone-ready");
+        document.querySelector(".p-splash").classList.add("gone");
         laptop.classList.add("open", "on");
         document.querySelectorAll("#phoneChat > :not(.p-typing)").forEach((el) => el.classList.add("show"));
         initTyping();
@@ -1276,6 +1314,7 @@
       }
       requestAnimationFrame(() => hero.classList.add("shown"));
       setTimeout(() => laptop.classList.add("open"), 350);
+      setTimeout(() => hero.classList.add("phone-in"), 550);
       setTimeout(() => laptop.classList.add("on"), 1350);
       setTimeout(() => initTyping().then(playPhoneChat), 1900);
 
@@ -1293,9 +1332,10 @@
 
     // Переписка в телефоне появляется по сообщению; «печатает…» перед ответом бота
     function playPhoneChat() {
-      document.querySelector(".hero").classList.add("phone-in");
+      document.querySelector(".hero").classList.add("phone-in", "phone-ready"); // заставка с эмблемой уходит
+      setTimeout(() => document.querySelector(".p-splash").classList.add("gone"), 900);
       const items = Array.from(document.querySelectorAll("#phoneChat > *"));
-      let t = 700;
+      let t = 900;
       items.forEach((el, i) => {
         const isTyping = el.classList.contains("p-typing");
         setTimeout(() => el.classList.add("show"), t);
@@ -1459,26 +1499,57 @@
       setTimeout(() => { measure(); if (!cssTimeline) render(); world.classList.add("ready"); }, reduceMotion ? 0 : 900);
     }
 
-    // Мерцающие звёзды: 70 отдельных точек, у каждой свой размер, цвет и ритм мерцания
+    // Звёзды на холсте: 90 точек. Дальние — мелкие и медленные, ближние — крупнее и быстрее (глубина).
+    // Каждая плывёт справа налево и мерцает в своём ритме. В светлой теме холст не рисуется.
     function initStars() {
-      const box = document.querySelector(".stars");
-      if (!box) return;
+      const cv = document.getElementById("starCanvas");
+      if (!cv || !cv.getContext) return;
+      const ctx = cv.getContext("2d");
       let seed = 11;
       const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-      const frag = document.createDocumentFragment();
-      for (let k = 0; k < 70; k++) {
-        const star = document.createElement("i");
-        const big = rnd() < 0.14, warm = rnd() < 0.25;
-        star.style.left = (rnd() * 100).toFixed(2) + "%";
-        star.style.top = (rnd() * 100).toFixed(2) + "%";
-        star.style.setProperty("--sz", (big ? 2.4 : 1.2 + rnd()).toFixed(1) + "px");
-        star.style.setProperty("--bl", big ? "5px" : "0px");
-        star.style.setProperty("--c", warm ? "#ffd8b8" : "#eef1ff");
-        star.style.setProperty("--du", (2.8 + rnd() * 4.5).toFixed(2) + "s");
-        star.style.setProperty("--de", (-rnd() * 6).toFixed(2) + "s");
-        frag.appendChild(star);
-      }
-      box.appendChild(frag);
+      const stars = Array.from({ length: 90 }, (_, k) => {
+        const near = k < 24;
+        return {
+          x: rnd(), y: rnd(),
+          r: near ? 0.95 + rnd() * 0.55 : 0.45 + rnd() * 0.4,           // радиус, px
+          t: near ? 70 + rnd() * 50 : 170 + rnd() * 110,                 // секунд на пролёт через экран
+          c: rnd() < 0.25 ? "255, 216, 184" : "238, 241, 255",
+          glow: near && rnd() < 0.5,
+          tw: 2.8 + rnd() * 4.5, ph: rnd() * Math.PI * 2,
+        };
+      });
+      let W = 0, H = 0;
+      const resize = () => {
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        W = window.innerWidth; H = window.innerHeight;
+        cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+      let last = performance.now();
+      const draw = (now) => {
+        const dt = Math.min(0.1, (now - last) / 1000);
+        last = now;
+        ctx.clearRect(0, 0, W, H);
+        if (!isLight()) {
+          for (const s of stars) {
+            if (!reduceMotion) {
+              s.x -= dt / s.t;
+              if (s.x < -0.02) { s.x = 1.02; s.y = rnd(); }
+            }
+            const a = reduceMotion ? 0.7 : 0.18 + 0.82 * (0.5 + 0.5 * Math.sin((now / 1000) * (Math.PI * 2 / s.tw) + s.ph));
+            ctx.fillStyle = `rgba(${s.c}, ${a.toFixed(3)})`;
+            if (s.glow) { ctx.shadowColor = `rgba(${s.c}, ${a.toFixed(3)})`; ctx.shadowBlur = 6; }
+            ctx.beginPath();
+            ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+            ctx.fill();
+            if (s.glow) ctx.shadowBlur = 0;
+          }
+        }
+        if (!reduceMotion) requestAnimationFrame(draw);
+      };
+      resize();
+      window.addEventListener("resize", () => { resize(); if (reduceMotion) draw(performance.now()); });
+      requestAnimationFrame(draw);
     }
 
     // Карточки «01 / 02 / 03» в «Обо мне»: по нажатию плавно раскрываются (открыта одна за раз)
@@ -1543,7 +1614,7 @@
         root.classList.remove("cursor-out");
         const t = e.target;
         const video = t.closest && t.closest('[data-cursor="video"]');
-        const isLink = !video && !!(t.closest && t.closest('a, button, [role="button"], .tab-btn, .glow'));
+        const isLink = !video && !!(t.closest && t.closest('a, button, [role="button"], .tab-btn, .glow, .services .chip'));
         if (video) label.textContent = video.muted ? "🔊 звук" : "🔇 тише";
         root.classList.toggle("cursor-video", !!video);
         root.classList.toggle("cursor-hover", isLink);
