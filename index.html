@@ -935,12 +935,90 @@
     /* Видео-демо кейса */
     .case-video {
       display: block;
-      width: min(100%, 400px);
+      width: 100%;
       height: auto;
       aspect-ratio: 4 / 5;
       border-radius: 18px;
       background: #06070a;
+    }
+    /* Превью без звука; по нажатию — большое окно со звуком */
+    .case-video-open {
+      position: relative;
+      display: block;
+      width: min(100%, 400px);
+      padding: 0;
+      border: 0;
+      border-radius: 18px;
+      background: none;
+      cursor: zoom-in;
       box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--border-subtle);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .case-video-open:hover { transform: translateY(-3px); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--accent-cyan); }
+    .case-video-open:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 4px; }
+    .case-video-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 12px;
+      border-radius: 0 0 18px 18px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--text-strong);
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-subtle);
+      pointer-events: none;
+    }
+    .case-video-open:hover .case-video-hint { color: var(--accent-cyan); }
+    .case-video-open .case-video { border-radius: 18px 18px 0 0; }
+    .case-video-hint svg { width: 15px; height: 15px; }
+
+    .video-dialog {
+      width: min(92vw, 560px, calc(94vh * 0.8));
+      max-height: 94vh;
+      margin: auto; /* общий сброс margin:0 иначе прижимает окно к углу */
+      padding: 0;
+      border: 0;
+      border-radius: 22px;
+      background: #06070a;
+      overflow: visible;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+    }
+    .video-dialog::backdrop { background: rgba(3, 5, 10, 0.78); backdrop-filter: blur(6px); }
+    .video-dialog[open] { animation: videoPop 0.28s ease-out; }
+    @keyframes videoPop { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+    .video-dialog video {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 94vh;
+      aspect-ratio: 4 / 5;
+      object-fit: contain;
+      border-radius: 22px;
+      background: #06070a;
+    }
+    .video-dialog-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #131722;
+      color: #fff;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .video-dialog-close:hover { background: #1f2638; }
+    .video-dialog-close:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      .video-dialog[open] { animation: none; }
+      .case-video-open { transition: none; }
     }
 
     /* Мокапы */
@@ -1361,7 +1439,8 @@
       .sheet-card { padding: 18px; gap: 20px; }
       .sheet-title { font-size: 22px; }
       .sheet-preview { padding: 14px; min-height: 0; }
-      .case-video { width: 100%; }
+      .case-video-open { width: 100%; }
+      .video-dialog-close { top: 8px; right: 8px; }
       .contact-section { padding: 24px 0 64px; }
       .contact-card { padding: 26px 18px; border-radius: 18px; }
       .copy-pill { width: 100%; }
@@ -1577,6 +1656,11 @@
 
   </main>
 
+  <dialog class="video-dialog" id="videoDialog" aria-label="Видео-демо со звуком">
+    <button class="video-dialog-close" type="button" id="videoDialogClose" aria-label="Закрыть видео">×</button>
+    <video id="videoDialogPlayer" controls playsinline preload="none" width="640" height="800"></video>
+  </dialog>
+
   <div class="toast" id="copyToast">
     <span>✓</span> <span id="toastMsg">Скопировано в буфер</span>
   </div>
@@ -1590,14 +1674,14 @@
         category: "Telegram-бот",
         year: "2026",
         title: "Онлайн-запись в барбершоп",
-        desc: "Telegram-бот, через который клиенты сами записываются к мастеру на свободное время, а владелец сразу получает уведомления и видит расписание. На видео — весь путь клиента за 20 секунд. Подробный разбор проекта появится здесь совсем скоро.",
+        desc: "Telegram-бот, через который клиенты сами записываются к мастеру на свободное время, а владелец сразу получает уведомления. Если клиент пришёл без записи, владелец за пару нажатий занимает время вручную — и в боте его уже никто не выберет. На видео — оба сценария за 34 секунды; нажмите на него, чтобы посмотреть крупно и со звуком. Подробный разбор проекта появится здесь совсем скоро.",
         metrics: [],
         stack: ["Python", "aiogram 3", "SQLite"],
         previewType: "bot",
         previewData: {
           video: "video/fadepoint-bot.mp4",
           poster: "video/fadepoint-bot-poster.jpg",
-          videoLabel: "Демо: запись в барбершоп через Telegram-бота за 20 секунд",
+          videoLabel: "Демо Telegram-бота барбершопа: запись клиента и ручная запись владельцем, 34 секунды",
           botName: "FadePoint Barbershop",
           userMsg: "Хочу записаться к Максиму на завтра",
           botReply: "Свободное время у мастера Максим на завтра:",
@@ -1676,10 +1760,18 @@
       let previewHTML = "";
       if (data.previewData.video) {
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        // Превью играет без звука; нажатие открывает большое окно со звуком
         previewHTML = `
-          <video class="case-video" src="${data.previewData.video}" poster="${data.previewData.poster}"
-            ${reduce ? "controls" : "autoplay loop"} muted playsinline preload="metadata"
-            aria-label="${data.previewData.videoLabel}" width="640" height="800"></video>
+          <button class="case-video-open" type="button" id="caseVideoOpen"
+            aria-label="${data.previewData.videoLabel}. Открыть крупно со звуком">
+            <video class="case-video" src="${data.previewData.video}" poster="${data.previewData.poster}"
+              ${reduce ? "" : "autoplay loop"} muted playsinline preload="metadata"
+              aria-hidden="true" tabindex="-1" width="640" height="800"></video>
+            <span class="case-video-hint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+              Нажмите — со звуком
+            </span>
+          </button>
         `;
       } else if (data.previewType === "bot") {
         previewHTML = `
@@ -1753,7 +1845,44 @@
           </div>
         </div>
       `;
+
+      const opener = document.getElementById("caseVideoOpen");
+      if (opener) opener.addEventListener("click", () => openVideoDialog(data.previewData));
     }
+
+    // Окно видео со звуком: превью на странице ставим на паузу, пока окно открыто
+    const videoDialog = document.getElementById("videoDialog");
+    const videoPlayer = document.getElementById("videoDialogPlayer");
+
+    function openVideoDialog(preview) {
+      if (typeof videoDialog.showModal !== "function") {
+        window.open(preview.video, "_blank", "noopener");
+        return;
+      }
+      const inline = document.querySelector(".case-video");
+      if (inline) inline.pause();
+      if (videoPlayer.getAttribute("src") !== preview.video) {
+        videoPlayer.src = preview.video;
+        videoPlayer.poster = preview.poster;
+      }
+      videoPlayer.currentTime = 0;
+      videoPlayer.muted = false;
+      videoDialog.showModal();
+      videoPlayer.play().catch(() => {});
+    }
+
+    videoDialog.addEventListener("close", () => {
+      videoPlayer.pause();
+      const inline = document.querySelector(".case-video");
+      if (inline && inline.hasAttribute("autoplay")) inline.play().catch(() => {});
+      const opener = document.getElementById("caseVideoOpen");
+      if (opener) opener.focus();
+    });
+    document.getElementById("videoDialogClose").addEventListener("click", () => videoDialog.close());
+    // Клик по затемнённому фону вокруг видео — закрыть
+    videoDialog.addEventListener("click", (e) => {
+      if (e.target === videoDialog) videoDialog.close();
+    });
 
     function updateClock() {
       const now = new Date();
