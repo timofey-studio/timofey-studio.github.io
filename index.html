@@ -348,9 +348,9 @@
     .lid-back { position: absolute; inset: 0; transform: rotateY(180deg); backface-visibility: hidden; border-radius: calc(var(--lw) * 0.026) calc(var(--lw) * 0.026) 6px 6px; background: var(--lid-back); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
     .deck {
       position: absolute; top: 100%; left: 0; width: 100%; height: calc(var(--lw) * 0.42); transform-origin: 50% 0; transform: rotateX(90deg);
-      transform-style: preserve-3d; border-radius: 2px 2px calc(var(--lw) * 0.028) calc(var(--lw) * 0.028);
+      transform-style: preserve-3d; border-radius: 2px 2px 7px 7px;
       background: linear-gradient(180deg, var(--deck-top) 0%, var(--deck-bottom) 100%);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.10), inset 0 calc(var(--lw) * 0.02) calc(var(--lw) * 0.03) -10px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 calc(var(--lw) * 0.02) calc(var(--lw) * 0.03) -10px rgba(0, 0, 0, 0.5);
     }
     .deck .hinge { position: absolute; left: 13%; right: 13%; top: 0; height: calc(var(--lw) * 0.014); border-radius: 0 0 6px 6px; background: linear-gradient(180deg, #0b0b0d, #25262b); }
     .deck .keys {
@@ -361,12 +361,14 @@
     .deck .keys i { border-radius: 2px; background: linear-gradient(180deg, var(--keys) 60%, color-mix(in srgb, var(--keys) 80%, #000)); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset; }
     .deck .keys i.w2 { grid-column: span 2; }
     .deck .keys i.sp { grid-column: span 6; }
-    .deck .spk { position: absolute; top: 9%; width: 8.5%; height: 44%; background-image: radial-gradient(circle, var(--keys-gap) 0.9px, transparent 1.3px); background-size: 5px 5px; opacity: 0.9; }
+    .deck .spk { position: absolute; top: 9%; width: 8.5%; height: 44%; background-image: radial-gradient(circle, var(--keys-gap) 1px, transparent 1.6px); background-size: 7px 7px; opacity: 0.45; }
     .deck .spk.l { left: 2.8%; } .deck .spk.r { right: 2.8%; }
     .deck .pad { position: absolute; left: 33%; right: 33%; top: 58%; height: 34%; border-radius: 8px; background: linear-gradient(180deg, var(--deck-top), var(--deck-bottom)); box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.35); }
     .deck .notch { position: absolute; bottom: 0; left: 44%; right: 44%; height: 2.5%; border-radius: 6px 6px 0 0; background: rgba(0, 0, 0, 0.35); }
     /* толщина основания: передняя и боковая грани */
-    .deck .front { position: absolute; left: 1.6%; right: 1.6%; top: 99.6%; height: calc(var(--lw) * 0.022); transform-origin: 50% 0; transform: rotateX(-90deg); border-radius: 0 0 10px 10px; background: linear-gradient(180deg, var(--deck-bottom), color-mix(in srgb, var(--deck-bottom) 55%, #000)); }
+    /* грани ровно по краю основания, с нахлёстом в 1px — без щелей и «срезанного» угла */
+    .deck .front { position: absolute; left: 0; right: 0; top: calc(100% - 1px); height: calc(var(--lw) * 0.02); transform-origin: 50% 0; transform: rotateX(-90deg); border-radius: 0 0 7px 7px; background: linear-gradient(180deg, var(--deck-bottom), color-mix(in srgb, var(--deck-bottom) 55%, #000)); }
+    .deck .side { position: absolute; left: 1px; top: 0; bottom: 0; width: calc(var(--lw) * 0.02); transform-origin: 0 50%; transform: rotateY(90deg); background: linear-gradient(90deg, color-mix(in srgb, var(--deck-bottom) 80%, #000), color-mix(in srgb, var(--deck-bottom) 45%, #000)); }
     .scene-shadow { position: absolute; left: -6%; right: -10%; bottom: calc(var(--lw) * -0.1); height: calc(var(--lw) * 0.14); border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), transparent); pointer-events: none; }
     html[data-theme="light"] .scene-shadow { background: radial-gradient(closest-side, rgba(60, 40, 20, 0.35), transparent); }
 
@@ -933,7 +935,7 @@
           <div class="deck" aria-hidden="true">
             <div class="hinge"></div><div class="spk l"></div><div class="spk r"></div>
             <div class="keys"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w2"></i><i class="w2"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w2"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w2"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w2"></i><i></i><i></i><i></i><i></i><i class="sp"></i><i></i><i></i><i></i><i></i></div>
-            <div class="pad"></div><div class="notch"></div><div class="front"></div>
+            <div class="pad"></div><div class="notch"></div><div class="front"></div><div class="side"></div>
           </div>
         </div>
       </div>
