@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Тимофей Чешегоров — делаю ваш бизнес заметным</title>
+  <title>CHESH — Тимофей Чешегоров: делаю ваш бизнес заметным</title>
   <meta name="description" content="Тимофей Чешегоров — сайты, Telegram-боты, презентации, видео и карточки для маркетплейсов. Нахожу, где бизнес теряет клиентов, и исправляю саму причину." />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Тимофей Чешегоров — делаю ваш бизнес заметным" />
+  <meta property="og:title" content="CHESH — Тимофей Чешегоров: делаю ваш бизнес заметным" />
   <meta property="og:description" content="Сайты, Telegram-боты, презентации, видео и карточки для маркетплейсов — от идеи до запуска." />
   <meta property="og:url" content="https://timofey-studio.github.io/" />
   <meta name="theme-color" content="#07070a" />
@@ -23,7 +23,7 @@
       if (t === "light") d.setAttribute("data-theme", "light");
     })();
   </script>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307070a'/%3E%3Ctext x='32' y='41' font-family='sans-serif' font-size='24' font-weight='700' fill='%23ffb877' text-anchor='middle'%3E%D0%A2%D0%A7%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.85' y1='.08' x2='.2' y2='.95'%3E%3Cstop offset='0' stop-color='%23ffe3c7'/%3E%3Cstop offset='.45' stop-color='%23ff9a4a'/%3E%3Cstop offset='1' stop-color='%23e2580f'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='64' height='64' fill='%23fff'/%3E%3Ccircle cx='40' cy='31' r='20.5' fill='%23000'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='1' y='1' width='62' height='62' rx='17' fill='%23141418'/%3E%3Cg transform='translate%286 6%29 scale%28.81%29'%3E%3Ccircle cx='30' cy='32' r='25' fill='url%28%23g%29' mask='url%28%23m%29'/%3E%3Cpath d='M41 23.5 49 31l-8 7.5' fill='none' stroke='%23fff1e2' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -231,7 +231,9 @@
       font-family: var(--font-display); font-weight: 700; font-size: 14px;
       background: var(--panel-strong); border: 1px solid var(--line-strong);
     }
-    .logo-name { font-family: var(--font-display); font-weight: 500; font-size: 15px; letter-spacing: -0.01em; }
+    .logo-mark { width: 42px; height: 42px; flex-shrink: 0; transition: transform 0.5s cubic-bezier(0.2, 1.4, 0.4, 1); }
+    .logo:hover .logo-mark { transform: rotate(-8deg) scale(1.06); }
+    .logo-name { font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: 0.02em; }
     .logo-sub { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); }
     .nav { display: flex; gap: 6px; }
     .nav a { text-decoration: none; font-size: 14.5px; font-weight: 500; color: var(--text-2); padding: 8px 12px; border-radius: 999px; transition: color 0.25s, background 0.25s; }
@@ -309,7 +311,7 @@
     /* Название сайта огромными буквами за ноутбуком (как STARK на референсе) */
     .brandmark {
       position: absolute; left: 50%; top: 10px; transform: translateX(-50%); z-index: 1; pointer-events: none; white-space: nowrap;
-      font-family: var(--font-display); font-weight: 700; font-size: clamp(64px, 14.5vw, 232px); line-height: 0.9; letter-spacing: -0.03em;
+      font-family: var(--font-display); font-weight: 700; font-size: clamp(80px, 18.5vw, 300px); line-height: 0.9; letter-spacing: -0.03em;
       background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
       transition: opacity 1.2s ease, transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -390,7 +392,7 @@
       font-size: max(9px, 1.25cqw); font-weight: 500; color: var(--os-text);
       background: var(--os-menubar); border-bottom: 1px solid var(--os-line);
     }
-    .menubar b { font-family: var(--font-display); font-size: max(9px, 1.2cqw); }
+    .mb-mark { width: max(13px, 2.1cqw); height: max(13px, 2.1cqw); flex-shrink: 0; }
     .menubar a { text-decoration: none; opacity: 0.8; }
     .menubar a:hover { opacity: 1; }
     .menubar .right { margin-left: auto; display: flex; align-items: center; gap: 1.6cqw; font-family: var(--font-mono); font-size: max(8.5px, 1.1cqw); }
@@ -485,10 +487,8 @@
     .p-splash.gone { display: none; }
     .p-emblem {
       position: relative; width: 36cqw; height: 36cqw; border-radius: 28%; display: grid; place-items: center;
-      font-family: var(--font-display); font-weight: 700; font-size: 12cqw;
-      background: linear-gradient(150deg, #26262b, #0d0d10); border: 1px solid rgba(255, 255, 255, 0.14);
     }
-    html[data-theme="light"] .p-emblem { background: linear-gradient(150deg, #ffffff, #ece8e2); border-color: rgba(0, 0, 0, 0.08); }
+    .p-emblem svg { width: 100%; height: 100%; }
     /* вокруг эмблемы крутится кольцо света и пульсирует мягкое свечение (только поворот и прозрачность — лёгкие анимации) */
     .p-emblem::before {
       content: ""; position: absolute; inset: -14%; border-radius: 50%;
@@ -787,7 +787,7 @@
     }
     @media (max-width: 700px) {
       .hero { --lw: 84vw; padding: calc(12px + 13vw) 0 60px; }
-      .brandmark { font-size: 15vw; top: 16px; }
+      .brandmark { font-size: 19vw; top: 14px; }
       .phone-wrap { width: calc(var(--lw) * 0.3); bottom: calc(var(--lw) * -0.3); }
       .hero-under { margin-top: calc(var(--lw) * 0.36 + 10px); }
       .win-robot, .menubar a, .dock, .menubar .on { display: none; }
@@ -810,6 +810,7 @@
       .header-inner { padding: 12px 16px; gap: 10px; }
       .logo-sub { display: none; }
       .logo-badge { width: 38px; height: 38px; font-size: 13px; }
+      .logo-mark { width: 38px; height: 38px; }
       .status .label { display: none; }
       .status { padding: 9px; }
       .section { padding: 60px 0; }
@@ -836,6 +837,22 @@
   </style>
 </head>
 <body>
+  <!-- Логотип CHESH «Код-луна»: светящийся серп-C и знак кода «›» в иконке -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="logoGrad" x1="0.85" y1="0.08" x2="0.2" y2="0.95">
+        <stop offset="0" stop-color="#ffe3c7"/><stop offset="0.45" stop-color="#ff9a4a"/><stop offset="1" stop-color="#e2580f"/>
+      </linearGradient>
+      <mask id="logoCut"><rect width="64" height="64" fill="#fff"/><circle cx="40" cy="31" r="20.5" fill="#000"/></mask>
+      <symbol id="logo" viewBox="0 0 64 64">
+        <rect x="1" y="1" width="62" height="62" rx="17" fill="#141418" stroke="rgba(255,255,255,.16)"/>
+        <g transform="translate(6 6) scale(.81)">
+          <circle cx="30" cy="32" r="25" fill="url(#logoGrad)" mask="url(#logoCut)"/>
+          <path d="M41 23.5 49 31l-8 7.5" fill="none" stroke="#fff1e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
 
   <div class="bg-space" aria-hidden="true"></div>
   <div class="stars" aria-hidden="true"><canvas id="starCanvas"></canvas><span class="shoot s1"></span><span class="shoot s2"></span></div>
@@ -850,11 +867,11 @@
   <!-- ШАПКА -->
   <header>
     <div class="header-inner">
-      <a class="logo" href="#top" aria-label="Тимофей Чешегоров — наверх">
-        <span class="logo-badge"><span class="grad-text">ТЧ</span></span>
+      <a class="logo" href="#top" aria-label="CHESH — Тимофей Чешегоров, наверх">
+        <svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg>
         <span>
-          <span class="logo-name">Тимофей Чешегоров</span><br />
-          <span class="logo-sub">сайты · боты · дизайн · видео</span>
+          <span class="logo-name">CHESH</span><br />
+          <span class="logo-sub">Тимофей Чешегоров</span>
         </span>
       </a>
       <nav class="nav" aria-label="Разделы">
@@ -874,7 +891,7 @@
 
   <!-- HERO: ноутбук под углом слева, телефон справа; за ними — горизонт тёмной планеты -->
   <section class="hero" id="top">
-    <div class="brandmark" aria-hidden="true">TIMOFEY</div>
+    <div class="brandmark" aria-hidden="true">CHESH</div>
 
     <div class="stage" id="stage">
       <div class="scene">
@@ -889,7 +906,7 @@
                 <div class="wallpaper" aria-hidden="true"></div>
 
                 <div class="menubar">
-                  <b class="grad-text">ТЧ</b>
+                  <svg class="mb-mark" aria-hidden="true"><use href="#logo"/></svg>
                   <a href="#about">Обо мне</a>
                   <a href="#cases">Кейсы</a>
                   <a href="#contact">Контакты</a>
@@ -945,8 +962,8 @@
         <div class="phone">
           <div class="p-screen">
             <div class="p-splash">
-              <span class="p-emblem"><span class="grad-text">ТЧ</span></span>
-              <span class="p-brand">TIMOFEY</span>
+              <span class="p-emblem"><svg aria-hidden="true"><use href="#logo"/></svg></span>
+              <span class="p-brand">CHESH</span>
               <span class="p-load"><i></i><i></i><i></i></span>
             </div>
             <div class="p-status"><span>9:41</span><svg viewBox="0 0 34 12" width="22" height="8" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="18" y="1" width="14" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="3" width="9" height="6" rx="1.5"/></svg></div>
@@ -1117,7 +1134,7 @@
 
   <footer>
     <div class="container">
-      <span>© 2026 Тимофей Чешегоров</span>
+      <span>© 2026 CHESH · Тимофей Чешегоров</span>
       <span>Сделано вручную · Омск</span>
     </div>
   </footer>
