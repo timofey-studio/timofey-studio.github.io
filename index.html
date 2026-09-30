@@ -258,8 +258,10 @@
     /* ===== HERO: космос, тёмная планета со светом из-за горизонта, ноутбук и телефон под углом ===== */
     .hero {
       /* --bm — размер надписи CHESH; над ноутбуком резервируется место — видно ~3/4 высоты букв на любом экране */
-      --bm: min(18.5vw, 25svh, 300px);
-      --lw: min(800px, 57vw, calc((100svh - 170px - var(--bm) * 0.68) * 1.25));
+      --bm: min(18.5vw, 23svh, 300px);
+      --lw: min(820px, 58vw, calc((100svh - 150px - var(--bm) * 0.6) * 1.3));
+      /* ноутбук и телефон — одна группа по центру: ширина группы ≈ 1.37 ширины ноутбука */
+      --gx: max(0px, calc((min(1240px, 94vw) - var(--lw) * 1.37) / 2));
       position: relative; overflow-x: clip; overflow-y: visible; padding: calc(var(--bm) * 0.68) 0 40px; min-height: calc(100svh - 69px);
       display: flex; flex-direction: column; justify-content: flex-start;
     }
@@ -321,7 +323,7 @@
     .stage { position: relative; z-index: 2; width: min(1240px, 94vw); margin: 0 auto; display: flex; align-items: center; justify-content: flex-start; }
 
     /* Ноутбук */
-    .scene { position: relative; width: var(--lw); perspective: 2200px; perspective-origin: 70% 10%; margin-left: 6%; }
+    .scene { position: relative; width: var(--lw); perspective: 2200px; perspective-origin: 70% 10%; margin-left: var(--gx); }
     .laptop {
       position: relative; transform-style: preserve-3d;
       transform: rotateX(calc(7deg - var(--py, 0) * 2deg)) rotateY(calc(17deg + var(--px, 0) * 3deg));
@@ -461,7 +463,7 @@
     .dock a.tg { background: #2aabee; color: #fff; }
 
     /* Телефон справа: живой чат с ботом FadePoint */
-    .phone-wrap { position: absolute; right: 1.5%; top: 50%; width: calc(var(--lw) * 0.31); perspective: 1400px; transform: translateY(-46%); z-index: 3; }
+    .phone-wrap { position: absolute; left: calc(var(--gx) + var(--lw) * 1.02); top: 50%; width: calc(var(--lw) * 0.35); perspective: 1400px; transform: translateY(-46%); z-index: 3; }
     .phone {
       position: relative; aspect-ratio: 9 / 19; border-radius: 16%/7.5%; padding: 3.2%;
       background: linear-gradient(160deg, #3a3b41, #111114); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset, 0 40px 80px -20px rgba(0, 0, 0, 0.7), 0 0 60px var(--glow-key);
@@ -548,7 +550,7 @@
     .js .hero:not(.phone-in) .phone-wrap { opacity: 0; transform: translateY(-40%) translateX(40px); }
 
     /* Под сценой: услуги */
-    .hero-under { position: relative; z-index: 2; margin-top: calc(var(--lw) * 0.1 + 14px); display: flex; justify-content: center; }
+    .hero-under { position: relative; z-index: 2; margin-top: calc(var(--lw) * 0.08 + 12px); display: flex; justify-content: center; }
     .hero-under .hero-more { display: none; }
     .services { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; }
     .chip { font-family: var(--font-mono); font-size: 13px; padding: 8px 13px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); color: var(--text-2); backdrop-filter: blur(10px); }
@@ -774,7 +776,7 @@
       .stage { justify-content: flex-start; }
       .scene { margin: 0 0 0 1%; }
       .laptop { transform: rotateX(7deg); }
-      .phone-wrap { right: 0; top: auto; bottom: calc(var(--lw) * -0.2); width: calc(var(--lw) * 0.26); transform: none; }
+      .phone-wrap { left: auto; right: 0; top: auto; bottom: calc(var(--lw) * -0.2); width: calc(var(--lw) * 0.3); transform: none; }
       .js .hero:not(.phone-in) .phone-wrap { transform: translateY(30px); }
       .phone { transform: rotateY(-12deg) rotateX(3deg); }
       .hero-under { margin-top: calc(var(--lw) * 0.26 + 10px); }
@@ -790,8 +792,8 @@
     @media (max-width: 700px) {
       .hero { --lw: 84vw; padding: calc(12px + 13vw) 0 60px; }
       .brandmark { font-size: 19vw; top: 14px; }
-      .phone-wrap { width: calc(var(--lw) * 0.3); bottom: calc(var(--lw) * -0.3); }
-      .hero-under { margin-top: calc(var(--lw) * 0.36 + 10px); }
+      .phone-wrap { width: calc(var(--lw) * 0.31); bottom: calc(var(--lw) * -0.37); }
+      .hero-under { margin-top: calc(var(--lw) * 0.4 + 10px); }
       .win-robot, .menubar a, .dock, .menubar .on { display: none; }
       .win-main { left: 4%; right: 4%; width: auto; top: 14%; bottom: 7%; }
       .win-body { padding: 4cqw 4.5cqw; }
