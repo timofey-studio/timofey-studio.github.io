@@ -65,6 +65,7 @@
       --planet-shade: linear-gradient(180deg, rgba(8, 6, 6, 0.05) 80px, rgba(6, 5, 6, 0.6) 150px, rgba(5, 5, 7, 0.92) 320px, #040406 520px);
       --planet-tex-opacity: 1;
       --brand-grad: linear-gradient(180deg, #ffffff 0%, #d9d5cf 32%, #8b8680 58%, #3b3936 82%, #1c1b1a 100%);
+      --orb-shade: radial-gradient(ellipse 60% 26% at 58% 0%, rgba(255, 170, 110, 0.22), transparent 70%), radial-gradient(circle at 55% 22%, rgba(8, 7, 8, 0.15) 18%, rgba(5, 5, 7, 0.8) 52%, #030305 76%);
       color-scheme: dark;
     }
     html[data-theme="light"] {
@@ -94,6 +95,7 @@
       --planet-shade: linear-gradient(180deg, rgba(250, 245, 238, 0.55) 80px, rgba(240, 234, 226, 0.8) 150px, rgba(234, 228, 220, 0.94) 320px, #e8e1d8 520px);
       --planet-tex-opacity: 0.35;
       --brand-grad: linear-gradient(180deg, #5b5650 0%, #2f2c29 45%, #8a847d 75%, #c9c3bb 100%);
+      --orb-shade: radial-gradient(ellipse 60% 26% at 58% 0%, rgba(255, 190, 140, 0.4), transparent 70%), radial-gradient(circle at 55% 22%, rgba(255, 255, 255, 0.5) 18%, rgba(238, 231, 222, 0.86) 52%, #d8d0c5 78%);
       color-scheme: light;
     }
 
@@ -233,45 +235,52 @@
     /* ===== HERO: космос, тёмная планета со светом из-за горизонта, ноутбук и телефон под углом ===== */
     .hero {
       --lw: min(800px, 57vw, calc((100svh - 250px) * 1.36));
-      position: relative; overflow: hidden; padding: calc(4px + 6.5vw) 0 40px; min-height: calc(100svh - 69px);
+      position: relative; overflow-x: clip; overflow-y: visible; padding: calc(4px + 6.5vw) 0 40px; min-height: calc(100svh - 69px);
       display: flex; flex-direction: column; justify-content: center;
     }
-    /* Планета: рисуем только видимую «шапку» (лёгкий слой). Радиус 1300px, центр — ниже блока.
-       Атмосфера и освещённый край — кольцевые градиенты по форме круга. */
-    .planet {
-      --R: 1300px; --cx: 1400px; --cy: 1380px;
-      position: absolute; left: 50%; top: calc(68% - 80px); width: 2800px; height: 560px; margin-left: -1400px;
-      z-index: 0; pointer-events: none;
-      background: radial-gradient(circle at var(--cx) var(--cy), transparent calc(var(--R) - 1px), var(--glow-core) var(--R), var(--glow-soft) calc(var(--R) + 14px), var(--glow-deep) calc(var(--R) + 45px), transparent calc(var(--R) + 80px));
+    /* ПЛАНЕТА: одна и та же всё время. В начале — крупная, под ноутбуком, за её краем восходит солнце.
+       При прокрутке уезжает вбок, уменьшается и дальше «едет» рядом, медленно вращаясь (положение задаёт скрипт). */
+    .world {
+      position: fixed; left: 0; top: 0; width: 1000px; height: 1000px; z-index: 0; pointer-events: none;
+      transform-origin: 50% 50%; opacity: 0; transition: opacity 1.2s ease;
     }
-    .planet::before, .planet::after { content: ""; position: absolute; inset: 0; clip-path: circle(var(--R) at var(--cx) var(--cy)); }
-    .planet::before { background: var(--bg) url("img/bg-concrete.jpg") center top / 1100px auto; }
-    .planet::after {
-      background:
-        radial-gradient(circle at var(--cx) var(--cy), transparent calc(var(--R) - 60px), var(--glow-soft) calc(var(--R) - 6px), var(--glow-text) var(--R)),
-        radial-gradient(ellipse 12% 14% at 55.5% 14%, var(--glow-soft), transparent 80%),
-        var(--planet-shade);
+    .world.ready { opacity: 1; }
+    .world-glow {
+      position: absolute; left: -40%; right: -40%; top: -30%; height: 62%;
+      background: radial-gradient(40% 44% at 58% 76%, var(--glow-core), var(--glow-soft) 36%, transparent 70%);
+      animation: glowBreath 7s ease-in-out infinite;
     }
-    /* Солнце выглядывает из-за горизонта: яркое ядро + горизонтальная вспышка + лучи */
-    .sun { position: absolute; left: 58%; top: 68%; width: 0; height: 0; z-index: 1; pointer-events: none; }
-    .sun::before {
-      content: ""; position: absolute; left: -160px; top: -34px; width: 320px; height: 68px; border-radius: 50%;
-      background: radial-gradient(closest-side, #fff 0%, #fff6ea 18%, var(--glow-core) 42%, transparent 100%); filter: blur(2px);
-    }
-    .sun::after {
-      content: ""; position: absolute; left: -46vw; top: -2px; width: 92vw; height: 4px; border-radius: 50%;
-      background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), var(--glow-core) 30%, transparent 100%); filter: blur(1px);
-    }
-    .sun-rays {
-      position: absolute; left: 58%; top: 68%; width: 900px; height: 900px; margin: -450px 0 0 -450px; z-index: 0; pointer-events: none; opacity: 0.35;
+    .world-rays {
+      position: absolute; left: 58%; top: 3%; width: 110%; aspect-ratio: 1; translate: -50% -50%; opacity: 0.3;
       background: repeating-conic-gradient(from 0deg, var(--glow-soft) 0deg 2deg, transparent 2deg 12deg);
-      mask-image: radial-gradient(closest-side, #000, transparent 75%); -webkit-mask-image: radial-gradient(closest-side, #000, transparent 75%);
+      mask-image: radial-gradient(closest-side, #000, transparent 72%); -webkit-mask-image: radial-gradient(closest-side, #000, transparent 72%);
+      animation: raysBreath 7s ease-in-out infinite;
     }
-    .sunrise {
-      position: absolute; left: 50%; top: calc(68% - 170px); width: min(1500px, 140vw); height: 340px; transform: translateX(-50%);
-      background: radial-gradient(40% 42% at 58% 58%, var(--glow-core), var(--glow-soft) 38%, transparent 72%);
-      filter: blur(20px); z-index: 0; pointer-events: none;
+    @keyframes glowBreath { 0%, 100% { opacity: 0.8; scale: 1 1; } 50% { opacity: 1; scale: 1.06 1.12; } }
+    @keyframes raysBreath { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.4; } }
+    @keyframes flare { 0%, 100% { opacity: 0.85; scale: 1 1; } 50% { opacity: 1; scale: 1.25 1.1; } }
+    .world-ball {
+      position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: var(--bg);
+      box-shadow: 0 -2px 0 0 var(--glow-text), 0 -6px 26px 2px var(--glow-core), 0 -30px 110px 10px var(--glow-soft), 0 0 180px 20px var(--glow-deep);
     }
+    /* вращение: текстура из трёх кусков (обычный — зеркальный — обычный) едет по кругу без шва */
+    .world-tex { position: absolute; top: 0; left: 0; width: 300%; height: 100%; display: flex; opacity: var(--planet-tex-opacity); animation: worldSpin 140s linear infinite; }
+    .world-tex i { flex: 1; background: url("img/bg-concrete.jpg") center / cover; }
+    .world-tex i:nth-child(2) { transform: scaleX(-1); }
+    @keyframes worldSpin { to { transform: translateX(-66.6667%); } }
+    .world-ball::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--orb-shade); box-shadow: inset 0 6px 14px -6px var(--glow-text), inset 0 40px 90px -40px var(--glow-soft); }
+    /* солнце на краю планеты: яркое ядро и вспышка вдоль горизонта */
+    .world-sun { position: absolute; left: 58%; top: 0.4%; width: 0; height: 0; z-index: 2; }
+    .world-sun::before {
+      content: ""; position: absolute; left: -130px; top: -28px; width: 260px; height: 56px; border-radius: 50%;
+      background: radial-gradient(closest-side, #fff 0%, #fff6ea 20%, var(--glow-core) 45%, transparent 100%);
+      animation: flare 5s ease-in-out infinite;
+    }
+    .world-sun::after {
+      content: ""; position: absolute; left: -700px; top: -2px; width: 1400px; height: 4px; border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), var(--glow-core) 30%, transparent 100%);
+    }
+    .brandmark { translate: 0 calc(var(--sp, 0) * -60px); }
     /* Маленькая луна в небе — освещена со стороны солнца */
     .moon {
       position: absolute; left: 5%; top: 36%; width: clamp(34px, 3.6vw, 60px); aspect-ratio: 1; border-radius: 50%; z-index: 0; pointer-events: none;
@@ -307,26 +316,26 @@
     .bezel .cam { position: absolute; top: calc(var(--lw) * 0.005); left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #1e2a33; box-shadow: 0 0 0 2px #0c0c0e; }
     .lid-back { position: absolute; inset: 0; transform: rotateY(180deg); backface-visibility: hidden; border-radius: calc(var(--lw) * 0.026) calc(var(--lw) * 0.026) 6px 6px; background: var(--lid-back); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
     .deck {
-      position: absolute; top: 100%; left: -4%; width: 108%; height: calc(var(--lw) * 0.44); transform-origin: 50% 0; transform: rotateX(90deg);
-      transform-style: preserve-3d; border-radius: 3px 3px calc(var(--lw) * 0.03) calc(var(--lw) * 0.03);
+      position: absolute; top: 100%; left: 0; width: 100%; height: calc(var(--lw) * 0.42); transform-origin: 50% 0; transform: rotateX(90deg);
+      transform-style: preserve-3d; border-radius: 2px 2px calc(var(--lw) * 0.028) calc(var(--lw) * 0.028);
       background: linear-gradient(180deg, var(--deck-top) 0%, var(--deck-bottom) 100%);
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.10), inset 0 calc(var(--lw) * 0.02) calc(var(--lw) * 0.03) -10px rgba(0, 0, 0, 0.5);
     }
     .deck .hinge { position: absolute; left: 13%; right: 13%; top: 0; height: calc(var(--lw) * 0.014); border-radius: 0 0 6px 6px; background: linear-gradient(180deg, #0b0b0d, #25262b); }
     .deck .keys {
-      position: absolute; left: 12%; right: 12%; top: 9%; height: 44%; padding: 0.55%; border-radius: 6px; background: var(--keys-gap);
+      position: absolute; left: 13%; right: 13%; top: 9%; height: 44%; padding: 0.55%; border-radius: 6px; background: var(--keys-gap);
       display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: 0.6fr repeat(5, 1fr); gap: 4% 0.5%;
       box-shadow: 0 0 30px var(--glow-key);
     }
     .deck .keys i { border-radius: 2px; background: linear-gradient(180deg, var(--keys) 60%, color-mix(in srgb, var(--keys) 80%, #000)); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset; }
     .deck .keys i.w2 { grid-column: span 2; }
     .deck .keys i.sp { grid-column: span 6; }
-    .deck .spk { position: absolute; top: 9%; width: 9%; height: 44%; background-image: radial-gradient(circle, var(--keys-gap) 0.9px, transparent 1.3px); background-size: 5px 5px; opacity: 0.9; }
-    .deck .spk.l { left: 1.6%; } .deck .spk.r { right: 1.6%; }
+    .deck .spk { position: absolute; top: 9%; width: 8.5%; height: 44%; background-image: radial-gradient(circle, var(--keys-gap) 0.9px, transparent 1.3px); background-size: 5px 5px; opacity: 0.9; }
+    .deck .spk.l { left: 2.8%; } .deck .spk.r { right: 2.8%; }
     .deck .pad { position: absolute; left: 33%; right: 33%; top: 58%; height: 34%; border-radius: 8px; background: linear-gradient(180deg, var(--deck-top), var(--deck-bottom)); box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.35); }
     .deck .notch { position: absolute; bottom: 0; left: 44%; right: 44%; height: 2.5%; border-radius: 6px 6px 0 0; background: rgba(0, 0, 0, 0.35); }
     /* толщина основания: передняя и боковая грани */
-    .deck .front { position: absolute; left: 1.2%; right: 1.2%; top: 100%; height: calc(var(--lw) * 0.022); transform-origin: 50% 0; transform: rotateX(-90deg); border-radius: 0 0 10px 10px; background: linear-gradient(180deg, var(--deck-bottom), color-mix(in srgb, var(--deck-bottom) 55%, #000)); }
+    .deck .front { position: absolute; left: 1.6%; right: 1.6%; top: 99.6%; height: calc(var(--lw) * 0.022); transform-origin: 50% 0; transform: rotateX(-90deg); border-radius: 0 0 10px 10px; background: linear-gradient(180deg, var(--deck-bottom), color-mix(in srgb, var(--deck-bottom) 55%, #000)); }
     .scene-shadow { position: absolute; left: -6%; right: -10%; bottom: calc(var(--lw) * -0.1); height: calc(var(--lw) * 0.14); border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), transparent); pointer-events: none; }
     html[data-theme="light"] .scene-shadow { background: radial-gradient(closest-side, rgba(60, 40, 20, 0.35), transparent); }
 
@@ -374,15 +383,15 @@
     .win-main .kicker .tw-live { left: calc(3cqw + 12px); }
     .hero-title { font-family: var(--font-sans); font-weight: 600; color: var(--os-text); font-size: 5.8cqw; line-height: 1.04; letter-spacing: -0.035em; margin-bottom: 2.2cqw; }
     /* «заметным» — курсив с засечками в овале, как «New» на референсе */
-    .accent-word { position: relative; display: inline-block; font-family: var(--font-serif); font-style: italic; font-weight: 500; letter-spacing: -0.01em; color: var(--accent); padding: 0 0.12em; }
-    .accent-word::before {
-      content: ""; position: absolute; left: -0.14em; right: -0.18em; top: 0.02em; bottom: -0.04em;
-      border: 0.035em solid currentColor; border-radius: 50%; transform: rotate(-5deg) scale(0.6); opacity: 0;
-      transition: transform 0.7s cubic-bezier(0.2, 1.3, 0.4, 1), opacity 0.4s;
+    /* «заметным» — широкий гротеск с переливающимся градиентом */
+    .accent-word {
+      font-family: var(--font-display); font-weight: 700; font-style: normal; font-size: 0.9em; letter-spacing: -0.03em;
+      background: linear-gradient(100deg, var(--glow-text) 0%, var(--glow-solid) 35%, #fff3e6 50%, var(--glow-solid) 65%, var(--glow-text) 100%);
+      background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+      animation: wordShine 5s ease-in-out infinite;
     }
-    .accent-word::after { content: "✦"; position: absolute; right: -0.55em; top: -0.2em; font-size: 0.34em; font-style: normal; opacity: 0; transform: scale(0); transition: transform 0.5s 0.3s cubic-bezier(0.2, 1.6, 0.4, 1), opacity 0.3s 0.3s; }
-    .hero-typed .accent-word::before { transform: rotate(-5deg) scale(1); opacity: 0.85; }
-    .hero-typed .accent-word::after { transform: scale(1); opacity: 1; }
+    html[data-theme="light"] .accent-word { background-image: linear-gradient(100deg, var(--glow-ink) 0%, var(--glow-solid) 35%, #ffd2a8 50%, var(--glow-solid) 65%, var(--glow-ink) 100%); }
+    @keyframes wordShine { 0%, 100% { background-position: 100% 0; } 50% { background-position: 0% 0; } }
     .hero-desc { font-size: max(14px, 1.6cqw); line-height: 1.5; color: var(--os-text-2); max-width: 34em; margin-bottom: 2.8cqw; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 1.2cqw; }
     .win-main .btn { font-size: max(13px, 1.6cqw); padding: 1.3cqw 2.3cqw; }
@@ -535,7 +544,7 @@
     .photo-badge span { font-family: var(--font-mono); font-size: 11.5px; color: #c9c4bd; }
     .photo-badge i { width: 9px; height: 9px; border-radius: 50%; background: #3ee08f; box-shadow: 0 0 10px #3ee08f; }
     .face-back { transform: rotateY(180deg); padding: 22px; display: flex; flex-direction: column; gap: 9px; background: var(--case-bg); }
-    .face-back h4 { font-family: var(--font-display); font-weight: 500; font-size: 20px; margin: 2px 0 4px; }
+    .face-back h4 { font-family: var(--font-display); font-weight: 700; font-size: 23px; line-height: 1.15; margin: 2px 0 6px; }
     .dossier-row { padding: 9px 13px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); }
     .dossier-row small { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--text-3); text-transform: uppercase; }
     .dossier-row p { font-size: 14px; font-weight: 500; color: var(--text); margin-top: 3px; line-height: 1.4; }
@@ -632,10 +641,13 @@
     /* ===== АДАПТИВ ===== */
     @media (max-width: 1100px) {
       .hero { --lw: min(900px, 90vw); min-height: 0; }
-      .stage { justify-content: center; }
-      .scene { margin: 0 auto; }
+      .stage { justify-content: flex-start; }
+      .scene { margin: 0 0 0 1%; }
       .laptop { transform: rotateX(7deg); }
-      .phone-wrap { display: none; }
+      .phone-wrap { right: 0; top: auto; bottom: calc(var(--lw) * -0.2); width: calc(var(--lw) * 0.26); transform: none; }
+      .js .hero:not(.phone-in) .phone-wrap { transform: translateY(30px); }
+      .phone { transform: rotateY(-12deg) rotateX(3deg); }
+      .hero-under { margin-top: calc(var(--lw) * 0.26 + 10px); }
     }
     @media (max-width: 980px) {
       .nav { display: none; }
@@ -646,13 +658,11 @@
       .case { padding: 32px 26px; }
     }
     @media (max-width: 700px) {
-      .hero { --lw: 94vw; padding: calc(12px + 13vw) 0 110px; }
+      .hero { --lw: 84vw; padding: calc(12px + 13vw) 0 60px; }
       .brandmark { font-size: 15vw; top: 16px; }
-      .planet { top: calc(100% - 150px); }
-      .sun { top: calc(100% - 70px); }
-      .sun-rays { top: calc(100% - 70px); width: 600px; height: 600px; margin: -300px 0 0 -300px; }
-      .sunrise { top: calc(100% - 240px); }
       .moon { display: none; }
+      .phone-wrap { width: calc(var(--lw) * 0.3); bottom: calc(var(--lw) * -0.3); }
+      .hero-under { margin-top: calc(var(--lw) * 0.36 + 10px); }
       .win-robot, .menubar a, .dock, .menubar .on { display: none; }
       .win-main { left: 4%; right: 4%; width: auto; top: 14%; bottom: 7%; }
       .win-body { padding: 4cqw 4.5cqw; }
@@ -687,7 +697,7 @@
       .soon-pill { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .status .dot, .case, .p-typing i, .sun-rays { animation: none; }
+      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-rays, .world-tex, .world-sun::before { animation: none; }
       .js .reveal, .js .hero-late { opacity: 1; transform: none; transition: none; }
       .tw-caret { animation: none; }
       .scene, .lid, .laptop, .phone, .phone-wrap, .phone-glass, .screen > *, .js .laptop .win, .js .laptop .dock, .js .laptop .menubar { transition: none !important; }
@@ -700,6 +710,12 @@
   <div class="bg-space" aria-hidden="true"></div>
   <div class="bg-sky" aria-hidden="true"></div>
   <div class="bg-grain" aria-hidden="true"></div>
+  <div class="world" id="world" aria-hidden="true">
+    <div class="world-glow"></div>
+    <div class="world-rays"></div>
+    <div class="world-ball"><div class="world-tex"><i></i><i></i><i></i></div></div>
+    <div class="world-sun"></div>
+  </div>
 
   <!-- ШАПКА -->
   <header>
@@ -730,10 +746,6 @@
   <section class="hero" id="top">
     <div class="moon" aria-hidden="true"></div>
     <div class="brandmark" aria-hidden="true">TIMOFEY</div>
-    <div class="sun-rays" aria-hidden="true"></div>
-    <div class="sunrise" aria-hidden="true"></div>
-    <div class="planet" aria-hidden="true"></div>
-    <div class="sun" aria-hidden="true"></div>
 
     <div class="stage" id="stage">
       <div class="scene">
@@ -1235,6 +1247,50 @@
       }).then(() => typeText(title, 20)).then(done);
     }
 
+
+    // ===== Планета: в начале под ноутбуком, при прокрутке уезжает вбок, уменьшается и «едет» рядом =====
+    function initWorld() {
+      const hero = document.querySelector(".hero");
+      const world = document.getElementById("world");
+      const scene = document.querySelector(".scene");
+      const clamp = (v) => Math.min(1, Math.max(0, v));
+      const ease = (v) => v * v * (3 - 2 * v);
+      let D = 1000, cx0 = 0, cy0 = 0, ticking = false;
+
+      // стартовое положение считаем от ноутбука (при нулевой прокрутке)
+      const measure = () => {
+        const vw = window.innerWidth;
+        const narrow = vw < 700;
+        D = Math.round(narrow ? vw * 1.5 : Math.min(1150, vw * 0.8));
+        world.style.width = world.style.height = D + "px";
+        const r = scene.getBoundingClientRect();
+        const sceneTop = r.top + window.scrollY;
+        const top0 = sceneTop + r.height * (narrow ? 0.95 : 0.86); // верх планеты — за нижней частью ноутбука
+        cx0 = vw * 0.5;
+        cy0 = top0 + D / 2;
+      };
+      const update = () => {
+        ticking = false;
+        const vw = window.innerWidth, vh = window.innerHeight, y = window.scrollY;
+        const narrow = vw < 700;
+        hero.style.setProperty("--sp", clamp(y / (hero.offsetHeight * 0.8)).toFixed(3));
+        const p = ease(clamp(y / (vh * 0.95)));
+        const d1 = narrow ? 76 : Math.min(210, vw * 0.15);          // размер «спутника»
+        const cx1 = vw - d1 * (narrow ? 0.42 : 0.4);                 // прижат к краю, наполовину за экраном
+        const cy1 = narrow ? vh - d1 / 2 - 90 : vh * 0.74;
+        const cx = cx0 + (cx1 - cx0) * p;
+        const cy = (cy0 - y) * (1 - p) + cy1 * p;                    // сначала едет вместе со страницей
+        const sc = 1 + (d1 / D - 1) * p;
+        world.style.transform = `translate3d(${(cx - D / 2).toFixed(1)}px, ${(cy - D / 2).toFixed(1)}px, 0) scale(${sc.toFixed(4)})`;
+      };
+      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+      measure(); update();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", () => { measure(); onScroll(); });
+      // после появления ноутбука пересчитать (он въезжает с анимацией) и показать планету
+      setTimeout(() => { measure(); update(); world.classList.add("ready"); }, reduceMotion ? 0 : 900);
+    }
+
     // Спокойное появление блоков при прокрутке
     function initReveal() {
       const items = document.querySelectorAll(".reveal");
@@ -1296,6 +1352,7 @@
     initHero();
     initReveal();
     initCursor();
+    initWorld();
   </script>
 </body>
 </html>
