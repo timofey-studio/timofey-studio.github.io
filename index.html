@@ -890,7 +890,7 @@
           if (i >= seg.text.length) { s++; i = 0; node = null; }
           // живой ритм: небольшой разброс и паузы после знаков препинания
           let d = speed * (0.6 + Math.random() * 0.8);
-          if (/[,.:;—!?]/.test(ch)) d += speed * 5;
+          if (/[,.:;—!?]/.test(ch)) d += speed * 3;
           setTimeout(step, d);
         };
         step();
@@ -901,11 +901,11 @@
       const kicker = document.getElementById("heroKicker");
       const title = document.getElementById("heroTitle");
       const done = () => document.documentElement.classList.add("hero-typed");
-      setTimeout(done, 4500); // страховка: остальной текст появится в любом случае
-      typeText(kicker, 26).then((k) => {
+      setTimeout(done, 3000); // страховка: остальной текст появится в любом случае
+      typeText(kicker, 15).then((k) => {
         k.querySelector(".tw-caret")?.classList.add("off");
-        return new Promise((r) => setTimeout(r, reduceMotion ? 0 : 180));
-      }).then(() => typeText(title, 34)).then(done);
+        return new Promise((r) => setTimeout(r, reduceMotion ? 0 : 100));
+      }).then(() => typeText(title, 20)).then(done);
 
       // Подписи разделов печатаются, когда до них докрутили
       const scrollTyped = document.querySelectorAll('[data-type="scroll"]');
@@ -914,7 +914,7 @@
         entries.forEach((en) => {
           if (!en.isIntersecting) return;
           io.unobserve(en.target);
-          typeText(en.target, 40).then((el) => {
+          typeText(en.target, 28).then((el) => {
             setTimeout(() => el.querySelector(".tw-caret")?.classList.add("off"), 1200);
           });
         });
