@@ -63,9 +63,9 @@
       --deck-top: #2c2d33; --deck-bottom: #18191d; --keys: #2a2b31; --keys-gap: #121316;
       --lid-back: linear-gradient(160deg, #3a3b41, #1d1e22 60%, #121215);
       --planet-shade: linear-gradient(180deg, rgba(8, 6, 6, 0.05) 80px, rgba(6, 5, 6, 0.6) 150px, rgba(5, 5, 7, 0.92) 320px, #040406 520px);
-      --planet-tex-opacity: 1;
+      --planet-tex-opacity: 0.8;
       --brand-grad: linear-gradient(180deg, #ffffff 0%, #d9d5cf 32%, #8b8680 58%, #3b3936 82%, #1c1b1a 100%);
-      --orb-shade: radial-gradient(ellipse 60% 26% at 58% 0%, rgba(255, 170, 110, 0.22), transparent 70%), radial-gradient(circle at 55% 22%, rgba(8, 7, 8, 0.15) 18%, rgba(5, 5, 7, 0.8) 52%, #030305 76%);
+      --orb-shade: radial-gradient(ellipse 60% 26% at 58% 0%, rgba(255, 170, 110, 0.22), transparent 70%), radial-gradient(circle at 55% 22%, rgba(8, 7, 8, 0.4) 18%, rgba(5, 5, 7, 0.86) 52%, #030305 76%);
       color-scheme: dark;
     }
     html[data-theme="light"] {
@@ -93,7 +93,7 @@
       --deck-top: #dcdad6; --deck-bottom: #bab7b2; --keys: #eceae6; --keys-gap: #a9a6a1;
       --lid-back: linear-gradient(160deg, #e6e4e0, #c9c6c1 60%, #b3b0ab);
       --planet-shade: linear-gradient(180deg, rgba(250, 245, 238, 0.55) 80px, rgba(240, 234, 226, 0.8) 150px, rgba(234, 228, 220, 0.94) 320px, #e8e1d8 520px);
-      --planet-tex-opacity: 0.35;
+      --planet-tex-opacity: 0.55;
       --brand-grad: linear-gradient(180deg, #5b5650 0%, #2f2c29 45%, #8a847d 75%, #c9c3bb 100%);
       --orb-shade: radial-gradient(ellipse 60% 26% at 58% 0%, rgba(255, 190, 140, 0.4), transparent 70%), radial-gradient(circle at 55% 22%, rgba(255, 255, 255, 0.5) 18%, rgba(238, 231, 222, 0.86) 52%, #d8d0c5 78%);
       color-scheme: light;
@@ -250,24 +250,18 @@
       background: radial-gradient(40% 44% at 58% 76%, var(--glow-core), var(--glow-soft) 36%, transparent 70%);
       animation: glowBreath 7s ease-in-out infinite;
     }
-    .world-rays {
-      position: absolute; left: 58%; top: 3%; width: 110%; aspect-ratio: 1; translate: -50% -50%; opacity: 0.3;
-      background: repeating-conic-gradient(from 0deg, var(--glow-soft) 0deg 2deg, transparent 2deg 12deg);
-      mask-image: radial-gradient(closest-side, #000, transparent 72%); -webkit-mask-image: radial-gradient(closest-side, #000, transparent 72%);
-      animation: raysBreath 7s ease-in-out infinite;
-    }
     @keyframes glowBreath { 0%, 100% { opacity: 0.8; scale: 1 1; } 50% { opacity: 1; scale: 1.06 1.12; } }
-    @keyframes raysBreath { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.4; } }
     @keyframes flare { 0%, 100% { opacity: 0.85; scale: 1 1; } 50% { opacity: 1; scale: 1.25 1.1; } }
     .world-ball {
       position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: var(--bg);
       box-shadow: 0 -2px 0 0 var(--glow-text), 0 -6px 26px 2px var(--glow-core), 0 -30px 110px 10px var(--glow-soft), 0 0 180px 20px var(--glow-deep);
     }
-    /* вращение: текстура из трёх кусков (обычный — зеркальный — обычный) едет по кругу без шва */
-    .world-tex { position: absolute; top: 0; left: 0; width: 300%; height: 100%; display: flex; opacity: var(--planet-tex-opacity); animation: worldSpin 140s linear infinite; }
-    .world-tex i { flex: 1; background: url("img/bg-concrete.jpg") center / cover; }
-    .world-tex i:nth-child(2) { transform: scaleX(-1); }
-    @keyframes worldSpin { to { transform: translateX(-66.6667%); } }
+    /* вращение: бесшовная лунная текстура (кратеры, неровности, «моря») едет по кругу */
+    .world-tex {
+      position: absolute; top: 0; left: 0; width: 200%; height: 100%; opacity: var(--planet-tex-opacity);
+      background: url("img/planet.jpg") 0 0 / 50% 100% repeat-x; animation: worldSpin 160s linear infinite;
+    }
+    @keyframes worldSpin { to { transform: translateX(-50%); } }
     .world-ball::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--orb-shade); box-shadow: inset 0 6px 14px -6px var(--glow-text), inset 0 40px 90px -40px var(--glow-soft); }
     /* солнце на краю планеты: яркое ядро и вспышка вдоль горизонта */
     .world-sun { position: absolute; left: 58%; top: 0.4%; width: 0; height: 0; z-index: 2; }
@@ -275,10 +269,6 @@
       content: ""; position: absolute; left: -130px; top: -28px; width: 260px; height: 56px; border-radius: 50%;
       background: radial-gradient(closest-side, #fff 0%, #fff6ea 20%, var(--glow-core) 45%, transparent 100%);
       animation: flare 5s ease-in-out infinite;
-    }
-    .world-sun::after {
-      content: ""; position: absolute; left: -700px; top: -2px; width: 1400px; height: 4px; border-radius: 50%;
-      background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), var(--glow-core) 30%, transparent 100%);
     }
     .brandmark { translate: 0 calc(var(--sp, 0) * -60px); }
     /* Маленькая луна в небе — освещена со стороны солнца */
@@ -310,9 +300,24 @@
       position: absolute; inset: 0; border-radius: calc(var(--lw) * 0.026) calc(var(--lw) * 0.026) 6px 6px;
       background: linear-gradient(180deg, #1b1c20, #0c0c0e); padding: calc(var(--lw) * 0.014); backface-visibility: hidden;
       /* тонкая алюминиевая рамка крышки */
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.10) inset, 0 0 0 2px #45464c, 0 0 0 3px #1a1b1e, 0 40px 90px -20px rgba(0, 0, 0, 0.7), 0 0 calc(var(--lw) * 0.1) var(--glow-key);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.10) inset, 0 0 0 2px #45464c, 0 0 0 3px #1a1b1e, 0 40px 90px -20px rgba(0, 0, 0, 0.7);
     }
     html[data-theme="light"] .bezel { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.10) inset, 0 0 0 2px #c9c6c1, 0 0 0 3px #a19e99, 0 40px 90px -20px rgba(60, 40, 20, 0.3), 0 0 calc(var(--lw) * 0.1) var(--glow-key); }
+    /* --g от 0 до 1 задаёт скрипт при прокрутке: 0 — светится весь контур, 1 — погас */
+    .lid-glow, .lid-bloom {
+      position: absolute; pointer-events: none; backface-visibility: hidden;
+      --a: calc(var(--g, 0) * 180deg); --f: calc(min(var(--g, 0) * 400, 16) * 1deg);
+      background: conic-gradient(from 0deg, #fff6ea, var(--glow-text) 10%, var(--glow-solid) 30%, var(--glow-core) 50%, var(--glow-solid) 70%, var(--glow-text) 90%, #fff6ea);
+      -webkit-mask: conic-gradient(from 0deg, transparent var(--a), #000 calc(var(--a) + var(--f)), #000 calc(360deg - var(--a) - var(--f)), transparent calc(360deg - var(--a))), linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: source-in, xor;
+      mask: conic-gradient(from 0deg, transparent var(--a), #000 calc(var(--a) + var(--f)), #000 calc(360deg - var(--a) - var(--f)), transparent calc(360deg - var(--a))), linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: intersect, exclude;
+    }
+    .lid-glow { inset: -3px; padding: 2.5px; border-radius: calc(var(--lw) * 0.028) calc(var(--lw) * 0.028) 8px 8px; }
+    .lid-bloom { inset: -12px; padding: 11px; border-radius: calc(var(--lw) * 0.036) calc(var(--lw) * 0.036) 16px 16px; opacity: 0.4; }
+    .js .laptop:not(.on) .lid-glow, .js .laptop:not(.on) .lid-bloom { opacity: 0; }
+    .lid-glow { transition: opacity 1s ease; }
+    .lid-bloom { transition: opacity 1s ease; }
     .bezel .cam { position: absolute; top: calc(var(--lw) * 0.005); left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #1e2a33; box-shadow: 0 0 0 2px #0c0c0e; }
     .lid-back { position: absolute; inset: 0; transform: rotateY(180deg); backface-visibility: hidden; border-radius: calc(var(--lw) * 0.026) calc(var(--lw) * 0.026) 6px 6px; background: var(--lid-back); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
     .deck {
@@ -697,7 +702,7 @@
       .soon-pill { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-rays, .world-tex, .world-sun::before { animation: none; }
+      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-tex, .world-sun::before { animation: none; }
       .js .reveal, .js .hero-late { opacity: 1; transform: none; transition: none; }
       .tw-caret { animation: none; }
       .scene, .lid, .laptop, .phone, .phone-wrap, .phone-glass, .screen > *, .js .laptop .win, .js .laptop .dock, .js .laptop .menubar { transition: none !important; }
@@ -712,8 +717,7 @@
   <div class="bg-grain" aria-hidden="true"></div>
   <div class="world" id="world" aria-hidden="true">
     <div class="world-glow"></div>
-    <div class="world-rays"></div>
-    <div class="world-ball"><div class="world-tex"><i></i><i></i><i></i></div></div>
+    <div class="world-ball"><div class="world-tex"></div></div>
     <div class="world-sun"></div>
   </div>
 
@@ -753,6 +757,8 @@
         <div class="laptop" id="laptop">
           <div class="lid">
             <div class="lid-back" aria-hidden="true"></div>
+            <div class="lid-bloom" aria-hidden="true"></div>
+            <div class="lid-glow" aria-hidden="true"></div>
             <div class="bezel">
               <span class="cam" aria-hidden="true"></span>
               <div class="screen">
@@ -1254,8 +1260,7 @@
       const world = document.getElementById("world");
       const scene = document.querySelector(".scene");
       const clamp = (v) => Math.min(1, Math.max(0, v));
-      const ease = (v) => v * v * (3 - 2 * v);
-      let D = 1000, cx0 = 0, cy0 = 0, ticking = false;
+      let D = 1000, cx0 = 0, cy0 = 0;
 
       // стартовое положение считаем от ноутбука (при нулевой прокрутке)
       const measure = () => {
@@ -1269,12 +1274,15 @@
         cx0 = vw * 0.5;
         cy0 = top0 + D / 2;
       };
-      const update = () => {
-        ticking = false;
-        const vw = window.innerWidth, vh = window.innerHeight, y = window.scrollY;
+      const laptop = document.getElementById("laptop");
+      const easeIO = (v) => (v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2);
+      let yS = window.scrollY, running = false;
+      const render = (y) => {
+        const vw = window.innerWidth, vh = window.innerHeight;
         const narrow = vw < 700;
         hero.style.setProperty("--sp", clamp(y / (hero.offsetHeight * 0.8)).toFixed(3));
-        const p = ease(clamp(y / (vh * 0.95)));
+        const p = easeIO(clamp(y / (vh * 1.35)));                     // длинный и мягкий путь
+        laptop.style.setProperty("--g", clamp(y / (vh * 0.7)).toFixed(3)); // подсветка контура гаснет сверху вниз
         const d1 = narrow ? 76 : Math.min(210, vw * 0.15);          // размер «спутника»
         const cx1 = vw - d1 * (narrow ? 0.42 : 0.4);                 // прижат к краю, наполовину за экраном
         const cy1 = narrow ? vh - d1 / 2 - 90 : vh * 0.74;
@@ -1283,7 +1291,16 @@
         const sc = 1 + (d1 / D - 1) * p;
         world.style.transform = `translate3d(${(cx - D / 2).toFixed(1)}px, ${(cy - D / 2).toFixed(1)}px, 0) scale(${sc.toFixed(4)})`;
       };
-      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+      // сглаживание: каждое мгновение подтягиваемся к настоящей прокрутке на 9% — без рывков колёсика
+      const frame = () => {
+        const y = window.scrollY;
+        yS += (y - yS) * (reduceMotion ? 1 : 0.09);
+        if (Math.abs(y - yS) < 0.4) yS = y;
+        render(yS);
+        if (yS !== y) requestAnimationFrame(frame); else running = false;
+      };
+      const update = () => render(yS);
+      const onScroll = () => { if (!running) { running = true; requestAnimationFrame(frame); } };
       measure(); update();
       window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("resize", () => { measure(); onScroll(); });
