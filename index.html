@@ -10,6 +10,14 @@
   <meta property="og:description" content="Сайты, лендинги и Telegram-боты, которые работают на рост вашего бизнеса." />
   <meta property="og:url" content="https://timofey-studio.github.io/" />
   <meta name="theme-color" content="#06070a" />
+  <script>
+    // Тема применяется до отрисовки страницы: сохранённый выбор → иначе тёмная (фирменная)
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t === "light") document.documentElement.setAttribute("data-theme", "light");
+    })();
+  </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306070a'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='26' font-weight='700' fill='%2338bdf8' text-anchor='middle'%3E%D0%A2%D0%A7%3C/text%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +43,58 @@
       --radius-lg: 24px;
       --font-mono: 'JetBrains Mono', monospace;
       --font-sans: 'Inter', sans-serif;
+      /* поверхности и текст, которые меняются в светлой теме */
+      --surface-1: rgba(255, 255, 255, 0.02);
+      --surface-2: rgba(255, 255, 255, 0.03);
+      --surface-3: rgba(255, 255, 255, 0.05);
+      --line-soft: rgba(255, 255, 255, 0.05);
+      --grid-line: rgba(255, 255, 255, 0.02);
+      --header-bg: rgba(6, 7, 10, 0.85);
+      --text-strong: #ffffff;
+      --text-body: #e2e8f0;
+      --text-soft: #cbd5e1;
+      --shimmer-base: #f8fafc;
+      --shimmer-peak: #ffffff;
+      --badge-bg: linear-gradient(135deg, #1e293b, #0f172a);
+      --dossier-bg: linear-gradient(145deg, #131722, #0d0f17);
+      --contact-bg: linear-gradient(135deg, rgba(19, 23, 34, 0.95) 0%, rgba(13, 15, 23, 0.95) 100%);
+      --shadow-strong: rgba(0, 0, 0, 0.7);
+      --hero-video-opacity: 0.6;
+      --aurora-opacity: 0.55;
+    }
+
+    /* СВЕТЛАЯ ТЕМА */
+    html[data-theme="light"] {
+      --bg-main: #f4f7fb;
+      --bg-panel: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-inner: #eef2f8;
+      --border-subtle: rgba(15, 23, 42, 0.10);
+      --border-active: rgba(2, 132, 199, 0.45);
+      --accent-cyan: #0284c7;
+      --accent-emerald: #059669;
+      --accent-violet: #6366f1;
+      --text-primary: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      --surface-1: rgba(15, 23, 42, 0.02);
+      --surface-2: rgba(15, 23, 42, 0.035);
+      --surface-3: rgba(15, 23, 42, 0.06);
+      --line-soft: rgba(15, 23, 42, 0.07);
+      --grid-line: rgba(15, 23, 42, 0.045);
+      --header-bg: rgba(244, 247, 251, 0.85);
+      --text-strong: #0f172a;
+      --text-body: #1e293b;
+      --text-soft: #334155;
+      --shimmer-base: #0f172a;
+      --shimmer-peak: #0369a1;
+      --badge-bg: linear-gradient(135deg, #e0f2fe, #f1f5f9);
+      --dossier-bg: linear-gradient(145deg, #ffffff, #eef2f8);
+      --contact-bg: linear-gradient(135deg, #ffffff 0%, #eef6fb 100%);
+      --shadow-strong: rgba(15, 23, 42, 0.18);
+      --hero-video-opacity: 0.32;
+      --aurora-opacity: 0.45;
+      color-scheme: light;
     }
 
     html {
@@ -48,6 +108,7 @@
     }
 
     body {
+      transition: background-color 0.4s ease, color 0.4s ease;
       background-color: var(--bg-main);
       color: var(--text-primary);
       font-family: var(--font-sans);
@@ -62,8 +123,8 @@
       inset: 0;
       background-size: 44px 44px;
       background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
       pointer-events: none;
       z-index: 0;
     }
@@ -84,7 +145,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(6, 7, 10, 0.85);
+      background: var(--header-bg);
     }
 
     .header-inner {
@@ -104,7 +165,7 @@
       width: 40px;
       height: 40px;
       border-radius: var(--radius-sm);
-      background: linear-gradient(135deg, #1e293b, #0f172a);
+      background: var(--badge-bg);
       border: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
@@ -130,7 +191,7 @@
       display: flex;
       align-items: center;
       gap: 18px;
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--surface-2);
       border: 1px solid var(--border-subtle);
       padding: 6px 16px;
       border-radius: 999px;
@@ -180,7 +241,7 @@
       width: 74%;
       height: 120%;
       background: var(--bg-main);
-      opacity: 0.6;
+      opacity: var(--hero-video-opacity);
       mask-image: linear-gradient(to left, #000 25%, transparent 92%);
       -webkit-mask-image: linear-gradient(to left, #000 25%, transparent 92%);
       pointer-events: none;
@@ -260,11 +321,11 @@
     .shimmer-text {
       background: linear-gradient(
         110deg,
-        #f8fafc 20%,
+        var(--shimmer-base) 20%,
         var(--accent-cyan) 45%,
-        #ffffff 55%,
+        var(--shimmer-peak) 55%,
         var(--accent-violet) 75%,
-        #f8fafc 90%
+        var(--shimmer-base) 90%
       );
       background-size: 250% 100%;
       -webkit-background-clip: text;
@@ -368,7 +429,7 @@
       border: 1px solid var(--border-subtle);
       overflow: hidden;
       background: var(--bg-card);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 20px 40px -15px var(--shadow-strong);
     }
 
     /* Лицевая сторона карточки */
@@ -426,38 +487,6 @@
       }
     }
 
-    /* Кадр «Timofey» в блоке «Обо мне» */
-    .about-photo {
-      margin: 6px 0 0;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      position: relative;
-    }
-
-    .about-photo img {
-      display: block;
-      width: 100%;
-      height: auto;
-      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .about-photo:hover img {
-      transform: scale(1.03);
-    }
-
-    .about-photo figcaption {
-      position: absolute;
-      left: 14px;
-      bottom: 14px;
-      background: rgba(6, 7, 10, 0.78);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      color: var(--text-primary);
-    }
 
     /* Заглушка вместо фото: монограмма на тонированной сетке */
     .photo-placeholder {
@@ -525,7 +554,7 @@
     /* Обратная сторона с досье */
     .card-face-back {
       transform: rotateY(180deg);
-      background: linear-gradient(145deg, #131722, #0d0f17);
+      background: var(--dossier-bg);
       border-color: var(--border-active);
       padding: 28px;
       display: flex;
@@ -560,8 +589,8 @@
     }
 
     .dossier-row {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: var(--surface-2);
+      border: 1px solid var(--line-soft);
       padding: 10px 14px;
       border-radius: var(--radius-sm);
     }
@@ -612,7 +641,7 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.3;
-      color: #ffffff;
+      color: var(--text-strong);
     }
 
     .about-lead span {
@@ -620,7 +649,7 @@
     }
 
     .about-text-large {
-      color: #e2e8f0;
+      color: var(--text-body);
       font-size: 18px;
       line-height: 1.7;
     }
@@ -653,7 +682,7 @@
 
     .growth-callout-text {
       font-size: 14px;
-      color: #cbd5e1;
+      color: var(--text-soft);
       line-height: 1.55;
     }
 
@@ -721,7 +750,7 @@
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
       padding: 24px 28px 36px;
-      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 24px 60px -20px var(--shadow-strong);
     }
 
     .folder-tabs {
@@ -738,7 +767,7 @@
     }
 
     .tab-btn {
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--surface-1);
       border: 1px solid var(--border-subtle);
       border-bottom: none;
       color: var(--text-muted);
@@ -756,7 +785,7 @@
     }
 
     .tab-btn:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--surface-3);
       color: var(--text-primary);
       transform: translateY(-4px);
     }
@@ -860,7 +889,7 @@
       background: var(--bg-card-inner);
       padding: 16px;
       border-radius: var(--radius-sm);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line-soft);
     }
 
     .metric-item-num {
@@ -885,7 +914,7 @@
       font-family: var(--font-mono);
       font-size: 11px;
       color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--surface-3);
       padding: 4px 10px;
       border-radius: 4px;
     }
@@ -901,6 +930,17 @@
       min-height: 380px;
       position: relative;
       overflow: hidden;
+    }
+
+    /* Видео-демо кейса */
+    .case-video {
+      display: block;
+      width: min(100%, 400px);
+      height: auto;
+      aspect-ratio: 4 / 5;
+      border-radius: 18px;
+      background: #06070a;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--border-subtle);
     }
 
     /* Мокапы */
@@ -1070,7 +1110,7 @@
     }
 
     .contact-card {
-      background: linear-gradient(135deg, rgba(19, 23, 34, 0.95) 0%, rgba(13, 15, 23, 0.95) 100%);
+      background: var(--contact-bg);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
       padding: 48px;
@@ -1223,10 +1263,114 @@
         padding: 30px 20px;
       }
     }
+
+    /* ФОНОВОЕ СИЯНИЕ за всеми секциями */
+    .bg-aurora {
+      position: fixed;
+      inset: -20vmax;
+      pointer-events: none;
+      z-index: 0;
+      opacity: var(--aurora-opacity);
+      filter: blur(70px);
+    }
+
+    .bg-aurora span {
+      position: absolute;
+      width: 46vmax;
+      height: 46vmax;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      animation: auroraDrift 28s ease-in-out infinite alternate;
+    }
+
+    html[data-theme="light"] .bg-aurora span { mix-blend-mode: multiply; }
+
+    .bg-aurora span:nth-child(1) { left: 8%;  top: 18%; background: radial-gradient(circle, rgba(56, 189, 248, 0.35), transparent 65%); }
+    .bg-aurora span:nth-child(2) { right: 6%; top: 42%; background: radial-gradient(circle, rgba(129, 140, 248, 0.30), transparent 65%); animation-duration: 34s; animation-delay: -8s; }
+    .bg-aurora span:nth-child(3) { left: 30%; bottom: 4%; background: radial-gradient(circle, rgba(16, 185, 129, 0.24), transparent 65%); animation-duration: 40s; animation-delay: -16s; }
+
+    @keyframes auroraDrift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(6vmax, -4vmax) scale(1.12); }
+      100% { transform: translate(-5vmax, 5vmax) scale(0.95); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg-aurora span { animation: none; }
+    }
+
+    /* КНОПКА СМЕНЫ ТЕМЫ */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-2);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.25s, background 0.25s, transform 0.25s;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--border-active);
+      transform: rotate(-12deg);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--accent-cyan);
+      outline-offset: 3px;
+    }
+
+    .theme-toggle svg { width: 18px; height: 18px; }
+    .theme-toggle .icon-sun { display: none; }
+    html[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+    html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+    /* ТЕЛЕФОНЫ */
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      header { padding: 14px 0; }
+      .header-inner { gap: 12px; }
+      .header-actions { width: 100%; }
+      .live-status-bar { flex: 1; gap: 10px; padding: 6px 12px; font-size: 11px; }
+      .time-widget { padding-left: 10px; }
+      .logo-text h1 { font-size: 14px; }
+      .hero-wrapper { padding: 56px 0 48px; }
+      .hero-backdrop { width: 100%; right: 0; opacity: calc(var(--hero-video-opacity) * 0.7); }
+      .hero-pretitle { font-size: 11px; padding: 6px 12px; }
+      .hero-description { font-size: 16px; margin-bottom: 28px; }
+      .btn-main { width: 100%; justify-content: center; }
+      .about-section, .archive-section { padding: 56px 0; }
+      .flip-card-inner { height: 460px; }
+      .about-lead { font-size: 24px; }
+      .about-text-large { font-size: 16px; }
+      .about-features { grid-template-columns: 1fr; }
+      .section-header { flex-wrap: wrap; gap: 8px; }
+      .folder-container { padding: 16px 14px 22px; border-radius: 18px; }
+      .tab-btn { font-size: 12px; padding: 8px 14px; }
+      .sheet-card { padding: 18px; gap: 20px; }
+      .sheet-title { font-size: 22px; }
+      .sheet-preview { padding: 14px; min-height: 0; }
+      .case-video { width: 100%; }
+      .contact-section { padding: 24px 0 64px; }
+      .contact-card { padding: 26px 18px; border-radius: 18px; }
+      .copy-pill { width: 100%; }
+    }
   </style>
 </head>
 <body>
 
+  <div class="bg-aurora" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="bg-grid"></div>
 
   <!-- ШАПКА -->
@@ -1240,12 +1384,18 @@
         </div>
       </div>
 
-      <div class="live-status-bar">
-        <div class="status-indicator">
-          <span class="pulse-dot"></span>
-          <span>Открыт к проектам</span>
+      <div class="header-actions">
+        <div class="live-status-bar">
+          <div class="status-indicator">
+            <span class="pulse-dot"></span>
+            <span>Открыт к проектам</span>
+          </div>
+          <div class="time-widget" id="liveClock">00:00:00 MSK</div>
         </div>
-        <div class="time-widget" id="liveClock">00:00:00 MSK</div>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Переключить тему: светлая / тёмная" title="Светлая / тёмная тема">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2 6 6M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+        </button>
       </div>
     </div>
   </header>
@@ -1382,11 +1532,6 @@
               <p>Фокус на конверсию, глубину просмотра и масштабирование вашей целевой аудитории.</p>
             </div>
           </div>
-
-          <figure class="about-photo">
-            <img src="img/tima-train.jpg" alt="Тимофей на вокзале на фоне цистерны с надписью Timofey" width="1200" height="675" loading="lazy" />
-            <figcaption>Даже поезда знают, как меня зовут 🚂</figcaption>
-          </figure>
         </div>
 
       </div>
@@ -1445,11 +1590,14 @@
         category: "Telegram-бот",
         year: "2026",
         title: "Онлайн-запись в барбершоп",
-        desc: "Первый кейс уже в пути: Telegram-бот, через который клиенты сами записываются к мастеру на свободное время, а владелец получает уведомления и видит расписание. Подробный разбор проекта появится здесь совсем скоро.",
+        desc: "Telegram-бот, через который клиенты сами записываются к мастеру на свободное время, а владелец сразу получает уведомления и видит расписание. На видео — весь путь клиента за 20 секунд. Подробный разбор проекта появится здесь совсем скоро.",
         metrics: [],
         stack: ["Python", "aiogram 3", "SQLite"],
         previewType: "bot",
         previewData: {
+          video: "video/fadepoint-bot.mp4",
+          poster: "video/fadepoint-bot-poster.jpg",
+          videoLabel: "Демо: запись в барбершоп через Telegram-бота за 20 секунд",
           botName: "FadePoint Barbershop",
           userMsg: "Хочу записаться к Максиму на завтра",
           botReply: "Свободное время у мастера Максим на завтра:",
@@ -1526,7 +1674,14 @@
       const container = document.getElementById("sheetContainer");
 
       let previewHTML = "";
-      if (data.previewType === "bot") {
+      if (data.previewData.video) {
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        previewHTML = `
+          <video class="case-video" src="${data.previewData.video}" poster="${data.previewData.poster}"
+            ${reduce ? "controls" : "autoplay loop"} muted playsinline preload="metadata"
+            aria-label="${data.previewData.videoLabel}" width="640" height="800"></video>
+        `;
+      } else if (data.previewType === "bot") {
         previewHTML = `
           <div class="phone-frame">
             <div class="phone-speaker"></div>
@@ -1631,6 +1786,21 @@
         alert("Контакт: " + text);
       });
     }
+
+    // Переключатель темы: запоминаем выбор (если браузер разрешает)
+    function applyTheme(theme) {
+      const root = document.documentElement;
+      if (theme === "light") root.setAttribute("data-theme", "light");
+      else root.removeAttribute("data-theme");
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", theme === "light" ? "#f4f7fb" : "#06070a");
+    }
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+      applyTheme(next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+    applyTheme(document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark");
 
     initHeroVideo();
     initArchive();
