@@ -755,6 +755,7 @@
     .role h4 { font-family: var(--font-mono); font-weight: 500; font-size: 13px; letter-spacing: 0.1em; margin-bottom: 10px; text-transform: uppercase; }
     .role.client h4 { color: var(--text); }
     .role.owner h4 { color: var(--accent); }
+    .role.bad h4 { color: #ef4444; }
     .role ul { list-style: none; }
     .role li { position: relative; padding-left: 16px; margin-top: 6px; font-size: 15px; line-height: 1.45; color: var(--text-2); }
     .role li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.45; }
@@ -772,7 +773,7 @@
     .case-video { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; border-radius: 24px; background: #09090b; cursor: pointer; }
     html[data-theme="light"] .case-video { background: #f3f1ee; }
     .sound-btn {
-      position: absolute; top: 50%; right: -66px; transform: translateY(-50%); z-index: 2;
+      position: absolute; top: calc(50% - 42px); right: -66px; transform: translateY(-50%); z-index: 2;
       width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
       color: var(--text); background: var(--panel-strong); border: 1px solid var(--line-strong); backdrop-filter: blur(10px);
       box-shadow: 0 10px 30px -10px var(--shadow); transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s;
@@ -783,6 +784,10 @@
     .sound-btn[aria-pressed="true"] { background: var(--glow-solid); color: #140c06; border-color: transparent; }
     .sound-btn[aria-pressed="true"] .on { display: block; }
     .sound-btn[aria-pressed="true"] .off { display: none; }
+    .expand-btn { top: calc(50% + 46px); }
+    .expand-btn svg { width: 20px; height: 20px; }
+    /* в полноэкранном режиме — обычный курсор и родные кнопки плеера */
+    html.has-cursor video:fullscreen { cursor: auto !important; }
     .sound-btn::after {
       content: attr(data-tip); position: absolute; left: 50%; top: calc(100% + 8px); transform: translateX(-50%);
       font-family: var(--font-mono); font-size: 11px; white-space: nowrap; color: var(--text-3); pointer-events: none;
@@ -926,7 +931,10 @@
       .hero-under .btn { width: 100%; justify-content: center; font-size: 15.5px; padding: 15px 26px; }
       .hero-under .btn-ghost { color: var(--text); border-color: var(--line-strong); }
       .services { justify-content: flex-start; }
-      .sound-btn { top: auto; bottom: 24px; right: 24px; transform: none; }
+      /* на телефоне кнопки — под видео, чтобы не закрывать субтитры */
+      .case-media { padding-bottom: 62px; }
+      .sound-btn { top: auto; bottom: 0; right: 4px; transform: none; }
+      .expand-btn { right: 64px; }
       .sound-btn:hover { transform: scale(1.08); }
       .sound-btn::after { display: none; }
     }
@@ -1344,6 +1352,25 @@
           light: { src: "video/fadepoint-bot-light.mp4", poster: "video/fadepoint-bot-light-poster.jpg" },
           label: "Демо Telegram-бота барбершопа: запись клиента и ручная запись владельцем, 34 секунды"
         }
+      },
+      {
+        id: "zerno-redesign",
+        tabLabel: "02 · Редизайн сайта · пример",
+        num: "02",
+        kicker: "Кейс 02 · Как я работаю · пример",
+        title: 'Кофейня «Зерно»: <em class="grad-text">от&nbsp;старого сайта</em> к&nbsp;заказам',
+        lead: "Показываю на примере, как проходит работа: владелица пишет мне, я нахожу, где сайт теряет клиентов, согласую с ней стиль и схему — и собираю новый сайт, который приносит заказы.",
+        roles: [
+          { name: "Было", tone: "bad", items: ["Грузится 9 секунд", "Нет кнопки заказа", "На телефоне всё разъезжается"] },
+          { name: "Стало", tone: "owner", items: ["Понятный первый экран", "Заказ с собой в пару нажатий", "Удобно с телефона"] }
+        ],
+        stack: ["Разбор сайта", "Референсы", "Схема", "Вёрстка"],
+        note: "// пример: бизнес и цифры условные",
+        video: {
+          dark: { src: "video/zerno-demo.mp4", poster: "video/zerno-demo-poster.jpg" },
+          light: { src: "video/zerno-demo-light.mp4", poster: "video/zerno-demo-light-poster.jpg" },
+          label: "Пример работы: старый сайт кофейни «Зерно» превращается в новый, 50 секунд"
+        }
       }
     ];
 
@@ -1387,6 +1414,7 @@
     }
 
     const ICON_SOUND_OFF = '<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>';
+    const ICON_EXPAND = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
     const ICON_SOUND_ON = '<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>';
 
     function renderCurrentSheet() {
@@ -1404,6 +1432,7 @@
               aria-label="${data.video.label}" width="640" height="800"></video>
           </div>
           <button class="sound-btn" type="button" id="soundBtn" aria-pressed="false" aria-label="Включить звук" data-tip="звук">${ICON_SOUND_OFF}${ICON_SOUND_ON}</button>
+          <button class="sound-btn expand-btn" type="button" id="expandBtn" aria-label="Развернуть видео на весь экран со звуком" data-tip="развернуть">${ICON_EXPAND}</button>
         </div>` : "";
 
       document.getElementById("sheetContainer").innerHTML = `
@@ -1442,7 +1471,14 @@
         btn.setAttribute("aria-label", on ? "Выключить звук" : "Включить звук");
       };
       btn.addEventListener("click", () => setSound(video.muted));
-      video.addEventListener("click", () => setSound(video.muted));
+      video.addEventListener("click", () => { if (!document.fullscreenElement) setSound(video.muted); });
+      // «Развернуть»: видео на весь экран и сразу со звуком (на iPhone — встроенный плеер)
+      document.getElementById("expandBtn").addEventListener("click", () => {
+        setSound(true);
+        if (video.requestFullscreen) video.requestFullscreen().catch(() => {});
+        else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+      });
+      video.addEventListener("fullscreenchange", () => { video.controls = document.fullscreenElement === video; });
       // Наклон за мышкой
       if (!reduceMotion) {
         const glass = media.querySelector(".phone-glass");
