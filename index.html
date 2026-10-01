@@ -808,6 +808,14 @@
     .tab-btn .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); }
     .tab-btn.active { color: var(--text); border-color: var(--accent); }
     .tab-btn.active .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+    .tab-btn .tl-short { display: none; }
+    /* на узком экране — короткие подписи, чтобы все вкладки было видно сразу */
+    @media (max-width: 600px) {
+      .tab-btn { font-size: 12px; padding: 9px 12px; gap: 7px; }
+      .tab-btn .tl-full { display: none; }
+      .tab-btn .tl-short { display: inline; }
+    }
+    @media (max-width: 400px) { .tabs { gap: 6px; } .tab-btn .dot { display: none; } }
 
     .case { position: relative; overflow: hidden; border-radius: var(--r-lg); padding: 48px; background: var(--case-bg); border: 1px solid var(--line); box-shadow: 0 40px 80px -30px var(--shadow); backdrop-filter: blur(16px); animation: casePull 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
     @keyframes casePull { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
@@ -1084,6 +1092,52 @@
       .lead { padding: 22px 18px; }
       .tg-btn { width: 100%; }
     }
+    /* ===== Кейс 03: карточки для маркетплейсов — выбор товара, «было / стало», листалка ===== */
+    .cards-view { display: grid; gap: 14px; }
+    .cv-prod { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+    .cv-prod button {
+      font: inherit; font-size: 13.5px; font-weight: 600; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+      color: var(--text-2); background: var(--panel); border: 1px solid var(--line); transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .cv-prod button:hover { border-color: var(--line-strong); color: var(--text); }
+    .cv-prod button[aria-selected="true"] { color: var(--text); border-color: var(--accent); background: var(--panel-strong); }
+    .cv-frame { transform: none; padding-bottom: 32px; }
+    .cv-stage { position: relative; aspect-ratio: 3 / 4; border-radius: 24px; overflow: hidden; background: #111; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+    .cv-stage:active { cursor: grabbing; }
+    .cv-stage img { display: block; width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; }
+    .cv-track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+    .cv-track img { flex: 0 0 100%; }
+    /* «было» лежит сверху и уезжает полосой слева направо — как будто карточку пересобрали */
+    .cv-before { position: absolute; inset: 0; clip-path: inset(0 0 0 0); transition: clip-path 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
+    .cv-scan { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; margin-left: -1.5px; background: var(--glow-text); box-shadow: 0 0 18px 4px var(--glow-soft); opacity: 0; transition: left 0.8s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.3s; pointer-events: none; }
+    .cv-stage.after .cv-before { clip-path: inset(0 0 0 100%); }
+    .cv-stage.after .cv-scan { left: 100%; }
+    .cv-stage.moving .cv-scan { opacity: 1; }
+    .cv-badge {
+      position: absolute; left: 50%; top: -13px; z-index: 4; transform: translateX(-50%); padding: 6px 14px; border-radius: 999px; font: 700 12px var(--font-mono); letter-spacing: 0.06em;
+      text-transform: uppercase; color: #fff; background: #d92d2d; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); transition: background 0.3s;
+    }
+    .cv-frame.is-after .cv-badge { background: linear-gradient(135deg, var(--glow-text), var(--glow-solid)); color: #140c06; }
+    .cv-nav {
+      position: absolute; top: calc(50% - 10px); z-index: 3; width: 36px; height: 36px; margin-top: -18px; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+      color: #fff; background: rgba(10, 10, 12, 0.55); border: 1px solid rgba(255, 255, 255, 0.25); font-size: 22px; line-height: 1; transition: opacity 0.25s, background 0.2s;
+    }
+    .cv-nav:hover { background: rgba(10, 10, 12, 0.8); }
+    .cv-nav.prev { left: 18px; } .cv-nav.next { right: 18px; }
+    .cv-nav[disabled] { opacity: 0.25; cursor: default; }
+    .cv-dots { position: absolute; left: 0; right: 0; bottom: 12px; z-index: 3; display: flex; justify-content: center; gap: 7px; transition: opacity 0.25s; }
+    .cv-dots i { width: 8px; height: 8px; border-radius: 4px; background: var(--line-strong); transition: width 0.3s, background 0.3s; }
+    .cv-dots i.on { width: 22px; background: var(--accent); }
+    .cv-frame:not(.is-after) .cv-nav, .cv-frame:not(.is-after) .cv-dots { opacity: 0; pointer-events: none; }
+    .cv-toggle { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line-strong); width: min(100%, 260px); justify-self: center; }
+    .cv-toggle button { position: relative; z-index: 1; font: inherit; font-size: 14px; font-weight: 700; padding: 9px 0; border: 0; border-radius: 999px; background: none; color: var(--text-2); cursor: pointer; transition: color 0.25s; }
+    .cv-toggle button[aria-pressed="true"] { color: var(--btn-text); }
+    @media (max-width: 600px) { .cv-prod { gap: 5px; } .cv-prod button { font-size: 12.5px; padding: 7px 10px; } }
+    .cv-toggle .cv-thumb { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 999px; background: linear-gradient(135deg, var(--glow-text), var(--glow-solid)); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s; }
+    .cv-toggle.is-before .cv-thumb { background: #d92d2d; }
+    .cv-toggle.is-before button[aria-pressed="true"] { color: #fff; }
+    .cv-toggle.is-after .cv-thumb { transform: translateX(100%); }
+
     /* ===== Облегчённый режим: размытие стекла пересчитывается каждый кадр, пока под ним плывёт небо, —
        на телефоне это главная причина подтормаживаний. Без него стекло чуть плотнее, а всё остальное то же ===== */
     html.lite *, html.lite *::before, html.lite *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
@@ -1509,6 +1563,7 @@
       {
         id: "fadepoint-bot",
         tabLabel: "01 · Telegram-бот",
+        tabShort: "01 · Бот",
         num: "01",
         kicker: "Кейс 01 · Telegram-бот · 2026",
         title: 'FadePoint: <em class="grad-text">запись без звонков</em> и&nbsp;накладок',
@@ -1529,6 +1584,7 @@
       {
         id: "zerno-redesign",
         tabLabel: "02 · Редизайн сайта",
+        tabShort: "02 · Сайт",
         num: "02",
         kicker: "Кейс 02 · Как я работаю · пример",
         title: 'Кофейня «Зерно»: <em class="grad-text">от&nbsp;старого сайта</em> к&nbsp;заказам',
@@ -1543,6 +1599,31 @@
           dark: { src: "video/zerno-demo.mp4", poster: "video/zerno-demo-poster.jpg" },
           light: { src: "video/zerno-demo-light.mp4", poster: "video/zerno-demo-light-poster.jpg" },
           label: "Пример работы: старый сайт кофейни «Зерно» превращается в новый, 78 секунд"
+        }
+      },
+      {
+        id: "marketplace-cards",
+        tabLabel: "03 · Карточки товаров",
+        tabShort: "03 · Карточки",
+        num: "03",
+        kicker: "Кейс 03 · Карточки для маркетплейсов · пример",
+        title: 'Карточки, <em class="grad-text">мимо которых не&nbsp;пролистнуть</em>',
+        lead: "Покупатель решает за пару секунд, глядя на первое фото. Показываю на четырёх разных товарах, как фото «с телефона на ковре» превращается в карточку, которая сразу отвечает: что это, чем хорошо и подойдёт ли мне.",
+        roles: [
+          { name: "Было", tone: "bad", items: ["Тёмное фото на случайном фоне", "Непонятно, какой размер и из чего", "Описание капсом в одну строку"] },
+          { name: "Стало", tone: "owner", items: ["Главное фото, которое цепляет", "Преимущества, размеры и уход на слайдах", "Свой стиль у каждого бренда"] }
+        ],
+        stack: ["Wildberries", "Ozon", "Инфографика", "Ретушь"],
+        note: "// пример: товары и бренды условные",
+        // картинки: img/cards/<id>-0.jpg — «было», -1…-3 — слайды «стало» (исходники — Cowork/cards)
+        gallery: {
+          label: "Примеры карточек товаров для маркетплейсов: как было и как стало",
+          products: [
+            { id: "mug", name: "Кружка" },
+            { id: "coffee", name: "Кофе" },
+            { id: "sneakers", name: "Кроссовки" },
+            { id: "serum", name: "Сыворотка" }
+          ]
         }
       }
     ];
@@ -1569,7 +1650,7 @@
         btn.className = "tab-btn" + (index === currentActiveIndex ? " active" : "");
         btn.setAttribute("role", "tab");
         btn.setAttribute("aria-selected", String(index === currentActiveIndex));
-        btn.innerHTML = `<span class="dot"></span><span>${item.tabLabel}</span>`;
+        btn.innerHTML = `<span class="dot"></span><span class="tl-full">${item.tabLabel}</span><span class="tl-short">${item.tabShort || item.tabLabel}</span>`;
         btn.onclick = () => selectCase(index);
         tabs.appendChild(btn);
       });
@@ -1625,6 +1706,27 @@
           </div>
           <button class="sound-btn" type="button" id="soundBtn" aria-pressed="false" aria-label="Включить звук" data-tip="звук">${ICON_SOUND_OFF}${ICON_SOUND_ON}</button>
           <button class="sound-btn expand-btn" type="button" id="expandBtn" aria-label="Развернуть видео на весь экран со звуком" data-tip="развернуть">${ICON_EXPAND}</button>
+        </div>` : data.gallery ? `
+        <div class="case-media cards-view" id="cardsView" aria-label="${data.gallery.label}">
+          <div class="cv-prod" role="tablist" aria-label="Товар">
+            ${data.gallery.products.map((pr, i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-p="${i}">${pr.name}</button>`).join("")}
+          </div>
+          <div class="phone-glass cv-frame" id="cvFrame">
+            <div class="cv-stage" id="cvStage" data-cursor="drag">
+              <div class="cv-track" id="cvTrack"><img alt="" /><img alt="" /><img alt="" /></div>
+              <img class="cv-before" id="cvBefore" alt="" />
+              <span class="cv-scan" aria-hidden="true"></span>
+            </div>
+            <span class="cv-badge" id="cvBadge">было</span>
+            <button type="button" class="cv-nav prev" id="cvPrev" aria-label="Предыдущий слайд">‹</button>
+            <button type="button" class="cv-nav next" id="cvNext" aria-label="Следующий слайд">›</button>
+            <div class="cv-dots" id="cvDots" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+          <div class="cv-toggle is-before" id="cvToggle" role="group" aria-label="Как было или как стало">
+            <i class="cv-thumb" aria-hidden="true"></i>
+            <button type="button" data-v="before" aria-pressed="true">Было</button>
+            <button type="button" data-v="after" aria-pressed="false">Стало</button>
+          </div>
         </div>` : "";
 
       document.getElementById("sheetContainer").innerHTML = `
@@ -1650,6 +1752,8 @@
         </article>`;
 
       if (v) initCaseVideo();
+      else if (caseVideoWatch) caseVideoWatch.disconnect();
+      if (data.gallery) initCardsView(data.gallery);
 
       // появление: из вкладки, по которой нажали
       const caseEl = document.querySelector("#sheetContainer .case");
@@ -1662,6 +1766,90 @@
         ], { duration: 700, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
         fromTab.animate([{ transform: "scale(1)" }, { transform: "scale(0.92)" }, { transform: "scale(1)" }], { duration: 320, easing: "ease-out" });
       }
+    }
+
+    // ===== Кейс 03: листалка карточек — товар, «было / стало», слайды =====
+    // При первом показе и при смене товара сначала видно «было», через секунду полоса «пересобирает» карточку в «стало».
+    let cardsWatch = null;
+    function initCardsView(g) {
+      const root = document.getElementById("cardsView");
+      const stage = document.getElementById("cvStage"), frame = document.getElementById("cvFrame");
+      const track = document.getElementById("cvTrack"), before = document.getElementById("cvBefore");
+      const imgs = Array.from(track.querySelectorAll("img")), dots = Array.from(document.querySelectorAll("#cvDots i"));
+      const tabs = Array.from(root.querySelectorAll(".cv-prod button")), toggle = document.getElementById("cvToggle");
+      const badge = document.getElementById("cvBadge"), prev = document.getElementById("cvPrev"), next = document.getElementById("cvNext");
+      const src = (id, n) => `img/cards/${id}-${n}.jpg`;
+      let p = 0, slide = 0, after = false, autoTimer = null, seen = false;
+
+      const setAfter = (on, animate = true) => {
+        after = on;
+        stage.classList.toggle("after", on);
+        frame.classList.toggle("is-after", on);
+        toggle.classList.toggle("is-before", !on);
+        toggle.classList.toggle("is-after", on);
+        toggle.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.v === "after") === on)));
+        badge.textContent = on ? "стало" : "было";
+        if (animate && !reduceMotion) { stage.classList.add("moving"); setTimeout(() => stage.classList.remove("moving"), 850); }
+      };
+      const go = (n) => {
+        slide = Math.max(0, Math.min(imgs.length - 1, n));
+        track.style.transform = `translateX(${-slide * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle("on", i === slide));
+        prev.disabled = slide === 0;
+        next.disabled = slide === imgs.length - 1;
+      };
+      // показать товар: сначала «было», потом сама пересборка в «стало»
+      const show = (i, demo) => {
+        p = i;
+        const id = g.products[i].id;
+        tabs.forEach((t, k) => t.setAttribute("aria-selected", String(k === i)));
+        before.src = src(id, 0);
+        imgs.forEach((im, k) => { im.src = src(id, k + 1); im.alt = `${g.products[i].name}: карточка, слайд ${k + 1}`; });
+        before.alt = `${g.products[i].name}: как было`;
+        go(0);
+        clearTimeout(autoTimer);
+        setAfter(false, false);
+        if (demo) autoTimer = setTimeout(() => setAfter(true), reduceMotion ? 0 : 1100);
+        // заранее подгружаем следующий товар, чтобы переключение было мгновенным
+        const nx = g.products[(i + 1) % g.products.length].id;
+        [0, 1, 2, 3].forEach((n) => { const im = new Image(); im.src = src(nx, n); });
+      };
+
+      tabs.forEach((t, i) => t.addEventListener("click", () => show(i, true)));
+      toggle.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { clearTimeout(autoTimer); setAfter(b.dataset.v === "after"); }));
+      prev.addEventListener("click", () => go(slide - 1));
+      next.addEventListener("click", () => go(slide + 1));
+      root.addEventListener("keydown", (e) => {
+        if (!after) return;
+        if (e.key === "ArrowLeft") go(slide - 1);
+        if (e.key === "ArrowRight") go(slide + 1);
+      });
+
+      // свайп пальцем или мышкой: влево/вправо — листать; в режиме «было» свайп показывает «стало»
+      let x0 = null, y0 = 0, dx = 0;
+      stage.addEventListener("pointerdown", (e) => { x0 = e.clientX; y0 = e.clientY; dx = 0; });
+      stage.addEventListener("pointermove", (e) => { if (x0 !== null) dx = e.clientX - x0; });
+      const end = (e) => {
+        if (x0 === null) return;
+        const dy = Math.abs(e.clientY - y0);
+        x0 = null;
+        if (Math.abs(dx) < 40 || dy > Math.abs(dx)) return;
+        if (!after) { clearTimeout(autoTimer); setAfter(true); return; }
+        go(slide + (dx < 0 ? 1 : -1));
+      };
+      stage.addEventListener("pointerup", end);
+      stage.addEventListener("pointercancel", () => { x0 = null; });
+      stage.addEventListener("click", () => { if (!after && Math.abs(dx) < 5) { clearTimeout(autoTimer); setAfter(true); } });
+
+      // картинки первого товара ставим сразу, а «пересборку» запускаем, когда листалку видно
+      show(0, false);
+      if (cardsWatch) cardsWatch.disconnect();
+      if ("IntersectionObserver" in window && !reduceMotion) {
+        cardsWatch = new IntersectionObserver(([e]) => {
+          if (e.isIntersecting && !seen) { seen = true; autoTimer = setTimeout(() => setAfter(true), 900); }
+        }, { threshold: 0.5 });
+        cardsWatch.observe(stage);
+      } else setAfter(true, false);
     }
 
     let caseVideoWatch = null;
@@ -2100,10 +2288,10 @@
         root.classList.remove("cursor-out");
         const t = e.target;
         const video = t.closest && t.closest('[data-cursor="video"]');
-        const opener = !video && t.closest && t.closest('[data-cursor="open"]');
+        const opener = !video && t.closest && t.closest('[data-cursor="open"], [data-cursor="drag"]');
         const isLink = !video && !opener && !!(t.closest && t.closest('a, button, [role="button"], .tab-btn, .glow, .services .chip'));
         if (video) label.textContent = video.muted ? "🔊 звук" : "🔇 тише";
-        else if (opener) label.textContent = "открыть ↗";
+        else if (opener) label.textContent = opener.dataset.cursor === "drag" ? "← листать →" : "открыть ↗";
         root.classList.toggle("cursor-video", !!(video || opener));
         root.classList.toggle("cursor-hover", isLink);
       });
