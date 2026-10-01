@@ -808,14 +808,18 @@
     .tab-btn .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); }
     .tab-btn.active { color: var(--text); border-color: var(--accent); }
     .tab-btn.active .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
-    .tab-btn .tl-short { display: none; }
-    /* на узком экране — короткие подписи, чтобы все вкладки было видно сразу */
-    @media (max-width: 600px) {
-      .tab-btn { font-size: 12px; padding: 9px 12px; gap: 7px; }
-      .tab-btn .tl-full { display: none; }
-      .tab-btn .tl-short { display: inline; }
+    /* если вкладки не помещаются — ряд листается вбок, край плавно гаснет, справа подсказка «листай →» */
+    .tabs-wrap { position: relative; }
+    .tabs { scroll-snap-type: x proximity; }
+    .tab-btn { scroll-snap-align: start; }
+    .tabs-wrap.more .tabs { -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent); mask-image: linear-gradient(90deg, #000 72%, transparent); }
+    .tabs-hint {
+      position: absolute; right: 0; top: 4px; height: 32px; display: flex; align-items: center; padding: 0 12px; border-radius: 999px; pointer-events: none;
+      font-family: "Caveat", cursive; font-weight: 700; font-size: 20px; color: var(--accent); background: var(--panel-strong); border: 1px solid var(--line-strong);
+      box-shadow: 0 6px 16px -6px var(--shadow); opacity: 0; transition: opacity 0.4s;
     }
-    @media (max-width: 400px) { .tabs { gap: 6px; } .tab-btn .dot { display: none; } }
+    .tabs-wrap.more .tabs-hint { opacity: 1; animation: hintNudge 1.6s ease-in-out infinite; }
+    @keyframes hintNudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
 
     .case { position: relative; overflow: hidden; border-radius: var(--r-lg); padding: 48px; background: var(--case-bg); border: 1px solid var(--line); box-shadow: 0 40px 80px -30px var(--shadow); backdrop-filter: blur(16px); animation: casePull 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
     @keyframes casePull { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
@@ -1111,6 +1115,7 @@
     .cv-before { position: absolute; inset: 0; clip-path: inset(0 0 0 0); transition: clip-path 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
     .cv-scan { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; margin-left: -1.5px; background: var(--glow-text); box-shadow: 0 0 18px 4px var(--glow-soft); opacity: 0; transition: left 0.8s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.3s; pointer-events: none; }
     .cv-stage.after .cv-before { clip-path: inset(0 0 0 100%); }
+    .cv-stage.instant .cv-before, .cv-stage.instant .cv-scan, .cv-stage.instant .cv-track { transition: none !important; }
     .cv-stage.after .cv-scan { left: 100%; }
     .cv-stage.moving .cv-scan { opacity: 1; }
     .cv-badge {
@@ -1426,7 +1431,10 @@
           </div>
           <div class="counter" id="activeCounter">01 / 01</div>
         </div>
-        <div class="tabs" id="folderTabs" role="tablist" aria-label="Кейсы"></div>
+        <div class="tabs-wrap" id="tabsWrap">
+          <div class="tabs" id="folderTabs" role="tablist" aria-label="Кейсы"></div>
+          <span class="tabs-hint" aria-hidden="true">листай →</span>
+        </div>
         <div id="sheetContainer"></div>
       </div>
     </section>
@@ -1563,7 +1571,6 @@
       {
         id: "fadepoint-bot",
         tabLabel: "01 · Telegram-бот",
-        tabShort: "01 · Бот",
         num: "01",
         kicker: "Кейс 01 · Telegram-бот · 2026",
         title: 'FadePoint: <em class="grad-text">запись без звонков</em> и&nbsp;накладок',
@@ -1584,7 +1591,6 @@
       {
         id: "zerno-redesign",
         tabLabel: "02 · Редизайн сайта",
-        tabShort: "02 · Сайт",
         num: "02",
         kicker: "Кейс 02 · Как я работаю · пример",
         title: 'Кофейня «Зерно»: <em class="grad-text">от&nbsp;старого сайта</em> к&nbsp;заказам',
@@ -1604,7 +1610,6 @@
       {
         id: "marketplace-cards",
         tabLabel: "03 · Карточки товаров",
-        tabShort: "03 · Карточки",
         num: "03",
         kicker: "Кейс 03 · Карточки для маркетплейсов · пример",
         title: 'Карточки, <em class="grad-text">мимо которых не&nbsp;пролистнуть</em>',
@@ -1650,48 +1655,58 @@
         btn.className = "tab-btn" + (index === currentActiveIndex ? " active" : "");
         btn.setAttribute("role", "tab");
         btn.setAttribute("aria-selected", String(index === currentActiveIndex));
-        btn.innerHTML = `<span class="dot"></span><span class="tl-full">${item.tabLabel}</span><span class="tl-short">${item.tabShort || item.tabLabel}</span>`;
+        btn.innerHTML = `<span class="dot"></span><span>${item.tabLabel}</span>`;
         btn.onclick = () => selectCase(index);
         tabs.appendChild(btn);
       });
+      // подсказка «листай →» видна, пока справа есть спрятанные вкладки
+      const wrap = document.getElementById("tabsWrap");
+      const more = () => wrap.classList.toggle("more", tabs.scrollWidth - tabs.clientWidth - tabs.scrollLeft > 8);
+      tabs.addEventListener("scroll", more, { passive: true });
+      addEventListener("resize", more);
+      if (document.fonts) document.fonts.ready.then(more);
+      more();
       renderCurrentSheet();
+      // обложки видео подгружаем заранее — при смене кейса не будет чёрного квадрата на месте видео
+      setTimeout(() => CASES_DATA.forEach((c) => { if (c.video) { const im = new Image(); im.src = c.video[isLight() ? "light" : "dark"].poster; } }), 3000);
     }
 
-    // Кейс «вылезает» из своей вкладки, как карточка из папки, а прежний сворачивается обратно в свою
+    // Смена кейса: прежний мягко гаснет, новый «выезжает» вниз из-под вкладок, как лист из папки
     let caseSwitching = false;
-    const tabShape = (caseEl, tab) => {
-      const c = caseEl.getBoundingClientRect(), t = tab.getBoundingClientRect();
-      const left = Math.max(0, t.left - c.left), right = Math.max(0, c.right - t.right);
-      const bottom = Math.max(0, c.height - t.height);
-      return { clipPath: `inset(0px ${right}px ${bottom}px ${left}px round 999px)`, transform: `translateY(${t.top - c.top}px)` };
-    };
     function selectCase(index) {
       if (currentActiveIndex === index || caseSwitching) return;
       const tabs = document.querySelectorAll(".tab-btn");
-      const oldCase = document.querySelector("#sheetContainer .case");
-      const oldTab = tabs[currentActiveIndex], newTab = tabs[index];
+      const box = document.getElementById("sheetContainer");
+      const oldCase = box.querySelector(".case");
+      const newTab = tabs[index];
       tabs.forEach((tab, i) => {
         tab.classList.toggle("active", i === index);
         tab.setAttribute("aria-selected", String(i === index));
       });
-      const open = () => { currentActiveIndex = index; renderCurrentSheet(newTab); caseSwitching = false; };
+      // выбранная вкладка целиком на экране (если ряд пролистан)
+      const row = document.getElementById("folderTabs");
+      const tl = newTab.offsetLeft - row.offsetLeft, tr = tl + newTab.offsetWidth;
+      if (tl < row.scrollLeft || tr > row.scrollLeft + row.clientWidth) row.scrollTo({ left: tl - 16, behavior: reduceMotion ? "auto" : "smooth" });
+      if (newTab.animate && !reduceMotion) newTab.animate([{ transform: "scale(1)" }, { transform: "scale(0.93)" }, { transform: "scale(1)" }], { duration: 300, easing: "ease-out" });
+      const open = () => { currentActiveIndex = index; renderCurrentSheet(true); caseSwitching = false; };
       if (!oldCase || reduceMotion || !oldCase.animate) { open(); return; }
       caseSwitching = true;
+      box.style.height = box.offsetHeight + "px"; // высота держится, пока кейсы меняются, — страница не прыгает
       oldCase.style.animation = "none";
-      const to = tabShape(oldCase, oldTab);
-      const anim = oldCase.animate([
-        { clipPath: "inset(0px 0px 0px 0px round 28px)", transform: "translateY(0px)", opacity: 1 },
-        { ...to, opacity: 0.3 }
-      ], { duration: 320, easing: "cubic-bezier(0.55, 0, 0.75, 0.2)", fill: "forwards" });
-      anim.onfinish = open;
+      oldCase.animate([
+        { opacity: 1, transform: "translateY(0px) scale(1)" },
+        { opacity: 0, transform: "translateY(14px) scale(0.985)" }
+      ], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = open;
     }
 
     const ICON_SOUND_OFF = '<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>';
     const ICON_EXPAND = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
     const ICON_SOUND_ON = '<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>';
 
-    function renderCurrentSheet(fromTab) {
+    function renderCurrentSheet(animate) {
       const data = CASES_DATA[currentActiveIndex];
+      const box = document.getElementById("sheetContainer");
+      const oldH = box.offsetHeight;
       const pad = (n) => String(n).padStart(2, "0");
       document.getElementById("activeCounter").textContent = `${pad(currentActiveIndex + 1)} / ${pad(CASES_DATA.length)}`;
       const v = data.video && data.video[isLight() ? "light" : "dark"];
@@ -1755,17 +1770,19 @@
       else if (caseVideoWatch) caseVideoWatch.disconnect();
       if (data.gallery) initCardsView(data.gallery);
 
-      // появление: из вкладки, по которой нажали
-      const caseEl = document.querySelector("#sheetContainer .case");
-      if (fromTab && caseEl && caseEl.animate && !reduceMotion) {
+      // появление: новый кейс выезжает вниз из-под вкладок, а высота блока плавно подстраивается под него
+      const caseEl = box.querySelector(".case");
+      if (animate && caseEl && caseEl.animate && !reduceMotion) {
         caseEl.style.animation = "none";
-        const from = tabShape(caseEl, fromTab);
+        const ease = "cubic-bezier(0.22, 1, 0.36, 1)", dur = 650;
         caseEl.animate([
-          { ...from, opacity: 0.4 },
-          { clipPath: "inset(0px 0px 0px 0px round 28px)", transform: "translateY(0px)", opacity: 1 }
-        ], { duration: 700, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
-        fromTab.animate([{ transform: "scale(1)" }, { transform: "scale(0.92)" }, { transform: "scale(1)" }], { duration: 320, easing: "ease-out" });
-      }
+          { clipPath: "inset(0px 0px 100% 0px round 28px)", transform: "translateY(-26px)", opacity: 0.5 },
+          { clipPath: "inset(0px 0px 0% 0px round 28px)", transform: "translateY(0px)", opacity: 1 }
+        ], { duration: dur, easing: ease });
+        const newH = caseEl.offsetHeight;
+        box.animate([{ height: oldH + "px" }, { height: newH + "px" }], { duration: dur, easing: ease }).onfinish = () => { box.style.height = ""; };
+        box.style.height = newH + "px";
+      } else box.style.height = "";
     }
 
     // ===== Кейс 03: листалка карточек — товар, «было / стало», слайды =====
@@ -1779,7 +1796,8 @@
       const tabs = Array.from(root.querySelectorAll(".cv-prod button")), toggle = document.getElementById("cvToggle");
       const badge = document.getElementById("cvBadge"), prev = document.getElementById("cvPrev"), next = document.getElementById("cvNext");
       const src = (id, n) => `img/cards/${id}-${n}.jpg`;
-      let p = 0, slide = 0, after = false, autoTimer = null, seen = false;
+      let p = 0, slide = 0, after = false, autoTimer = null, seen = false, token = 0;
+      const HOLD = 2200; // столько «было» стоит на экране, прежде чем карточка пересоберётся
 
       const setAfter = (on, animate = true) => {
         after = on;
@@ -1798,21 +1816,31 @@
         prev.disabled = slide === 0;
         next.disabled = slide === imgs.length - 1;
       };
-      // показать товар: сначала «было», потом сама пересборка в «стало»
-      const show = (i, demo) => {
+      // показать товар: сначала спокойно стоит «было», потом полоса пересобирает его в «стало»
+      const load = (url) => { const im = new Image(); im.src = url; return (im.decode ? im.decode() : Promise.resolve()).catch(() => {}).then(() => url); };
+      const show = async (i, demo) => {
+        const my = ++token;
         p = i;
         const id = g.products[i].id;
         tabs.forEach((t, k) => t.setAttribute("aria-selected", String(k === i)));
-        before.src = src(id, 0);
-        imgs.forEach((im, k) => { im.src = src(id, k + 1); im.alt = `${g.products[i].name}: карточка, слайд ${k + 1}`; });
-        before.alt = `${g.products[i].name}: как было`;
-        go(0);
         clearTimeout(autoTimer);
+        await load(src(id, 0)); // пока грузится «было» нового товара, на экране остаётся прежняя картинка
+        if (my !== token) return;
+        stage.classList.add("instant"); // мгновенно, без полосы: сразу «было» нового товара
         setAfter(false, false);
-        if (demo) autoTimer = setTimeout(() => setAfter(true), reduceMotion ? 0 : 1100);
+        before.src = src(id, 0);
+        before.alt = `${g.products[i].name}: как было`;
+        imgs.forEach((im, k) => { im.src = src(id, k + 1); im.alt = `${g.products[i].name}: карточка, слайд ${k + 1}`; });
+        go(0);
+        void stage.offsetWidth;
+        stage.classList.remove("instant");
+        if (demo) autoTimer = setTimeout(async () => {
+          await load(src(id, 1));
+          if (my === token && !after) setAfter(true);
+        }, reduceMotion ? 0 : HOLD);
         // заранее подгружаем следующий товар, чтобы переключение было мгновенным
         const nx = g.products[(i + 1) % g.products.length].id;
-        [0, 1, 2, 3].forEach((n) => { const im = new Image(); im.src = src(nx, n); });
+        [0, 1, 2, 3].forEach((n) => load(src(nx, n)));
       };
 
       tabs.forEach((t, i) => t.addEventListener("click", () => show(i, true)));
@@ -1846,7 +1874,7 @@
       if (cardsWatch) cardsWatch.disconnect();
       if ("IntersectionObserver" in window && !reduceMotion) {
         cardsWatch = new IntersectionObserver(([e]) => {
-          if (e.isIntersecting && !seen) { seen = true; autoTimer = setTimeout(() => setAfter(true), 900); }
+          if (e.isIntersecting && !seen) { seen = true; autoTimer = setTimeout(() => { if (!after) setAfter(true); }, HOLD); }
         }, { threshold: 0.5 });
         cardsWatch.observe(stage);
       } else setAfter(true, false);
