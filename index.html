@@ -562,13 +562,22 @@
     .phone-hint { display: none; position: absolute; left: 3%; top: calc(100% + 30px); z-index: 3; align-items: flex-start; gap: 2px; pointer-events: none; color: var(--accent); animation: hintBob 2.6s ease-in-out infinite; transition: opacity 0.5s ease; }
     .phone-hint .th-text { font-size: 23px; line-height: 1.05; }
     .phone-hint svg { width: 66px; height: 44px; margin-top: 14px; }
+    .phone-hint .th-text > span { display: block; position: relative; }
+    .phone-hint path { stroke-dasharray: 90; stroke-dashoffset: 90; transition: stroke-dashoffset 0.8s ease; }
+    .phone-hint.drawn path, html:not(.js) .phone-hint path { stroke-dashoffset: 0; }
     .phone-hint.seen { opacity: 0; }
     .phone-wrap.zoomable { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     /* открытый телефон: крутится вокруг своей оси и встаёт по центру, в нём идёт ролик */
-    .ad-overlay { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; perspective: 1400px; background: rgba(5, 5, 8, 0.74); opacity: 0; transition: opacity 0.45s ease; }
-    html[data-theme="light"] .ad-overlay { background: rgba(244, 241, 236, 0.8); }
+    .ad-overlay { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; perspective: 1400px; }
     .ad-overlay[hidden] { display: none; }
-    .ad-overlay.open { opacity: 1; }
+    /* затемнение отдельно от телефона: при закрытии гаснет только фон, а телефон докручивается до своего места */
+    .ad-overlay::before { content: ""; position: absolute; inset: 0; background: rgba(5, 5, 8, 0.8); opacity: 0; transition: opacity 0.5s ease; }
+    html[data-theme="light"] .ad-overlay::before { background: rgba(244, 241, 236, 0.86); }
+    .ad-overlay.open::before { opacity: 1; }
+    .ad-close, .ad-tip { opacity: 0; transition: opacity 0.3s ease; }
+    .ad-overlay.open .ad-close, .ad-overlay.open .ad-tip { opacity: 1; transition-delay: 0.35s; }
+    header { transition: opacity 0.35s ease; }
+    html.ad-open header { opacity: 0; pointer-events: none; } /* шапка прячется, чтобы крестик не путался с кнопкой темы */
     .ad-fly { position: relative; width: min(74vw, calc(76vh * 9 / 19)); width: min(74vw, calc(76svh * 9 / 19)); aspect-ratio: 9 / 19; transform-style: preserve-3d; }
     @media (min-width: 701px) { .ad-fly { width: calc(88vh * 9 / 19); width: calc(88svh * 9 / 19); } }
     .ad-fly .phone { position: absolute; inset: 0; transform: none !important; transition: none; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
@@ -580,9 +589,11 @@
     .ad-back::before { content: ""; position: absolute; left: 8%; top: 4%; width: 36%; aspect-ratio: 1; border-radius: 28%; background: rgba(0, 0, 0, 0.32); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); }
     .ad-back svg { width: 30%; aspect-ratio: 1; }
     .ad-close {
-      position: fixed; top: 14px; right: 14px; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
-      color: var(--text); background: var(--panel-strong); border: 1px solid var(--line-strong); font-size: 20px;
+      position: fixed; top: 16px; right: 16px; z-index: 2; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+      color: #140c06; background: linear-gradient(135deg, var(--glow-text), var(--glow-solid)); border: 0;
+      box-shadow: 0 10px 26px -6px var(--glow-soft), 0 0 0 4px color-mix(in srgb, var(--glow-solid) 22%, transparent);
     }
+    .ad-close svg { width: 22px; height: 22px; }
     .ad-tip { position: fixed; left: 0; right: 0; bottom: 16px; z-index: 1; text-align: center; font-family: "Caveat", cursive; font-weight: 600; font-size: 22px; color: var(--text-2); pointer-events: none; }
     html.ad-open, html.ad-open body { overflow: hidden; }
 
@@ -1120,7 +1131,7 @@
         </div>
       </div>
       <span class="phone-hint" id="phoneHint" aria-hidden="true">
-        <span class="th-text">нажми на&nbsp;телефон&nbsp;—<br>там реклама</span>
+        <span class="th-text"><span data-type="hint" id="hintL1">нажми на&nbsp;телефон&nbsp;—</span><span data-type="hint" id="hintL2">там реклама</span></span>
         <svg viewBox="0 0 70 46" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26C20 8 42 6 62 18"/><path d="M50 9l13 9-13 7"/></svg>
       </span>
     </div>
@@ -1334,7 +1345,7 @@
 
   <!-- Телефон с рекламой, открытый крупно (на мобильных) -->
   <div class="ad-overlay" id="adOverlay" hidden>
-    <button class="ad-close" id="adClose" type="button" aria-label="Закрыть">✕</button>
+    <button class="ad-close" id="adClose" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     <div class="ad-fly" id="adFly"></div>
     <div class="ad-tip">нажми, чтобы закрыть</div>
   </div>
@@ -1583,6 +1594,7 @@
         laptop.classList.add("open", "on");
         syncPhoneAd(); // без движения — только картинка-постер
         initTyping();
+        typePhoneHint();
         return;
       }
       requestAnimationFrame(() => hero.classList.add("shown"));
@@ -1590,6 +1602,7 @@
       setTimeout(() => hero.classList.add("phone-in"), 550);
       setTimeout(() => laptop.classList.add("on"), 1350);
       setTimeout(() => initTyping().then(startPhoneAd), 1900);
+      setTimeout(typePhoneHint, 2100); // подсказка у телефона печатается вместе с заголовком на ноутбуке
 
       // Лёгкий наклон сцены за мышкой
       const stage = document.getElementById("stage");
@@ -1601,6 +1614,17 @@
         });
         hero.addEventListener("pointerleave", () => { stage.style.setProperty("--px", 0); stage.style.setProperty("--py", 0); });
       }
+    }
+
+    // Подсказка «нажми на телефон — там реклама»: печатается по строчкам, потом рисуется стрелка к телефону
+    function typePhoneHint() {
+      const hint = document.getElementById("phoneHint");
+      const l1 = document.getElementById("hintL1"), l2 = document.getElementById("hintL2");
+      const caretOff = (el) => el.querySelector(".tw-caret")?.classList.add("off");
+      typeText(l1, 45).then(caretOff).then(() => typeText(l2, 45)).then(() => {
+        setTimeout(() => caretOff(l2), 700);
+        hint.classList.add("drawn");
+      });
     }
 
     // Реклама в телефоне: когда на ноутбуке допечатался заголовок, заставка с эмблемой уходит и идёт ролик.
