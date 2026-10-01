@@ -45,7 +45,7 @@
       --text-3: #8f8a84;
       --amber: #fcd34d;
       --mint: #3ee08f;
-      --header-bg: rgba(10, 10, 12, 0.6);
+      --header-bg: rgba(10, 10, 12, 0.6); --hdr-dot: rgba(255, 255, 255, 0.22);
       --shadow: rgba(0, 0, 0, 0.6);
       --outline-num: rgba(255, 255, 255, 0.08);
       --font-display: "Unbounded", system-ui, sans-serif;
@@ -82,7 +82,7 @@
       --text-3: #6f6860;
       --amber: #b45309;
       --mint: #059669;
-      --header-bg: rgba(244, 241, 236, 0.72);
+      --header-bg: rgba(244, 241, 236, 0.72); --hdr-dot: rgba(70, 50, 30, 0.22);
       --shadow: rgba(60, 40, 20, 0.16);
       --outline-num: rgba(30, 24, 18, 0.07);
       --os-bg: rgba(250, 247, 243, 0.7);
@@ -221,13 +221,28 @@
     .glow:hover::after { opacity: 1; }
     .glow:hover { border-color: var(--line-strong); }
 
-    /* ===== ШАПКА ===== */
-    header {
-      position: sticky; top: 0; z-index: 100; background: var(--header-bg);
+    /* ===== ШАПКА: парящая стеклянная панель — «звёздная пыль» по краям и бегущий блик снизу ===== */
+    header { position: sticky; top: 0; z-index: 100; padding: 10px 20px 0; pointer-events: none; }
+    header::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 70%; z-index: -1; pointer-events: none; background: linear-gradient(color-mix(in srgb, var(--bg) 92%, transparent), transparent); }
+    .header-inner {
+      position: relative; isolation: isolate; overflow: hidden; pointer-events: auto;
+      max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;
+      padding: 9px 13px; border-radius: 22px;
+      background: radial-gradient(34% 130% at 50% 0%, var(--glow-key), transparent 72%), var(--header-bg);
       backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2);
-      border-bottom: 1px solid var(--line);
+      border: 1px solid var(--line); box-shadow: 0 16px 36px -20px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
-    .header-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 13px 24px; }
+    .header-inner::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background-image: radial-gradient(circle, var(--hdr-dot) 0 1px, transparent 1.6px), radial-gradient(circle, var(--hdr-dot) 0 0.7px, transparent 1.2px);
+      background-size: 26px 26px, 17px 17px; background-position: 5px 7px, 14px 12px;
+      -webkit-mask: linear-gradient(90deg, #000, transparent 34%, transparent 66%, #000); mask: linear-gradient(90deg, #000, transparent 34%, transparent 66%, #000);
+    }
+    .header-inner::after {
+      content: ""; position: absolute; left: -30%; bottom: 0; width: 30%; height: 1px; pointer-events: none;
+      background: linear-gradient(90deg, transparent, var(--glow-text), transparent); animation: hdrSweep 9s linear infinite;
+    }
+    @keyframes hdrSweep { from { transform: translateX(0); } to { transform: translateX(434%); } }
     .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .logo-badge {
       width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
@@ -238,10 +253,18 @@
     .logo:hover .logo-mark { transform: rotate(-8deg) scale(1.06); }
     .logo-name { font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: 0.02em; }
     .logo-sub { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); }
-    .nav { display: flex; gap: 6px; }
-    .nav a { text-decoration: none; font-size: 14.5px; font-weight: 500; color: var(--text-2); padding: 8px 12px; border-radius: 999px; transition: color 0.25s, background 0.25s; }
-    .nav a:hover { color: var(--text); background: var(--panel); }
-    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .header-inner .logo { justify-self: start; }
+    /* меню — капсула по центру; подсветка переезжает на пункт под курсором и на раздел, который сейчас на экране */
+    .nav { position: relative; display: flex; gap: 2px; padding: 4px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line-strong); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); }
+    .nav a { position: relative; z-index: 1; display: block; text-decoration: none; font-size: 14.5px; font-weight: 600; color: var(--text-2); padding: 8px 18px; border-radius: 999px; transition: color 0.25s; }
+    .nav a:hover, .nav a.on { color: var(--text); }
+    .nav-ind {
+      position: absolute; z-index: 0; left: 0; top: 4px; bottom: 4px; width: 0; border-radius: 999px; pointer-events: none; opacity: 0;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--glow-solid) 28%, transparent), color-mix(in srgb, var(--glow-solid) 8%, transparent));
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--glow-solid) 50%, transparent), 0 0 18px -4px var(--glow-soft);
+      transition: transform 0.45s cubic-bezier(0.2, 1, 0.3, 1), width 0.45s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
+    }
+    .header-actions { justify-self: end; display: flex; align-items: center; gap: 10px; }
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
     .theme-toggle {
       width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; cursor: pointer; display: inline-grid; place-items: center;
@@ -534,6 +557,33 @@
     .hero-typed .laptop .win-robot { opacity: 1; transform: none; transition-delay: 0.1s; }
     .phone-wrap { transition: opacity 0.9s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
     .js .hero:not(.phone-in) .phone-wrap { opacity: 0; transform: translateY(-40%) translateX(40px); }
+
+    /* На мобильных телефон с рекламой можно открыть крупно: подсказка со стрелкой под ноутбуком */
+    .phone-hint { display: none; position: absolute; left: 3%; top: calc(100% + 30px); z-index: 3; align-items: flex-start; gap: 2px; pointer-events: none; color: var(--accent); animation: hintBob 2.6s ease-in-out infinite; transition: opacity 0.5s ease; }
+    .phone-hint .th-text { font-size: 23px; line-height: 1.05; }
+    .phone-hint svg { width: 66px; height: 44px; margin-top: 14px; }
+    .phone-hint.seen { opacity: 0; }
+    .phone-wrap.zoomable { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    /* открытый телефон: крутится вокруг своей оси и встаёт по центру, в нём идёт ролик */
+    .ad-overlay { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; perspective: 1400px; background: rgba(5, 5, 8, 0.74); opacity: 0; transition: opacity 0.45s ease; }
+    html[data-theme="light"] .ad-overlay { background: rgba(244, 241, 236, 0.8); }
+    .ad-overlay[hidden] { display: none; }
+    .ad-overlay.open { opacity: 1; }
+    .ad-fly { position: relative; width: min(74vw, calc(76vh * 9 / 19)); width: min(74vw, calc(76svh * 9 / 19)); aspect-ratio: 9 / 19; transform-style: preserve-3d; }
+    .ad-fly .phone { position: absolute; inset: 0; transform: none !important; transition: none; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .ad-back {
+      position: absolute; inset: 0; border-radius: 16%/7.5%; transform: rotateY(180deg); backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      display: grid; place-items: center; background: linear-gradient(160deg, #3a3b41, #111114); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+    }
+    html[data-theme="light"] .ad-back { background: linear-gradient(160deg, #e9e7e3, #bdbab5); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08) inset; }
+    .ad-back::before { content: ""; position: absolute; left: 8%; top: 4%; width: 36%; aspect-ratio: 1; border-radius: 28%; background: rgba(0, 0, 0, 0.32); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); }
+    .ad-back svg { width: 30%; aspect-ratio: 1; }
+    .ad-close {
+      position: fixed; top: 14px; right: 14px; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+      color: var(--text); background: var(--panel-strong); border: 1px solid var(--line-strong); font-size: 20px;
+    }
+    .ad-tip { position: fixed; left: 0; right: 0; bottom: 16px; text-align: center; font-family: "Caveat", cursive; font-weight: 600; font-size: 22px; color: var(--text-2); pointer-events: none; }
+    html.ad-open, html.ad-open body { overflow: hidden; }
 
     /* Под сценой: услуги */
     .hero-under { position: relative; z-index: 2; margin-top: calc(var(--lw) * 0.08 + 32px); display: flex; justify-content: center; }
@@ -874,6 +924,7 @@
     }
     @media (max-width: 980px) {
       .nav { display: none; }
+      .header-inner { grid-template-columns: 1fr auto; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .flip { max-width: 380px; width: 100%; margin: 0 auto; }
       .features { grid-template-columns: 1fr; }
@@ -885,6 +936,7 @@
       .brandmark { font-size: 19vw; top: 14px; }
       .phone-wrap { width: calc(var(--lw) * 0.31); bottom: calc(var(--lw) * -0.37); }
       .hero-under { margin-top: calc(var(--lw) * 0.4 + 22px); }
+      .phone-hint { display: flex; }
       .services-label { flex-basis: 100%; margin: 0 0 2px; }
       .win-robot, .menubar a, .dock, .menubar .on { display: none; }
       .win-main { left: 4%; right: 4%; width: auto; top: 14%; bottom: 7%; }
@@ -906,7 +958,8 @@
     }
     @media (max-width: 600px) {
       .container { padding: 0 16px; }
-      .header-inner { padding: 12px 16px; gap: 10px; }
+      header { padding: 8px 10px 0; }
+      .header-inner { padding: 8px 10px 8px 12px; gap: 10px; border-radius: 18px; }
       .logo-sub { display: none; }
       .logo-badge { width: 38px; height: 38px; font-size: 13px; }
       .logo-mark { width: 38px; height: 38px; }
@@ -922,7 +975,7 @@
       .soon-pill { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .p-emblem, .p-emblem::before, .p-load i, .services .chip::before, .tap-hint, .tap-hint path, .services .chip > span,
+      .p-emblem, .p-emblem::before, .p-load i, .services .chip::before, .tap-hint, .tap-hint path, .phone-hint, .header-inner::after, .services .chip > span,
       .case, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space, .bg-sky { animation: none; }
       .shoot { display: none; }
       .ft-more, .ft-body, .plus, .feature::before { transition: none; }
@@ -1051,7 +1104,7 @@
         </div>
       </div>
 
-      <!-- Телефон: реклама CHESH — что я делаю (ролик 31 с, по кругу) -->
+      <!-- Телефон: реклама CHESH — что я делаю (ролик 32 с, по кругу; на мобильных открывается крупно) -->
       <div class="phone-wrap" aria-hidden="true">
         <div class="phone">
           <div class="p-screen">
@@ -1064,6 +1117,10 @@
           </div>
         </div>
       </div>
+      <span class="phone-hint" id="phoneHint" aria-hidden="true">
+        <span class="th-text">нажми на&nbsp;телефон&nbsp;—<br>там реклама</span>
+        <svg viewBox="0 0 70 46" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26C20 8 42 6 62 18"/><path d="M50 9l13 9-13 7"/></svg>
+      </span>
     </div>
 
     <div class="container hero-under">
@@ -1272,6 +1329,13 @@
 
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"><span class="cursor-label">звук</span></div>
+
+  <!-- Телефон с рекламой, открытый крупно (на мобильных) -->
+  <div class="ad-overlay" id="adOverlay" hidden>
+    <button class="ad-close" id="adClose" type="button" aria-label="Закрыть">✕</button>
+    <div class="ad-fly" id="adFly"></div>
+    <div class="ad-tip">нажми, чтобы закрыть</div>
+  </div>
 
   <script>
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1862,6 +1926,133 @@
       }
     }
 
+    // ===== Меню в шапке: подсветка-капсула =====
+    function initNav() {
+      const nav = document.querySelector(".nav");
+      if (!nav) return;
+      const links = Array.from(nav.querySelectorAll("a"));
+      const sections = links.map((a) => document.querySelector(a.getAttribute("href")));
+      const ind = document.createElement("span");
+      ind.className = "nav-ind";
+      ind.setAttribute("aria-hidden", "true");
+      nav.prepend(ind);
+      let current = null;
+      const moveTo = (a) => {
+        if (!a) { ind.style.opacity = 0; return; }
+        if (ind.style.opacity !== "1") ind.style.transition = "opacity 0.3s ease"; // первый раз — без «приезда» слева
+        ind.style.width = a.offsetWidth + "px";
+        ind.style.transform = `translateX(${a.offsetLeft}px)`;
+        ind.style.opacity = 1;
+        requestAnimationFrame(() => (ind.style.transition = ""));
+      };
+      links.forEach((a) => a.addEventListener("mouseenter", () => moveTo(a)));
+      nav.addEventListener("mouseleave", () => moveTo(current));
+      const update = () => {
+        const y = innerHeight * 0.4;
+        let found = null;
+        sections.forEach((sec, i) => { if (!sec) return; const r = sec.getBoundingClientRect(); if (r.top <= y && r.bottom > y) found = links[i]; });
+        if (found === current) return;
+        current = found;
+        links.forEach((a) => a.classList.toggle("on", a === found));
+        if (!nav.matches(":hover")) moveTo(found);
+      };
+      addEventListener("scroll", update, { passive: true });
+      addEventListener("resize", () => moveTo(current));
+      if (document.fonts) document.fonts.ready.then(() => moveTo(current));
+      update();
+    }
+
+    // ===== Мобильные: нажал на телефон — он крутится вокруг своей оси и встаёт по центру, в нём идёт ролик =====
+    function initPhoneZoom() {
+      const wrap = document.querySelector(".phone-wrap");
+      const overlay = document.getElementById("adOverlay");
+      const fly = document.getElementById("adFly");
+      const hint = document.getElementById("phoneHint");
+      const narrow = window.matchMedia("(max-width: 700px)");
+      let anim = null, isOpen = false;
+      const setup = () => {
+        const on = narrow.matches;
+        wrap.classList.toggle("zoomable", on);
+        if (on) {
+          wrap.setAttribute("role", "button");
+          wrap.setAttribute("tabindex", "0");
+          wrap.setAttribute("aria-label", "Открыть рекламу в телефоне крупно");
+          wrap.removeAttribute("aria-hidden");
+        } else {
+          ["role", "tabindex", "aria-label"].forEach((n) => wrap.removeAttribute(n));
+          wrap.setAttribute("aria-hidden", "true");
+        }
+      };
+      setup();
+      narrow.addEventListener ? narrow.addEventListener("change", setup) : narrow.addListener(setup);
+
+      // из маленького телефона под ноутбуком — в большой по центру, с оборотом вокруг своей оси
+      const frames = () => {
+        const a = wrap.getBoundingClientRect(), b = fly.getBoundingClientRect();
+        const dx = a.left + a.width / 2 - (b.left + b.width / 2), dy = a.top + a.height / 2 - (b.top + b.height / 2);
+        const from = `translate(${dx}px, ${dy}px) scale(${a.width / b.width})`;
+        if (reduceMotion) return [{ transform: from, opacity: 0 }, { transform: "none", opacity: 1 }];
+        return [
+          { transform: `${from} rotateY(-18deg) rotateX(4deg)` },
+          { transform: "translate(0px, 0px) scale(1) rotateY(360deg) rotateX(0deg)" },
+        ];
+      };
+      // задняя крышка телефона с логотипом — её видно, пока он крутится
+      const back = () => {
+        const el = document.createElement("div");
+        el.className = "ad-back";
+        el.innerHTML = '<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#logo"/></svg>';
+        return el;
+      };
+      function open() {
+        if (isOpen || !narrow.matches) return;
+        isOpen = true;
+        const src = document.getElementById("phoneAd");
+        const phone = wrap.querySelector(".phone").cloneNode(true);
+        const splash = phone.querySelector(".p-splash");
+        if (splash) splash.remove();
+        const v = phone.querySelector("video");
+        v.removeAttribute("id");
+        if (anim) anim.cancel();
+        fly.replaceChildren(phone, back());
+        overlay.hidden = false;
+        document.documentElement.classList.add("ad-open");
+        if (hint) hint.classList.add("seen");
+        if (v.getAttribute("src")) {
+          const t = src.currentTime;
+          v.preload = "auto";
+          v.muted = true;
+          v.addEventListener("loadedmetadata", () => { v.currentTime = t; }, { once: true });
+          v.play().catch(() => {});
+          src.pause();
+        }
+        wrap.style.visibility = "hidden";
+        anim = fly.animate(frames(), { duration: reduceMotion ? 300 : 1300, easing: "cubic-bezier(0.6, 0, 0.2, 1)", fill: "both" });
+        requestAnimationFrame(() => overlay.classList.add("open"));
+      }
+      function close() {
+        if (!isOpen || !anim) return;
+        isOpen = false;
+        const src = document.getElementById("phoneAd");
+        const v = fly.querySelector("video");
+        if (v && src.getAttribute("src")) src.currentTime = v.currentTime; // маленький телефон продолжит ролик с того же места
+        overlay.classList.remove("open");
+        anim.reverse();
+        anim.onfinish = () => {
+          if (isOpen) return;
+          overlay.hidden = true;
+          fly.replaceChildren();
+          wrap.style.visibility = "";
+          document.documentElement.classList.remove("ad-open");
+          if (src.getAttribute("src")) src.play().catch(() => {});
+        };
+      }
+      wrap.addEventListener("click", open);
+      wrap.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+      overlay.addEventListener("click", close);
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    }
+
     initArchive();
     initHero();
     initReveal();
@@ -1869,6 +2060,8 @@
     initWorld();
     initStars();
     initFeatures();
+    initNav();
+    initPhoneZoom();
   </script>
 </body>
 </html>
