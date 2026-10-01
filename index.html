@@ -570,6 +570,7 @@
     .ad-overlay[hidden] { display: none; }
     .ad-overlay.open { opacity: 1; }
     .ad-fly { position: relative; width: min(74vw, calc(76vh * 9 / 19)); width: min(74vw, calc(76svh * 9 / 19)); aspect-ratio: 9 / 19; transform-style: preserve-3d; }
+    @media (min-width: 701px) { .ad-fly { width: calc(88vh * 9 / 19); width: calc(88svh * 9 / 19); } }
     .ad-fly .phone { position: absolute; inset: 0; transform: none !important; transition: none; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
     .ad-back {
       position: absolute; inset: 0; border-radius: 16%/7.5%; transform: rotateY(180deg); backface-visibility: hidden; -webkit-backface-visibility: hidden;
@@ -582,7 +583,7 @@
       position: fixed; top: 14px; right: 14px; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
       color: var(--text); background: var(--panel-strong); border: 1px solid var(--line-strong); font-size: 20px;
     }
-    .ad-tip { position: fixed; left: 0; right: 0; bottom: 16px; text-align: center; font-family: "Caveat", cursive; font-weight: 600; font-size: 22px; color: var(--text-2); pointer-events: none; }
+    .ad-tip { position: fixed; left: 0; right: 0; bottom: 16px; z-index: 1; text-align: center; font-family: "Caveat", cursive; font-weight: 600; font-size: 22px; color: var(--text-2); pointer-events: none; }
     html.ad-open, html.ad-open body { overflow: hidden; }
 
     /* Под сценой: услуги */
@@ -1026,6 +1027,7 @@
       <nav class="nav" aria-label="Разделы">
         <a href="#about">Обо мне</a>
         <a href="#cases">Кейсы</a>
+        <a href="#trust">Почему я</a>
         <a href="#contact">Контакты</a>
       </nav>
       <div class="header-actions">
@@ -1105,7 +1107,7 @@
       </div>
 
       <!-- Телефон: реклама CHESH — что я делаю (ролик 32 с, по кругу; на мобильных открывается крупно) -->
-      <div class="phone-wrap" aria-hidden="true">
+      <div class="phone-wrap" data-cursor="open">
         <div class="phone">
           <div class="p-screen">
             <div class="p-splash">
@@ -1908,9 +1910,11 @@
         root.classList.remove("cursor-out");
         const t = e.target;
         const video = t.closest && t.closest('[data-cursor="video"]');
-        const isLink = !video && !!(t.closest && t.closest('a, button, [role="button"], .tab-btn, .glow, .services .chip'));
+        const opener = !video && t.closest && t.closest('[data-cursor="open"]');
+        const isLink = !video && !opener && !!(t.closest && t.closest('a, button, [role="button"], .tab-btn, .glow, .services .chip'));
         if (video) label.textContent = video.muted ? "🔊 звук" : "🔇 тише";
-        root.classList.toggle("cursor-video", !!video);
+        else if (opener) label.textContent = "открыть ↗";
+        root.classList.toggle("cursor-video", !!(video || opener));
         root.classList.toggle("cursor-hover", isLink);
       });
       document.addEventListener("pointerdown", () => root.classList.add("cursor-down"));
@@ -1962,29 +1966,18 @@
       update();
     }
 
-    // ===== Мобильные: нажал на телефон — он крутится вокруг своей оси и встаёт по центру, в нём идёт ролик =====
+    // ===== Нажал на телефон — он крутится вокруг своей оси и встаёт по центру, в нём идёт ролик =====
+    // (на мобильных под ноутбуком подсказка со стрелкой, на компьютере курсор над телефоном пишет «открыть»)
     function initPhoneZoom() {
       const wrap = document.querySelector(".phone-wrap");
       const overlay = document.getElementById("adOverlay");
       const fly = document.getElementById("adFly");
       const hint = document.getElementById("phoneHint");
-      const narrow = window.matchMedia("(max-width: 700px)");
       let anim = null, isOpen = false;
-      const setup = () => {
-        const on = narrow.matches;
-        wrap.classList.toggle("zoomable", on);
-        if (on) {
-          wrap.setAttribute("role", "button");
-          wrap.setAttribute("tabindex", "0");
-          wrap.setAttribute("aria-label", "Открыть рекламу в телефоне крупно");
-          wrap.removeAttribute("aria-hidden");
-        } else {
-          ["role", "tabindex", "aria-label"].forEach((n) => wrap.removeAttribute(n));
-          wrap.setAttribute("aria-hidden", "true");
-        }
-      };
-      setup();
-      narrow.addEventListener ? narrow.addEventListener("change", setup) : narrow.addListener(setup);
+      wrap.classList.add("zoomable");
+      wrap.setAttribute("role", "button");
+      wrap.setAttribute("tabindex", "0");
+      wrap.setAttribute("aria-label", "Открыть рекламу в телефоне крупно");
 
       // из маленького телефона под ноутбуком — в большой по центру, с оборотом вокруг своей оси
       const frames = () => {
@@ -2005,7 +1998,7 @@
         return el;
       };
       function open() {
-        if (isOpen || !narrow.matches) return;
+        if (isOpen) return;
         isOpen = true;
         const src = document.getElementById("phoneAd");
         const phone = wrap.querySelector(".phone").cloneNode(true);
@@ -2017,6 +2010,7 @@
         fly.replaceChildren(phone, back());
         overlay.hidden = false;
         document.documentElement.classList.add("ad-open");
+        document.documentElement.classList.remove("cursor-video"); // кружок «открыть» больше не нужен
         if (hint) hint.classList.add("seen");
         if (v.getAttribute("src")) {
           const t = src.currentTime;
