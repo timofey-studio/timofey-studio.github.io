@@ -932,6 +932,7 @@
       border-radius: 14px; padding: 13px 15px; outline: none; resize: vertical; transition: border-color 0.2s, box-shadow 0.2s;
     }
     .field textarea { min-height: 92px; }
+    .field .hint { display: block; margin-top: 7px; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
     .field input::placeholder, .field textarea::placeholder { color: var(--text-3); opacity: 0.8; }
     .field input:focus, .field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--glow-solid) 18%, transparent); }
     .field.bad input { border-color: #e5484d; box-shadow: 0 0 0 4px rgba(229, 72, 77, 0.15); }
@@ -950,7 +951,9 @@
     .lead .btn:hover .arr { transform: translateX(4px); }
     .lead .btn[disabled] { opacity: 0.7; cursor: wait; }
     .lead-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-    .lead-msg { margin-top: 12px; min-height: 1.3em; font-size: 14px; color: #e5484d; }
+    .lead-safe { display: flex; align-items: flex-start; justify-content: center; gap: 8px; margin-top: 14px; font-size: 13px; line-height: 1.4; color: var(--text-3); text-align: left; }
+    .lead-safe svg { flex-shrink: 0; width: 15px; height: 15px; margin-top: 1px; color: var(--accent); }
+    .lead-msg { margin-top: 10px; min-height: 1.3em; font-size: 14px; color: #e5484d; }
     /* после отправки: «заявка у меня» или запасной путь через Telegram */
     .lead-done, .lead-fb { display: none; text-align: center; padding: 26px 6px 10px; }
     .lead.sent form, .lead.fallback form { display: none; }
@@ -1412,7 +1415,7 @@
               <form id="leadForm" novalidate>
                 <div class="lead-title">Оставить заявку</div>
                 <label class="field"><span>Как вас зовут</span><input name="name" autocomplete="name" maxlength="60" placeholder="Например, Анна" /></label>
-                <label class="field"><span>Как с&nbsp;вами связаться</span><input name="contact" maxlength="80" placeholder="@telegram или телефон" /></label>
+                <label class="field"><span>Как с&nbsp;вами связаться</span><input name="contact" maxlength="80" placeholder="@telegram, телефон или почта" /><small class="hint">Telegram, телефон, WhatsApp, почта&nbsp;— любой способ, который вам удобнее</small></label>
                 <div class="field"><span>Что нужно</span>
                   <div class="pick" id="leadPick">
                     <button type="button" aria-pressed="false">Сайт</button><button type="button" aria-pressed="false">Telegram-бот</button><button type="button" aria-pressed="false">Презентация</button><button type="button" aria-pressed="false">Видео / рилс</button><button type="button" aria-pressed="false">Карточки товаров</button><button type="button" aria-pressed="false">Пока не знаю</button>
@@ -1420,8 +1423,9 @@
                 </div>
                 <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="3" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea></label>
                 <input class="lead-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-                <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Соглашаюсь на&nbsp;обработку персональных данных по&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике</a></span></label>
+                <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Соглашаюсь на&nbsp;обработку персональных данных по&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a></span></label>
                 <button class="btn btn-main" type="submit" id="leadSend">Отправить заявку <span class="arr" aria-hidden="true">→</span></button>
+                <div class="lead-safe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Заявка уходит по&nbsp;защищённому соединению и&nbsp;видна только мне. Без рассылок и&nbsp;передачи третьим лицам.</span></div>
                 <div class="lead-msg" id="leadMsg" role="alert"></div>
               </form>
               <div class="lead-done" role="status">
