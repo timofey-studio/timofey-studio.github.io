@@ -907,10 +907,60 @@
     /* ===== КОНТАКТЫ ===== */
     .contact { padding: 56px; border-radius: var(--r-lg); overflow: hidden; }
     .contact .section-title { font-size: clamp(28px, 4.2vw, 52px); max-width: 14em; }
-    .contact p { font-size: 18px; color: var(--text-2); max-width: 36em; margin-bottom: 30px; }
-    .soon-pill { display: inline-flex; align-items: center; gap: 12px; padding: 14px 20px; border-radius: 16px; background: var(--panel-strong); border: 1px solid var(--line); }
-    .soon-pill small { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--text-3); text-transform: uppercase; }
-    .soon-pill b { font-weight: 500; font-size: 15px; }
+    /* ===== Контакты: слева Telegram и как проходит работа, справа форма заявки ===== */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 52px; align-items: start; }
+    .contact-side > p { font-size: 18px; color: var(--text-2); max-width: 30em; margin-bottom: 28px; }
+    .tg-btn {
+      display: inline-flex; align-items: center; gap: 14px; padding: 10px 24px 10px 10px; border-radius: 999px; text-decoration: none;
+      color: var(--text); background: var(--panel-strong); border: 1px solid var(--line-strong); transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .tg-btn:hover { border-color: #2aabee; transform: translateY(-2px); box-shadow: 0 12px 30px -12px rgba(42, 171, 238, 0.6); }
+    .tg-btn .tg-ic { flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: #2aabee; }
+    .tg-btn .tg-ic svg { width: 22px; height: 22px; margin-left: -2px; }
+    .tg-btn b { display: block; font-size: 16px; font-weight: 600; }
+    .tg-btn small { display: block; font-family: var(--font-mono); font-size: 12.5px; color: var(--text-3); margin-top: 2px; }
+    .contact-steps { list-style: none; margin: 34px 0 0; padding: 0; display: grid; gap: 16px; }
+    .contact-steps li { display: flex; gap: 14px; align-items: baseline; font-size: 15.5px; color: var(--text-2); }
+    .contact-steps li > span:first-child { flex-shrink: 0; font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
+
+    .lead { position: relative; padding: 30px; border-radius: 24px; background: var(--panel-strong); border: 1px solid var(--line-strong); box-shadow: 0 30px 60px -30px var(--shadow); }
+    .lead-title { font-family: var(--font-display); font-size: 20px; font-weight: 600; margin-bottom: 20px; }
+    .field { display: block; margin-bottom: 15px; }
+    .field > span { display: block; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.03em; color: var(--text-3); margin-bottom: 8px; }
+    .field input, .field textarea {
+      width: 100%; font: inherit; font-size: 16px; color: var(--text); background: var(--panel); border: 1px solid var(--line);
+      border-radius: 14px; padding: 13px 15px; outline: none; resize: vertical; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field textarea { min-height: 92px; }
+    .field input::placeholder, .field textarea::placeholder { color: var(--text-3); opacity: 0.8; }
+    .field input:focus, .field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--glow-solid) 18%, transparent); }
+    .field.bad input { border-color: #e5484d; box-shadow: 0 0 0 4px rgba(229, 72, 77, 0.15); }
+    .pick { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pick button {
+      font: inherit; font-size: 14px; padding: 8px 14px; border-radius: 999px; cursor: pointer; color: var(--text-2);
+      background: var(--panel); border: 1px solid var(--line); transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .pick button:hover { border-color: var(--accent); }
+    .pick button[aria-pressed="true"] { color: var(--btn-text); background: linear-gradient(135deg, var(--glow-text), var(--glow-solid)); border-color: transparent; }
+    .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; line-height: 1.4; color: var(--text-3); margin: 6px 0 20px; cursor: pointer; }
+    .consent input { flex-shrink: 0; width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--glow-solid); cursor: pointer; }
+    .consent a { color: var(--text-2); }
+    .consent.bad { color: #e5484d; }
+    .lead .btn-main { width: 100%; justify-content: center; }
+    .lead .btn:hover .arr { transform: translateX(4px); }
+    .lead .btn[disabled] { opacity: 0.7; cursor: wait; }
+    .lead-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .lead-msg { margin-top: 12px; min-height: 1.3em; font-size: 14px; color: #e5484d; }
+    /* после отправки: «заявка у меня» или запасной путь через Telegram */
+    .lead-done, .lead-fb { display: none; text-align: center; padding: 26px 6px 10px; }
+    .lead.sent form, .lead.fallback form { display: none; }
+    .lead.sent .lead-done, .lead.fallback .lead-fb { display: block; animation: leadIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes leadIn { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
+    .lead-done .big, .lead-fb .big { font-size: 58px; line-height: 1; margin-bottom: 14px; }
+    .lead-done h3, .lead-fb h3 { font-family: var(--font-display); font-size: 22px; font-weight: 600; margin-bottom: 10px; }
+    .lead-done p, .lead-fb p { font-size: 15.5px; color: var(--text-2); max-width: 26em; margin: 0 auto 18px; }
+    .lead-done small { font-family: "Caveat", cursive; font-size: 22px; color: var(--accent); }
+    .lead-back { margin-top: 14px; font: inherit; font-size: 14px; color: var(--text-3); background: none; border: 0; cursor: pointer; text-decoration: underline; }
     footer { position: relative; z-index: 1; padding: 30px 0 44px; font-family: var(--font-mono); font-size: 12.5px; color: var(--text-3); }
     footer .container { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 24px; }
 
@@ -957,6 +1007,7 @@
       .flip { max-width: 380px; width: 100%; margin: 0 auto; }
       .features { grid-template-columns: 1fr; }
       .case-grid { grid-template-columns: 1fr; gap: 36px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 34px; }
       .case { padding: 32px 26px; }
     }
     @media (max-width: 700px) {
@@ -1002,7 +1053,8 @@
       .roles { grid-template-columns: 1fr; }
       .contact { padding: 30px 20px; border-radius: 22px; }
       .contact p { font-size: 16.5px; }
-      .soon-pill { width: 100%; }
+      .lead { padding: 22px 18px; }
+      .tg-btn { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       .p-emblem, .p-emblem::before, .p-load i, .services .chip::before, .tap-hint, .tap-hint path, .phone-hint, .header-inner::after, .services .chip > span,
@@ -1340,11 +1392,53 @@
     <section class="section" id="contact">
       <div class="container">
         <div class="contact glass glow reveal">
-          <div class="kicker" data-type="scroll">04 · Контакты</div>
-          <h2 class="section-title">Есть задача? <em class="grad-text">Давайте обсудим</em></h2>
-          <p>Расскажите, что есть сейчас и&nbsp;что хочется улучшить,&nbsp;— предложу решение и&nbsp;честно скажу, сколько это займёт.</p>
-          <!-- Контакты появятся, когда будут готовы настоящие Telegram и почта -->
-          <div class="soon-pill"><span aria-hidden="true">⏳</span><span><small>Контакты</small><b>Появятся здесь совсем скоро</b></span></div>
+          <div class="contact-grid">
+            <div class="contact-side">
+              <div class="kicker" data-type="scroll">04 · Контакты</div>
+              <h2 class="section-title">Есть задача? <em class="grad-text">Давайте обсудим</em></h2>
+              <p>Расскажите, что есть сейчас и&nbsp;что хочется улучшить,&nbsp;— предложу решение и&nbsp;честно скажу, сколько это займёт.</p>
+              <a class="tg-btn" id="tgBtn" href="#contact" target="_blank" rel="noopener">
+                <span class="tg-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg></span>
+                <span><b>Написать в&nbsp;Telegram</b><small id="tgUser"></small></span>
+              </a>
+              <ol class="contact-steps">
+                <li><span>01</span><span>Вы&nbsp;оставляете заявку или пишете мне в&nbsp;Telegram</span></li>
+                <li><span>02</span><span>Я&nbsp;задаю пару вопросов и&nbsp;разбираюсь в&nbsp;задаче</span></li>
+                <li><span>03</span><span>Предлагаю решение, срок и&nbsp;цену&nbsp;— письменно, до&nbsp;старта работы</span></li>
+              </ol>
+            </div>
+
+            <div class="lead" id="lead">
+              <form id="leadForm" novalidate>
+                <div class="lead-title">Оставить заявку</div>
+                <label class="field"><span>Как вас зовут</span><input name="name" autocomplete="name" maxlength="60" placeholder="Например, Анна" /></label>
+                <label class="field"><span>Как с&nbsp;вами связаться</span><input name="contact" maxlength="80" placeholder="@telegram или телефон" /></label>
+                <div class="field"><span>Что нужно</span>
+                  <div class="pick" id="leadPick">
+                    <button type="button" aria-pressed="false">Сайт</button><button type="button" aria-pressed="false">Telegram-бот</button><button type="button" aria-pressed="false">Презентация</button><button type="button" aria-pressed="false">Видео / рилс</button><button type="button" aria-pressed="false">Карточки товаров</button><button type="button" aria-pressed="false">Пока не знаю</button>
+                  </div>
+                </div>
+                <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="3" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea></label>
+                <input class="lead-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Соглашаюсь на&nbsp;обработку персональных данных по&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике</a></span></label>
+                <button class="btn btn-main" type="submit" id="leadSend">Отправить заявку <span class="arr" aria-hidden="true">→</span></button>
+                <div class="lead-msg" id="leadMsg" role="alert"></div>
+              </form>
+              <div class="lead-done" role="status">
+                <div class="big" aria-hidden="true">😎</div>
+                <h3>Заявка у&nbsp;меня!</h3>
+                <p>Скоро напишу вам: <b id="leadWho"></b></p>
+                <small>ваш бизнес больше не&nbsp;прячется 🥷</small>
+              </div>
+              <div class="lead-fb" role="status">
+                <div class="big" aria-hidden="true">😕</div>
+                <h3>Не&nbsp;получилось отправить</h3>
+                <p>Ничего страшного: нажмите кнопку&nbsp;— откроется Telegram с&nbsp;уже готовым текстом заявки, останется нажать «Отправить».</p>
+                <a class="btn btn-main" id="leadFbBtn" href="#contact" target="_blank" rel="noopener">Отправить через Telegram <span class="arr" aria-hidden="true">→</span></a>
+                <button type="button" class="lead-back" id="leadBack">← вернуться к&nbsp;форме</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -2116,6 +2210,80 @@
       });
     }
 
+    // ===== Заявка: форма → посредник на Cloudflare (worker/chesh-leads.js) → сообщение Тимофею в Telegram =====
+    // Если посредник недоступен — запасной путь: открываем Telegram с готовым текстом заявки.
+    const LEAD_ENDPOINT = "https://chesh-leads.chesh.workers.dev"; // посредник на Cloudflare
+    const TG_USER = "Tim_HellRide"; // Telegram Тимофея без @
+    function initLead() {
+      const box = document.getElementById("lead");
+      const form = document.getElementById("leadForm");
+      const msg = document.getElementById("leadMsg");
+      const send = document.getElementById("leadSend");
+      const tgBtn = document.getElementById("tgBtn");
+      const field = (n) => form.querySelector(`[name="${n}"]`);
+      const pick = Array.from(document.querySelectorAll("#leadPick button"));
+      const opened = Date.now();
+
+      if (TG_USER) { tgBtn.href = "https://t.me/" + TG_USER; document.getElementById("tgUser").textContent = "@" + TG_USER; }
+      else tgBtn.hidden = true;
+      pick.forEach((b) => b.addEventListener("click", () => b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true"))));
+      form.addEventListener("input", (e) => { const f = e.target.closest(".field, .consent"); if (f) f.classList.remove("bad"); msg.textContent = ""; });
+
+      const state = (name) => { box.classList.remove("sent", "fallback"); if (name) box.classList.add(name); };
+      const textOf = (d) => [
+        "Здравствуйте! Заявка с сайта CHESH",
+        "Имя: " + d.name,
+        "Связь: " + d.contact,
+        d.services.length ? "Нужно: " + d.services.join(", ") : "",
+        d.message ? "Задача: " + d.message : "",
+      ].filter(Boolean).join("\n");
+      const fallback = (d) => {
+        const text = textOf(d);
+        document.getElementById("leadFbBtn").href = "https://t.me/" + TG_USER + "?text=" + encodeURIComponent(text);
+        if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {}); // на всякий случай текст и в буфере
+        state("fallback");
+      };
+      document.getElementById("leadBack").addEventListener("click", () => state(null));
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const d = {
+          name: field("name").value.trim(),
+          contact: field("contact").value.trim(),
+          services: pick.filter((b) => b.getAttribute("aria-pressed") === "true").map((b) => b.textContent),
+          message: field("message").value.trim(),
+          website: field("website").value, // ловушка для ботов: человек это поле не видит
+        };
+        const bad = [];
+        if (d.name.length < 2) bad.push(field("name"));
+        if (d.contact.length < 3) bad.push(field("contact"));
+        bad.forEach((el) => el.closest(".field").classList.add("bad"));
+        if (bad.length) { msg.textContent = "Напишите, как вас зовут и как с вами связаться"; bad[0].focus(); return; }
+        if (!field("agree").checked) { document.getElementById("leadConsent").classList.add("bad"); msg.textContent = "Поставьте галочку согласия — без неё не могу принять заявку"; return; }
+        msg.textContent = "";
+        if (d.website || Date.now() - opened < 2500) { state("sent"); return; } // это бот — делаем вид, что всё хорошо
+        if (!LEAD_ENDPOINT) { fallback(d); return; }
+
+        send.disabled = true;
+        try {
+          const ctrl = new AbortController();
+          const timer = setTimeout(() => ctrl.abort(), 12000);
+          const r = await fetch(LEAD_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d), signal: ctrl.signal });
+          clearTimeout(timer);
+          const j = await r.json().catch(() => ({}));
+          if (!r.ok || !j.ok) throw new Error(j.error || r.status);
+          document.getElementById("leadWho").textContent = d.contact;
+          form.reset();
+          pick.forEach((b) => b.setAttribute("aria-pressed", "false"));
+          state("sent");
+        } catch (err) {
+          fallback(d);
+        } finally {
+          send.disabled = false;
+        }
+      });
+    }
+
     initArchive();
     initHero();
     initReveal();
@@ -2126,6 +2294,7 @@
     initNav();
     initPhoneZoom();
     initTabTitle();
+    initLead();
   </script>
 </body>
 </html>
