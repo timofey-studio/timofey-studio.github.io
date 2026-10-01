@@ -30,6 +30,11 @@
       d.setAttribute("data-glow", g ? g[1] : "amber"); // цвет свечения (пока примеряем)
       var sk = location.search.match(/[?&]sky=(cool|classic)/);
       d.setAttribute("data-sky", sk ? sk[1] : "cool"); // «холодный космос» (выбран Тимофеем); ?sky=classic — прежнее небо
+      // облегчённый режим для телефонов и слабых компьютеров: без размытия стекла, небо и планета не плывут, звёзд меньше
+      var lt = location.search.match(/[?&]lite=([01])/), nav = navigator;
+      var weak = (window.matchMedia && matchMedia("(pointer: coarse)").matches) || (nav.deviceMemory && nav.deviceMemory <= 4) ||
+        (nav.hardwareConcurrency && nav.hardwareConcurrency <= 4) || (nav.connection && nav.connection.saveData);
+      if (lt ? lt[1] === "1" : weak) d.classList.add("lite");
       if (t === "light") d.setAttribute("data-theme", "light");
     })();
   </script>
@@ -37,7 +42,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@600&family=Playfair+Display:ital,wght@1,500&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@600&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     @property --g { syntax: "<number>"; inherits: true; initial-value: 0; }
@@ -61,7 +66,7 @@
       --font-display: "Unbounded", system-ui, sans-serif;
       --font-sans: "Onest", system-ui, sans-serif;
       --font-mono: "JetBrains Mono", ui-monospace, monospace;
-      --font-serif: "Playfair Display", Georgia, serif;
+      --font-serif: Georgia, "Times New Roman", serif;
       --r-md: 18px;
       --r-lg: 28px;
       /* экран ноутбука и телефон — «тёмный режим ОС» */
@@ -188,6 +193,7 @@
       animation: nebulaDrift 90s ease-in-out infinite alternate;
     }
     html[data-sky="cool"]:not([data-theme="light"]) .bg-nebula { opacity: 1; }
+    html[data-theme="light"] .bg-space, html[data-theme="light"][data-sky] .bg-space { background: none; } /* в светлой теме звёздное фото не грузим */
     @keyframes nebulaDrift { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(2%, 1.5%, 0) scale(1.06); } }
     /* мерцающие звёзды (три слоя со своим ритмом; точки расставляет скрипт) и редкие падающие звёзды */
     .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
@@ -210,13 +216,16 @@
     /* светлая тема: светлая туманность со звёздами (Pexels #10068212, Robert Gruszecki), тоже медленно плывёт */
     .bg-sky {
       position: fixed; inset: -4%; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s;
+      animation: skyDrift 160s ease-in-out infinite alternate;
+    }
+    /* картинка светлого неба грузится, только когда включена светлая тема (в тёмной её не видно — незачем качать) */
+    html[data-theme="light"] .bg-sky {
+      opacity: 1;
       background:
         radial-gradient(70% 50% at 50% 100%, var(--glow-key), transparent 70%),
         linear-gradient(rgba(246, 242, 236, 0.3), rgba(246, 242, 236, 0.42)),
         url("img/bg-nebula-light.jpg") center / cover;
-      animation: skyDrift 160s ease-in-out infinite alternate;
     }
-    html[data-theme="light"] .bg-sky { opacity: 1; }
     .bg-grain {
       position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.35;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -636,7 +645,7 @@
     .services-label::after { content: ""; width: 22px; height: 1px; background: linear-gradient(90deg, currentColor, transparent); }
     .hero-under .hero-more { display: none; }
     .services { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; }
-    .chip { font-family: var(--font-mono); font-size: 13px; padding: 8px 13px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); color: var(--text-2); backdrop-filter: blur(10px); }
+    .chip { font-family: var(--font-mono); font-size: 13px; padding: 8px 13px; border-radius: 10px; background: var(--panel-strong); border: 1px solid var(--line); color: var(--text-2); }
     /* плашки услуг: при наведении по ним пробегает блик, текст переливается цветами свечения, рамка светится */
     .services .chip {
       position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 8px;
@@ -1075,6 +1084,13 @@
       .lead { padding: 22px 18px; }
       .tg-btn { width: 100%; }
     }
+    /* ===== Облегчённый режим: размытие стекла пересчитывается каждый кадр, пока под ним плывёт небо, —
+       на телефоне это главная причина подтормаживаний. Без него стекло чуть плотнее, а всё остальное то же ===== */
+    html.lite *, html.lite *::before, html.lite *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+    html.lite { --header-bg: rgba(10, 10, 12, 0.9); --panel: rgba(20, 20, 25, 0.84); --panel-strong: rgba(28, 28, 34, 0.9); }
+    html.lite[data-theme="light"] { --header-bg: rgba(244, 241, 236, 0.94); --panel: rgba(255, 255, 255, 0.8); --panel-strong: rgba(255, 255, 255, 0.92); }
+    html.lite .bg-space, html.lite .bg-nebula, html.lite .bg-sky, html.lite .world-tex { animation: none; }
+
     @media (prefers-reduced-motion: reduce) {
       .p-emblem, .p-emblem::before, .p-load i, .services .chip::before, .tap-hint, .tap-hint path, .phone-hint, .header-inner::after, .services .chip > span,
       .case, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space, .bg-sky, .bg-nebula { animation: none; }
@@ -1604,7 +1620,7 @@
         <div class="case-media" id="caseMedia">
           <div class="phone-glass">
             <video class="case-video" id="caseVideo" src="${v.src}" poster="${v.poster}" data-cursor="video"
-              ${reduceMotion ? "" : "autoplay"} loop muted playsinline preload="metadata"
+              loop muted playsinline preload="none"
               aria-label="${data.video.label}" width="640" height="800"></video>
           </div>
           <button class="sound-btn" type="button" id="soundBtn" aria-pressed="false" aria-label="Включить звук" data-tip="звук">${ICON_SOUND_OFF}${ICON_SOUND_ON}</button>
@@ -1648,8 +1664,17 @@
       }
     }
 
+    let caseVideoWatch = null;
     function initCaseVideo() {
       const video = document.getElementById("caseVideo");
+      // видео загружается и играет, только пока его видно на экране, — иначе зря тратит трафик и батарею
+      if (caseVideoWatch) caseVideoWatch.disconnect();
+      if (video && !reduceMotion) {
+        if ("IntersectionObserver" in window) {
+          caseVideoWatch = new IntersectionObserver(([e]) => { if (e.isIntersecting) video.play().catch(() => {}); else video.pause(); }, { threshold: 0.2 });
+          caseVideoWatch.observe(video);
+        } else video.play().catch(() => {});
+      }
       const btn = document.getElementById("soundBtn");
       const media = document.getElementById("caseMedia");
       const setSound = (on) => {
@@ -1959,7 +1984,7 @@
       let seed = 11;
       const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
       const cool = document.documentElement.getAttribute("data-sky") === "cool";
-      const stars = Array.from({ length: 90 }, (_, k) => {
+      const stars = Array.from({ length: document.documentElement.classList.contains("lite") ? 55 : 90 }, (_, k) => {
         const near = k < 24;
         return {
           x: rnd(), y: rnd(),
@@ -1979,6 +2004,8 @@
       };
       let last = performance.now();
       const draw = (now) => {
+        if (!reduceMotion) requestAnimationFrame(draw);
+        if (!reduceMotion && now - last < 32) return; // ~30 кадров в секунду — вдвое меньше работы
         const dt = Math.min(0.1, (now - last) / 1000);
         last = now;
         ctx.clearRect(0, 0, W, H);
@@ -1991,16 +2018,20 @@
             }
             const a = reduceMotion ? 0.7 : 0.18 + 0.82 * (0.5 + 0.5 * Math.sin((now / 1000) * (Math.PI * 2 / s.tw) + s.ph));
             const col = light ? "255, 255, 255" : s.c;
+            const x = s.x * W, y = s.y * H, r = light ? s.r * 1.25 : s.r;
+            // ореол рисуем полупрозрачным кружком побольше — это намного дешевле тени (shadowBlur)
+            if (light || s.glow) {
+              ctx.fillStyle = light ? `rgba(90, 70, 80, ${(a * 0.22).toFixed(3)})` : `rgba(${col}, ${(a * 0.18).toFixed(3)})`;
+              ctx.beginPath();
+              ctx.arc(x, y, light ? r + 1.2 : r * 3, 0, Math.PI * 2);
+              ctx.fill();
+            }
             ctx.fillStyle = `rgba(${col}, ${a.toFixed(3)})`;
-            if (light) { ctx.shadowColor = `rgba(90, 70, 80, ${(a * 0.45).toFixed(3)})`; ctx.shadowBlur = 3; }
-            else if (s.glow) { ctx.shadowColor = `rgba(${col}, ${a.toFixed(3)})`; ctx.shadowBlur = 6; }
             ctx.beginPath();
-            ctx.arc(s.x * W, s.y * H, light ? s.r * 1.25 : s.r, 0, Math.PI * 2);
+            ctx.arc(x, y, r, 0, Math.PI * 2);
             ctx.fill();
-            ctx.shadowBlur = 0;
           }
         }
-        if (!reduceMotion) requestAnimationFrame(draw);
       };
       resize();
       window.addEventListener("resize", () => { resize(); if (reduceMotion) draw(performance.now()); });
@@ -2119,7 +2150,8 @@
         links.forEach((a) => a.classList.toggle("on", a === found));
         if (!nav.matches(":hover")) moveTo(found);
       };
-      addEventListener("scroll", update, { passive: true });
+      let queued = false;
+      addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; update(); }); } }, { passive: true });
       addEventListener("resize", () => moveTo(current));
       if (document.fonts) document.fonts.ready.then(() => moveTo(current));
       update();
@@ -2306,6 +2338,26 @@
       });
     }
 
+    // ===== Если компьютер не тянет (меньше ~45 кадров в секунду) — сами включаем облегчённый режим =====
+    function initAutoLite() {
+      const root = document.documentElement;
+      if (root.classList.contains("lite") || /[?&]lite=0/.test(location.search) || reduceMotion) return;
+      const sample = (again) => {
+        if (document.hidden) { setTimeout(() => sample(again), 3000); return; }
+        let n = 0;
+        const t0 = performance.now();
+        const tick = (now) => {
+          n++;
+          if (now - t0 < 2000) { requestAnimationFrame(tick); return; }
+          if (document.hidden) return;
+          if (n / ((now - t0) / 1000) < 45) root.classList.add("lite");
+          else if (again) setTimeout(() => sample(false), 15000); // ещё одна проверка чуть позже — на всякий случай
+        };
+        requestAnimationFrame(tick);
+      };
+      setTimeout(() => sample(true), 6000); // когда ноутбук уже открылся и заголовок напечатался
+    }
+
     initArchive();
     initHero();
     initReveal();
@@ -2316,6 +2368,7 @@
     initNav();
     initPhoneZoom();
     initTabTitle();
+    initAutoLite();
     initLead();
   </script>
 </body>
