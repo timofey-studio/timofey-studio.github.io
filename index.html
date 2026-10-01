@@ -168,13 +168,13 @@
     html[data-theme="light"] .bg-space { opacity: 0; }
     /* мерцающие звёзды (три слоя со своим ритмом; точки расставляет скрипт) и редкие падающие звёзды */
     .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-    html[data-theme="light"] .stars { display: none; }
     /* все звёзды рисуются на одном холсте (один слой — почти без нагрузки на видеокарту) */
     .stars canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     .shoot {
       position: absolute; width: 170px; height: 1.6px; border-radius: 2px; opacity: 0; transform-origin: 0 50%;
       background: linear-gradient(90deg, #fff, rgba(255, 214, 180, 0.55) 35%, transparent);
     }
+    html[data-theme="light"] .shoot { background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.6) 35%, transparent); box-shadow: 0 0 6px rgba(120, 100, 110, 0.35); }
     .shoot.s1 { left: 80%; top: 12%; animation: shoot 13s linear 3s infinite; }
     .shoot.s2 { left: 38%; top: 6%; animation: shoot 21s linear 10s infinite; }
     @keyframes shoot {
@@ -183,11 +183,14 @@
       6.5% { opacity: 0; transform: translate3d(-380px, 170px, 0) rotate(-24deg); }
       100% { opacity: 0; transform: translate3d(-380px, 170px, 0) rotate(-24deg); }
     }
+    /* светлая тема: светлая туманность со звёздами (Pexels #10068212, Robert Gruszecki), тоже медленно плывёт */
     .bg-sky {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s;
+      position: fixed; inset: -4%; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s;
       background:
         radial-gradient(70% 50% at 50% 100%, var(--glow-key), transparent 70%),
-        linear-gradient(180deg, #efeae4 0%, #f6f2ec 45%, #f4efe8 100%);
+        linear-gradient(rgba(246, 242, 236, 0.3), rgba(246, 242, 236, 0.42)),
+        url("img/bg-nebula-light.jpg") center / cover;
+      animation: skyDrift 160s ease-in-out infinite alternate;
     }
     html[data-theme="light"] .bg-sky { opacity: 1; }
     .bg-grain {
@@ -323,7 +326,8 @@
     .stage { position: relative; z-index: 2; width: min(1240px, 94vw); margin: 0 auto; display: flex; align-items: center; justify-content: flex-start; }
 
     /* Ноутбук */
-    .scene { position: relative; width: var(--lw); perspective: 2200px; perspective-origin: 70% 10%; margin-left: var(--gx); }
+    /* перспектива пропорциональна размеру ноутбука — поворот одинаково объёмный на любом экране */
+    .scene { position: relative; width: var(--lw); perspective: calc(var(--lw) * 2.7); perspective-origin: 70% 10%; margin-left: var(--gx); }
     .laptop {
       position: relative; transform-style: preserve-3d;
       transform: rotateX(calc(7deg - var(--py, 0) * 2deg)) rotateY(calc(17deg + var(--px, 0) * 3deg));
@@ -350,7 +354,13 @@
     .lid-glow { inset: -3px; padding: 2px; border-radius: calc(var(--lw) * 0.028) calc(var(--lw) * 0.028) 8px 8px; }
     .js .laptop:not(.on) .lid-glow { opacity: 0; }
     .lid-glow { transition: opacity 1s ease; }
-    .bezel .cam { position: absolute; top: calc(var(--lw) * 0.005); left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #1e2a33; box-shadow: 0 0 0 2px #0c0c0e; }
+    /* камера: крошечный стеклянный объектив по центру верхней рамки (рамка = var(--lw) * 0.014) */
+    .bezel .cam {
+      position: absolute; left: 50%; top: calc(var(--lw) * 0.007); width: calc(var(--lw) * 0.0065); height: calc(var(--lw) * 0.0065);
+      min-width: 3px; min-height: 3px; transform: translate(-50%, -50%); border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #4a5a6a 0 12%, #10161d 30%, #050608 70%);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
     .lid-back { position: absolute; inset: 0; transform: rotateY(180deg); backface-visibility: hidden; border-radius: calc(var(--lw) * 0.026) calc(var(--lw) * 0.026) 6px 6px; background: var(--lid-back); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
     .deck {
       position: absolute; top: 100%; left: 0; width: 100%; height: calc(var(--lw) * 0.42); transform-origin: 50% 0; transform: rotateX(90deg);
@@ -790,10 +800,11 @@
       .hero { --lw: min(900px, 90vw); min-height: 0; }
       .stage { justify-content: flex-start; }
       .scene { margin: 0 0 0 1%; }
-      .laptop { transform: rotateX(7deg); }
+      .laptop { transform: rotateX(7deg) rotateY(17deg); }
       .phone-wrap { left: auto; right: 0; top: auto; bottom: calc(var(--lw) * -0.2); width: calc(var(--lw) * 0.3); transform: none; }
       .js .hero:not(.phone-in) .phone-wrap { transform: translateY(30px); }
-      .phone { transform: rotateY(-12deg) rotateX(3deg); }
+      .phone-wrap { perspective: calc(var(--lw) * 1.6); }
+      .phone { transform: rotateY(-18deg) rotateX(4deg); }
       .hero-under { margin-top: calc(var(--lw) * 0.26 + 10px); }
     }
     @media (max-width: 980px) {
@@ -845,7 +856,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .p-emblem, .p-emblem::before, .p-load i, .services .chip::before, .services .chip > span,
-      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space { animation: none; }
+      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space, .bg-sky { animation: none; }
       .shoot { display: none; }
       .ft-more, .ft-body, .plus, .feature::before { transition: none; }
       .js .reveal, .js .hero-late { opacity: 1; transform: none; transition: none; }
@@ -1543,7 +1554,7 @@
     }
 
     // Звёзды на холсте: 90 точек. Дальние — мелкие и медленные, ближние — крупнее и быстрее (глубина).
-    // Каждая плывёт справа налево и мерцает в своём ритме. В светлой теме холст не рисуется.
+    // Каждая плывёт справа налево и мерцает в своём ритме. В светлой теме — белые, с лёгкой тенью.
     function initStars() {
       const cv = document.getElementById("starCanvas");
       if (!cv || !cv.getContext) return;
@@ -1573,19 +1584,22 @@
         const dt = Math.min(0.1, (now - last) / 1000);
         last = now;
         ctx.clearRect(0, 0, W, H);
-        if (!isLight()) {
+        const light = isLight();
+        {
           for (const s of stars) {
             if (!reduceMotion) {
               s.x -= dt / s.t;
               if (s.x < -0.02) { s.x = 1.02; s.y = rnd(); }
             }
             const a = reduceMotion ? 0.7 : 0.18 + 0.82 * (0.5 + 0.5 * Math.sin((now / 1000) * (Math.PI * 2 / s.tw) + s.ph));
-            ctx.fillStyle = `rgba(${s.c}, ${a.toFixed(3)})`;
-            if (s.glow) { ctx.shadowColor = `rgba(${s.c}, ${a.toFixed(3)})`; ctx.shadowBlur = 6; }
+            const col = light ? "255, 255, 255" : s.c;
+            ctx.fillStyle = `rgba(${col}, ${a.toFixed(3)})`;
+            if (light) { ctx.shadowColor = `rgba(90, 70, 80, ${(a * 0.45).toFixed(3)})`; ctx.shadowBlur = 3; }
+            else if (s.glow) { ctx.shadowColor = `rgba(${col}, ${a.toFixed(3)})`; ctx.shadowBlur = 6; }
             ctx.beginPath();
-            ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+            ctx.arc(s.x * W, s.y * H, light ? s.r * 1.25 : s.r, 0, Math.PI * 2);
             ctx.fill();
-            if (s.glow) ctx.shadowBlur = 0;
+            ctx.shadowBlur = 0;
           }
         }
         if (!reduceMotion) requestAnimationFrame(draw);
