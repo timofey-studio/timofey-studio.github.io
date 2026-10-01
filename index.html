@@ -242,11 +242,6 @@
     .nav a { text-decoration: none; font-size: 14.5px; font-weight: 500; color: var(--text-2); padding: 8px 12px; border-radius: 999px; transition: color 0.25s, background 0.25s; }
     .nav a:hover { color: var(--text); background: var(--panel); }
     .header-actions { display: flex; align-items: center; gap: 10px; }
-    .status {
-      display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; white-space: nowrap;
-      padding: 8px 14px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); color: var(--text-2);
-    }
-    .status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 10px var(--mint); animation: pulse 2s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
     .theme-toggle {
       width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; cursor: pointer; display: inline-grid; place-items: center;
@@ -941,8 +936,6 @@
       .logo-sub { display: none; }
       .logo-badge { width: 38px; height: 38px; font-size: 13px; }
       .logo-mark { width: 38px; height: 38px; }
-      .status .label { display: none; }
-      .status { padding: 9px; }
       .section { padding: 60px 0; }
       .flip-inner { height: 540px; }
       .about-text { font-size: 16.5px; }
@@ -956,7 +949,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .p-emblem, .p-emblem::before, .p-load i, .services .chip::before, .tap-hint, .tap-hint path, .services .chip > span,
-      .status .dot, .case, .p-typing i, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space, .bg-sky { animation: none; }
+      .case, .p-typing i, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space, .bg-sky { animation: none; }
       .shoot { display: none; }
       .ft-more, .ft-body, .plus, .feature::before { transition: none; }
       .js .reveal, .js .hero-late { opacity: 1; transform: none; transition: none; }
@@ -1010,7 +1003,6 @@
         <a href="#contact">Контакты</a>
       </nav>
       <div class="header-actions">
-        <div class="status"><span class="dot"></span><span class="label">Открыт к проектам</span></div>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Переключить тему: светлая / тёмная" title="Светлая / тёмная тема">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2 6 6M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
