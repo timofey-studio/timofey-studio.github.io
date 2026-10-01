@@ -3,12 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CHESH — Тимофей Чешегоров: делаю ваш бизнес заметным</title>
+  <title>CHESH · Делаю бизнес заметным</title>
   <meta name="description" content="Тимофей Чешегоров — сайты, Telegram-боты, презентации, видео и карточки для маркетплейсов. Нахожу, где бизнес теряет клиентов, и исправляю саму причину." />
+  <!-- превью ссылки в Telegram, VK и других мессенджерах -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="CHESH — Тимофей Чешегоров: делаю ваш бизнес заметным" />
-  <meta property="og:description" content="Сайты, Telegram-боты, презентации, видео и карточки для маркетплейсов — от идеи до запуска." />
+  <meta property="og:site_name" content="CHESH" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:title" content="Ваш бизнес — как ниндзя? 🥷 Исправим" />
+  <meta property="og:description" content="Сайты, Telegram-боты, презентации, рилсы и карточки товаров — чтобы вас наконец заметили. CHESH · Тимофей Чешегоров" />
   <meta property="og:url" content="https://timofey-studio.github.io/" />
+  <meta property="og:image" content="https://timofey-studio.github.io/img/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="CHESH: ноутбук с надписью «Делаю ваш бизнес заметным» и телефон с рекламой" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#07070a" />
   <script>
     // До отрисовки: тема (сохранённый выбор, иначе тёмная), цвет свечения и флаг «JS работает»
@@ -2096,6 +2104,18 @@
       document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
     }
 
+    // ===== Вкладка: ушёл на другую — ниндзя зовёт обратно, вернулся — «С возвращением!» =====
+    function initTabTitle() {
+      const base = document.title;
+      let timer = null;
+      document.addEventListener("visibilitychange", () => {
+        clearTimeout(timer);
+        if (document.hidden) { document.title = "🥷 Не прячьтесь, вернитесь!"; return; }
+        document.title = "👋 С возвращением!";
+        timer = setTimeout(() => (document.title = base), 2000);
+      });
+    }
+
     initArchive();
     initHero();
     initReveal();
@@ -2105,6 +2125,7 @@
     initFeatures();
     initNav();
     initPhoneZoom();
+    initTabTitle();
   </script>
 </body>
 </html>
