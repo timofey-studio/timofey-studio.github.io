@@ -29,7 +29,7 @@
       var g = location.search.match(/[?&]glow=(amber|lime|rose|ice)/);
       d.setAttribute("data-glow", g ? g[1] : "amber"); // цвет свечения (пока примеряем)
       var sk = location.search.match(/[?&]sky=(cool|classic)/);
-      d.setAttribute("data-sky", sk ? sk[1] : "classic"); // «холодный космос»: голубые звёзды и туманность (пока примеряем)
+      d.setAttribute("data-sky", sk ? sk[1] : "cool"); // «холодный космос» (выбран Тимофеем); ?sky=classic — прежнее небо
       if (t === "light") d.setAttribute("data-theme", "light");
     })();
   </script>
