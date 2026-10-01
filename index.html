@@ -28,6 +28,8 @@
       if (q) t = q[1]; // ссылка с нужной темой, например ?theme=light
       var g = location.search.match(/[?&]glow=(amber|lime|rose|ice)/);
       d.setAttribute("data-glow", g ? g[1] : "amber"); // цвет свечения (пока примеряем)
+      var sk = location.search.match(/[?&]sky=(cool|classic)/);
+      d.setAttribute("data-sky", sk ? sk[1] : "classic"); // «холодный космос»: голубые звёзды и туманность (пока примеряем)
       if (t === "light") d.setAttribute("data-theme", "light");
     })();
   </script>
@@ -174,6 +176,19 @@
     /* небо очень медленно поворачивается — как ночное небо над головой */
     @keyframes skyDrift { from { transform: rotate(-1deg) scale(1.03); } to { transform: rotate(1.6deg) scale(1.07) translate3d(-0.8%, 0.6%, 0); } }
     html[data-theme="light"] .bg-space { opacity: 0; }
+    /* «холодный космос»: сине-фиолетовая туманность, края уходят в глубокий синий — оранжевый на этом фоне ярче */
+    html[data-sky="cool"] .bg-space { background: radial-gradient(80% 60% at 50% 30%, transparent, rgba(4, 7, 22, 0.62)), url("img/bg-space.jpg") center / cover; }
+    .bg-nebula {
+      position: fixed; inset: -10%; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.6s;
+      background:
+        radial-gradient(36% 28% at 16% 20%, rgba(70, 110, 255, 0.17), transparent 70%),
+        radial-gradient(32% 34% at 88% 36%, rgba(140, 70, 255, 0.14), transparent 70%),
+        radial-gradient(44% 26% at 60% 6%, rgba(60, 170, 255, 0.09), transparent 70%),
+        radial-gradient(38% 32% at 28% 80%, rgba(110, 60, 220, 0.1), transparent 70%);
+      animation: nebulaDrift 90s ease-in-out infinite alternate;
+    }
+    html[data-sky="cool"]:not([data-theme="light"]) .bg-nebula { opacity: 1; }
+    @keyframes nebulaDrift { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(2%, 1.5%, 0) scale(1.06); } }
     /* мерцающие звёзды (три слоя со своим ритмом; точки расставляет скрипт) и редкие падающие звёзды */
     .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
     /* все звёзды рисуются на одном холсте (один слой — почти без нагрузки на видеокарту) */
@@ -182,6 +197,7 @@
       position: absolute; width: 170px; height: 1.6px; border-radius: 2px; opacity: 0; transform-origin: 0 50%;
       background: linear-gradient(90deg, #fff, rgba(255, 214, 180, 0.55) 35%, transparent);
     }
+    html[data-sky="cool"] .shoot { background: linear-gradient(90deg, #fff, rgba(170, 200, 255, 0.6) 35%, transparent); }
     html[data-theme="light"] .shoot { background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.6) 35%, transparent); box-shadow: 0 0 6px rgba(120, 100, 110, 0.35); }
     .shoot.s1 { left: 80%; top: 12%; animation: shoot 13s linear 3s infinite; }
     .shoot.s2 { left: 38%; top: 6%; animation: shoot 21s linear 10s infinite; }
@@ -1061,7 +1077,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .p-emblem, .p-emblem::before, .p-load i, .services .chip::before, .tap-hint, .tap-hint path, .phone-hint, .header-inner::after, .services .chip > span,
-      .case, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space, .bg-sky { animation: none; }
+      .case, .accent-word, .world-glow, .world-tex, .world-sun::before, .bg-space, .bg-sky, .bg-nebula { animation: none; }
       .shoot { display: none; }
       .ft-more, .ft-body, .plus, .feature::before { transition: none; }
       .js .reveal, .js .hero-late { opacity: 1; transform: none; transition: none; }
@@ -1089,6 +1105,7 @@
   </svg>
 
   <div class="bg-space" aria-hidden="true"></div>
+  <div class="bg-nebula" aria-hidden="true"></div>
   <div class="stars" aria-hidden="true"><canvas id="starCanvas"></canvas><span class="shoot s1"></span><span class="shoot s2"></span></div>
   <div class="bg-sky" aria-hidden="true"></div>
   <div class="bg-grain" aria-hidden="true"></div>
@@ -1941,13 +1958,14 @@
       const ctx = cv.getContext("2d");
       let seed = 11;
       const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      const cool = document.documentElement.getAttribute("data-sky") === "cool";
       const stars = Array.from({ length: 90 }, (_, k) => {
         const near = k < 24;
         return {
           x: rnd(), y: rnd(),
           r: near ? 0.95 + rnd() * 0.55 : 0.45 + rnd() * 0.4,           // радиус, px
           t: near ? 70 + rnd() * 50 : 170 + rnd() * 110,                 // секунд на пролёт через экран
-          c: rnd() < 0.25 ? "255, 216, 184" : "238, 241, 255",
+          c: ((p) => (cool ? (p < 0.15 ? "255, 216, 184" : p < 0.65 ? "176, 204, 255" : "238, 241, 255") : (p < 0.25 ? "255, 216, 184" : "238, 241, 255")))(rnd()),
           glow: near && rnd() < 0.5,
           tw: 2.8 + rnd() * 4.5, ph: rnd() * Math.PI * 2,
         };
