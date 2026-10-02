@@ -954,6 +954,13 @@ async function initReviews() {
     who.querySelector("b").textContent = it.name;
     who.querySelector("span > span").textContent = [it.business, month(it.date)].filter(Boolean).join(" · ");
     card.append(stars, q, who);
+    if (it.answer) {
+      const ans = document.createElement("div");
+      ans.className = "rv-answer";
+      ans.innerHTML = '<b>Ответ Тимофея</b><p></p>';
+      ans.querySelector("p").textContent = it.answer;
+      card.append(ans);
+    }
     list.append(card);
   });
   list.hidden = false;

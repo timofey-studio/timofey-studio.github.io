@@ -54,7 +54,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@600&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="expect" href="#caseArt" blocking="render" />
-  <link rel="stylesheet" href="css/style.css?v=6" />
+  <link rel="stylesheet" href="css/style.css?v=7" />
 </head>
 <body class="page-inner">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -129,7 +129,7 @@
       <div class="lead rv-box" id="reviewBox" data-state="load">
         <div class="rvp-state st-load"><p>Проверяю ссылку…</p></div>
         <div class="rvp-state st-bad"><div class="big" aria-hidden="true">🔗</div><h2>Ссылка не&nbsp;работает</h2><p>Она уже использована или устарела. Напишите мне&nbsp;— пришлю новую.</p><a class="btn btn-main" href="https://t.me/Tim_HellRide" target="_blank" rel="noopener">Написать в&nbsp;Telegram</a></div>
-        <div class="rvp-state st-sent"><div class="big" aria-hidden="true">💛</div><h2>Спасибо за&nbsp;отзыв!</h2><p>Он появится на&nbsp;сайте, как только я&nbsp;его прочитаю. Мне правда важно ваше мнение.</p><a class="btn btn-ghost" href="index.html">На&nbsp;главную</a></div>
+        <div class="rvp-state st-sent"><div class="big" aria-hidden="true">💛</div><h2>Спасибо за&nbsp;отзыв!</h2><p>Он опубликуется на&nbsp;сайте после модерации&nbsp;— обычно в&nbsp;течение суток. Публикую и&nbsp;похвалу, и&nbsp;критику. Не&nbsp;публикую только оскорбления, чужие личные данные и&nbsp;рекламу.</p><p>Мне правда важно ваше мнение&nbsp;— и&nbsp;хорошее, и&nbsp;с&nbsp;замечаниями.</p><a class="btn btn-ghost" href="index.html">На&nbsp;главную</a></div>
         <form id="reviewForm" class="st-form" novalidate>
           <div class="field"><span>Ваша оценка</span><div class="stars-pick" role="radiogroup" aria-label="Оценка от 1 до 5"><input type="radio" name="rating" id="st5" value="5" /><label for="st5" title="5 из 5">★</label><input type="radio" name="rating" id="st4" value="4" /><label for="st4" title="4 из 5">★</label><input type="radio" name="rating" id="st3" value="3" /><label for="st3" title="3 из 5">★</label><input type="radio" name="rating" id="st2" value="2" /><label for="st2" title="2 из 5">★</label><input type="radio" name="rating" id="st1" value="1" /><label for="st1" title="1 из 5">★</label></div></div>
           <label class="field"><span>Как вас зовут</span><input name="name" autocomplete="name" maxlength="60" /></label>
@@ -137,6 +137,7 @@
           <label class="field"><span>Ваш отзыв</span><textarea name="text" rows="5" maxlength="1000" placeholder="Что понравилось, что получилось в&nbsp;итоге, посоветуете&nbsp;ли знакомым"></textarea><small class="count" aria-hidden="true"></small></label>
           <input class="lead-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <label class="consent"><input type="checkbox" name="agree" /><span>Согласен, чтобы отзыв с&nbsp;моим именем был опубликован на&nbsp;сайте</span></label>
+          <p class="rv-rules"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span>Отзыв публикуется после модерации&nbsp;— обычно в&nbsp;течение суток. Публикую и&nbsp;похвалу, и&nbsp;критику. Не&nbsp;публикую только оскорбления, чужие личные данные и&nbsp;рекламу.</span></p>
           <button class="btn btn-main" type="submit">Отправить отзыв</button>
           <div class="lead-msg" id="rvMsg" role="alert"></div>
         </form>
@@ -154,6 +155,6 @@
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"><span class="cursor-label">звук</span></div>
 
-  <script src="js/main.js?v=6"></script>
+  <script src="js/main.js?v=7"></script>
 </body>
 </html>
