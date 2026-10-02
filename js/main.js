@@ -797,7 +797,8 @@ function initTabTitle() {
 // ===== Заявка: форма → посредник на Cloudflare (worker/chesh-leads.js) → сообщение Тимофею в Telegram =====
 // Если посредник недоступен — запасной путь: открываем Telegram с готовым текстом заявки.
 const LEAD_ENDPOINT = "https://chesh-leads.chesh.workers.dev"; // посредник на Cloudflare
-const TG_USER = "Tim_HellRide"; // Telegram Тимофея без @
+const TG_BOT = "chesh_leads_bot"; // бот CHESH: люди пишут ему, сообщения приходят Тимофею, личный аккаунт скрыт
+const TG_USER = "Tim_HellRide"; // личный Telegram — только запасной путь, если посредник недоступен
 function initLead() {
   const box = document.getElementById("lead");
   const form = document.getElementById("leadForm");
@@ -812,7 +813,8 @@ function initLead() {
     const m = field("message");
     if (!m.value.trim()) m.value = a.dataset.leadMsg;
   }));
-  if (TG_USER) { tgBtn.href = "https://t.me/" + TG_USER; document.getElementById("tgUser").textContent = "@" + TG_USER; }
+  tgBtn.href = "https://t.me/" + TG_BOT + "?start=site";
+  document.getElementById("tgUser").textContent = "отвечу там же, обычно в течение дня";
   else tgBtn.hidden = true;
   pick.forEach((b) => b.addEventListener("click", () => b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true"))));
   form.addEventListener("input", (e) => { const c = e.target.closest(".consent"); if (c) c.classList.remove("bad"); msg.textContent = ""; });
