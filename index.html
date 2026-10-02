@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@600&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=2" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 <body>
   <!-- Логотип CHESH «Код-луна»: светящийся серп-C и знак кода «›» в иконке -->
@@ -100,7 +100,25 @@
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2 6 6M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
         </button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><i></i><i></i><i></i></button>
       </div>
+    </div>
+    <!-- меню на телефоне -->
+    <div class="mnav" id="mnav" hidden>
+      <nav class="mnav-inner" aria-label="Меню">
+        <a class="mnav-link" href="#about" style="--i:0"><span>01</span>Обо мне</a>
+        <a class="mnav-link" href="#cases" style="--i:1"><span>02</span>Кейсы</a>
+        <div class="mnav-cases" style="--i:2">
+          <a href="case-bot.html">Telegram-бот FadePoint</a>
+          <a href="case-zerno.html">Сайт кофейни «Зерно»</a>
+          <a href="case-cards.html">Карточки товаров</a>
+        </div>
+        <a class="mnav-link" href="#trust" style="--i:3"><span>03</span>Почему я</a>
+        <a class="mnav-link" href="#process" style="--i:4"><span>04</span>Как работаю</a>
+        <a class="mnav-link" href="#faq" style="--i:5"><span>05</span>Вопросы</a>
+        <a class="mnav-link" href="#contact" style="--i:6"><span>06</span>Контакты</a>
+        <a class="btn btn-main mnav-tg" href="https://t.me/Tim_HellRide" target="_blank" rel="noopener" style="--i:7">Написать в&nbsp;Telegram <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </nav>
     </div>
   </header>
 
@@ -401,6 +419,17 @@
             <figcaption class="trust-sign"><svg aria-hidden="true"><use href="#logo"/></svg><span><b>Тимофей Чешегоров</b> · CHESH</span></figcaption>
           </figure>
         </div>
+        <div class="reviews glass glow reveal">
+          <div class="rv-quotes" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="rv-text">
+            <div class="kicker">Отзывы</div>
+            <h3>Здесь будут отзывы моих первых клиентов</h3>
+            <p>Я&nbsp;только начинаю и&nbsp;не&nbsp;выдумываю отзывы. Станьте одним из&nbsp;первых: первые проекты делаю дешевле в&nbsp;обмен на&nbsp;честный отзыв&nbsp;— какой&nbsp;бы он&nbsp;ни&nbsp;был.</p>
+          </div>
+          <a class="btn btn-main" href="#contact">Стать первым <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
       </div>
     </section>
 
@@ -414,12 +443,15 @@
           </div>
           <p class="flow-lead reveal">Пять понятных шагов. На&nbsp;каждом вы&nbsp;видите результат и&nbsp;решаете, идём ли дальше, а&nbsp;в&nbsp;конце получаете всё на&nbsp;своё имя.</p>
         </div>
+        <div class="pv-scroll flow-scroll">
         <div class="flow reveal">
           <div class="step" style="--i:0"><span class="dot">01</span><div><h3>Заявка</h3><p>Пишете в&nbsp;Telegram или оставляете заявку на&nbsp;сайте. Отвечаю и&nbsp;договариваемся о&nbsp;коротком созвоне или переписке.</p><span class="when">в&nbsp;тот же день</span></div></div>
           <div class="step" style="--i:1"><span class="dot">02</span><div><h3>Разбор и&nbsp;условия</h3><p>Задаю пару вопросов, разбираюсь в&nbsp;задаче и&nbsp;предлагаю решение. Что, срок и&nbsp;цена&nbsp;— письменно, до&nbsp;старта.</p><span class="when">1–2 дня</span></div></div>
           <div class="step" style="--i:2"><span class="dot">03</span><div><h3>Макет</h3><p>Показываю, как всё будет выглядеть. Правим, пока вам не&nbsp;понравится, — только потом берусь за&nbsp;код.</p><span class="when">этап 1 оплаты</span></div></div>
           <div class="step" style="--i:3"><span class="dot">04</span><div><h3>Разработка</h3><p>Собираю по&nbsp;частям и&nbsp;даю тестовую ссылку: вы&nbsp;видите живой сайт или бота ещё до&nbsp;запуска.</p><span class="when">этап 2 оплаты</span></div></div>
           <div class="step" style="--i:4"><span class="dot">05</span><div><h3>Запуск и&nbsp;передача</h3><p>Запускаем, передаю вам все доступы и&nbsp;инструкцию. Месяц бесплатно исправляю свои ошибки.</p><span class="when">месяц поддержки</span></div></div>
+        </div>
+          <span class="pv-hint" aria-hidden="true">листай <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
         <div class="handover glass glow reveal">
           <span class="ho-key" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.7-8.7M16 7l2.5 2.5M13.5 9.5l2 2"/></svg></span>
@@ -439,13 +471,34 @@
       </div>
     </section>
 
+    <!-- ЧАСТЫЕ ВОПРОСЫ -->
+    <section class="section" id="faq">
+      <div class="container faq-wrap">
+        <div class="faq-head">
+          <div class="kicker" data-type="scroll">05 · Частые вопросы</div>
+          <h2 class="section-title reveal">Отвечаю <em class="grad-text">заранее</em></h2>
+          <p class="faq-lead reveal">Не&nbsp;нашли свой вопрос? Напишите&nbsp;— отвечу в&nbsp;тот&nbsp;же день.</p>
+          <a class="btn btn-ghost reveal" href="https://t.me/Tim_HellRide" target="_blank" rel="noopener">Спросить в&nbsp;Telegram</a>
+        </div>
+        <div class="faq-list reveal">
+          <details class="faq-item"><summary>Сколько это стоит?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Зависит от&nbsp;задачи. После короткого разговора называю цену письменно&nbsp;— до&nbsp;начала работы, и&nbsp;она не&nbsp;меняется по&nbsp;ходу. Первые проекты делаю дешевле в&nbsp;обмен на&nbsp;честный отзыв.</p></div></details>
+          <details class="faq-item"><summary>Сколько времени займёт?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Точный срок называю до&nbsp;старта и&nbsp;фиксирую в&nbsp;переписке. Карточки и&nbsp;презентации&nbsp;— обычно дни, лендинг или бот&nbsp;— недели. На&nbsp;каждом этапе вы&nbsp;видите, что уже готово.</p></div></details>
+          <details class="faq-item"><summary>Что нужно от&nbsp;меня?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Рассказать о&nbsp;бизнесе и&nbsp;о&nbsp;том, что хочется изменить. Тексты и&nbsp;фото&nbsp;— если есть; если нет, помогу подобрать. Дальше&nbsp;— смотреть результат на&nbsp;каждом шаге и&nbsp;говорить, что нравится, а&nbsp;что нет.</p></div></details>
+          <details class="faq-item"><summary>А&nbsp;если мне не&nbsp;понравится?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Сначала согласуем макет&nbsp;— до&nbsp;того, как я&nbsp;начну код. Правим, пока не&nbsp;понравится. Оплата по&nbsp;этапам: вы&nbsp;платите только за&nbsp;то, что уже увидели и&nbsp;приняли.</p></div></details>
+          <details class="faq-item"><summary>Кому будет принадлежать сайт или бот?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Вам. Домен, код и&nbsp;бот оформляются на&nbsp;вас, пароли знаете только вы. Отдаю инструкцию и&nbsp;подписываем акт приёма-передачи.</p></div></details>
+          <details class="faq-item"><summary>Смогу&nbsp;ли я&nbsp;потом что-то менять сам?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Да. Могу подключить простую панель для текстов, цен и&nbsp;фото&nbsp;— или вносить изменения сам по&nbsp;договорённости. Месяц после сдачи исправляю свои ошибки бесплатно.</p></div></details>
+          <details class="faq-item"><summary>Вы&nbsp;работаете удалённо?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Да, по&nbsp;всей России. Всё обсуждаем в&nbsp;Telegram, созваниваемся&nbsp;— по&nbsp;желанию.</p></div></details>
+        </div>
+      </div>
+    </section>
+
     <!-- КОНТАКТЫ -->
     <section class="section" id="contact">
       <div class="container">
         <div class="contact glass glow reveal">
           <div class="contact-grid">
             <div class="contact-side">
-              <div class="kicker" data-type="scroll">05 · Контакты</div>
+              <div class="kicker" data-type="scroll">06 · Контакты</div>
               <h2 class="section-title">Есть задача? <em class="grad-text">Давайте обсудим</em></h2>
               <p>Расскажите, что есть сейчас и&nbsp;что хочется улучшить,&nbsp;— предложу решение и&nbsp;честно скажу, сколько это займёт.</p>
               <a class="tg-btn" id="tgBtn" href="#contact" target="_blank" rel="noopener">
@@ -515,6 +568,6 @@
     <div class="ad-tip">нажми, чтобы закрыть</div>
   </div>
 
-  <script src="js/main.js?v=2"></script>
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>

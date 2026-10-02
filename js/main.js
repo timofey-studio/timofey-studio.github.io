@@ -50,13 +50,15 @@ if (flipCard) {
 
 // Превью кейсов на главной: на телефоне ряд листается вбок, подсказка «листай →» — под рядом, пока справа есть ещё
 function initCasePreviews() {
-  const box = document.getElementById("pvScroll"), row = document.getElementById("pvRow");
-  if (!box || !row) return;
-  const more = () => box.classList.toggle("more", row.scrollWidth - row.clientWidth - row.scrollLeft > 8);
-  row.addEventListener("scroll", more, { passive: true });
-  addEventListener("resize", more);
-  if (document.fonts) document.fonts.ready.then(more);
-  more();
+  document.querySelectorAll(".pv-scroll").forEach((box) => {
+    const row = box.querySelector(".pv-row, .flow");
+    if (!row) return;
+    const more = () => box.classList.toggle("more", row.scrollWidth - row.clientWidth - row.scrollLeft > 8);
+    row.addEventListener("scroll", more, { passive: true });
+    addEventListener("resize", more);
+    if (document.fonts) document.fonts.ready.then(more);
+    more();
+  });
 }
 
 // Страница кейса: оживляем видео или листалку карточек
@@ -660,6 +662,31 @@ function initNav() {
   update();
 }
 
+// ===== Меню на телефоне: кнопка ≡ открывает панель со всеми разделами и кейсами =====
+function initMobileMenu() {
+  const btn = document.getElementById("menuBtn"), panel = document.getElementById("mnav");
+  if (!btn || !panel) return;
+  const root = document.documentElement;
+  let timer = null;
+  const set = (open) => {
+    clearTimeout(timer);
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+    if (open) { panel.hidden = false; requestAnimationFrame(() => root.classList.add("menu-open")); }
+    else { root.classList.remove("menu-open"); timer = setTimeout(() => { panel.hidden = true; }, reduceMotion ? 0 : 350); }
+  };
+  btn.addEventListener("click", () => set(btn.getAttribute("aria-expanded") !== "true"));
+  panel.addEventListener("click", (e) => { if (e.target.closest("a") || e.target === panel) set(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") { set(false); btn.focus(); } });
+  window.matchMedia("(min-width: 981px)").addEventListener?.("change", (m) => { if (m.matches) set(false); });
+}
+
+// ===== Частые вопросы: открывается один ответ за раз =====
+function initFaq() {
+  const items = Array.from(document.querySelectorAll(".faq-item"));
+  items.forEach((it) => it.addEventListener("toggle", () => { if (it.open) items.forEach((o) => { if (o !== it) o.open = false; }); }));
+}
+
 // ===== Нажал на телефон — он крутится вокруг своей оси и встаёт по центру, в нём идёт ролик =====
 // (на мобильных под ноутбуком подсказка со стрелкой, на компьютере курсор над телефоном пишет «открыть»)
 function initPhoneZoom() {
@@ -892,7 +919,7 @@ function initAutoLite() {
 }
 
 const has = (sel) => !!document.querySelector(sel);
-if (has("#pvRow")) initCasePreviews();
+if (has(".pv-scroll")) initCasePreviews();
 if (document.body.dataset.case) initCasePage();
 if (has(".hero")) initHero();
 initReveal();
@@ -903,5 +930,7 @@ initFeatures();
 initNav();
 if (has(".phone-wrap")) initPhoneZoom();
 initTabTitle();
+initMobileMenu();
+if (has(".faq-item")) initFaq();
 initAutoLite();
 if (has("#lead")) initLead();
