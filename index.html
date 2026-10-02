@@ -40,6 +40,10 @@
   </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.85' y1='.08' x2='.2' y2='.95'%3E%3Cstop offset='0' stop-color='%23ffe3c7'/%3E%3Cstop offset='.45' stop-color='%23ff9a4a'/%3E%3Cstop offset='1' stop-color='%23e2580f'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='64' height='64' fill='%23fff'/%3E%3Ccircle cx='40' cy='31' r='20.5' fill='%23000'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='1' y='1' width='62' height='62' rx='17' fill='%23141418'/%3E%3Cg transform='translate%286 6%29 scale%28.81%29'%3E%3Ccircle cx='30' cy='32' r='25' fill='url%28%23g%29' mask='url%28%23m%29'/%3E%3Cpath d='M41 23.5 49 31l-8 7.5' fill='none' stroke='%23fff1e2' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E" />
 
+  <!-- Защита: странице можно загружать только свои файлы, шрифты Google и отправлять заявки только нашему посреднику.
+       Чужой скрипт (если его как-то подсунут) браузер просто не выполнит и никуда не отправит данные. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://chesh-leads.chesh.workers.dev; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@600&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -944,6 +948,43 @@
     /* ===== КОНТАКТЫ ===== */
     .contact { padding: 56px; border-radius: var(--r-lg); overflow: hidden; }
     .contact .section-title { font-size: clamp(28px, 4.2vw, 52px); max-width: 14em; }
+    /* ===== Как проходит работа: 5 шагов на линии (линия прорисовывается при прокрутке) + «всё ваше» ===== */
+    .flow-head { display: grid; grid-template-columns: 1.15fr 1fr; gap: 20px 60px; align-items: end; margin-bottom: 44px; }
+    .flow-head .section-title { margin-bottom: 0; }
+    .flow-lead { font-size: 17.5px; line-height: 1.65; color: var(--text-2); }
+    .flow { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+    .flow::before, .flow::after { content: ""; position: absolute; left: 28px; right: 28px; top: 27px; height: 2px; border-radius: 2px; background: var(--line-strong); }
+    .flow::after { background: var(--grad); box-shadow: 0 0 12px var(--glow-soft); transform: scaleX(0); transform-origin: 0 50%; transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s; }
+    .flow.in::after, html:not(.js) .flow::after { transform: none; }
+    .step { position: relative; }
+    .step .dot {
+      position: relative; z-index: 1; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+      font: 700 17px var(--font-mono); color: var(--text-2); background: var(--bg-2); border: 2px solid var(--line-strong);
+      transition: border-color 0.4s, color 0.4s, box-shadow 0.4s; transition-delay: calc(var(--i) * 0.3s + 0.3s);
+    }
+    .flow.in .step .dot { border-color: var(--accent); color: var(--text); box-shadow: 0 0 22px -6px var(--glow-soft); }
+    .step h3 { margin: 18px 0 8px; font-size: 18px; font-weight: 700; }
+    .step p { font-size: 15px; line-height: 1.55; color: var(--text-2); }
+    .step .when { display: inline-block; margin-top: 12px; padding: 4px 11px; border-radius: 999px; font: 500 12px var(--font-mono); color: var(--text-3); border: 1px solid var(--line); }
+    .handover { margin-top: 40px; padding: 30px 32px; border-radius: var(--r-lg); display: grid; grid-template-columns: 72px 1.1fr 1fr; gap: 24px 30px; align-items: center; }
+    .ho-key { width: 72px; height: 72px; border-radius: 22px; display: grid; place-items: center; color: var(--btn-text); background: var(--grad); box-shadow: 0 14px 30px -10px var(--glow-soft); }
+    .ho-key svg { width: 38px; height: 38px; }
+    .ho-text h3 { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .ho-text p { font-size: 16px; line-height: 1.6; color: var(--text-2); }
+    .ho-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+    .ho-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 15px; line-height: 1.35; color: var(--text); }
+    .ho-list svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; color: var(--accent); }
+    @media (max-width: 980px) {
+      .flow-head { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; gap: 0; }
+      .flow::before, .flow::after { left: 27px; right: auto; top: 28px; bottom: 40px; width: 2px; height: auto; }
+      .flow::after { transform: scaleY(0); transform-origin: 50% 0; }
+      .step { display: grid; grid-template-columns: 56px 1fr; gap: 0 18px; padding-bottom: 26px; }
+      .step h3 { margin-top: 14px; }
+      .handover { grid-template-columns: 1fr; padding: 26px 22px; }
+      .ho-list { grid-template-columns: 1fr; }
+    }
+
     /* ===== Контакты: слева Telegram и как проходит работа, справа форма заявки ===== */
     .contact-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 52px; align-items: start; }
     .contact-side > p { font-size: 18px; color: var(--text-2); max-width: 30em; margin-bottom: 28px; }
@@ -972,7 +1013,12 @@
     .field .hint { display: block; margin-top: 7px; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
     .field input::placeholder, .field textarea::placeholder { color: var(--text-3); opacity: 0.8; }
     .field input:focus, .field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--glow-solid) 18%, transparent); }
-    .field.bad input { border-color: #e5484d; box-shadow: 0 0 0 4px rgba(229, 72, 77, 0.15); }
+    .field.bad input, .field.bad textarea { border-color: #e5484d; box-shadow: 0 0 0 4px rgba(229, 72, 77, 0.15); }
+    .field.ok input, .field.ok textarea { border-color: #3fb27f; }
+    .field .err { display: none; margin-top: 7px; font-size: 13px; line-height: 1.4; color: #e5484d; }
+    .field.bad .err { display: block; }
+    .field.bad .hint { display: none; }
+    .field .count { display: block; margin-top: 6px; text-align: right; font: 500 12px var(--font-mono); color: var(--text-3); min-height: 1em; }
     .pick { display: flex; flex-wrap: wrap; gap: 8px; }
     .pick button {
       font: inherit; font-size: 14px; padding: 8px 14px; border-radius: 999px; cursor: pointer; color: var(--text-2);
@@ -1486,13 +1532,48 @@
       </div>
     </section>
 
+    <!-- КАК ПРОХОДИТ РАБОТА -->
+    <section class="section" id="process">
+      <div class="container">
+        <div class="flow-head">
+          <div>
+            <div class="kicker" data-type="scroll">04 · Как проходит работа</div>
+            <h2 class="section-title reveal">От&nbsp;заявки до&nbsp;запуска&nbsp;— <em class="grad-text">без сюрпризов</em></h2>
+          </div>
+          <p class="flow-lead reveal">Пять понятных шагов. На&nbsp;каждом вы&nbsp;видите результат и&nbsp;решаете, идём ли дальше, а&nbsp;в&nbsp;конце получаете всё на&nbsp;своё имя.</p>
+        </div>
+        <div class="flow reveal">
+          <div class="step" style="--i:0"><span class="dot">01</span><div><h3>Заявка</h3><p>Пишете в&nbsp;Telegram или оставляете заявку на&nbsp;сайте. Отвечаю и&nbsp;договариваемся о&nbsp;коротком созвоне или переписке.</p><span class="when">в&nbsp;тот же день</span></div></div>
+          <div class="step" style="--i:1"><span class="dot">02</span><div><h3>Разбор и&nbsp;условия</h3><p>Задаю пару вопросов, разбираюсь в&nbsp;задаче и&nbsp;предлагаю решение. Что, срок и&nbsp;цена&nbsp;— письменно, до&nbsp;старта.</p><span class="when">1–2 дня</span></div></div>
+          <div class="step" style="--i:2"><span class="dot">03</span><div><h3>Макет</h3><p>Показываю, как всё будет выглядеть. Правим, пока вам не&nbsp;понравится, — только потом берусь за&nbsp;код.</p><span class="when">этап 1 оплаты</span></div></div>
+          <div class="step" style="--i:3"><span class="dot">04</span><div><h3>Разработка</h3><p>Собираю по&nbsp;частям и&nbsp;даю тестовую ссылку: вы&nbsp;видите живой сайт или бота ещё до&nbsp;запуска.</p><span class="when">этап 2 оплаты</span></div></div>
+          <div class="step" style="--i:4"><span class="dot">05</span><div><h3>Запуск и&nbsp;передача</h3><p>Запускаем, передаю вам все доступы и&nbsp;инструкцию. Месяц бесплатно исправляю свои ошибки.</p><span class="when">месяц поддержки</span></div></div>
+        </div>
+        <div class="handover glass glow reveal">
+          <span class="ho-key" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.7-8.7M16 7l2.5 2.5M13.5 9.5l2 2"/></svg></span>
+          <div class="ho-text">
+            <h3>В&nbsp;конце&nbsp;— всё <em class="grad-text">ваше</em></h3>
+            <p>Домен, код и&nbsp;бот оформлены на&nbsp;вас, пароли знаете только вы. Захотите&nbsp;— продолжим вместе, захотите&nbsp;— передадите другому разработчику. Вы&nbsp;ни&nbsp;от&nbsp;кого не&nbsp;зависите.</p>
+          </div>
+          <ul class="ho-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Домен на&nbsp;ваше имя</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Код сайта и&nbsp;архив</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Telegram-бот</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Доступы с&nbsp;вашими паролями</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Инструкция «как поменять цены и&nbsp;фото»</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Акт приёма-передачи</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- КОНТАКТЫ -->
     <section class="section" id="contact">
       <div class="container">
         <div class="contact glass glow reveal">
           <div class="contact-grid">
             <div class="contact-side">
-              <div class="kicker" data-type="scroll">04 · Контакты</div>
+              <div class="kicker" data-type="scroll">05 · Контакты</div>
               <h2 class="section-title">Есть задача? <em class="grad-text">Давайте обсудим</em></h2>
               <p>Расскажите, что есть сейчас и&nbsp;что хочется улучшить,&nbsp;— предложу решение и&nbsp;честно скажу, сколько это займёт.</p>
               <a class="tg-btn" id="tgBtn" href="#contact" target="_blank" rel="noopener">
@@ -1509,14 +1590,14 @@
             <div class="lead" id="lead">
               <form id="leadForm" novalidate>
                 <div class="lead-title">Оставить заявку</div>
-                <label class="field"><span>Как вас зовут</span><input name="name" autocomplete="name" maxlength="60" placeholder="Например, Анна" /></label>
-                <label class="field"><span>Как с&nbsp;вами связаться</span><input name="contact" maxlength="80" placeholder="@telegram, телефон или почта" /><small class="hint">Telegram, телефон, почта&nbsp;— любой способ, который вам удобнее</small></label>
+                <label class="field"><span>Как вас зовут</span><input name="name" autocomplete="name" maxlength="60" placeholder="Например, Анна" /><small class="err" aria-live="polite"></small></label>
+                <label class="field"><span>Как с&nbsp;вами связаться</span><input name="contact" maxlength="80" placeholder="@telegram, телефон или почта" spellcheck="false" autocapitalize="off" /><small class="err" aria-live="polite"></small><small class="hint">Telegram, телефон, почта&nbsp;— любой способ, который вам удобнее</small></label>
                 <div class="field"><span>Что нужно</span>
                   <div class="pick" id="leadPick">
                     <button type="button" aria-pressed="false">Сайт</button><button type="button" aria-pressed="false">Telegram-бот</button><button type="button" aria-pressed="false">Презентация</button><button type="button" aria-pressed="false">Видео / рилс</button><button type="button" aria-pressed="false">Карточки товаров</button><button type="button" aria-pressed="false">Пока не знаю</button>
                   </div>
                 </div>
-                <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="3" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea></label>
+                <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="3" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea><small class="err" aria-live="polite"></small><small class="count" aria-hidden="true"></small></label>
                 <input class="lead-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
                 <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Соглашаюсь на&nbsp;обработку персональных данных по&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a></span></label>
                 <button class="btn btn-main" type="submit" id="leadSend">Отправить заявку <span class="arr" aria-hidden="true">→</span></button>
@@ -2497,7 +2578,40 @@
       if (TG_USER) { tgBtn.href = "https://t.me/" + TG_USER; document.getElementById("tgUser").textContent = "@" + TG_USER; }
       else tgBtn.hidden = true;
       pick.forEach((b) => b.addEventListener("click", () => b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true"))));
-      form.addEventListener("input", (e) => { const f = e.target.closest(".field, .consent"); if (f) f.classList.remove("bad"); msg.textContent = ""; });
+      form.addEventListener("input", (e) => { const c = e.target.closest(".consent"); if (c) c.classList.remove("bad"); msg.textContent = ""; });
+
+      // Проверка полей прямо при вводе: под полем подсказка, что не так; зелёная рамка — всё верно.
+      // То же самое ещё раз проверяет посредник на сервере, так что обойти проверку на странице бесполезно.
+      const RULES = {
+        name: (v) => v.length < 2 ? "Напишите имя — хотя бы 2 буквы"
+          : /[^A-Za-zА-Яа-яЁё\s'’-]/.test(v) ? "В имени — только буквы, пробел и дефис" : "",
+        contact: (v) => {
+          if (v.length < 3) return "Напишите, как с вами связаться: @ник, телефон или почту";
+          const tg = /^@?[A-Za-z][A-Za-z0-9_]{4,31}$/.test(v);
+          const digits = v.replace(/\D/g, "");
+          const phone = /^\+?[\d\s()-]{7,}$/.test(v) && digits.length >= 10 && digits.length <= 12;
+          const mail = /^[^\s@<>]+@[^\s@<>]+\.[A-Za-zА-Яа-я]{2,}$/.test(v);
+          return tg || phone || mail ? "" : "Похоже на опечатку. Например: @anna_coffee, +7 900 123-45-67 или anna@mail.ru";
+        },
+        message: (v) => /https?:\/\/|www\./i.test(v) ? "Ссылки здесь не нужны — пришлёте их потом в переписке"
+          : /[<>]/.test(v) ? "Символы < и > здесь не нужны" : "",
+      };
+      const check = (n, live) => {
+        const el = field(n), f = el.closest(".field"), v = el.value.trim();
+        if ((live || n === "message") && !v) { f.classList.remove("bad", "ok"); return true; } // пустое поле во время ввода не ругаем
+        const err = RULES[n](v);
+        f.classList.toggle("bad", !!err);
+        f.classList.toggle("ok", !err);
+        f.querySelector(".err").textContent = err;
+        return !err;
+      };
+      ["name", "contact", "message"].forEach((n) => {
+        const el = field(n);
+        el.addEventListener("blur", () => check(n, true));
+        el.addEventListener("input", () => { if (el.closest(".field").classList.contains("bad")) check(n, true); });
+      });
+      const count = form.querySelector(".count");
+      field("message").addEventListener("input", (e) => { const l = e.target.value.length; count.textContent = l > 700 ? l + " / 1000" : ""; });
 
       const state = (name) => { box.classList.remove("sent", "fallback"); if (name) box.classList.add(name); };
       const textOf = (d) => [
@@ -2524,11 +2638,8 @@
           message: field("message").value.trim(),
           website: field("website").value, // ловушка для ботов: человек это поле не видит
         };
-        const bad = [];
-        if (d.name.length < 2) bad.push(field("name"));
-        if (d.contact.length < 3) bad.push(field("contact"));
-        bad.forEach((el) => el.closest(".field").classList.add("bad"));
-        if (bad.length) { msg.textContent = "Напишите, как вас зовут и как с вами связаться"; bad[0].focus(); return; }
+        const okAll = [check("name"), check("contact"), check("message")].every(Boolean);
+        if (!okAll) { msg.textContent = "Проверьте поля, отмеченные красным, — под ними подсказка"; form.querySelector(".field.bad input, .field.bad textarea").focus(); return; }
         if (!field("agree").checked) { document.getElementById("leadConsent").classList.add("bad"); msg.textContent = "Поставьте галочку согласия — без неё не могу принять заявку"; return; }
         msg.textContent = "";
         if (d.website || Date.now() - opened < 2500) { state("sent"); return; } // это бот — делаем вид, что всё хорошо
