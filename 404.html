@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Страница не найдена · CHESH</title>
+  <meta name="description" content="Такой страницы нет — но есть сайты, боты и карточки, которые делают бизнес заметным." />
+  <link rel="canonical" href="https://timofey-studio.github.io/404.html" />
+  <meta name="robots" content="noindex" />
+  <meta property="og:site_name" content="CHESH" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:title" content="Страница не найдена · CHESH" />
+  <meta property="og:description" content="Такой страницы нет — но есть сайты, боты и карточки, которые делают бизнес заметным." />
+  <meta property="og:url" content="https://timofey-studio.github.io/404.html" />
+  <meta property="og:image" content="https://timofey-studio.github.io/img/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#07070a" />
+  <script>
+    // До отрисовки: тема (сохранённый выбор, иначе тёмная), цвет свечения и флаг «JS работает»
+    (function () {
+      var d = document.documentElement, t = null;
+      d.classList.add("js");
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      var q = location.search.match(/[?&]theme=(light|dark)/);
+      if (q) t = q[1]; // ссылка с нужной темой, например ?theme=light
+      var g = location.search.match(/[?&]glow=(amber|lime|rose|ice)/);
+      d.setAttribute("data-glow", g ? g[1] : "amber"); // цвет свечения (пока примеряем)
+      var sk = location.search.match(/[?&]sky=(cool|classic)/);
+      d.setAttribute("data-sky", sk ? sk[1] : "cool"); // «холодный космос» (выбран Тимофеем); ?sky=classic — прежнее небо
+      // облегчённый режим для телефонов и слабых компьютеров: без размытия стекла, небо и планета не плывут, звёзд меньше
+      var lt = location.search.match(/[?&]lite=([01])/), nav = navigator;
+      var weak = (window.matchMedia && matchMedia("(pointer: coarse)").matches) || (nav.deviceMemory && nav.deviceMemory <= 4) ||
+        (nav.hardwareConcurrency && nav.hardwareConcurrency <= 4) || (nav.connection && nav.connection.saveData);
+      if (lt ? lt[1] === "1" : weak) d.classList.add("lite");
+      if (t === "light") d.setAttribute("data-theme", "light");
+    })();
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.85' y1='.08' x2='.2' y2='.95'%3E%3Cstop offset='0' stop-color='%23ffe3c7'/%3E%3Cstop offset='.45' stop-color='%23ff9a4a'/%3E%3Cstop offset='1' stop-color='%23e2580f'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='64' height='64' fill='%23fff'/%3E%3Ccircle cx='40' cy='31' r='20.5' fill='%23000'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='1' y='1' width='62' height='62' rx='17' fill='%23141418'/%3E%3Cg transform='translate%286 6%29 scale%28.81%29'%3E%3Ccircle cx='30' cy='32' r='25' fill='url%28%23g%29' mask='url%28%23m%29'/%3E%3Cpath d='M41 23.5 49 31l-8 7.5' fill='none' stroke='%23fff1e2' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@600&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=3" />
+</head>
+<body class="page-inner page-404">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="logoGrad" x1="0.85" y1="0.08" x2="0.2" y2="0.95">
+        <stop offset="0" stop-color="#ffe3c7"/><stop offset="0.45" stop-color="#ff9a4a"/><stop offset="1" stop-color="#e2580f"/>
+      </linearGradient>
+      <mask id="logoCut"><rect width="64" height="64" fill="#fff"/><circle cx="40" cy="31" r="20.5" fill="#000"/></mask>
+      <symbol id="logo" viewBox="0 0 64 64">
+        <rect x="1" y="1" width="62" height="62" rx="17" fill="#141418" stroke="rgba(255,255,255,.16)"/>
+        <g transform="translate(6 6) scale(.81)">
+          <circle cx="30" cy="32" r="25" fill="url(#logoGrad)" mask="url(#logoCut)"/>
+          <path d="M41 23.5 49 31l-8 7.5" fill="none" stroke="#fff1e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="bg-space" aria-hidden="true"></div>
+  <div class="bg-nebula" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"><canvas id="starCanvas"></canvas><span class="shoot s1"></span><span class="shoot s2"></span></div>
+  <div class="bg-sky" aria-hidden="true"></div>
+  <div class="bg-grain" aria-hidden="true"></div>
+
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="/" aria-label="CHESH — Тимофей Чешегоров, наверх">
+        <svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg>
+        <span>
+          <span class="logo-name">CHESH</span><br />
+          <span class="logo-sub">Тимофей Чешегоров</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="/#about">Обо мне</a>
+        <a href="/#cases">Кейсы</a>
+        <a href="/#trust">Почему я</a>
+        <a href="/#contact">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Переключить тему: светлая / тёмная" title="Светлая / тёмная тема">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2 6 6M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+        </button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><i></i><i></i><i></i></button>
+      </div>
+    </div>
+    <!-- меню на телефоне -->
+    <div class="mnav" id="mnav" hidden>
+      <nav class="mnav-inner" aria-label="Меню">
+        <a class="mnav-link" href="/#about" style="--i:0"><span>01</span>Обо мне</a>
+        <a class="mnav-link" href="/#cases" style="--i:1"><span>02</span>Кейсы</a>
+        <div class="mnav-cases" style="--i:2">
+          <a href="/case-bot.html">Telegram-бот FadePoint</a>
+          <a href="/case-zerno.html">Сайт кофейни «Зерно»</a>
+          <a href="/case-cards.html">Карточки товаров</a>
+        </div>
+        <a class="mnav-link" href="/#trust" style="--i:3"><span>03</span>Почему я</a>
+        <a class="mnav-link" href="/#process" style="--i:4"><span>04</span>Как работаю</a>
+        <a class="mnav-link" href="/#faq" style="--i:5"><span>05</span>Вопросы</a>
+        <a class="mnav-link" href="/#contact" style="--i:6"><span>06</span>Контакты</a>
+        <a class="btn btn-main mnav-tg" href="https://t.me/Tim_HellRide" target="_blank" rel="noopener" style="--i:7">Написать в&nbsp;Telegram <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="nf">
+    <div class="container nf-box">
+      <div class="nf-ninja" aria-hidden="true"><span class="nf-n">🥷</span><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="nf-code" aria-hidden="true">404</div>
+      <h1>Эта страница спряталась <em class="grad-text">лучше, чем ваш бизнес</em></h1>
+      <p>Возможно, ссылка устарела или в&nbsp;адресе опечатка. Зато всё остальное на&nbsp;месте:</p>
+      <div class="nf-btns">
+        <a class="btn btn-main" href="/">На&nbsp;главную <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="/#cases">Смотреть кейсы</a>
+      </div>
+      <nav class="nf-links" aria-label="Кейсы"><a href="/case-bot.html">Telegram-бот</a><a href="/case-zerno.html">Редизайн сайта</a><a href="/case-cards.html">Карточки товаров</a></nav>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 CHESH · Тимофей Чешегоров</span>
+      <span>Сделано вручную · работаю по&nbsp;всей России</span>
+    </div>
+  </footer>
+
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"><span class="cursor-label">звук</span></div>
+
+  <script src="/js/main.js?v=3"></script>
+</body>
+</html>

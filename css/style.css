@@ -1305,3 +1305,23 @@ html { scroll-padding-top: 76px; }
   .ho-list { grid-template-columns: 1fr 1fr; gap: 10px 12px; }
   .ho-list li { font-size: 14px; }
 }
+
+/* ===================== 404: ниндзя прячется ===================== */
+.nf { position: relative; z-index: 1; min-height: 100vh; min-height: 100svh; display: grid; place-items: center; padding: 120px 0 60px; text-align: center; }
+.nf-box { display: flex; flex-direction: column; align-items: center; }
+.nf-ninja { position: relative; width: 150px; height: 150px; }
+.nf-n { display: block; font-size: 120px; line-height: 150px; animation: nfHide 4.5s ease-in-out infinite; }
+.nf-ninja i { position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px; border-radius: 50%; background: var(--text-3); opacity: 0; animation: nfPuff 4.5s ease-out infinite; }
+.nf-ninja i:nth-child(2) { --dx: -70px; --dy: -30px; } .nf-ninja i:nth-child(3) { --dx: 70px; --dy: -24px; }
+.nf-ninja i:nth-child(4) { --dx: -54px; --dy: 46px; } .nf-ninja i:nth-child(5) { --dx: 58px; --dy: 44px; } .nf-ninja i:nth-child(6) { --dx: 0px; --dy: -70px; }
+@keyframes nfHide { 0%, 35% { opacity: 1; transform: scale(1); } 45%, 80% { opacity: 0.06; transform: scale(0.9); } 92%, 100% { opacity: 1; transform: scale(1); } }
+@keyframes nfPuff { 0%, 36% { opacity: 0; transform: translate(0, 0) scale(0.3); } 40% { opacity: 0.6; } 60%, 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.5); } }
+.nf-code { margin-top: 6px; font: 700 clamp(70px, 14vw, 150px)/1 var(--font-display); letter-spacing: -0.04em; background: linear-gradient(180deg, var(--text), transparent 95%); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: 0.85; }
+.nf h1 { margin-top: 14px; max-width: 16em; font-family: var(--font-display); font-weight: 500; font-size: clamp(24px, 3.4vw, 40px); line-height: 1.15; letter-spacing: -0.02em; }
+.nf p { margin-top: 16px; max-width: 30em; font-size: 17px; line-height: 1.6; color: var(--text-2); }
+.nf-btns { margin-top: 26px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.nf-btns .btn svg { width: 18px; height: 18px; }
+.nf-links { margin-top: 26px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.nf-links a { padding: 8px 14px; border-radius: 999px; font: 500 13px var(--font-mono); text-decoration: none; color: var(--text-2); background: var(--panel); border: 1px solid var(--line); transition: border-color 0.25s, color 0.25s; }
+.nf-links a:hover { color: var(--text); border-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .nf-n, .nf-ninja i { animation: none; } }
