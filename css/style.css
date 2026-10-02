@@ -1325,3 +1325,28 @@ html { scroll-padding-top: 76px; }
 .nf-links a { padding: 8px 14px; border-radius: 999px; font: 500 13px var(--font-mono); text-decoration: none; color: var(--text-2); background: var(--panel); border: 1px solid var(--line); transition: border-color 0.25s, color 0.25s; }
 .nf-links a:hover { color: var(--text); border-color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .nf-n, .nf-ninja i { animation: none; } }
+
+/* ===================== Плавные переходы между страницами (главная ⇄ кейсы) =====================
+   Браузер сам делает «снимок» старой и новой страницы. Шапка и космос остаются на месте,
+   содержимое мягко уезжает и приезжает, а карточка кейса раскрывается в страницу кейса (и обратно). */
+@view-transition { navigation: auto; }
+header { view-transition-name: site-header; }
+.bg-space { view-transition-name: bg-space; }
+.bg-nebula { view-transition-name: bg-nebula; }
+.stars { view-transition-name: bg-stars; }
+.bg-sky { view-transition-name: bg-sky; }
+.case-page .case { view-transition-name: case-hero; }
+::view-transition-group(*) { animation-duration: 0.6s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+::view-transition-old(root) { animation: vtOut 0.3s cubic-bezier(0.4, 0, 1, 1) both; }
+::view-transition-new(root) { animation: vtIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both; }
+::view-transition-old(case-hero), ::view-transition-new(case-hero) { height: 100%; object-fit: cover; object-position: top; }
+@keyframes vtOut { to { opacity: 0; transform: translateY(-14px) scale(0.985); } }
+@keyframes vtIn { from { opacity: 0; transform: translateY(22px); } }
+/* запасной вариант для браузеров без переходов: простое затухание */
+html.no-vt body { animation: pageIn 0.5s ease both; }
+html.no-vt body.leaving { opacity: 0; transition: opacity 0.22s ease; }
+@keyframes pageIn { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  html.no-vt body { animation: none; }
+}

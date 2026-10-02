@@ -808,6 +808,10 @@ function initLead() {
   const pick = Array.from(document.querySelectorAll("#leadPick button"));
   const opened = Date.now();
 
+  document.querySelectorAll("[data-lead-msg]").forEach((a) => a.addEventListener("click", () => {
+    const m = field("message");
+    if (!m.value.trim()) m.value = a.dataset.leadMsg;
+  }));
   if (TG_USER) { tgBtn.href = "https://t.me/" + TG_USER; document.getElementById("tgUser").textContent = "@" + TG_USER; }
   else tgBtn.hidden = true;
   pick.forEach((b) => b.addEventListener("click", () => b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true"))));
@@ -916,6 +920,36 @@ function initAutoLite() {
     requestAnimationFrame(tick);
   };
   setTimeout(() => sample(true), 6000); // когда ноутбук уже открылся и заголовок напечатался
+}
+
+// ===== Плавные переходы между страницами =====
+// Уходим со страницы: та карточка кейса, на которую нажали, раскроется в страницу кейса
+addEventListener("pageswap", (e) => {
+  if (!e.viewTransition || !e.activation || !e.activation.entry) return;
+  const to = new URL(e.activation.entry.url);
+  const pv = Array.from(document.querySelectorAll("a.pv")).find((a) => a.pathname === to.pathname);
+  if (!pv) return;
+  const art = document.getElementById("caseArt");
+  if (art) art.style.viewTransitionName = "none"; // на странице кейса имя занято самим кейсом — отдаём его карточке
+  pv.style.viewTransitionName = "case-hero";
+});
+// Вернулись кнопкой «назад» (страница из памяти браузера) — убираем временные метки и затухание
+addEventListener("pageshow", (e) => {
+  if (!e.persisted) return;
+  document.body.classList.remove("leaving");
+  document.querySelectorAll("a.pv, #caseArt").forEach((el) => (el.style.viewTransitionName = ""));
+});
+// Браузеры без переходов (Firefox): страница сначала мягко гаснет, потом открывается новая
+if (document.documentElement.classList.contains("no-vt") && !reduceMotion) {
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("a[href]");
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (a.target === "_blank" || a.hasAttribute("download") || a.origin !== location.origin) return;
+    if (a.pathname === location.pathname) return; // переход внутри страницы — без затухания
+    e.preventDefault();
+    document.body.classList.add("leaving");
+    setTimeout(() => { location.href = a.href; }, 220);
+  });
 }
 
 const has = (sel) => !!document.querySelector(sel);
