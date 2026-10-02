@@ -81,7 +81,7 @@ function initCardsView(g) {
   const imgs = Array.from(track.querySelectorAll("img")), dots = Array.from(document.querySelectorAll("#cvDots i"));
   const tabs = Array.from(root.querySelectorAll(".cv-prod button")), toggle = document.getElementById("cvToggle");
   const badge = document.getElementById("cvBadge"), prev = document.getElementById("cvPrev"), next = document.getElementById("cvNext");
-  const src = (id, n) => `img/cards/${id}-${n}.jpg?v=2`; // ?v= — новая версия карточек, чтобы браузер не показал старые из кэша
+  const src = (id, n) => `img/cards/${id}-${n}.jpg?v=3`; // ?v= — новая версия карточек, чтобы браузер не показал старые из кэша
   let p = 0, slide = 0, after = false, autoTimer = null, seen = false, token = 0;
   const HOLD = 2200; // столько «было» стоит на экране, прежде чем карточка пересоберётся
 
