@@ -1392,3 +1392,15 @@ html.no-vt body.leaving { opacity: 0; transition: opacity 0.22s ease; }
 .rv-answer p { font-size: 14.5px; line-height: 1.55; color: var(--text-2); }
 .rv-rules { display: flex; gap: 10px; align-items: flex-start; margin: 4px 0 18px; padding: 12px 14px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); font-size: 13.5px; line-height: 1.5; color: var(--text-2); }
 .rv-rules svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; color: var(--accent); }
+
+/* ===================== Ссылки на Telegram-канал ===================== */
+.ch-link { display: inline-flex; align-items: center; gap: 10px; margin: 14px 0 0 4px; font-size: 15px; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+.ch-link svg { width: 18px; height: 18px; flex-shrink: 0; color: #2aabee; }
+.ch-link b { color: var(--text); font-weight: 600; }
+.ch-link:hover { color: var(--text); }
+.ch-link:hover b { color: #2aabee; }
+.contact-side .ch-link { display: flex; }
+.mnav-ch { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; padding: 12px; border-radius: 999px; text-decoration: none; color: var(--text); background: var(--panel); border: 1px solid var(--line-strong); font-weight: 600; }
+.mnav-ch svg { width: 18px; height: 18px; color: #2aabee; }
+.foot-ch { color: var(--text-2); text-decoration: none; border-bottom: 1px dashed var(--line-strong); }
+.foot-ch:hover { color: var(--text); border-bottom-color: #2aabee; }
