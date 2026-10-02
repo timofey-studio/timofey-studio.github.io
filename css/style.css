@@ -610,6 +610,7 @@ html[data-theme="light"] .ad-back { background: linear-gradient(160deg, #e9e7e3,
   transition: transform 0.35s cubic-bezier(0.2, 1.4, 0.4, 1), border-color 0.3s, box-shadow 0.3s;
 }
 .services .chip > span { position: relative; z-index: 1; }
+.services .chip-more { text-decoration: none; border-style: dashed; cursor: pointer; }
 .services .chip svg { position: relative; z-index: 1; width: 16px; height: 16px; flex-shrink: 0; color: var(--accent); }
 .services .chip::before {
   content: ""; position: absolute; inset: 0; transform: translateX(-120%);

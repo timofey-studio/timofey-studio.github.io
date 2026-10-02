@@ -815,7 +815,6 @@ function initLead() {
   }));
   tgBtn.href = "https://t.me/" + TG_BOT + "?start=site";
   document.getElementById("tgUser").textContent = "отвечу там же, обычно в течение дня";
-  else tgBtn.hidden = true;
   pick.forEach((b) => b.addEventListener("click", () => b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true"))));
   form.addEventListener("input", (e) => { const c = e.target.closest(".consent"); if (c) c.classList.remove("bad"); msg.textContent = ""; });
 
