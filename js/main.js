@@ -922,6 +922,92 @@ function initAutoLite() {
   setTimeout(() => sample(true), 6000); // когда ноутбук уже открылся и заголовок напечатался
 }
 
+// ===== Отзывы на главной: берём одобренные у посредника; пока их нет — остаётся «станьте первым» =====
+const plural = (n, one, few, many) => (n % 10 === 1 && n % 100 !== 11 ? one : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? few : many);
+async function initReviews() {
+  const box = document.querySelector(".reviews"), list = document.getElementById("rvList");
+  if (!box || !list || !LEAD_ENDPOINT) return;
+  let items = [];
+  try {
+    const r = await fetch(LEAD_ENDPOINT + "/reviews");
+    items = (await r.json()).reviews || [];
+  } catch (e) { return; }
+  if (!items.length) return;
+  const month = (d) => { try { return new Date(d).toLocaleDateString("ru-RU", { month: "long", year: "numeric" }); } catch (e) { return ""; } };
+  // всё, что написал клиент, вставляем только как текст — никакой HTML из отзыва не выполнится
+  items.slice(0, 6).forEach((it) => {
+    const card = document.createElement("figure");
+    card.className = "rv-card";
+    const stars = document.createElement("div");
+    stars.className = "rv-stars";
+    stars.setAttribute("aria-label", `Оценка ${it.rating} из 5`);
+    stars.textContent = "★".repeat(it.rating);
+    const empty = document.createElement("span");
+    empty.textContent = "★".repeat(5 - it.rating);
+    stars.append(empty);
+    const q = document.createElement("blockquote");
+    q.textContent = it.text;
+    const who = document.createElement("figcaption");
+    who.className = "rv-who";
+    who.innerHTML = '<span class="rv-ava" aria-hidden="true"></span><span><b></b><span></span></span>';
+    who.querySelector(".rv-ava").textContent = (it.name || "?").trim().charAt(0).toUpperCase();
+    who.querySelector("b").textContent = it.name;
+    who.querySelector("span > span").textContent = [it.business, month(it.date)].filter(Boolean).join(" · ");
+    card.append(stars, q, who);
+    list.append(card);
+  });
+  list.hidden = false;
+  box.querySelector(".rv-honest").hidden = false;
+  box.classList.add("has");
+  document.getElementById("rvTitle").textContent = `Что говорят клиенты · ${items.length} ${plural(items.length, "отзыв", "отзыва", "отзывов")}`;
+  document.getElementById("rvBtnText").textContent = "Хочу так же";
+}
+
+// ===== Страница отзыва по личной ссылке (review.html?c=…) =====
+async function initReviewPage() {
+  const form = document.getElementById("reviewForm"), box = document.getElementById("reviewBox");
+  const code = new URLSearchParams(location.search).get("c") || "";
+  const state = (name) => box.setAttribute("data-state", name);
+  const f = (n) => form.querySelector(`[name="${n}"]`);
+  const msg = document.getElementById("rvMsg");
+  if (!/^[a-z0-9]{10}$/.test(code)) { state("bad"); return; }
+  try {
+    const r = await fetch(LEAD_ENDPOINT + "/invite?c=" + code);
+    if (!r.ok) throw new Error(r.status);
+    const j = await r.json();
+    f("name").value = j.name || "";
+    f("business").value = j.business || "";
+    document.getElementById("rvHello").textContent = j.name ? `${j.name}, спасибо, что выбрали меня!` : "Спасибо, что выбрали меня!";
+    state("form");
+  } catch (e) { state("bad"); return; }
+
+  const count = form.querySelector(".count");
+  f("text").addEventListener("input", () => { const l = f("text").value.trim().length; count.textContent = l < 20 ? `ещё ${20 - l} ${plural(20 - l, "символ", "символа", "символов")}` : `${l} / 1000`; });
+  const ERR = { name: "Имя — только буквами", business: "В названии бизнеса не нужны ссылки и символы < >", rating: "Поставьте оценку звёздами", short: "Напишите хотя бы пару предложений", text: "Ссылки и символы < > в отзыве не нужны", invite: "Ссылка уже использована или устарела — напишите мне в Telegram", too_many: "Слишком много попыток — попробуйте через 10 минут" };
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const d = { code, name: f("name").value.trim(), business: f("business").value.trim(), text: f("text").value.trim(), rating: Number((form.querySelector('[name="rating"]:checked') || {}).value || 0), website: f("website").value };
+    let err = "";
+    if (!d.rating) err = ERR.rating;
+    else if (d.name.length < 2 || /[^A-Za-zА-Яа-яЁё\s'’-]/.test(d.name)) err = ERR.name;
+    else if (d.text.length < 20) err = ERR.short;
+    else if (/https?:\/\/|www\.|[<>]/i.test(d.text)) err = ERR.text;
+    else if (!f("agree").checked) err = "Поставьте галочку — без неё не могу опубликовать отзыв";
+    msg.textContent = err;
+    if (err) return;
+    const btn = form.querySelector("button[type=submit]");
+    btn.disabled = true;
+    try {
+      const r = await fetch(LEAD_ENDPOINT + "/review", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || !j.ok) { msg.textContent = ERR[j.error] || "Не получилось отправить — попробуйте ещё раз или напишите мне в Telegram"; return; }
+      state("sent");
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    } catch (e2) { msg.textContent = "Нет связи — проверьте интернет и попробуйте ещё раз"; }
+    finally { btn.disabled = false; }
+  });
+}
+
 // ===== Плавные переходы между страницами =====
 // Уходим со страницы: та карточка кейса, на которую нажали, раскроется в страницу кейса
 addEventListener("pageswap", (e) => {
@@ -968,3 +1054,5 @@ initMobileMenu();
 if (has(".faq-item")) initFaq();
 initAutoLite();
 if (has("#lead")) initLead();
+if (has("#rvList")) initReviews();
+if (has("#reviewForm")) initReviewPage();

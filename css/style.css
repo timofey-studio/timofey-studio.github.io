@@ -1350,3 +1350,39 @@ html.no-vt body.leaving { opacity: 0; transition: opacity 0.22s ease; }
   @view-transition { navigation: none; }
   html.no-vt body { animation: none; }
 }
+
+/* ===================== Настоящие отзывы (появляются, когда первый отзыв одобрен в Telegram) ===================== */
+.reviews.has .rv-quotes, .reviews.has .rv-text p { display: none; }
+.reviews.has { grid-template-columns: 1fr auto; }
+.rv-list { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.rv-card { display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: 20px; background: var(--panel-strong); border: 1px solid var(--line); }
+.rv-stars { color: #f5b544; font-size: 18px; letter-spacing: 3px; }
+.rv-stars span { color: var(--line-strong); }
+.rv-card blockquote { font-size: 16px; line-height: 1.6; color: var(--text); }
+.rv-card blockquote::before { content: "«"; } .rv-card blockquote::after { content: "»"; }
+.rv-who { margin-top: auto; display: flex; align-items: center; gap: 12px; }
+.rv-ava { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; font: 700 16px var(--font-display); color: var(--btn-text); background: var(--grad); }
+.rv-who b { display: block; font-size: 15px; }
+.rv-who span { display: block; font: 500 12.5px var(--font-mono); color: var(--text-3); }
+.rv-honest { grid-column: 1 / -1; font: 500 12.5px var(--font-mono); color: var(--text-3); }
+@media (max-width: 860px) { .reviews.has { grid-template-columns: 1fr; } }
+
+/* ===================== Страница отзыва по личной ссылке ===================== */
+.rvp { position: relative; z-index: 1; padding: 120px 0 60px; }
+.rvp .container { max-width: 680px; }
+.rvp h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(28px, 4vw, 44px); line-height: 1.12; letter-spacing: -0.02em; margin: 16px 0 12px; }
+.rvp .lead-in { font-size: 17px; line-height: 1.6; color: var(--text-2); margin-bottom: 26px; }
+.rvp .lead { padding: 30px; }
+.stars-pick { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 6px; }
+.stars-pick input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.stars-pick label { cursor: pointer; font-size: 40px; line-height: 1; color: var(--line-strong); transition: color 0.15s, transform 0.2s; }
+.stars-pick label:hover, .stars-pick label:hover ~ label, .stars-pick input:checked ~ label { color: #f5b544; }
+.stars-pick label:hover { transform: scale(1.12); }
+.stars-pick input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.rvp-state { text-align: center; padding: 30px 10px; }
+.rvp-state .big { font-size: 58px; line-height: 1; margin-bottom: 14px; }
+.rvp-state h2 { font-family: var(--font-display); font-weight: 500; font-size: 26px; margin-bottom: 10px; }
+.rvp-state p { color: var(--text-2); font-size: 16px; line-height: 1.6; max-width: 28em; margin: 0 auto 18px; }
+.rv-box > .rvp-state, .rv-box > form { display: none; }
+.rv-box[data-state="load"] .st-load, .rv-box[data-state="bad"] .st-bad, .rv-box[data-state="sent"] .st-sent { display: block; }
+.rv-box[data-state="form"] .st-form { display: block; }
