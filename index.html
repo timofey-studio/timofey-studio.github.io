@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@600&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=1" />
+  <link rel="stylesheet" href="css/style.css?v=2" />
 </head>
 <body>
   <!-- Логотип CHESH «Код-луна»: светящийся серп-C и знак кода «›» в иконке -->
@@ -318,13 +318,42 @@
             <div class="kicker" data-type="scroll">02 · Кейсы</div>
             <h2 class="section-title reveal">Избранные работы</h2>
           </div>
-          <div class="counter" id="activeCounter">01 / 01</div>
+          <p class="cases-sub reveal">Нажмите на&nbsp;кейс&nbsp;— откроется подробный разбор: задача, что сделал и&nbsp;результат.</p>
         </div>
-        <div class="tabs-wrap" id="tabsWrap">
-          <div class="tabs" id="folderTabs" role="tablist" aria-label="Кейсы"></div>
-          <span class="tabs-hint" aria-hidden="true">листай →</span>
+        <!-- CASES:START — блок собирает site-tools/build_pages.py, правьте тексты там -->
+        <div class="pv-scroll" id="pvScroll">
+          <div class="pv-row" id="pvRow">
+          <a class="pv glass glow" href="case-bot.html">
+            <span class="pv-pic"><img class="pv-img for-dark" src="video/fadepoint-bot-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/fadepoint-bot-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /><span class="pv-num">01</span></span>
+            <span class="pv-body">
+              <span class="pv-tag">Telegram-бот</span>
+              <h3 class="pv-title">FadePoint: <em class="grad-text">запись без звонков</em> и&nbsp;накладок</h3>
+              <span class="pv-text">Клиент записывается к&nbsp;мастеру сам за&nbsp;минуту, владелец видит каждую запись.</span>
+              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </a>
+          <a class="pv glass glow" href="case-zerno.html">
+            <span class="pv-pic"><img class="pv-img for-dark" src="video/zerno-demo-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/zerno-demo-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /><span class="pv-num">02</span></span>
+            <span class="pv-body">
+              <span class="pv-tag">Редизайн сайта</span>
+              <h3 class="pv-title">Кофейня «Зерно»: <em class="grad-text">от&nbsp;старого сайта</em> к&nbsp;заказам</h3>
+              <span class="pv-text">Старый сайт кофейни превращается в&nbsp;новый, с&nbsp;которого удобно заказать.</span>
+              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </a>
+          <a class="pv glass glow" href="case-cards.html">
+            <span class="pv-pic"><img class="pv-img" src="img/cards/coffee-1.jpg?v=2" alt="" loading="lazy" width="720" height="960" /><span class="pv-num">03</span></span>
+            <span class="pv-body">
+              <span class="pv-tag">Карточки товаров</span>
+              <h3 class="pv-title">Карточки, <em class="grad-text">мимо которых не&nbsp;пролистнуть</em></h3>
+              <span class="pv-text">Четыре товара&nbsp;— четыре стиля. Фото «с&nbsp;ковра» → карточка, которая продаёт.</span>
+              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </a>
+          </div>
+          <span class="pv-hint" aria-hidden="true">листай <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-        <div id="sheetContainer"></div>
+        <!-- CASES:END -->
       </div>
     </section>
 
@@ -486,6 +515,6 @@
     <div class="ad-tip">нажми, чтобы закрыть</div>
   </div>
 
-  <script src="js/main.js?v=1"></script>
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>

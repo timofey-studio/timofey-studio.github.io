@@ -2,63 +2,27 @@
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isLight = () => document.documentElement.getAttribute("data-theme") === "light";
 
-// Кейсы: только реальные проекты
+// Медиа кейсов: видео (тёмная и светлая версии) и листалка карточек.
+// Тексты кейсов — на страницах case-*.html, их собирает site-tools/build_pages.py.
 const CASES_DATA = [
   {
     id: "fadepoint-bot",
-    tabLabel: "01 · Telegram-бот",
-    num: "01",
-    kicker: "Кейс 01 · Telegram-бот · 2026",
-    title: 'FadePoint: <em class="grad-text">запись без звонков</em> и&nbsp;накладок',
-    lead: "Я сделал бота, который заменяет администратора на телефоне: клиент записывается сам за минуту, а владелец видит каждую запись и может занять время для тех, кто пришёл вживую.",
-    roles: [
-      { name: "Клиент", tone: "client", items: ["Мастер → услуга → день → время", "Только свободные окна", "Подтверждение одной кнопкой"] },
-      { name: "Владелец", tone: "owner", items: ["Уведомление о каждой записи", "Панель /admin", "Ручная запись «с улицы»"] }
-    ],
-    stack: ["Python", "aiogram 3", "SQLite", "FSM"],
-    note: "// подробный разбор кода и архитектуры — скоро",
     video: {
-      // тёмная и светлая версии — под тему сайта
       dark: { src: "video/fadepoint-bot.mp4", poster: "video/fadepoint-bot-poster.jpg" },
-      light: { src: "video/fadepoint-bot-light.mp4", poster: "video/fadepoint-bot-light-poster.jpg" },
-      label: "Демо Telegram-бота барбершопа: запись клиента и ручная запись владельцем, 34 секунды"
+      light: { src: "video/fadepoint-bot-light.mp4", poster: "video/fadepoint-bot-light-poster.jpg" }
     }
   },
   {
     id: "zerno-redesign",
-    tabLabel: "02 · Редизайн сайта",
-    num: "02",
-    kicker: "Кейс 02 · Как я работаю · пример",
-    title: 'Кофейня «Зерно»: <em class="grad-text">от&nbsp;старого сайта</em> к&nbsp;заказам',
-    lead: "Показываю на примере, как проходит работа: владелица пишет мне, я нахожу, где сайт теряет клиентов, согласую с ней стиль и схему — и собираю новый сайт, который приносит заказы.",
-    roles: [
-      { name: "Было", tone: "bad", items: ["Грузится 9 секунд", "Нет кнопки заказа", "На телефоне всё разъезжается"] },
-      { name: "Стало", tone: "owner", items: ["Понятный первый экран", "Заказ с собой в пару нажатий", "Удобно с телефона"] }
-    ],
-    stack: ["Разбор сайта", "Референсы", "Схема", "Вёрстка"],
-    note: "// пример: бизнес и цифры условные",
     video: {
       dark: { src: "video/zerno-demo.mp4", poster: "video/zerno-demo-poster.jpg" },
-      light: { src: "video/zerno-demo-light.mp4", poster: "video/zerno-demo-light-poster.jpg" },
-      label: "Пример работы: старый сайт кофейни «Зерно» превращается в новый, 78 секунд"
+      light: { src: "video/zerno-demo-light.mp4", poster: "video/zerno-demo-light-poster.jpg" }
     }
   },
   {
     id: "marketplace-cards",
-    tabLabel: "03 · Карточки товаров",
-    num: "03",
-    kicker: "Кейс 03 · Карточки для маркетплейсов · пример",
-    title: 'Карточки, <em class="grad-text">мимо которых не&nbsp;пролистнуть</em>',
-    lead: "Покупатель решает за пару секунд, глядя на первое фото. Показываю на четырёх разных товарах, как фото «с телефона на ковре» превращается в карточку, которая сразу отвечает: что это, чем хорошо и подойдёт ли мне.",
-    roles: [
-      { name: "Было", tone: "bad", items: ["Тёмное фото на случайном фоне", "Непонятно, какой размер и из чего", "Описание капсом в одну строку"] },
-      { name: "Стало", tone: "owner", items: ["Главное фото, которое цепляет", "Преимущества, размеры и уход на слайдах", "Свой стиль у каждого бренда"] }
-    ],
-    stack: ["Wildberries", "Ozon", "Инфографика", "Ретушь"],
-    note: "// пример: товары и бренды условные",
     // картинки: img/cards/<id>-0.jpg — «было», -1…-3 — слайды «стало» (исходники — Cowork/cards)
     gallery: {
-      label: "Примеры карточек товаров для маркетплейсов: как было и как стало",
       products: [
         { id: "mug", name: "Кружка" },
         { id: "coffee", name: "Кофе" },
@@ -77,148 +41,32 @@ function toggleProfileCard() {
   const flipped = flipCard.classList.toggle("flipped");
   flipCard.setAttribute("aria-pressed", String(flipped));
 }
-flipCard.addEventListener("click", toggleProfileCard);
-flipCard.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleProfileCard(); }
-});
-
-function initArchive() {
-  const tabs = document.getElementById("folderTabs");
-  tabs.innerHTML = "";
-  CASES_DATA.forEach((item, index) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "tab-btn" + (index === currentActiveIndex ? " active" : "");
-    btn.setAttribute("role", "tab");
-    btn.setAttribute("aria-selected", String(index === currentActiveIndex));
-    btn.innerHTML = `<span class="dot"></span><span>${item.tabLabel}</span>`;
-    btn.onclick = () => selectCase(index);
-    tabs.appendChild(btn);
+if (flipCard) {
+  flipCard.addEventListener("click", toggleProfileCard);
+  flipCard.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleProfileCard(); }
   });
-  // подсказка «листай →» видна, пока справа есть спрятанные вкладки
-  const wrap = document.getElementById("tabsWrap");
-  const more = () => wrap.classList.toggle("more", tabs.scrollWidth - tabs.clientWidth - tabs.scrollLeft > 8);
-  tabs.addEventListener("scroll", more, { passive: true });
+}
+
+// Превью кейсов на главной: на телефоне ряд листается вбок, подсказка «листай →» — под рядом, пока справа есть ещё
+function initCasePreviews() {
+  const box = document.getElementById("pvScroll"), row = document.getElementById("pvRow");
+  if (!box || !row) return;
+  const more = () => box.classList.toggle("more", row.scrollWidth - row.clientWidth - row.scrollLeft > 8);
+  row.addEventListener("scroll", more, { passive: true });
   addEventListener("resize", more);
   if (document.fonts) document.fonts.ready.then(more);
   more();
-  renderCurrentSheet();
-  // обложки видео подгружаем заранее — при смене кейса не будет чёрного квадрата на месте видео
-  setTimeout(() => CASES_DATA.forEach((c) => { if (c.video) { const im = new Image(); im.src = c.video[isLight() ? "light" : "dark"].poster; } }), 3000);
 }
 
-// Смена кейса: прежний мягко гаснет, новый «выезжает» вниз из-под вкладок, как лист из папки
-let caseSwitching = false;
-function selectCase(index) {
-  if (currentActiveIndex === index || caseSwitching) return;
-  const tabs = document.querySelectorAll(".tab-btn");
-  const box = document.getElementById("sheetContainer");
-  const oldCase = box.querySelector(".case");
-  const newTab = tabs[index];
-  tabs.forEach((tab, i) => {
-    tab.classList.toggle("active", i === index);
-    tab.setAttribute("aria-selected", String(i === index));
-  });
-  // выбранная вкладка целиком на экране (если ряд пролистан)
-  const row = document.getElementById("folderTabs");
-  const tl = newTab.offsetLeft - row.offsetLeft, tr = tl + newTab.offsetWidth;
-  if (tl < row.scrollLeft || tr > row.scrollLeft + row.clientWidth) row.scrollTo({ left: tl - 16, behavior: reduceMotion ? "auto" : "smooth" });
-  if (newTab.animate && !reduceMotion) newTab.animate([{ transform: "scale(1)" }, { transform: "scale(0.93)" }, { transform: "scale(1)" }], { duration: 300, easing: "ease-out" });
-  const open = () => { currentActiveIndex = index; renderCurrentSheet(true); caseSwitching = false; };
-  if (!oldCase || reduceMotion || !oldCase.animate) { open(); return; }
-  caseSwitching = true;
-  box.style.height = box.offsetHeight + "px"; // высота держится, пока кейсы меняются, — страница не прыгает
-  oldCase.style.animation = "none";
-  oldCase.animate([
-    { opacity: 1, transform: "translateY(0px) scale(1)" },
-    { opacity: 0, transform: "translateY(14px) scale(0.985)" }
-  ], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = open;
-}
-
-const ICON_SOUND_OFF = '<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>';
-const ICON_EXPAND = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
-const ICON_SOUND_ON = '<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>';
-
-function renderCurrentSheet(animate) {
-  const data = CASES_DATA[currentActiveIndex];
-  const box = document.getElementById("sheetContainer");
-  const oldH = box.offsetHeight;
-  const pad = (n) => String(n).padStart(2, "0");
-  document.getElementById("activeCounter").textContent = `${pad(currentActiveIndex + 1)} / ${pad(CASES_DATA.length)}`;
-  const v = data.video && data.video[isLight() ? "light" : "dark"];
-
-  // Видео играет без звука; звук включается кнопкой сбоку (или нажатием на видео) — прямо на месте
-  const media = v ? `
-    <div class="case-media" id="caseMedia">
-      <div class="phone-glass">
-        <video class="case-video" id="caseVideo" src="${v.src}" poster="${v.poster}" data-cursor="video"
-          loop muted playsinline preload="none"
-          aria-label="${data.video.label}" width="640" height="800"></video>
-      </div>
-      <button class="sound-btn" type="button" id="soundBtn" aria-pressed="false" aria-label="Включить звук" data-tip="звук">${ICON_SOUND_OFF}${ICON_SOUND_ON}</button>
-      <button class="sound-btn expand-btn" type="button" id="expandBtn" aria-label="Развернуть видео на весь экран со звуком" data-tip="развернуть">${ICON_EXPAND}</button>
-    </div>` : data.gallery ? `
-    <div class="case-media cards-view" id="cardsView" aria-label="${data.gallery.label}">
-      <div class="cv-prod" role="tablist" aria-label="Товар">
-        ${data.gallery.products.map((pr, i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-p="${i}">${pr.name}</button>`).join("")}
-      </div>
-      <div class="phone-glass cv-frame" id="cvFrame">
-        <div class="cv-stage" id="cvStage" data-cursor="drag">
-          <div class="cv-track" id="cvTrack"><img alt="" /><img alt="" /><img alt="" /></div>
-          <img class="cv-before" id="cvBefore" alt="" />
-          <span class="cv-scan" aria-hidden="true"></span>
-        </div>
-        <span class="cv-badge" id="cvBadge">было</span>
-        <button type="button" class="cv-nav prev" id="cvPrev" aria-label="Предыдущий слайд">‹</button>
-        <button type="button" class="cv-nav next" id="cvNext" aria-label="Следующий слайд">›</button>
-        <div class="cv-dots" id="cvDots" aria-hidden="true"><i></i><i></i><i></i></div>
-      </div>
-      <div class="cv-toggle is-before" id="cvToggle" role="group" aria-label="Как было или как стало">
-        <i class="cv-thumb" aria-hidden="true"></i>
-        <button type="button" data-v="before" aria-pressed="true">Было</button>
-        <button type="button" data-v="after" aria-pressed="false">Стало</button>
-      </div>
-    </div>` : "";
-
-  document.getElementById("sheetContainer").innerHTML = `
-    <article class="case">
-      <div class="case-num" aria-hidden="true">${data.num}</div>
-      <div class="case-grid">
-        <div>
-          <div class="kicker">${data.kicker}</div>
-          <h3 class="case-title">${data.title}</h3>
-          <p class="case-lead">${data.lead}</p>
-          <div class="roles">
-            ${data.roles.map((r) => `
-              <div class="role ${r.tone} glass glow">
-                <h4>${r.name}</h4>
-                <ul>${r.items.map((i) => `<li>${i}</li>`).join("")}</ul>
-              </div>`).join("")}
-          </div>
-          <div class="stack">${data.stack.map((s) => `<span class="chip">${s}</span>`).join("")}</div>
-          ${data.note ? `<p class="case-note">${data.note}</p>` : ""}
-        </div>
-        ${media}
-      </div>
-    </article>`;
-
-  if (v) initCaseVideo();
-  else if (caseVideoWatch) caseVideoWatch.disconnect();
-  if (data.gallery) initCardsView(data.gallery);
-
-  // появление: новый кейс выезжает вниз из-под вкладок, а высота блока плавно подстраивается под него
-  const caseEl = box.querySelector(".case");
-  if (animate && caseEl && caseEl.animate && !reduceMotion) {
-    caseEl.style.animation = "none";
-    const ease = "cubic-bezier(0.22, 1, 0.36, 1)", dur = 650;
-    caseEl.animate([
-      { clipPath: "inset(0px 0px 100% 0px round 28px)", transform: "translateY(-26px)", opacity: 0.5 },
-      { clipPath: "inset(0px 0px 0% 0px round 28px)", transform: "translateY(0px)", opacity: 1 }
-    ], { duration: dur, easing: ease });
-    const newH = caseEl.offsetHeight;
-    box.animate([{ height: oldH + "px" }, { height: newH + "px" }], { duration: dur, easing: ease }).onfinish = () => { box.style.height = ""; };
-    box.style.height = newH + "px";
-  } else box.style.height = "";
+// Страница кейса: оживляем видео или листалку карточек
+function initCasePage() {
+  const id = document.body.dataset.case;
+  const i = CASES_DATA.findIndex((c) => c.id === id);
+  if (i < 0) return;
+  currentActiveIndex = i;
+  if (document.getElementById("caseVideo")) { initCaseVideo(); syncCaseVideo(); }
+  if (CASES_DATA[i].gallery && document.getElementById("cardsView")) initCardsView(CASES_DATA[i].gallery);
 }
 
 // ===== Кейс 03: листалка карточек — товар, «было / стало», слайды =====
@@ -442,6 +290,7 @@ function typePhoneHint() {
 // Ролик играет, только пока шапка на экране, — чтобы зря не нагружать компьютер.
 function syncPhoneAd(start) {
   const ad = document.getElementById("phoneAd");
+  if (!ad) return;
   const sfx = isLight() ? "-light" : "";
   const src = "video/chesh-ad" + sfx + ".mp4";
   const cur = ad.getAttribute("src");
@@ -777,7 +626,8 @@ function initNav() {
   const nav = document.querySelector(".nav");
   if (!nav) return;
   const links = Array.from(nav.querySelectorAll("a"));
-  const sections = links.map((a) => document.querySelector(a.getAttribute("href")));
+  const sections = links.map((a) => { const h = a.getAttribute("href"); return h.startsWith("#") ? document.querySelector(h) : null; });
+  const fixed = nav.querySelector('a[aria-current="page"]'); // на странице кейса — «Кейсы»
   const ind = document.createElement("span");
   ind.className = "nav-ind";
   ind.setAttribute("aria-hidden", "true");
@@ -797,6 +647,7 @@ function initNav() {
     const y = innerHeight * 0.4;
     let found = null;
     sections.forEach((sec, i) => { if (!sec) return; const r = sec.getBoundingClientRect(); if (r.top <= y && r.bottom > y) found = links[i]; });
+    found = found || fixed;
     if (found === current) return;
     current = found;
     links.forEach((a) => a.classList.toggle("on", a === found));
@@ -1040,15 +891,17 @@ function initAutoLite() {
   setTimeout(() => sample(true), 6000); // когда ноутбук уже открылся и заголовок напечатался
 }
 
-initArchive();
-initHero();
+const has = (sel) => !!document.querySelector(sel);
+if (has("#pvRow")) initCasePreviews();
+if (document.body.dataset.case) initCasePage();
+if (has(".hero")) initHero();
 initReveal();
-initCursor();
-initWorld();
+if (has(".cursor-dot")) initCursor();
+if (has("#world")) initWorld();
 initStars();
 initFeatures();
 initNav();
-initPhoneZoom();
+if (has(".phone-wrap")) initPhoneZoom();
 initTabTitle();
 initAutoLite();
-initLead();
+if (has("#lead")) initLead();

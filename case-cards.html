@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Карточки товаров для Wildberries и Ozon: было / стало — кейс · CHESH</title>
+  <meta name="description" content="Четыре товара — четыре разных стиля: как фото «с телефона» превращается в карточку, которая продаёт. Формат 900×1200 для маркетплейсов." />
+  <link rel="canonical" href="https://timofey-studio.github.io/case-cards.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="CHESH" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:title" content="Карточки товаров для Wildberries и Ozon: было / стало — кейс · CHESH" />
+  <meta property="og:description" content="Четыре товара — четыре разных стиля: как фото «с телефона» превращается в карточку, которая продаёт. Формат 900×1200 для маркетплейсов." />
+  <meta property="og:url" content="https://timofey-studio.github.io/case-cards.html" />
+  <meta property="og:image" content="https://timofey-studio.github.io/img/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#07070a" />
+  <script>
+    // До отрисовки: тема (сохранённый выбор, иначе тёмная), цвет свечения и флаг «JS работает»
+    (function () {
+      var d = document.documentElement, t = null;
+      d.classList.add("js");
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      var q = location.search.match(/[?&]theme=(light|dark)/);
+      if (q) t = q[1]; // ссылка с нужной темой, например ?theme=light
+      var g = location.search.match(/[?&]glow=(amber|lime|rose|ice)/);
+      d.setAttribute("data-glow", g ? g[1] : "amber"); // цвет свечения (пока примеряем)
+      var sk = location.search.match(/[?&]sky=(cool|classic)/);
+      d.setAttribute("data-sky", sk ? sk[1] : "cool"); // «холодный космос» (выбран Тимофеем); ?sky=classic — прежнее небо
+      // облегчённый режим для телефонов и слабых компьютеров: без размытия стекла, небо и планета не плывут, звёзд меньше
+      var lt = location.search.match(/[?&]lite=([01])/), nav = navigator;
+      var weak = (window.matchMedia && matchMedia("(pointer: coarse)").matches) || (nav.deviceMemory && nav.deviceMemory <= 4) ||
+        (nav.hardwareConcurrency && nav.hardwareConcurrency <= 4) || (nav.connection && nav.connection.saveData);
+      if (lt ? lt[1] === "1" : weak) d.classList.add("lite");
+      if (t === "light") d.setAttribute("data-theme", "light");
+    })();
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.85' y1='.08' x2='.2' y2='.95'%3E%3Cstop offset='0' stop-color='%23ffe3c7'/%3E%3Cstop offset='.45' stop-color='%23ff9a4a'/%3E%3Cstop offset='1' stop-color='%23e2580f'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='64' height='64' fill='%23fff'/%3E%3Ccircle cx='40' cy='31' r='20.5' fill='%23000'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='1' y='1' width='62' height='62' rx='17' fill='%23141418'/%3E%3Cg transform='translate%286 6%29 scale%28.81%29'%3E%3Ccircle cx='30' cy='32' r='25' fill='url%28%23g%29' mask='url%28%23m%29'/%3E%3Cpath d='M41 23.5 49 31l-8 7.5' fill='none' stroke='%23fff1e2' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@600&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-case="marketplace-cards" class="page-inner">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="logoGrad" x1="0.85" y1="0.08" x2="0.2" y2="0.95">
+        <stop offset="0" stop-color="#ffe3c7"/><stop offset="0.45" stop-color="#ff9a4a"/><stop offset="1" stop-color="#e2580f"/>
+      </linearGradient>
+      <mask id="logoCut"><rect width="64" height="64" fill="#fff"/><circle cx="40" cy="31" r="20.5" fill="#000"/></mask>
+      <symbol id="logo" viewBox="0 0 64 64">
+        <rect x="1" y="1" width="62" height="62" rx="17" fill="#141418" stroke="rgba(255,255,255,.16)"/>
+        <g transform="translate(6 6) scale(.81)">
+          <circle cx="30" cy="32" r="25" fill="url(#logoGrad)" mask="url(#logoCut)"/>
+          <path d="M41 23.5 49 31l-8 7.5" fill="none" stroke="#fff1e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="bg-space" aria-hidden="true"></div>
+  <div class="bg-nebula" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"><canvas id="starCanvas"></canvas><span class="shoot s1"></span><span class="shoot s2"></span></div>
+  <div class="bg-sky" aria-hidden="true"></div>
+  <div class="bg-grain" aria-hidden="true"></div>
+
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html" aria-label="CHESH — Тимофей Чешегоров, наверх">
+        <svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg>
+        <span>
+          <span class="logo-name">CHESH</span><br />
+          <span class="logo-sub">Тимофей Чешегоров</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="index.html#about">Обо мне</a>
+        <a href="index.html#cases" aria-current="page">Кейсы</a>
+        <a href="index.html#trust">Почему я</a>
+        <a href="index.html#contact">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Переключить тему: светлая / тёмная" title="Светлая / тёмная тема">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2 6 6M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="case-page">
+    <div class="container">
+      <nav class="crumbs" aria-label="Навигация">
+        <a href="index.html#cases"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Все кейсы</a>
+        <span>Кейс 03 из&nbsp;03</span>
+      </nav>
+      <article class="case">
+        <div class="case-num" aria-hidden="true">03</div>
+        <div class="case-grid">
+          <div>
+            <div class="kicker">Кейс 03 · Карточки для маркетплейсов · пример</div>
+            <h1 class="case-title">Карточки, <em class="grad-text">мимо которых не&nbsp;пролистнуть</em></h1>
+            <p class="case-lead">Покупатель решает за пару секунд, глядя на первое фото. Показываю на четырёх разных товарах, как фото «с телефона на ковре» превращается в карточку, которая сразу отвечает: что это, чем хорошо и подойдёт ли мне.</p>
+            <div class="roles">
+              <div class="role bad glass glow"><h4>Было</h4><ul><li>Тёмное фото на случайном фоне</li><li>Непонятно, какой размер и из чего</li><li>Описание капсом в одну строку</li></ul></div>
+              <div class="role owner glass glow"><h4>Стало</h4><ul><li>Главное фото, которое цепляет</li><li>Преимущества, размеры и уход на слайдах</li><li>Свой стиль у каждого бренда</li></ul></div>
+            </div>
+            <div class="stack"><span class="chip">Wildberries</span><span class="chip">Ozon</span><span class="chip">Инфографика</span><span class="chip">Ретушь</span></div>
+            <p class="case-note">// пример: товары и бренды условные</p>
+          </div>
+        <div class="case-media cards-view" id="cardsView" aria-label="Примеры карточек товаров для маркетплейсов: как было и как стало">
+          <div class="cv-prod" role="tablist" aria-label="Товар"><button type="button" role="tab" aria-selected="true" data-p="0">Кружка</button><button type="button" role="tab" aria-selected="false" data-p="1">Кофе</button><button type="button" role="tab" aria-selected="false" data-p="2">Кроссовки</button><button type="button" role="tab" aria-selected="false" data-p="3">Сыворотка</button></div>
+          <div class="phone-glass cv-frame" id="cvFrame">
+            <div class="cv-stage" id="cvStage" data-cursor="drag">
+              <div class="cv-track" id="cvTrack"><img alt="" /><img alt="" /><img alt="" /></div>
+              <img class="cv-before" id="cvBefore" alt="" />
+              <span class="cv-scan" aria-hidden="true"></span>
+            </div>
+            <span class="cv-badge" id="cvBadge">было</span>
+            <button type="button" class="cv-nav prev" id="cvPrev" aria-label="Предыдущий слайд">‹</button>
+            <button type="button" class="cv-nav next" id="cvNext" aria-label="Следующий слайд">›</button>
+            <div class="cv-dots" id="cvDots" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+          <div class="cv-toggle is-before" id="cvToggle" role="group" aria-label="Как было или как стало">
+            <i class="cv-thumb" aria-hidden="true"></i>
+            <button type="button" data-v="before" aria-pressed="true">Было</button>
+            <button type="button" data-v="after" aria-pressed="false">Стало</button>
+          </div>
+        </div>
+        </div>
+      </article>
+
+      <section class="cs-story">
+        <div class="cs-task reveal">
+          <div class="kicker">Задача</div>
+          <p>Покупатель листает ленту и&nbsp;решает за&nbsp;пару секунд. Тёмное фото «с&nbsp;телефона» и&nbsp;описание капсом&nbsp;— и&nbsp;он&nbsp;уходит к&nbsp;соседу, даже если товар лучше.</p>
+        </div>
+        <div class="cs-did reveal">
+          <div class="kicker">Что я&nbsp;сделал</div>
+          <ol class="cs-steps">
+            <li><span class="cs-n">01</span><div><h3>Главное фото</h3><p>Товар крупно, чистый фон и&nbsp;одна сильная фраза&nbsp;— чтобы остановить палец на&nbsp;ленте.</p></div></li>
+            <li><span class="cs-n">02</span><div><h3>Из&nbsp;чего и&nbsp;какое</h3><p>Состав, размеры, уход&nbsp;— каждый раз своим приёмом: номера на&nbsp;фото, выноски, «лупы», фото-история.</p></div></li>
+            <li><span class="cs-n">03</span><div><h3>Свой стиль бренда</h3><p>Кружка&nbsp;— тёплая керамика, кофе&nbsp;— зелёный крафт, кроссовки&nbsp;— дерзкий спорт, сыворотка&nbsp;— нежный уход.</p></div></li>
+            <li><span class="cs-n">04</span><div><h3>Формат маркетплейса</h3><p>900×1200 (3:4), крупный текст читается даже на&nbsp;маленьком экране телефона.</p></div></li>
+          </ol>
+        </div>
+        <div class="cs-result glass glow reveal">
+          <span class="cs-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+          <div><div class="kicker">Результат</div><p>Карточка отвечает на&nbsp;вопросы покупателя раньше, чем он&nbsp;их&nbsp;задаст: что это, из&nbsp;чего, какой размер и&nbsp;подойдёт&nbsp;ли ему. Меньше вопросов в&nbsp;чате&nbsp;— больше покупок.</p></div>
+        </div>
+      </section>
+
+      <section class="cs-cta glass glow reveal">
+        <div>
+          <h2>Хотите так&nbsp;же <em class="grad-text">для своего бизнеса?</em></h2>
+          <p>Расскажите, что есть сейчас,&nbsp;— предложу решение и&nbsp;честно скажу, сколько это займёт.</p>
+        </div>
+        <div class="cs-cta-btns">
+          <a class="btn btn-main" href="https://t.me/Tim_HellRide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg>Написать в&nbsp;Telegram</a>
+          <a class="btn btn-ghost" href="index.html#contact">Оставить заявку</a>
+        </div>
+      </section>
+
+      <section class="cs-more">
+        <div class="cs-more-head"><h2>Другие кейсы</h2><a href="case-bot.html">Следующий: Telegram-бот <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        <div class="pv-row">
+          <a class="pv glass glow" href="case-bot.html">
+            <span class="pv-pic"><img class="pv-img for-dark" src="video/fadepoint-bot-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/fadepoint-bot-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /><span class="pv-num">01</span></span>
+            <span class="pv-body">
+              <span class="pv-tag">Telegram-бот</span>
+              <h3 class="pv-title">FadePoint: <em class="grad-text">запись без звонков</em> и&nbsp;накладок</h3>
+              <span class="pv-text">Клиент записывается к&nbsp;мастеру сам за&nbsp;минуту, владелец видит каждую запись.</span>
+              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </a>
+          <a class="pv glass glow" href="case-zerno.html">
+            <span class="pv-pic"><img class="pv-img for-dark" src="video/zerno-demo-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/zerno-demo-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /><span class="pv-num">02</span></span>
+            <span class="pv-body">
+              <span class="pv-tag">Редизайн сайта</span>
+              <h3 class="pv-title">Кофейня «Зерно»: <em class="grad-text">от&nbsp;старого сайта</em> к&nbsp;заказам</h3>
+              <span class="pv-text">Старый сайт кофейни превращается в&nbsp;новый, с&nbsp;которого удобно заказать.</span>
+              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 CHESH · Тимофей Чешегоров</span>
+      <span>Сделано вручную · работаю по&nbsp;всей России</span>
+    </div>
+  </footer>
+
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"><span class="cursor-label">звук</span></div>
+
+  <script src="js/main.js?v=2"></script>
+</body>
+</html>

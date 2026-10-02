@@ -1155,3 +1155,75 @@ html.lite .bg-space, html.lite .bg-nebula, html.lite .bg-sky, html.lite .world-t
   .tw-caret { animation: none; }
   .scene, .lid, .laptop, .phone, .phone-wrap, .phone-glass, .screen > *, .js .laptop .win, .js .laptop .dock, .js .laptop .menubar { transition: none !important; }
 }
+
+/* ===================== Превью кейсов (главная) и страницы кейсов ===================== */
+.cases-sub { max-width: 30em; font-size: 16px; line-height: 1.55; color: var(--text-2); }
+.pv-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.pv { display: flex; flex-direction: column; border-radius: var(--r-lg); overflow: hidden; text-decoration: none; color: var(--text); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s; }
+.pv:hover { transform: translateY(-6px); border-color: var(--line-strong); }
+.pv-pic { position: relative; display: block; aspect-ratio: 4 / 3.6; overflow: hidden; background: var(--bg-2); }
+.pv-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 18%; transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.pv:hover .pv-img { transform: scale(1.05); }
+.pv-img.for-light, html[data-theme="light"] .pv-img.for-dark { display: none; }
+html[data-theme="light"] .pv-img.for-light { display: block; }
+.pv-pic::after { content: ""; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(transparent, rgba(0, 0, 0, 0.45)); pointer-events: none; }
+.pv-num { position: absolute; left: 16px; bottom: 12px; z-index: 1; font: 700 42px/1 var(--font-display); color: #fff; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5); }
+.pv-body { display: flex; flex-direction: column; gap: 10px; padding: 22px 22px 24px; flex: 1; }
+.pv-tag { font: 500 12px var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.pv-title { font-family: var(--font-display); font-weight: 500; font-size: 21px; line-height: 1.18; letter-spacing: -0.01em; }
+.pv-text { font-size: 15px; line-height: 1.5; color: var(--text-2); }
+.pv-more { margin-top: auto; padding-top: 8px; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; color: var(--accent); }
+.pv-more svg { width: 18px; height: 18px; transition: transform 0.3s; }
+.pv:hover .pv-more svg { transform: translateX(5px); }
+.pv-scroll { position: relative; }
+.pv-hint { display: none; }
+@media (max-width: 860px) {
+  /* на телефоне — ряд листается вбок; подсказка «листай →» под рядом, а не поверх карточек */
+  .pv-scroll .pv-row { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 -16px; padding: 4px 16px 6px; }
+  .pv-scroll .pv-row::-webkit-scrollbar { display: none; }
+  .pv-scroll .pv { flex: 0 0 82%; scroll-snap-align: center; }
+  .pv-hint { display: flex; justify-content: flex-end; align-items: center; gap: 6px; margin-top: 12px; font: 700 20px "Caveat", cursive; color: var(--accent); opacity: 0; transition: opacity 0.4s; }
+  .pv-hint svg { width: 18px; height: 18px; }
+  .pv-scroll.more .pv-hint { opacity: 1; animation: hintNudge 1.6s ease-in-out infinite; }
+}
+
+.case-page { position: relative; z-index: 1; padding: 120px 0 40px; }
+.crumbs { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; font: 500 13px var(--font-mono); color: var(--text-3); }
+.crumbs a { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; text-decoration: none; color: var(--text); background: var(--panel); border: 1px solid var(--line-strong); transition: border-color 0.25s; }
+.crumbs a:hover { border-color: var(--accent); }
+.crumbs svg { width: 16px; height: 16px; }
+.case-page h1.case-title { font-size: clamp(28px, 4vw, 52px); }
+.cs-story { display: grid; grid-template-columns: 1fr 1.25fr; gap: 26px 56px; margin: 80px 0 0; align-items: start; }
+.cs-task p { margin-top: 16px; font-family: var(--font-display); font-weight: 500; font-size: clamp(19px, 1.9vw, 24px); line-height: 1.35; letter-spacing: -0.01em; }
+.cs-did { grid-row: span 2; }
+.cs-steps { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; }
+.cs-steps li { position: relative; display: grid; grid-template-columns: 54px 1fr; gap: 16px; padding: 0 0 26px; }
+.cs-steps li:not(:last-child)::before { content: ""; position: absolute; left: 21px; top: 46px; bottom: 6px; width: 2px; border-radius: 2px; background: linear-gradient(var(--accent), var(--line)); opacity: 0.6; }
+.cs-n { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font: 700 15px var(--font-mono); color: var(--accent); background: var(--panel-strong); border: 1px solid var(--line-strong); }
+.cs-steps h3 { font-size: 18px; font-weight: 700; margin: 9px 0 6px; }
+.cs-steps p { font-size: 15.5px; line-height: 1.55; color: var(--text-2); }
+.cs-result { display: grid; grid-template-columns: 52px 1fr; gap: 18px; padding: 26px; border-radius: var(--r-lg); }
+.cs-ok { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; color: var(--btn-text); background: var(--grad); box-shadow: 0 12px 26px -10px var(--glow-soft); }
+.cs-ok svg { width: 26px; height: 26px; }
+.cs-result p { margin-top: 12px; font-size: 16.5px; line-height: 1.6; }
+.cs-cta { margin-top: 70px; padding: 40px; border-radius: var(--r-lg); display: flex; justify-content: space-between; align-items: center; gap: 26px 40px; flex-wrap: wrap; }
+.cs-cta h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(24px, 3vw, 36px); line-height: 1.15; letter-spacing: -0.02em; }
+.cs-cta p { margin-top: 10px; font-size: 16.5px; color: var(--text-2); max-width: 32em; }
+.cs-cta-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.cs-cta .btn svg { width: 19px; height: 19px; }
+.cs-more { margin-top: 80px; }
+.cs-more-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+.cs-more-head h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(22px, 2.6vw, 32px); }
+.cs-more-head a { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--accent); text-decoration: none; }
+.cs-more-head a svg { width: 18px; height: 18px; }
+.cs-more .pv-row { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 700px) { .cs-more .pv-row { grid-template-columns: 1fr; } }
+@media (max-width: 980px) {
+  .cs-story { grid-template-columns: 1fr; margin-top: 56px; }
+  .cs-did { grid-row: auto; }
+}
+@media (max-width: 600px) {
+  .case-page { padding-top: 96px; }
+  .cs-cta { padding: 26px 20px; }
+  .cs-cta-btns, .cs-cta-btns .btn { width: 100%; justify-content: center; }
+}
