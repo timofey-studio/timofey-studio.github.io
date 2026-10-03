@@ -1523,3 +1523,39 @@ footer a { display: inline-block; padding: 10px 0; }
 html.ad-open .side-nav, html.menu-open .side-nav { opacity: 0; pointer-events: none; }
 @media (max-width: 1099px) { .side-nav { display: none; } }
 @media (prefers-reduced-motion: reduce) { .side-nav i, .side-nav a span { transition: none; } }
+
+/* ===== Вопрос про статистику (Яндекс.Метрика, js/metrika.js): карточка внизу слева, на телефоне — внизу во всю ширину ===== */
+.ym-bar {
+  position: fixed; left: 20px; bottom: 20px; z-index: 90; max-width: 400px; padding: 16px 18px; border-radius: 18px;
+  background: color-mix(in srgb, var(--bg-2) 92%, transparent); border: 1px solid var(--line-strong);
+  box-shadow: 0 20px 50px -20px var(--shadow); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+.ym-bar.in { opacity: 1; transform: none; }
+.ym-bar.gone { opacity: 0; transform: translateY(16px); }
+.ym-bar p { font-size: 14px; line-height: 1.5; color: var(--text-2); }
+.ym-bar a { color: var(--accent); }
+.ym-btns { display: flex; gap: 8px; margin-top: 12px; }
+.ym-btns .btn { font-size: 14px; padding: 10px 18px; min-height: 44px; }
+html.ad-open .ym-bar, html.menu-open .ym-bar { display: none; }
+@media (max-width: 600px) { .ym-bar { left: 10px; right: 10px; bottom: 10px; max-width: none; } .ym-btns .btn { flex: 1; justify-content: center; } }
+@media (prefers-reduced-motion: reduce) { .ym-bar { transition: none; } }
+
+/* ===== Первый экран на невысоких ноутбуках (1366×768, 1280×720 и т. п.): ноутбук на сайте мельче, а у описания и кнопок
+   есть минимальный размер в пикселях — без этого блока кнопки уезжали под док. Размер считается от ширины «экрана» ноутбука. ===== */
+@media (min-width: 701px) {
+  @container (max-width: 720px) {
+    .win-body { padding: 2.6cqw 3.4cqw; }
+    .hero-title { font-size: 5.6cqw; line-height: 1.02; margin-bottom: 2cqw; }
+    .hero-desc { font-size: max(12.5px, 1.6cqw); line-height: 1.45; margin-bottom: 2.2cqw; }
+    .win-main .btn { font-size: max(12px, 1.5cqw); padding: 1.1cqw 2cqw; }
+  }
+  @container (max-width: 640px) {
+    .hero-title { font-size: 5.2cqw; }
+    .hero-desc { line-height: 1.4; margin-bottom: 1.8cqw; }
+  }
+  @container (max-width: 480px) {
+    .hero-desc { font-size: max(11px, 1.6cqw); line-height: 1.4; }
+    .win-main .btn { font-size: 11.5px; }
+  }
+}

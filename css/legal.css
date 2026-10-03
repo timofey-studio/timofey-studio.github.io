@@ -14,3 +14,6 @@ p, li { color: var(--text-2); }
 b { color: var(--text); }
 ul { padding-left: 22px; }
 .note { margin-top: 40px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 14px; font-size: 15px; }
+/* кнопка «изменить выбор» про статистику */
+.ym-reset { font: inherit; font-size: 15px; color: var(--accent); background: none; border: 1px dashed var(--accent); border-radius: 999px; padding: 2px 12px; cursor: pointer; }
+.ym-state { font-size: 14px; color: var(--text-2); }
