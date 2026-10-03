@@ -610,12 +610,14 @@ html[data-theme="light"] .ad-back { background: linear-gradient(160deg, #e9e7e3,
 
 /* Под сценой: услуги */
 .hero-under { position: relative; z-index: 2; margin-top: calc(var(--lw) * 0.08 + 32px); display: flex; justify-content: center; }
-/* подпись «Что я делаю» — в одной строке с плашками (на телефоне — над ними) */
+/* подпись «Что я делаю» — отдельной строкой над плашками, по центру (на телефоне — слева) */
 .services-label {
-  display: inline-flex; align-items: center; gap: 8px; margin-right: 4px;
+  display: flex; flex-basis: 100%; justify-content: center; align-items: center; gap: 10px; margin: 0 0 4px;
   font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
 }
-.services-label::after { content: ""; width: 22px; height: 1px; background: linear-gradient(90deg, currentColor, transparent); }
+.services-label::before, .services-label::after { content: ""; width: 22px; height: 1px; background: linear-gradient(90deg, currentColor, transparent); }
+.services-label::before { background: linear-gradient(270deg, currentColor, transparent); }
+@media (max-width: 700px) { .services-label { justify-content: flex-start; } .services-label::before { display: none; } }
 .hero-under .hero-more { display: none; }
 .services { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; }
 .chip { font-family: var(--font-mono); font-size: 13px; padding: 8px 13px; border-radius: 10px; background: var(--panel-strong); border: 1px solid var(--line); color: var(--text-2); }
