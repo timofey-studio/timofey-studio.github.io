@@ -64,8 +64,8 @@
     box.setAttribute("role", "dialog");
     box.setAttribute("aria-label", "Статистика посещений");
     box.innerHTML =
-      '<p>Считаю посещения через Яндекс.Метрику, чтобы понимать, что на&nbsp;сайте удобно, а&nbsp;что нет. ' +
-      'Она использует cookie. Без вашего «Хорошо» не&nbsp;включится. <a href="privacy.html#stat">Подробнее</a></p>' +
+      '<p>Хочу понимать, что на&nbsp;сайте удобно, а&nbsp;что нет, поэтому считаю посещения. ' +
+      'Для этого нужны cookie. <a href="privacy.html#stat">Подробнее</a></p>' +
       '<div class="ym-btns"><button type="button" class="btn btn-main" data-ym="yes">Хорошо</button>' +
       '<button type="button" class="btn btn-ghost" data-ym="no">Без статистики</button></div>';
     box.addEventListener("click", function (e) {
