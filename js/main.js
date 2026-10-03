@@ -586,41 +586,15 @@ document.addEventListener("pointermove", (e) => {
   card.style.setProperty("--my", `${e.clientY - r.top}px`);
 });
 
-// ===== Свой курсор: только для мыши, не для телефонов и не при «уменьшении движения» =====
-function initCursor() {
-  const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (!fine || reduceMotion) return;
-  const root = document.documentElement;
-  const dot = document.querySelector(".cursor-dot");
-  const ring = document.querySelector(".cursor-ring");
-  const label = ring.querySelector(".cursor-label");
-  let x = -100, y = -100, rx = -100, ry = -100, started = false;
-
-  document.addEventListener("pointermove", (e) => {
-    if (e.pointerType !== "mouse") return;
-    x = e.clientX; y = e.clientY;
-    if (!started) { started = true; rx = x; ry = y; root.classList.add("has-cursor"); requestAnimationFrame(loop); }
-    root.classList.remove("cursor-out");
-    const t = e.target;
-    const video = t.closest && t.closest('[data-cursor="video"]');
-    const opener = !video && t.closest && t.closest('[data-cursor="open"], [data-cursor="drag"]');
-    const isLink = !video && !opener && !!(t.closest && t.closest('a, button, [role="button"], .tab-btn, .glow, .services .chip'));
-    if (video) label.textContent = video.muted ? "🔊 звук" : "🔇 тише";
-    else if (opener) label.textContent = opener.dataset.cursor === "drag" ? "← листать →" : "открыть ↗";
-    root.classList.toggle("cursor-video", !!(video || opener));
-    root.classList.toggle("cursor-hover", isLink);
-  });
-  document.addEventListener("pointerdown", () => root.classList.add("cursor-down"));
-  document.addEventListener("pointerup", () => root.classList.remove("cursor-down"));
-  document.documentElement.addEventListener("mouseleave", () => root.classList.add("cursor-out"));
-
-  function loop() {
-    rx += (x - rx) * 0.18;
-    ry += (y - ry) * 0.18;
-    dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-    requestAnimationFrame(loop);
-  }
+// ===== Кнопка Telegram в шапке: выбор — написать в бота или открыть канал =====
+function initTgMenu() {
+  const btn = document.getElementById("tgHead");
+  const pop = document.getElementById("tgPop");
+  const set = (open) => { pop.hidden = !open; btn.setAttribute("aria-expanded", String(open)); };
+  btn.addEventListener("click", (e) => { e.stopPropagation(); set(pop.hidden); });
+  document.addEventListener("click", (e) => { if (!pop.hidden && !pop.contains(e.target)) set(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !pop.hidden) { set(false); btn.focus(); } });
+  pop.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => set(false)));
 }
 
 // ===== Меню в шапке: подсветка-капсула =====
@@ -740,7 +714,6 @@ function initPhoneZoom() {
     fly.replaceChildren(phone, back());
     overlay.hidden = false;
     document.documentElement.classList.add("ad-open");
-    document.documentElement.classList.remove("cursor-video"); // кружок «открыть» больше не нужен
     if (hint) hint.classList.add("seen");
     if (v.getAttribute("src")) {
       const t = src.currentTime;
@@ -1051,7 +1024,7 @@ if (has(".pv-scroll")) initCasePreviews();
 if (document.body.dataset.case) initCasePage();
 if (has(".hero")) initHero();
 initReveal();
-if (has(".cursor-dot")) initCursor();
+if (has("#tgHead")) initTgMenu();
 if (has("#world")) initWorld();
 initStars();
 initFeatures();
