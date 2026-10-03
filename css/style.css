@@ -543,7 +543,7 @@ html[data-theme="light"] .p-screen::after { background: #000; opacity: 0.85; }
 .p-load i { width: 1.8cqw; height: 1.8cqw; border-radius: 50%; background: var(--glow-text); animation: dots 1s infinite; }
 .p-load i:nth-child(2) { animation-delay: 0.15s; } .p-load i:nth-child(3) { animation-delay: 0.3s; }
 /* уведомление о записи — выезжает сверху, как на айфоне, когда бот подтвердил запись */
-/* реклама CHESH: вертикальный ролик по кругу, без звука (video/chesh-ad*.mp4) */
+/* реклама CHESH: вертикальный ролик по кругу, без звука (video/chesh-live.mp4) */
 .p-ad { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; background: var(--tg-bg); }
 @keyframes dots { 0%, 60%, 100% { opacity: 0.3; transform: none; } 30% { opacity: 1; transform: translateY(-0.8cqw); } }
 
