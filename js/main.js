@@ -20,6 +20,14 @@ const CASES_DATA = [
     }
   },
   {
+    id: "tishina-ad",
+    // одно видео для обеих тем
+    video: {
+      dark: { src: "video/tishina-ad.mp4", poster: "video/tishina-ad-poster.jpg" },
+      light: { src: "video/tishina-ad.mp4", poster: "video/tishina-ad-poster.jpg" }
+    }
+  },
+  {
     id: "marketplace-cards",
     // картинки: img/cards/<id>-0.jpg — «было», -1…-3 — слайды «стало» (исходники — Cowork/cards)
     gallery: {
