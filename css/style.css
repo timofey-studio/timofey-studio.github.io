@@ -1032,13 +1032,13 @@ footer .container { display: flex; justify-content: space-between; gap: 16px; fl
 :root { --cur: auto; --cur-hand: pointer; }
 @media (hover: hover) and (pointer: fine) {
   :root {
-    --cur: url("../img/cursor-arrow.png") 5 3, auto;
-    --cur-hand: url("../img/cursor-hand.png") 13 2, pointer;
+    --cur: url("../img/cursor-arrow.png") 4 2, auto;
+    --cur-hand: url("../img/cursor-hand.png") 10 2, pointer;
   }
   @supports (cursor: -webkit-image-set(url("x.png") 1x) 0 0, auto) {
     :root {
-      --cur: -webkit-image-set(url("../img/cursor-arrow.png") 1x, url("../img/cursor-arrow@2x.png") 2x) 5 3, auto;
-      --cur-hand: -webkit-image-set(url("../img/cursor-hand.png") 1x, url("../img/cursor-hand@2x.png") 2x) 13 2, pointer;
+      --cur: -webkit-image-set(url("../img/cursor-arrow.png") 1x, url("../img/cursor-arrow@2x.png") 2x) 4 2, auto;
+      --cur-hand: -webkit-image-set(url("../img/cursor-hand.png") 1x, url("../img/cursor-hand@2x.png") 2x) 10 2, pointer;
     }
   }
 }
@@ -1434,7 +1434,10 @@ html.no-vt body.leaving { opacity: 0; transition: opacity 0.22s ease; }
 .ch-card:hover .ch-sub { transform: scale(1.05); }
 @media (max-width: 420px) { .ch-sub { display: none; } }
 .mnav-ch { white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; padding: 12px; border-radius: 999px; text-decoration: none; color: var(--text); background: var(--panel); border: 1px solid var(--line-strong); font-weight: 600; }
-.mnav-ch img { width: 26px; height: 26px; border-radius: 50%; }
+.tg-dot { width: 28px; height: 28px; border-radius: 50%; display: inline-grid; place-items: center; background: #2aabee; color: #fff; flex-shrink: 0; }
+.tg-dot .tg-i { width: 15px; height: 15px; margin-left: -2px; }
+.foot-ch { display: inline-flex; align-items: center; gap: 7px; }
+.foot-ch .tg-i { width: 15px; height: 15px; color: #2aabee; }
 .mnav-ch-sub { font-size: 12.5px; font-weight: 700; color: #fff; background: #2aabee; padding: 3px 9px; border-radius: 999px; }
 .foot-ch { color: var(--text-2); text-decoration: none; border-bottom: 1px dashed var(--line-strong); }
 .foot-ch:hover { color: var(--text); border-bottom-color: #2aabee; }

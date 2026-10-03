@@ -35,6 +35,18 @@
       if (t === "light") d.setAttribute("data-theme", "light");
       // Плавные переходы между страницами. Браузеры без них (Firefox) получают простое затухание — см. main.js
       if (!("onpagereveal" in window)) d.classList.add("no-vt");
+      // Обновили страницу — открываем её с начала, а не с того места, где были
+      try {
+        var ne = performance.getEntriesByType("navigation")[0];
+        if (ne && ne.type === "reload" && "scrollRestoration" in history) {
+          history.scrollRestoration = "manual";
+          if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+          window.addEventListener("load", function () {
+            window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+            setTimeout(function () { history.scrollRestoration = "auto"; }, 0);
+          });
+        }
+      } catch (e) {}
       // Пришли на главную со страницы кейса — его карточка на главной «принимает» раскрытый кейс обратно
       window.addEventListener("pagereveal", function (e) {
         var nav = window.navigation, from = nav && nav.activation && nav.activation.from;
@@ -50,9 +62,9 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.85' y1='.08' x2='.2' y2='.95'%3E%3Cstop offset='0' stop-color='%23ffe3c7'/%3E%3Cstop offset='.45' stop-color='%23ff9a4a'/%3E%3Cstop offset='1' stop-color='%23e2580f'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='64' height='64' fill='%23fff'/%3E%3Ccircle cx='40' cy='31' r='20.5' fill='%23000'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='1' y='1' width='62' height='62' rx='17' fill='%23141418'/%3E%3Cg transform='translate%286 6%29 scale%28.81%29'%3E%3Ccircle cx='30' cy='32' r='25' fill='url%28%23g%29' mask='url%28%23m%29'/%3E%3Cpath d='M41 23.5 49 31l-8 7.5' fill='none' stroke='%23fff1e2' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="stylesheet" href="css/fonts.css?v=13" />
+  <link rel="stylesheet" href="css/fonts.css?v=14" />
   <link rel="expect" href="#caseArt" blocking="render" />
-  <link rel="stylesheet" href="css/style.css?v=13" />
+  <link rel="stylesheet" href="css/style.css?v=14" />
 </head>
 <body data-case="tishina-ad" class="page-inner">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -122,7 +134,7 @@
         <a class="mnav-link" href="index.html#faq" style="--i:5"><span>05</span>Вопросы</a>
         <a class="mnav-link" href="index.html#contact" style="--i:6"><span>06</span>Контакты</a>
         <a class="btn btn-main mnav-tg" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener" style="--i:7">Написать в&nbsp;Telegram <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="mnav-ch" href="https://t.me/chesh_studio" target="_blank" rel="noopener" style="--i:8"><img src="img/ch-avatar.jpg" alt="" width="26" height="26" />Telegram-канал CHESH<span class="mnav-ch-sub">подписаться</span></a>
+        <a class="mnav-ch" href="https://t.me/chesh_studio" target="_blank" rel="noopener" style="--i:8"><span class="tg-dot"><svg class="tg-i" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg></span>Канал CHESH<span class="mnav-ch-sub">подписаться</span></a>
       </nav>
     </div>
   </header>
@@ -188,7 +200,7 @@
         <div class="cs-cta-btns">
           <a class="btn btn-main" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg>Написать в&nbsp;Telegram</a>
           <a class="btn btn-ghost" href="index.html#contact">Оставить заявку</a>
-          <a class="btn btn-ghost" href="https://t.me/chesh_studio" target="_blank" rel="noopener">Telegram-канал CHESH</a>
+          <a class="btn btn-ghost" href="https://t.me/chesh_studio" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg>Канал CHESH</a>
         </div>
       </section>
 
@@ -230,12 +242,12 @@
   <footer>
     <div class="container">
       <span>© 2026 CHESH · Тимофей Чешегоров</span>
-      <a class="foot-ch" href="https://t.me/chesh_studio" target="_blank" rel="noopener">Telegram-канал CHESH</a>
+      <a class="foot-ch" href="https://t.me/chesh_studio" target="_blank" rel="noopener"><svg class="tg-i" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg>Канал CHESH</a>
       <span>Сделано вручную · работаю по&nbsp;всей России</span>
       <span class="foot-legal"><a href="privacy.html">Политика конфиденциальности</a> · <a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
     </div>
   </footer>
 
-  <script src="js/main.js?v=13"></script>
+  <script src="js/main.js?v=14"></script>
 </body>
 </html>
