@@ -1000,7 +1000,7 @@ async function initReviewPage() {
     else if (d.name.length < 2 || /[^A-Za-zА-Яа-яЁё\s'’-]/.test(d.name)) err = ERR.name;
     else if (d.text.length < 20) err = ERR.short;
     else if (/https?:\/\/|www\.|[<>]/i.test(d.text)) err = ERR.text;
-    else if (!f("agree").checked) err = "Поставьте галочку — без неё не могу опубликовать отзыв";
+    else if (!f("agree").checked || !f("agree2").checked) err = "Поставьте обе галочки — без них не могу опубликовать отзыв";
     msg.textContent = err;
     if (err) return;
     const btn = form.querySelector("button[type=submit]");

@@ -1,0 +1,16 @@
+/* Общий вид правовых страниц: политика и согласия */
+:root { --bg: #07070a; --text: #f4f2ef; --text-2: #cbc7c1; --line: rgba(255, 255, 255, 0.12); --accent: #ffb877; }
+html[data-theme="light"] { --bg: #f4f1ec; --text: #141210; --text-2: #3b352f; --line: rgba(30, 24, 18, 0.12); --accent: #c2410c; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 "Onest", system-ui, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
+a { color: var(--accent); }
+.back { display: inline-block; margin-bottom: 28px; text-decoration: none; font-size: 15px; }
+h1 { font-family: "Unbounded", system-ui, sans-serif; font-size: clamp(24px, 5vw, 34px); line-height: 1.2; margin: 0 0 8px; }
+.date { color: var(--text-2); font-size: 14px; margin: 0 0 28px; }
+.lead { color: var(--text); padding: 16px 18px; border-left: 3px solid var(--accent); background: rgba(255, 184, 119, 0.06); border-radius: 0 12px 12px 0; }
+h2 { font-size: 18px; margin: 30px 0 8px; }
+p, li { color: var(--text-2); }
+b { color: var(--text); }
+ul { padding-left: 22px; }
+.note { margin-top: 40px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 14px; font-size: 15px; }

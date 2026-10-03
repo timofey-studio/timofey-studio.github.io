@@ -64,14 +64,12 @@
 
   <!-- Защита: странице можно загружать только свои файлы, шрифты Google и отправлять заявки только нашему посреднику.
        Чужой скрипт (если его как-то подсунут) браузер просто не выполнит и никуда не отправит данные. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://chesh-leads.chesh.workers.dev; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self' https://chesh-leads.chesh.workers.dev; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@600&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/fonts.css?v=11" />
 
   <link rel="expect" href="#pvRow" blocking="render" />
-  <link rel="stylesheet" href="css/style.css?v=10" />
+  <link rel="stylesheet" href="css/style.css?v=11" />
 </head>
 <body>
   <!-- Логотип CHESH «Код-луна»: светящийся серп-C и знак кода «›» в иконке -->
@@ -551,9 +549,9 @@
                 </div>
                 <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="3" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea><small class="err" aria-live="polite"></small><small class="count" aria-hidden="true"></small></label>
                 <input class="lead-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-                <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Соглашаюсь на&nbsp;обработку персональных данных по&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a></span></label>
+                <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Даю <a href="soglasie.html" target="_blank" rel="noopener">согласие на&nbsp;обработку персональных данных</a></span></label>
                 <button class="btn btn-main" type="submit" id="leadSend">Отправить заявку <span class="arr" aria-hidden="true">→</span></button>
-                <div class="lead-safe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Заявка уходит по&nbsp;защищённому соединению и&nbsp;видна только мне. Без рассылок и&nbsp;передачи третьим лицам.</span></div>
+                <div class="lead-safe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Заявка уходит по&nbsp;защищённому соединению и&nbsp;видна только мне. Без рассылок, не&nbsp;продаю и&nbsp;не&nbsp;передаю чужим. Подробно&nbsp;— в&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a>.</span></div>
                 <div class="lead-msg" id="leadMsg" role="alert"></div>
               </form>
               <div class="lead-done" role="status">
@@ -581,6 +579,7 @@
       <span>© 2026 CHESH · Тимофей Чешегоров</span>
       <a class="foot-ch" href="https://t.me/chesh_studio" target="_blank" rel="noopener">Telegram-канал @chesh_studio</a>
       <span>Сделано вручную · работаю по&nbsp;всей России</span>
+      <span class="foot-legal"><a href="privacy.html">Политика конфиденциальности</a> · <a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
     </div>
   </footer>
 
@@ -596,6 +595,6 @@
     <div class="ad-tip">нажми, чтобы закрыть</div>
   </div>
 
-  <script src="js/main.js?v=10"></script>
+  <script src="js/main.js?v=11"></script>
 </body>
 </html>

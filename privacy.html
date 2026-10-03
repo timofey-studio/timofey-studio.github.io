@@ -5,72 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Политика конфиденциальности · CHESH</title>
   <meta name="robots" content="noindex" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <script>
     // та же тема, что выбрана на сайте
     try { if (localStorage.getItem("theme") === "light") document.documentElement.setAttribute("data-theme", "light"); } catch (e) {}
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@600&display=swap" rel="stylesheet" />
-  <style>
-    :root { --bg: #07070a; --text: #f4f2ef; --text-2: #cbc7c1; --line: rgba(255, 255, 255, 0.12); --accent: #ffb877; }
-    html[data-theme="light"] { --bg: #f4f1ec; --text: #141210; --text-2: #3b352f; --line: rgba(30, 24, 18, 0.12); --accent: #c2410c; }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 "Onest", system-ui, sans-serif; }
-    main { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
-    a { color: var(--accent); }
-    .back { display: inline-block; margin-bottom: 28px; text-decoration: none; font-size: 15px; }
-    h1 { font-family: "Unbounded", system-ui, sans-serif; font-size: clamp(24px, 5vw, 34px); line-height: 1.2; margin: 0 0 8px; }
-    .date { color: var(--text-2); font-size: 14px; margin: 0 0 32px; }
-    h2 { font-size: 18px; margin: 30px 0 8px; }
-    p, li { color: var(--text-2); }
-    ul { padding-left: 22px; }
-    .note { margin-top: 40px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 14px; font-size: 15px; }
-  </style>
+  <link rel="stylesheet" href="css/fonts.css?v=11" />
+  <link rel="stylesheet" href="css/legal.css?v=11" />
 </head>
 <body>
   <main>
     <a class="back" href="./#contact">← Вернуться на сайт</a>
     <h1>Политика конфиденциальности и&nbsp;обработки персональных данных</h1>
-    <p class="date">Сайт CHESH · timofey-studio.github.io · редакция от 1 октября 2026 г.</p>
+    <p class="date">Сайт CHESH · timofey-studio.github.io · редакция от 3 октября 2026 г.</p>
+
+    <p class="lead">Коротко: я&nbsp;получаю только то, что вы&nbsp;сами мне пишете, использую это, чтобы ответить вам и&nbsp;сделать работу, не&nbsp;делаю рассылок, не&nbsp;продаю и&nbsp;не&nbsp;передаю данные чужим. Ниже&nbsp;— подробно и&nbsp;честно.</p>
 
     <h2>1. Кто обрабатывает данные</h2>
-    <p>Чешегоров Тимофей (далее&nbsp;— «я»). Связаться со&nbsp;мной можно в&nbsp;Telegram через бота <a href="https://t.me/chesh_leads_bot">@chesh_leads_bot</a>.</p>
+    <p>Оператор персональных данных&nbsp;— Чешегоров Тимофей (далее&nbsp;— «я»). Связаться со&nbsp;мной по&nbsp;любому вопросу о&nbsp;ваших данных: Telegram-бот <a href="https://t.me/chesh_leads_bot">@chesh_leads_bot</a>.</p>
 
     <h2>2. Какие данные я получаю</h2>
-    <p>Только то, что вы сами пишете в&nbsp;форме заявки:</p>
+    <p><b>Заявка с&nbsp;сайта.</b> То, что вы&nbsp;сами вписываете в&nbsp;форму: имя; контакт для связи (ник в&nbsp;Telegram, телефон или почта); какая услуга нужна и&nbsp;описание задачи.</p>
+    <p><b>Переписка в&nbsp;Telegram-боте <a href="https://t.me/chesh_leads_bot">@chesh_leads_bot</a>.</b> Ваше имя и&nbsp;ник в&nbsp;Telegram, ваш числовой идентификатор Telegram и&nbsp;сообщения, которые вы&nbsp;отправляете. Мой личный аккаунт вам не&nbsp;виден, а&nbsp;ваш&nbsp;— никому, кроме меня.</p>
+    <p><b>Отзыв</b> (только если я&nbsp;прислал вам личную ссылку для отзыва): имя, название бизнеса или проекта, оценка и&nbsp;текст отзыва.</p>
+    <p><b>Технические данные.</b> Как и&nbsp;любой сайт, хостинг GitHub Pages и&nbsp;сервис Cloudflare видят IP-адрес и&nbsp;сведения о&nbsp;браузере, чтобы доставить страницу или заявку. Сам&nbsp;я эти данные не&nbsp;собираю и&nbsp;не&nbsp;вижу.</p>
+    <p><b>Чего на&nbsp;сайте нет:</b> счётчиков и&nbsp;аналитики, рекламы, cookie для слежки. Шрифты загружаются с&nbsp;самого сайта, а&nbsp;не&nbsp;со&nbsp;сторонних серверов. В&nbsp;памяти браузера сохраняется только выбранная вами тема (светлая или тёмная)&nbsp;— это не&nbsp;персональные данные и&nbsp;никуда не&nbsp;отправляется.</p>
+
+    <h2>3. Зачем и&nbsp;на&nbsp;каком основании</h2>
     <ul>
-      <li>имя;</li>
-      <li>контакт для связи&nbsp;— например, ник в&nbsp;Telegram, номер телефона или почта;</li>
-      <li>какая услуга нужна и&nbsp;описание задачи.</li>
+      <li>Ответить на&nbsp;заявку или сообщение, обсудить задачу, предложить решение, срок и&nbsp;цену, выполнить работу&nbsp;— на&nbsp;основании вашего согласия и&nbsp;вашего же&nbsp;запроса.</li>
+      <li>Опубликовать отзыв на&nbsp;сайте&nbsp;— только с&nbsp;вашего отдельного согласия на&nbsp;публикацию.</li>
     </ul>
+    <p>Я&nbsp;не&nbsp;делаю рассылок, не&nbsp;показываю рекламу, не&nbsp;продаю данные и&nbsp;не&nbsp;передаю их&nbsp;другим людям или компаниям для их&nbsp;целей.</p>
 
-    <p>Если вы&nbsp;пишете мне через Telegram-бота <a href="https://t.me/chesh_leads_bot">@chesh_leads_bot</a>, я&nbsp;вижу ваше имя и&nbsp;ник в&nbsp;Telegram и&nbsp;сами сообщения&nbsp;— только чтобы ответить вам.</p>
-
-    <h2>3. Зачем</h2>
-    <p>Чтобы связаться с&nbsp;вами по&nbsp;заявке, обсудить задачу и&nbsp;предложить решение. Я&nbsp;не&nbsp;делаю рассылок и&nbsp;не&nbsp;передаю ваши данные другим людям или компаниям для их&nbsp;целей.</p>
-
-    <h2>4. Как данные до&nbsp;меня доходят</h2>
-    <p>Заявка из&nbsp;формы передаётся мне сообщением в&nbsp;Telegram через сервис Cloudflare. Эти сервисы только доставляют сообщение.</p>
+    <h2>4. Через какие сервисы проходят данные</h2>
+    <p>Чтобы сайт и&nbsp;заявки работали, я&nbsp;пользуюсь сервисами, которые только хранят или доставляют информацию и&nbsp;не&nbsp;используют её&nbsp;для своих целей:</p>
+    <ul>
+      <li><b>Telegram</b>&nbsp;— заявки и&nbsp;сообщения приходят мне туда;</li>
+      <li><b>Cloudflare</b>&nbsp;— передаёт заявку из&nbsp;формы в&nbsp;Telegram и&nbsp;хранит отзывы до&nbsp;публикации;</li>
+      <li><b>GitHub Pages</b>&nbsp;— хостинг, на&nbsp;котором лежит сам сайт.</li>
+    </ul>
+    <p>Честно предупреждаю: серверы этих сервисов находятся за&nbsp;пределами России, то&nbsp;есть данные передаются за&nbsp;рубеж. Если вам это не&nbsp;подходит&nbsp;— напишите мне любым удобным способом, найдём вариант.</p>
 
     <h2>5. Как я&nbsp;защищаю данные</h2>
     <ul>
-      <li>Форма отправляет заявку только по&nbsp;защищённому соединению (HTTPS)&nbsp;— по&nbsp;дороге её&nbsp;не&nbsp;прочитать.</li>
-      <li>Сайт не&nbsp;хранит заявки в&nbsp;базах данных: заявка приходит только мне в&nbsp;Telegram.</li>
-      <li>Ключ бота, который пересылает заявку, хранится в&nbsp;защищённом хранилище Cloudflare и&nbsp;не&nbsp;виден в&nbsp;коде сайта.</li>
-      <li>Доступ к&nbsp;заявкам есть только у&nbsp;меня. Я&nbsp;не&nbsp;передаю их&nbsp;другим людям и&nbsp;не&nbsp;использую для рассылок.</li>
-      <li>Форма защищена от&nbsp;спама и&nbsp;автоматических отправок.</li>
+      <li>Всё передаётся только по&nbsp;защищённому соединению (HTTPS)&nbsp;— по&nbsp;дороге данные не&nbsp;прочитать.</li>
+      <li>Заявки не&nbsp;хранятся в&nbsp;базах данных сайта: заявка приходит только мне в&nbsp;Telegram.</li>
+      <li>Ключ бота хранится в&nbsp;защищённом хранилище Cloudflare и&nbsp;не&nbsp;виден в&nbsp;коде сайта.</li>
+      <li>Форма защищена от&nbsp;спама и&nbsp;автоматических отправок, данные проверяются и&nbsp;на&nbsp;сайте, и&nbsp;на&nbsp;сервере.</li>
+      <li>Доступ к&nbsp;заявкам, перепискам и&nbsp;отзывам до&nbsp;публикации есть только у&nbsp;меня.</li>
     </ul>
 
-    <h2>6. Сколько я&nbsp;храню данные</h2>
-    <p>Пока мы&nbsp;общаемся по&nbsp;заявке или работаем над проектом, и&nbsp;не&nbsp;дольше одного года после нашего последнего сообщения. По&nbsp;вашей просьбе удалю раньше.</p>
+    <h2>6. Сколько я храню данные</h2>
+    <ul>
+      <li>Заявки и&nbsp;переписку&nbsp;— пока мы&nbsp;общаемся или работаем над проектом, и&nbsp;не&nbsp;дольше одного года после нашего последнего сообщения.</li>
+      <li>Служебные записи бота (чтобы мой ответ дошёл именно вам)&nbsp;— не&nbsp;дольше 60&nbsp;дней, потом удаляются автоматически.</li>
+      <li>Опубликованный отзыв&nbsp;— пока вы&nbsp;не&nbsp;попросите его убрать.</li>
+    </ul>
+    <p>По&nbsp;вашей просьбе удалю раньше.</p>
 
     <h2>7. Ваши права</h2>
-    <p>Вы&nbsp;можете в&nbsp;любой момент узнать, какие ваши данные у&nbsp;меня есть, попросить исправить или удалить их и&nbsp;отозвать согласие на&nbsp;обработку&nbsp;— просто напишите мне в&nbsp;Telegram.</p>
+    <p>Вы&nbsp;можете в&nbsp;любой момент узнать, какие ваши данные у&nbsp;меня есть, попросить исправить или удалить их, снять отзыв с&nbsp;сайта и&nbsp;отозвать согласие. Напишите в&nbsp;<a href="https://t.me/chesh_leads_bot">@chesh_leads_bot</a>&nbsp;— отвечу и&nbsp;выполню просьбу не&nbsp;позднее 10&nbsp;рабочих дней, обычно гораздо быстрее.</p>
 
-    <h2>8. Согласие</h2>
-    <p>Отправляя заявку и&nbsp;отмечая галочку в&nbsp;форме, вы&nbsp;соглашаетесь на&nbsp;обработку указанных данных на&nbsp;условиях этой политики.</p>
+    <h2>8. Согласия</h2>
+    <p>Согласия оформлены отдельными документами:</p>
+    <ul>
+      <li><a href="soglasie.html">Согласие на&nbsp;обработку персональных данных</a>&nbsp;— для заявки с&nbsp;сайта и&nbsp;отзыва;</li>
+      <li><a href="soglasie-otzyv.html">Согласие на&nbsp;публикацию отзыва</a>&nbsp;— только если вы&nbsp;оставляете отзыв.</li>
+    </ul>
+
+    <h2>9. Изменения</h2>
+    <p>Если я&nbsp;поменяю эту политику, новая редакция появится на&nbsp;этой странице с&nbsp;новой датой.</p>
+
+    <p class="note">Остались вопросы о&nbsp;данных? Напишите в&nbsp;<a href="https://t.me/chesh_leads_bot">@chesh_leads_bot</a>&nbsp;— объясню простыми словами.</p>
   </main>
 </body>
 </html>
