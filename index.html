@@ -81,7 +81,7 @@
   <link rel="stylesheet" href="css/fonts.css?v=11" />
 
   <link rel="expect" href="#pvRow" blocking="render" />
-  <link rel="stylesheet" href="css/style.css?v=14" />
+  <link rel="stylesheet" href="css/style.css?v=15" />
 </head>
 <body>
   <!-- Логотип CHESH «Код-луна»: светящийся серп-C и знак кода «›» в иконке -->
@@ -139,7 +139,7 @@
     </div>
     <!-- меню Telegram из шапки: написать в бота или открыть канал -->
     <div class="tg-pop" id="tgPop" hidden>
-      <a class="tg-opt" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener"><span class="tg-ico tg-ico-chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg></span><span><b>Написать мне</b><small>Обсудим задачу, отвечу в&nbsp;течение дня</small></span></a>
+      <a class="tg-opt" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener"><span class="tg-ico tg-ico-chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg></span><span><b>Написать в&nbsp;Telegram</b><small>Обсудим задачу, отвечу в&nbsp;течение дня</small></span></a>
       <a class="tg-opt" href="https://t.me/chesh_studio" target="_blank" rel="noopener"><img class="tg-ico" src="img/ch-avatar.jpg" alt="" width="40" height="40" /><span><b>Канал CHESH</b><small>Кейсы, «было&nbsp;→&nbsp;стало» и&nbsp;сказки про бизнес</small></span></a>
     </div>
     <!-- меню на телефоне -->
@@ -162,6 +162,18 @@
       </nav>
     </div>
   </header>
+
+  <!-- Навигация слева (компьютер): линия заполняется по мере прокрутки, текущий раздел подписан -->
+  <nav class="side-nav" id="sideNav" aria-label="Разделы страницы">
+    <span class="sn-track" aria-hidden="true"><span class="sn-fill"></span></span>
+    <a href="#top"><i aria-hidden="true"></i><span>Начало</span></a>
+    <a href="#about"><i aria-hidden="true"></i><span>Обо мне</span></a>
+    <a href="#cases"><i aria-hidden="true"></i><span>Кейсы</span></a>
+    <a href="#trust"><i aria-hidden="true"></i><span>Почему я</span></a>
+    <a href="#process"><i aria-hidden="true"></i><span>Как работаю</span></a>
+    <a href="#faq"><i aria-hidden="true"></i><span>Вопросы</span></a>
+    <a href="#contact"><i aria-hidden="true"></i><span>Контакты</span></a>
+  </nav>
 
   <!-- HERO: ноутбук под углом слева, телефон справа; за ними — горизонт тёмной планеты -->
   <section class="hero" id="top">
@@ -192,23 +204,22 @@
                 <div class="win win-main">
                   <div class="win-bar" aria-hidden="true"><i></i><i></i><i></i><span>привет.txt — Тимофей Чешегоров</span></div>
                   <div class="win-body">
-                    <div class="kicker" id="heroKicker" data-type>Портфолио · 2026</div>
                     <h1 class="hero-title" id="heroTitle" data-type>Делаю ваш бизнес <em class="accent-word">заметным</em></h1>
                     <div class="hero-more" id="heroMore">
-                      <p class="hero-desc hero-late">Сайты, Telegram-боты, презентации, видео, карточки для маркетплейсов и&nbsp;многое другое&nbsp;— от&nbsp;идеи до&nbsp;запуска. Нахожу, где вы теряете клиентов, и&nbsp;исправляю саму причину.</p>
+                      <p class="hero-desc hero-late">Сайты, Telegram-боты, презентации, видео, карточки для маркетплейсов и&nbsp;многое другое. Нахожу, где вы теряете клиентов, и&nbsp;исправляю саму причину.</p>
                       <div class="hero-actions hero-late">
-                        <a href="#cases" class="btn btn-main">Смотреть кейс <span class="arr">↓</span></a>
+                        <a href="#cases" class="btn btn-main">Смотреть работы <span class="arr">↓</span></a>
                         <a href="#about" class="btn btn-ghost">Обо мне</a>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <!-- Робот: Pexels #8294554, Pavel Danilyuk -->
-                <div class="win win-robot" aria-hidden="true">
-                  <div class="win-bar"><i></i><i></i><i></i><span>robot.png</span></div>
-                  <div class="ph"><img src="img/robot.jpg" alt="" width="720" height="1092" /><span class="tag">✦ боты и&nbsp;автоматизация</span></div>
-                </div>
+                <!-- Кадр из моей рекламы отеля «Тишина» (кейс 04) — ведёт на кейс -->
+                <a class="win win-robot win-work" href="case-ad.html" aria-label="Кейс: реклама отеля «Тишина»">
+                  <span class="win-bar" aria-hidden="true"><i></i><i></i><i></i><span>tishina.mp4</span></span>
+                  <span class="ph"><img src="img/hero-tishina.jpg" alt="" width="560" height="850" /></span>
+                </a>
 
                 <nav class="dock" aria-label="Быстрые ссылки">
                   <a href="#top" class="active" aria-label="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-5-6-5M12 19h8"/></svg></a>
@@ -230,7 +241,7 @@
         </div>
       </div>
 
-      <!-- Телефон: реклама CHESH — что я делаю (ролик 32 с, по кругу; на мобильных открывается крупно) -->
+      <!-- Телефон: реклама CHESH про цветочный «Пион» (ролик 30 с, по кругу; на мобильных открывается крупно) -->
       <div class="phone-wrap" data-cursor="open">
         <div class="phone">
           <div class="p-screen">
@@ -239,7 +250,7 @@
               <span class="p-brand">CHESH</span>
               <span class="p-load"><i></i><i></i><i></i></span>
             </div>
-            <video class="p-ad" id="phoneAd" muted loop playsinline preload="none" poster="video/chesh-ad-poster.jpg"></video>
+            <video class="p-ad" id="phoneAd" muted loop playsinline preload="none" poster="video/chesh-live-poster.jpg"></video>
           </div>
         </div>
       </div>
@@ -292,15 +303,13 @@
         </div>
 
         <div>
-          <div class="kicker" data-type="scroll">01 · Обо мне</div>
-          <h2 class="section-title reveal">Не&nbsp;«ещё один редизайн», а&nbsp;<em class="grad-text">решение проблемы</em></h2>
+          <h2 class="section-title reveal">Не&nbsp;«ещё один редизайн», а&nbsp;решение проблемы</h2>
           <p class="about-text reveal">
             Часто сайту не&nbsp;нужен новый дизайн. Клиентов теряют из-за незаметных мелочей: запутанной навигации, медленной загрузки, формы, до&nbsp;которой никто не&nbsp;доходит. Я&nbsp;разбираю продукт, нахожу такие места и&nbsp;исправляю их&nbsp;— чтобы заявок и&nbsp;посетителей стало <b>заметно больше</b>.
           </p>
           <div class="features">
-            <div class="feature glass glow reveal">
+            <div class="feature reveal">
               <h3 class="ft-h"><button class="ft-head" type="button" aria-expanded="false" aria-controls="ft-1">
-                <span class="num">01</span>
                 <span class="ft-text"><span class="ft-title">Нахожу, где теряются клиенты</span><span class="ft-short">Смотрю на&nbsp;сайт глазами посетителя: где он&nbsp;путается, ждёт или уходит.</span></span>
                 <span class="plus" aria-hidden="true"></span>
               </button></h3>
@@ -320,9 +329,8 @@
                 </div>
               </div></div></div></div>
             </div>
-            <div class="feature glass glow reveal">
+            <div class="feature reveal">
               <h3 class="ft-h"><button class="ft-head" type="button" aria-expanded="false" aria-controls="ft-2">
-                <span class="num">02</span>
                 <span class="ft-text"><span class="ft-title">Исправляю причину</span><span class="ft-short">Без правок ради галочки&nbsp;— меняю то, что реально мешает заявкам.</span></span>
                 <span class="plus" aria-hidden="true"></span>
               </button></h3>
@@ -342,9 +350,8 @@
                 </div>
               </div></div></div></div>
             </div>
-            <div class="feature glass glow reveal">
+            <div class="feature reveal">
               <h3 class="ft-h"><button class="ft-head" type="button" aria-expanded="false" aria-controls="ft-3">
-                <span class="num">03</span>
                 <span class="ft-text"><span class="ft-title">Автоматизирую рутину</span><span class="ft-short">Боты и&nbsp;формы, которые записывают, отвечают и&nbsp;присылают заявки в&nbsp;Telegram.</span></span>
                 <span class="plus" aria-hidden="true"></span>
               </button></h3>
@@ -374,47 +381,46 @@
       <div class="container">
         <div class="cases-head">
           <div>
-            <div class="kicker" data-type="scroll">02 · Кейсы</div>
+            <div class="kicker" data-type="scroll">Кейсы</div>
             <h2 class="section-title reveal">Примеры работ</h2>
           </div>
-          <p class="cases-sub reveal">Нажмите на&nbsp;кейс&nbsp;— откроется подробный разбор: задача, что сделал и&nbsp;результат.</p>
         </div>
         <!-- CASES:START — блок собирает site-tools/build_pages.py, правьте тексты там -->
         <div class="pv-scroll" id="pvScroll">
-          <div class="pv-row" id="pvRow">
-          <a class="pv glass glow" href="case-bot.html">
-            <span class="pv-pic"><img class="pv-img for-dark" src="video/fadepoint-bot-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/fadepoint-bot-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /><span class="pv-num">01</span></span>
+          <div class="pv-row pv-home" id="pvRow">
+          <a class="pv pv-feat glass" href="case-ad.html" data-hover-video="video/tishina-ad.mp4">
+            <span class="pv-pic"><img class="pv-img" src="video/tishina-ad-cover.jpg" alt="" loading="lazy" width="720" height="960" /></span>
+            <span class="pv-body">
+              <span class="pv-tag">Видео-реклама</span>
+              <h3 class="pv-title">Реклама отеля «Тишина», которую досматривают</h3>
+              <span class="pv-text">30 секунд без&nbsp;диктора: уведомления, пробка&nbsp;— и&nbsp;резкая тишина у&nbsp;озера.</span>
+              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </a>
+          <a class="pv glass" href="case-bot.html">
+            <span class="pv-pic"><img class="pv-img for-dark" src="video/fadepoint-bot-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/fadepoint-bot-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /></span>
             <span class="pv-body">
               <span class="pv-tag">Telegram-бот</span>
-              <h3 class="pv-title">FadePoint: <em class="grad-text">запись без звонков</em> и&nbsp;накладок</h3>
+              <h3 class="pv-title">Запись в&nbsp;барбершоп без звонков</h3>
               <span class="pv-text">Клиент записывается к&nbsp;мастеру сам за&nbsp;минуту, владелец видит каждую запись.</span>
               <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </span>
           </a>
-          <a class="pv glass glow" href="case-zerno.html">
-            <span class="pv-pic"><img class="pv-img for-dark" src="video/zerno-demo-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/zerno-demo-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /><span class="pv-num">02</span></span>
+          <a class="pv glass" href="case-zerno.html">
+            <span class="pv-pic"><img class="pv-img for-dark" src="video/zerno-demo-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/zerno-demo-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /></span>
             <span class="pv-body">
               <span class="pv-tag">Редизайн сайта</span>
-              <h3 class="pv-title">Кофейня «Зерно»: <em class="grad-text">от&nbsp;старого сайта</em> к&nbsp;заказам</h3>
+              <h3 class="pv-title">Кофейня «Зерно»: сайт, с&nbsp;которого заказывают</h3>
               <span class="pv-text">Старый сайт кофейни превращается в&nbsp;новый, с&nbsp;которого удобно заказать.</span>
               <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </span>
           </a>
-          <a class="pv glass glow" href="case-cards.html">
-            <span class="pv-pic"><img class="pv-img" src="img/cards/coffee-1.jpg?v=2" alt="" loading="lazy" width="720" height="960" /><span class="pv-num">03</span></span>
+          <a class="pv glass" href="case-cards.html">
+            <span class="pv-pic"><img class="pv-img" src="img/cards/coffee-1.jpg?v=2" alt="" loading="lazy" width="720" height="960" /></span>
             <span class="pv-body">
               <span class="pv-tag">Карточки товаров</span>
-              <h3 class="pv-title">Карточки, <em class="grad-text">мимо которых не&nbsp;пролистнуть</em></h3>
+              <h3 class="pv-title">Карточки, мимо которых не&nbsp;пролистнуть</h3>
               <span class="pv-text">Четыре товара&nbsp;— четыре стиля. Фото «с&nbsp;ковра» → карточка, которая продаёт.</span>
-              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-            </span>
-          </a>
-          <a class="pv glass glow" href="case-ad.html">
-            <span class="pv-pic"><img class="pv-img" src="video/tishina-ad-cover.jpg" alt="" loading="lazy" width="720" height="960" /><span class="pv-num">04</span></span>
-            <span class="pv-body">
-              <span class="pv-tag">Видео-реклама</span>
-              <h3 class="pv-title">Отель «Тишина»: <em class="grad-text">реклама, которую досматривают</em></h3>
-              <span class="pv-text">30 секунд без&nbsp;диктора: уведомления, пробка&nbsp;— и&nbsp;резкая тишина у&nbsp;озера.</span>
               <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </span>
           </a>
@@ -430,18 +436,17 @@
       <div class="container">
         <div class="trust-head">
           <div>
-            <div class="kicker" data-type="scroll">03 · Почему мне можно доверять</div>
-            <h2 class="section-title reveal">Работаю так, чтобы вам было <em class="grad-text">спокойно</em></h2>
+            <h2 class="section-title reveal">Работаю так, чтобы вам было спокойно</h2>
           </div>
           <p class="trust-lead reveal">Стопроцентных гарантий не&nbsp;даёт никто&nbsp;— и&nbsp;я&nbsp;не&nbsp;буду обещать того, чего нет. Зато расскажу, почему мне <b>важно вас не&nbsp;подвести</b>, и&nbsp;что я&nbsp;обещаю каждому клиенту.</p>
         </div>
         <div class="trust-body">
-            <div class="trust-card w1 glass glow reveal">
+            <div class="trust-card w1 reveal">
               <span class="trust-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span>
               <h3>Репутация дороже любого заказа</h3>
               <p>Я&nbsp;только начинаю, и&nbsp;каждый проект&nbsp;— это отзыв, который увидят следующие клиенты. Мне важнее, чтобы вы&nbsp;остались довольны, вернулись и&nbsp;посоветовали меня знакомым.</p>
             </div>
-            <div class="trust-card w2 glass glow reveal">
+            <div class="trust-card w2 reveal">
               <span class="trust-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span>
               <h3>Мне это по-настоящему интересно</h3>
               <p>Для меня каждый проект&nbsp;— способ разобраться в&nbsp;новом: в&nbsp;технологиях, в&nbsp;вашем бизнесе, в&nbsp;людях. Чем лучше получится ваш сайт или бот, тем больше вырасту я&nbsp;сам. Делать «лишь&nbsp;бы сдать» мне просто неинтересно.</p>
@@ -469,12 +474,11 @@
             <figcaption class="trust-sign"><svg aria-hidden="true"><use href="#logo"/></svg><span><b>Тимофей Чешегоров</b> · CHESH</span></figcaption>
           </figure>
         </div>
-        <div class="reviews glass glow reveal">
+        <div class="reviews reveal">
           <div class="rv-quotes" aria-hidden="true">
             <span></span><span></span><span></span>
           </div>
           <div class="rv-text">
-            <div class="kicker">Отзывы</div>
             <h3 id="rvTitle">Здесь будут отзывы моих первых клиентов</h3>
             <p>Я&nbsp;только начинаю и&nbsp;не&nbsp;выдумываю отзывы. Станьте одним из&nbsp;первых: первые проекты делаю дешевле в&nbsp;обмен на&nbsp;честный отзыв&nbsp;— какой&nbsp;бы он&nbsp;ни&nbsp;был.</p>
           </div>
@@ -490,8 +494,8 @@
       <div class="container">
         <div class="flow-head">
           <div>
-            <div class="kicker" data-type="scroll">04 · Как проходит работа</div>
-            <h2 class="section-title reveal">От&nbsp;заявки до&nbsp;запуска&nbsp;— <em class="grad-text">без сюрпризов</em></h2>
+            <div class="kicker" data-type="scroll">Как проходит работа</div>
+            <h2 class="section-title reveal">От&nbsp;заявки до&nbsp;запуска&nbsp;— без сюрпризов</h2>
           </div>
           <p class="flow-lead reveal">Пять понятных шагов. На&nbsp;каждом вы&nbsp;видите результат и&nbsp;решаете, идём ли дальше, а&nbsp;в&nbsp;конце получаете всё на&nbsp;своё имя.</p>
         </div>
@@ -505,10 +509,10 @@
         </div>
           <span class="pv-hint" aria-hidden="true">листай <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-        <div class="handover glass glow reveal">
+        <div class="handover reveal">
           <span class="ho-key" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.7-8.7M16 7l2.5 2.5M13.5 9.5l2 2"/></svg></span>
           <div class="ho-text">
-            <h3>В&nbsp;конце&nbsp;— всё <em class="grad-text">ваше</em></h3>
+            <h3>В&nbsp;конце&nbsp;— всё ваше</h3>
             <p>Домен, код и&nbsp;бот оформлены на&nbsp;вас, пароли знаете только вы. Захотите&nbsp;— продолжим вместе, захотите&nbsp;— передадите другому разработчику. Вы&nbsp;ни&nbsp;от&nbsp;кого не&nbsp;зависите.</p>
           </div>
           <ul class="ho-list">
@@ -527,10 +531,9 @@
     <section class="section" id="faq">
       <div class="container faq-wrap">
         <div class="faq-head">
-          <div class="kicker" data-type="scroll">05 · Частые вопросы</div>
-          <h2 class="section-title reveal">Отвечаю <em class="grad-text">заранее</em></h2>
+          <h2 class="section-title reveal">Отвечаю заранее</h2>
           <p class="faq-lead reveal">Не&nbsp;нашли свой вопрос? Напишите&nbsp;— отвечу в&nbsp;тот&nbsp;же день.</p>
-          <a class="btn btn-ghost reveal" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener">Спросить в&nbsp;Telegram</a>
+          <a class="btn btn-ghost reveal" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener">Написать в&nbsp;Telegram</a>
         </div>
         <div class="faq-list reveal">
           <details class="faq-item"><summary>Сколько это стоит?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Зависит от&nbsp;задачи. После короткого разговора называю цену письменно&nbsp;— до&nbsp;начала работы, и&nbsp;она не&nbsp;меняется по&nbsp;ходу. Первые проекты делаю дешевле в&nbsp;обмен на&nbsp;честный отзыв.</p></div></details>
@@ -550,7 +553,7 @@
         <div class="contact glass glow reveal">
           <div class="contact-grid">
             <div class="contact-side">
-              <div class="kicker" data-type="scroll">06 · Контакты</div>
+              <div class="kicker" data-type="scroll">Контакты</div>
               <h2 class="section-title">Есть задача? <em class="grad-text">Давайте обсудим</em></h2>
               <p>Расскажите, что есть сейчас и&nbsp;что хочется улучшить,&nbsp;— предложу решение и&nbsp;честно скажу, сколько это займёт.</p>
               <a class="tg-btn" id="tgBtn" href="#contact" target="_blank" rel="noopener">
@@ -558,11 +561,6 @@
                 <span><b>Написать в&nbsp;Telegram</b><small id="tgUser"></small></span>
               </a>
               <a class="ch-card" href="https://t.me/chesh_studio" target="_blank" rel="noopener"><img src="img/ch-avatar.jpg" alt="" width="48" height="48" /><span class="ch-text"><b>Telegram-канал CHESH</b><small>Кейсы, «было&nbsp;→&nbsp;стало» и&nbsp;сказки про бизнес</small></span><span class="ch-sub">Подписаться</span></a>
-              <ol class="contact-steps">
-                <li><span>01</span><span>Вы&nbsp;оставляете заявку или пишете мне в&nbsp;Telegram</span></li>
-                <li><span>02</span><span>Я&nbsp;задаю пару вопросов и&nbsp;разбираюсь в&nbsp;задаче</span></li>
-                <li><span>03</span><span>Предлагаю решение, срок и&nbsp;цену&nbsp;— письменно, до&nbsp;старта работы</span></li>
-              </ol>
             </div>
 
             <div class="lead" id="lead">
@@ -621,6 +619,6 @@
     <div class="ad-tip">нажми, чтобы закрыть</div>
   </div>
 
-  <script src="js/main.js?v=14"></script>
+  <script src="js/main.js?v=15"></script>
 </body>
 </html>

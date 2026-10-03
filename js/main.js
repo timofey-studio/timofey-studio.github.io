@@ -298,13 +298,13 @@ function typePhoneHint() {
 
 // Реклама в телефоне: когда на ноутбуке допечатался заголовок, заставка с эмблемой уходит и идёт ролик.
 // Ролик играет, только пока шапка на экране, — чтобы зря не нагружать компьютер.
+// Ролик живой (цветочный «Пион»), он одинаковый для светлой и тёмной темы.
 function syncPhoneAd(start) {
   const ad = document.getElementById("phoneAd");
   if (!ad) return;
-  const sfx = isLight() ? "-light" : "";
-  const src = "video/chesh-ad" + sfx + ".mp4";
+  const src = "video/chesh-live.mp4";
   const cur = ad.getAttribute("src");
-  ad.poster = "video/chesh-ad" + sfx + "-poster.jpg";
+  ad.poster = "video/chesh-live-poster.jpg";
   if ((!start && !cur) || cur === src) return; // ещё не запускали — хватит постера
   const t = ad.currentTime, playing = !!cur && !ad.paused;
   ad.preload = "auto";
@@ -427,10 +427,11 @@ function initTyping() {
     scrollTyped.forEach((el) => io.observe(el));
   }
 
-  return typeText(kicker, 15).then((k) => {
+  const first = kicker ? typeText(kicker, 15).then((k) => {
     k.querySelector(".tw-caret")?.classList.add("off");
     return new Promise((r) => setTimeout(r, reduceMotion ? 0 : 100));
-  }).then(() => typeText(title, 20)).then(done);
+  }) : Promise.resolve();
+  return first.then(() => typeText(title, 20)).then(done);
 }
 
 
@@ -763,13 +764,13 @@ function initPhoneZoom() {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 }
 
-// ===== Вкладка: ушёл на другую — ниндзя зовёт обратно, вернулся — «С возвращением!» =====
+// ===== Вкладка: ушёл на другую — луна CHESH зовёт обратно, вернулся — «С возвращением!» =====
 function initTabTitle() {
   const base = document.title;
   let timer = null;
   document.addEventListener("visibilitychange", () => {
     clearTimeout(timer);
-    if (document.hidden) { document.title = "🥷 Не прячьтесь, вернитесь!"; return; }
+    if (document.hidden) { document.title = "🌙 CHESH ждёт вас"; return; }
     document.title = "👋 С возвращением!";
     timer = setTimeout(() => (document.title = base), 2000);
   });
@@ -1027,8 +1028,65 @@ if (document.documentElement.classList.contains("no-vt") && !reduceMotion) {
   });
 }
 
+// ===== Главный кейс на главной: навёл мышку — в обложке идёт ролик без звука, убрал — пауза =====
+// Видео грузится только при первом наведении; на телефонах и при «меньше движения» остаётся картинка.
+function initFeatVideo() {
+  const card = document.querySelector(".pv-feat[data-hover-video]");
+  if (!card || reduceMotion || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  const pic = card.querySelector(".pv-pic");
+  let v = null;
+  card.addEventListener("mouseenter", () => {
+    if (!v) {
+      v = document.createElement("video");
+      v.className = "pv-hv";
+      Object.assign(v, { muted: true, loop: true, playsInline: true, preload: "auto", src: card.dataset.hoverVideo });
+      v.setAttribute("aria-hidden", "true");
+      v.addEventListener("playing", () => { if (card.matches(":hover")) card.classList.add("playing"); });
+      pic.appendChild(v);
+    }
+    v.play().catch(() => {});
+    if (!v.paused) card.classList.add("playing");
+  });
+  card.addEventListener("mouseleave", () => { card.classList.remove("playing"); if (v) v.pause(); });
+}
+
+// ===== Навигация слева: подсвечивает текущий раздел, линия доходит до него и плавно тянется к следующему =====
+function initSideNav() {
+  const nav = document.getElementById("sideNav");
+  const links = Array.from(nav.querySelectorAll("a"));
+  const sections = links.map((a) => document.querySelector(a.getAttribute("href")));
+  const track = nav.querySelector(".sn-track");
+  const root = document.documentElement;
+  let current = -1;
+  const update = () => {
+    const mark = innerHeight * 0.4;
+    let i = 0;
+    sections.forEach((sec, k) => { if (sec && sec.getBoundingClientRect().top <= mark) i = k; });
+    // в самом низу страницы — последний раздел, даже если он короткий
+    if (innerHeight + scrollY >= root.scrollHeight - 4) i = sections.length - 1;
+    if (i !== current) {
+      current = i;
+      links.forEach((a, k) => { a.classList.toggle("on", k === i); a.classList.toggle("passed", k < i); });
+      links.forEach((a, k) => (k === i ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current")));
+      root.classList.toggle("sn-hero", i === 0);
+    }
+    // сколько пройдено внутри текущего раздела → линия между его точкой и следующей
+    const r = sections[i].getBoundingClientRect();
+    const t = Math.min(1, Math.max(0, (mark - r.top) / Math.max(1, r.height)));
+    const dot = (k) => links[k].offsetTop + links[k].offsetHeight / 2 - track.offsetTop;
+    const y = i < links.length - 1 ? dot(i) + (dot(i + 1) - dot(i)) * t : track.offsetHeight;
+    track.style.setProperty("--sn", Math.min(1, Math.max(0, y / track.offsetHeight)).toFixed(4));
+  };
+  let queued = false;
+  addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; update(); }); } }, { passive: true });
+  addEventListener("resize", update);
+  update();
+}
+
 const has = (sel) => !!document.querySelector(sel);
+if (has("#sideNav")) initSideNav();
 if (has(".pv-scroll")) initCasePreviews();
+if (has(".pv-feat")) initFeatVideo();
 if (document.body.dataset.case) initCasePage();
 if (has(".hero")) initHero();
 initReveal();
