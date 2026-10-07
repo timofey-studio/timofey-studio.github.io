@@ -73,7 +73,7 @@
             <ellipse cx="310" cy="300" rx="262" ry="132" fill="none" stroke="currentColor" stroke-width="1.5"/>
           </g>
         </svg>
-        <div class="photo"><img src="img/doctor.jpg" alt="Главный врач Вадим Викторович Чешегоров на приёме" fetchpriority="high"></div>
+        <div class="photo snake"><div class="pclip"><img src="img/doctor.jpg" alt="Главный врач Вадим Викторович Чешегоров на приёме" fetchpriority="high"></div></div>
         <div class="chip"><b>0 ₽</b>профилактический приём через 6 месяцев после лечения</div>
       </div>
     </div>
@@ -127,8 +127,8 @@
 
   <section class="sec doc" id="doctor" style="background:var(--alt)">
     <div class="wrap">
-      <div class="doc-photo rv"><img src="img/doctor.jpg" alt="Вадим Викторович Чешегоров" loading="lazy"></div>
-      <div>
+      <div class="doc-frame snake rv"><div class="doc-photo"><img src="img/doctor.jpg" alt="Вадим Викторович Чешегоров" loading="lazy"></div></div>
+      <div class="dossier snake">
         <h2 class="rv">Вадим Викторович Чешегоров</h2>
         <p class="role rv">Главный врач, терапевт, ортопед</p>
         <p class="lead rv">Ведёт первичный приём сам: знакомится, осматривает и составляет план лечения. Работает в клинике с основания.</p>
@@ -138,6 +138,7 @@
           <li class="rv"><b>2010</b><span>Заведующий стоматологическим отделением</span></li>
           <li class="rv"><b>2021</b><span>Главный врач стоматологии «Авиценна»</span></li>
         </ul>
+        <h3 class="dip-title rv"><i class="ph ph-certificate"></i>Дипломы и сертификаты</h3>
         <p class="dip-hint rv"><i class="ph ph-magnifying-glass-plus"></i>Нажмите на диплом, чтобы рассмотреть</p>
         <div class="diplomas rv" aria-label="Дипломы и сертификаты">
           <a href="img/diploma-1.jpg" data-lb="dipl" aria-label="Открыть диплом 1 из 8"><img src="img/diploma-1.jpg" alt="Диплом или сертификат, 1 из 8" loading="lazy"></a>
@@ -169,12 +170,14 @@
   <section class="sec" id="first">
     <div class="wrap">
       <h2 class="rv">Как проходит первый приём</h2>
-      <div class="steps">
-        <div class="step rv"><div class="n"><i class="ph ph-hand-waving"></i></div><h3>Знакомимся</h3><p>Расскажите, что беспокоит и чего вы боитесь. Врач ответит на вопросы до начала осмотра.</p></div>
-        <div class="step rv" style="--d:1"><div class="n"><i class="ph ph-magnifying-glass"></i></div><h3>Осматриваем</h3><p>Смотрим все зубы. Если нужно, делаем снимок на рентгене RXDC eXTend прямо в кабинете.</p></div>
-        <div class="step rv" style="--d:2"><div class="n"><i class="ph ph-list-checks"></i></div><h3>Составляем план</h3><p>Объясняем, что лечить и в каком порядке. Решение остаётся за вами.</p></div>
+      <div class="steps seq rv">
+        <div class="step" style="--sd:.15s"><div class="n"><i class="ph ph-hand-waving"></i></div><h3>Знакомимся</h3><p>Расскажите, что беспокоит и чего вы боитесь. Врач ответит на вопросы до начала осмотра.</p></div>
+        <div class="step" style="--sd:1.25s"><div class="n"><i class="ph ph-magnifying-glass"></i></div><h3>Осматриваем</h3><p>Смотрим все зубы. Если нужно, делаем снимок на рентгене RXDC eXTend прямо в кабинете.</p></div>
+        <div class="step" style="--sd:2.35s"><div class="n"><i class="ph ph-list-checks"></i></div><h3>Составляем план</h3><p>Объясняем, что лечить и в каком порядке. Решение остаётся за вами.</p></div>
+        <span class="conn c1" style="--sd:.65s" aria-hidden="true"></span>
+        <span class="conn c2" style="--sd:1.75s" aria-hidden="true"></span>
       </div>
-      <div class="who rv">
+      <div class="who rv" style="--d:44">
         <img src="img/doctor.jpg" alt="" loading="lazy">
         <p><b>Первичный приём ведёт главный врач.</b> Ищем лечение, которое подходит вам, а не то, что подороже.</p>
       </div>

@@ -7,7 +7,8 @@
 /* сайт всегда светлый: тёмную тему не включаем */
 :root{color-scheme:light}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{overflow-x:clip}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 /* узор: зубы и инструменты тонкими линиями, неподвижный слой за всем содержимым */
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 17C41 8 25 4 15 13 4 23 7 41 12 53c4 10 6 22 8 35 2 13 10 16 14 8 4-8 4-22 10-26 3-2 9-2 12 0 6 4 6 18 10 26 4 8 12 5 14-8 2-13 4-25 8-35 5-12 8-30-3-40-10-9-26-5-35 4Z' transform='translate(26 24) scale(.4)' stroke='%23CF2F3C' stroke-opacity='.16' stroke-width='5'/%3E%3Cpath d='M50 17C41 8 25 4 15 13 4 23 7 41 12 53c4 10 6 22 8 35 2 13 10 16 14 8 4-8 4-22 10-26 3-2 9-2 12 0 6 4 6 18 10 26 4 8 12 5 14-8 2-13 4-25 8-35 5-12 8-30-3-40-10-9-26-5-35 4Z' transform='translate(120 128) scale(.24)' stroke='%23CF2F3C' stroke-opacity='.13' stroke-width='7'/%3E%3Cg transform='translate(156 46) rotate(32)' stroke='%2317181C' stroke-opacity='.09' stroke-width='2'%3E%3Crect width='64' height='9' rx='4.5'/%3E%3Crect x='60' y='-3' width='28' height='14' rx='4'/%3E%3Cpath d='M64 -4v-8M69 -4v-8M74 -4v-8M79 -4v-8M84 -4v-8'/%3E%3C/g%3E%3Cg transform='translate(52 196) rotate(-32)' stroke='%2317181C' stroke-opacity='.09' stroke-width='2'%3E%3Ccircle r='14'/%3E%3Ccircle r='8.5'/%3E%3Cpath d='M14 0h52'/%3E%3C/g%3E%3Cg transform='translate(176 212) rotate(18)' stroke='%2317181C' stroke-opacity='.09' stroke-width='2'%3E%3Cpath d='M0 0h52q15 0 15-13q0-7-6-7'/%3E%3C/g%3E%3Cpath d='M236 112q2 9 11 11q-9 2-11 11q-2-9-11-11q9-2 11-11z' stroke='%23CF2F3C' stroke-opacity='.16' stroke-width='1.8'/%3E%3Cpath d='M96 74q1.5 6 7.5 7.5q-6 1.5-7.5 7.5q-1.5-6-7.5-7.5q6-1.5 7.5-7.5z' stroke='%2317181C' stroke-opacity='.08' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E") 0 0/280px 280px}
@@ -68,6 +69,25 @@ header.nav .wrap{display:flex;align-items:center;gap:30px;height:72px}
   .menu-open{overflow:hidden}
 }
 
+/* ---------- «змейка»: красный перелив бежит по контуру рамки ---------- */
+@property --sa{syntax:'<angle>';inherits:false;initial-value:0deg}
+.snake{position:relative}
+.snake::before{content:"";position:absolute;inset:-4px;border-radius:inherit;padding:2.5px;pointer-events:none;z-index:2;
+  background:conic-gradient(from var(--sa),rgba(207,47,60,.16) 0deg,rgba(207,47,60,.16) 220deg,#CF2F3C 300deg,#FF9AA3 330deg,#CF2F3C 350deg,rgba(207,47,60,.16) 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  filter:drop-shadow(0 0 5px rgba(207,47,60,.35));animation:snake 6s linear infinite}
+@keyframes snake{to{--sa:360deg}}
+@media (prefers-reduced-motion:reduce){.snake::before{animation:none;background:rgba(207,47,60,.45)}}
+
+/* ---------- телефон в капсуле ---------- */
+header.nav .tlink,.hero .cta .tlink,.mnav .m-cta .tlink{gap:10px;padding:6px 18px 6px 6px;border:1.5px solid var(--line);border-radius:999px;background:#fff;transition:border-color .25s,box-shadow .25s,color .2s}
+header.nav .tlink i,.hero .cta .tlink i,.mnav .m-cta .tlink i{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-size:17px;flex:none}
+header.nav .tlink:hover,.hero .cta .tlink:hover,.mnav .m-cta .tlink:hover{border-color:var(--acc);box-shadow:0 12px 26px -18px var(--acc);color:var(--ink)}
+.hero .cta .tlink{padding:8px 24px 8px 8px}
+.hero .cta .tlink i{width:44px;height:44px;font-size:20px;animation:ring 2.8s ease-out infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(207,47,60,.45)}70%,100%{box-shadow:0 0 0 12px rgba(207,47,60,0)}}
+@media (prefers-reduced-motion:reduce){.hero .cta .tlink i{animation:none}}
+
 /* ---------- первый экран ---------- */
 .hero{overflow:clip}
 .hero .wrap{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center;padding-top:56px;padding-bottom:72px;min-height:min(calc(100dvh - 114px),880px)}
@@ -81,8 +101,9 @@ header.nav .wrap{display:flex;align-items:center;gap:30px;height:72px}
 .hero .cta{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
 .visual{position:relative;width:100%;max-width:600px;aspect-ratio:4/5;justify-self:center}
 .orbits{position:absolute;left:-16%;top:-6%;width:132%;height:112%;overflow:visible;pointer-events:none;color:var(--line)}
-.photo{position:absolute;inset:4% 12% 0 12%;border-radius:999px 999px var(--r-lg) var(--r-lg);overflow:hidden;box-shadow:0 50px 80px -40px var(--shadow);background:var(--tint)}
+.photo{position:absolute;inset:4% 12% 0 12%;border-radius:999px 999px var(--r-lg) var(--r-lg);box-shadow:0 50px 80px -40px var(--shadow);background:var(--tint)}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:62% 30%;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.pclip{width:100%;height:100%;border-radius:inherit;overflow:hidden}
 .visual:hover .photo img{transform:scale(1.05)}
 .chip{position:absolute;right:-4%;top:12%;max-width:260px;background:color-mix(in srgb,var(--surface) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid color-mix(in srgb,var(--surface) 70%,transparent);box-shadow:0 24px 40px -22px var(--shadow),inset 0 1px 0 rgba(255,255,255,.6);border-radius:var(--r-md);padding:16px 18px;font-size:15px;line-height:1.4}
 .chip b{display:block;font:600 26px/1.1 Geologica;color:var(--acc);margin-bottom:4px}
@@ -132,6 +153,8 @@ header.nav .wrap{display:flex;align-items:center;gap:30px;height:72px}
 .doc-photo{border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:var(--tint)}
 .doc-photo img{width:100%;height:100%;object-fit:cover;object-position:60% 25%;transition:transform .8s cubic-bezier(.16,1,.3,1)}
 .doc-photo:hover img{transform:scale(1.06)}
+.doc-frame{border-radius:var(--r-lg)}
+.dossier{background:#fff;border-radius:var(--r-lg);padding:40px 44px;box-shadow:0 30px 60px -44px var(--shadow)}
 .doc h2{margin-bottom:8px}
 .doc .role{color:var(--acc);font-weight:600;margin-bottom:22px}
 .doc .lead{margin-bottom:26px}
@@ -143,6 +166,8 @@ header.nav .wrap{display:flex;align-items:center;gap:30px;height:72px}
 .path li{display:grid;grid-template-columns:76px 1fr;gap:14px;font-size:15.5px}
 .path b{font:600 17px/1.5 Geologica;font-variant-numeric:tabular-nums}
 .path span{color:var(--mut)}
+.dip-title{display:flex;align-items:center;gap:10px;font-size:22px;margin:6px 0 4px}
+.dip-title i{color:var(--acc);font-size:26px}
 .dip-hint{font-size:14px;color:var(--mut);margin:0 0 10px;display:flex;align-items:center;gap:6px}
 .diplomas{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 10px}
 .diplomas a{position:relative;flex:none;width:150px;height:108px;border-radius:12px;overflow:hidden;border:1px solid var(--line);scroll-snap-align:start;background:var(--surface);transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s}
@@ -158,14 +183,28 @@ header.nav .wrap{display:flex;align-items:center;gap:30px;height:72px}
 .offer .orb::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:var(--acc);left:62px;top:300px;box-shadow:0 0 24px var(--acc)}
 
 /* ---------- первый приём ---------- */
-.steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
-.steps::before{content:"";position:absolute;left:0;right:0;top:27px;border-top:1.5px dashed var(--line)}
+.steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:52px}
 .step{position:relative}
-.step .n{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1.5px solid var(--line);font-size:24px;color:var(--acc);margin-bottom:22px}
-.step p{color:var(--mut);margin-top:8px;max-width:22em}
-.who{margin-top:44px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.who img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:60% 20%}
-.who p{color:var(--mut);font-size:15.5px}
+.step h3{font-size:clamp(22px,1.9vw,26px)}
+.step .n{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid var(--line);font-size:28px;color:var(--acc);margin-bottom:24px;box-shadow:0 14px 30px -20px var(--shadow)}
+.step p{color:var(--mut);margin-top:10px;max-width:22em;font-size:clamp(17px,1.35vw,19px)}
+/* соединительные стрелки: от кружка к кружку */
+.conn{position:absolute;top:31px;height:2px;background:repeating-linear-gradient(90deg,var(--acc) 0 9px,transparent 9px 15px);transform-origin:left;pointer-events:none}
+.conn::after{content:"";position:absolute;right:-1px;top:-5px;width:10px;height:10px;border-top:2px solid var(--acc);border-right:2px solid var(--acc);transform:rotate(45deg)}
+.conn.c1{left:80px;width:calc((100% - 64px)/3 - 64px)}
+.conn.c2{left:calc((100% - 64px)/3 + 112px);width:calc((100% - 64px)/3 - 64px)}
+/* по очереди: шаг, стрелка, шаг, стрелка, шаг */
+@media (prefers-reduced-motion:no-preference){
+  html.js .seq .step{opacity:0;transform:translateY(18px);transition:opacity .5s var(--sd),transform .7s cubic-bezier(.16,1,.3,1) var(--sd)}
+  html.js .seq .step .n{transform:scale(.4);transition:transform .7s cubic-bezier(.34,1.56,.64,1) var(--sd)}
+  html.js .seq .conn{transform:scaleX(0);transition:transform .7s cubic-bezier(.65,0,.35,1) var(--sd)}
+  html.js .seq.in .step,html.js .seq.in .step .n,html.js .seq.in .conn{opacity:1;transform:none}
+  html.js .seq.in .step .n{animation:popn .9s ease-out var(--sd) both}
+}
+@keyframes popn{0%,40%{background:#fff;color:var(--acc)}55%{background:var(--acc);color:#fff}100%{background:#fff;color:var(--acc)}}
+.who{margin-top:52px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 28px 10px 10px;width:fit-content;max-width:100%}
+.who img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:60% 20%}
+.who p{color:var(--mut);font-size:clamp(17px,1.4vw,20px)}
 .who p b{color:var(--ink)}
 
 /* ---------- клиника: галерея ---------- */
@@ -277,7 +316,12 @@ footer .warn{width:100%;font-size:15px;color:var(--ink);opacity:.8}
   .hero .btn{padding:16px 26px;font-size:16.5px}
   .offer .box{grid-template-columns:1fr;padding:36px 26px}
   .steps,.faq,.clean{grid-template-columns:1fr;gap:28px}
-  .steps::before{left:27px;right:auto;top:0;bottom:0;border-top:0;border-left:1.5px dashed var(--line)}
+  .conn{display:none}
+  .steps::before{content:"";position:absolute;left:31px;top:70px;bottom:60px;border-left:2px dashed var(--acc);opacity:.55;transform-origin:top;transition:transform 2.2s cubic-bezier(.65,0,.35,1) .3s}
+  html.js .seq:not(.in)::before{transform:scaleY(0)}
+  .step .n{margin-bottom:16px}
+  .who{border-radius:var(--r-lg);padding:14px 18px}
+  .dossier{padding:28px 22px}
   .clinic .grid{grid-template-columns:1fr 1fr;grid-template-rows:260px 160px 160px}
   .clinic .g1{grid-row:auto;grid-column:1/3}.clinic .g4{grid-column:1/3}
   .revs{columns:1}
@@ -313,7 +357,7 @@ footer .warn{width:100%;font-size:15px;color:var(--ink);opacity:.8}
 .svc .from{text-align:right;color:var(--mut);font-size:14px;white-space:nowrap}
 .svc .from b{display:block;font:600 22px/1.2 Geologica;color:var(--ink);opacity:.45}
 .bio{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start}
-.bio .doc-photo{position:sticky;top:96px}
+.bio .doc-frame{position:sticky;top:100px}
 .bio h2{font-size:26px;margin:36px 0 14px}
 .bio h2:first-child{margin-top:0}
 .bio ul{margin:0;padding-left:20px;color:var(--mut)}
@@ -351,7 +395,7 @@ a.docrow:hover{border-color:var(--acc)}
   .svc{grid-template-columns:1fr;padding:16px}
   .svc .from{text-align:left}
   .bio,.split{grid-template-columns:1fr;gap:32px}
-  .bio .doc-photo{position:static;max-width:420px}
+  .bio .doc-frame{position:relative;top:auto;max-width:420px}
   .dgrid{grid-template-columns:1fr 1fr}
   .gal{columns:2}
   .organs{grid-template-columns:1fr}
