@@ -106,6 +106,11 @@ header.nav .tlink:hover,.hero .cta .tlink:hover,.mnav .m-cta .tlink:hover{border
 .pclip{width:100%;height:100%;border-radius:inherit;overflow:hidden}
 .visual:hover .photo img{transform:scale(1.05)}
 .chip{position:absolute;right:-4%;top:12%;max-width:260px;background:color-mix(in srgb,var(--surface) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid color-mix(in srgb,var(--surface) 70%,transparent);box-shadow:0 24px 40px -22px var(--shadow),inset 0 1px 0 rgba(255,255,255,.6);border-radius:var(--r-md);padding:16px 18px;font-size:15px;line-height:1.4}
+@media (prefers-reduced-motion:no-preference){
+  html.js .chip{opacity:0;animation:chipIn .9s cubic-bezier(.34,1.56,.64,1) 1.1s forwards,chipFloat 5s ease-in-out 2.2s infinite}
+}
+@keyframes chipIn{0%{opacity:0;transform:translateY(22px) scale(.85)}100%{opacity:1;transform:none}}
+@keyframes chipFloat{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
 .chip b{display:block;font:600 26px/1.1 Geologica;color:var(--acc);margin-bottom:4px}
 
 /* ---------- факты под первым экраном ---------- */
@@ -197,9 +202,9 @@ header.nav .tlink:hover,.hero .cta .tlink:hover,.mnav .m-cta .tlink:hover{border
 @media (prefers-reduced-motion:no-preference){
   html.js .seq .step{opacity:0;transform:translateY(18px);transition:opacity .5s var(--sd),transform .7s cubic-bezier(.16,1,.3,1) var(--sd)}
   html.js .seq .step .n{transform:scale(.4);transition:transform .7s cubic-bezier(.34,1.56,.64,1) var(--sd)}
-  html.js .seq .conn{transform:scaleX(0);transition:transform .7s cubic-bezier(.65,0,.35,1) var(--sd)}
+  html.js .seq .conn{transform:scaleX(0);transition:transform .45s cubic-bezier(.65,0,.35,1) var(--sd)}
   html.js .seq.in .step,html.js .seq.in .step .n,html.js .seq.in .conn{opacity:1;transform:none}
-  html.js .seq.in .step .n{animation:popn .9s ease-out var(--sd) both}
+  html.js .seq.in .step .n{animation:popn .7s ease-out var(--sd) both}
 }
 @keyframes popn{0%,40%{background:#fff;color:var(--acc)}55%{background:var(--acc);color:#fff}100%{background:#fff;color:var(--acc)}}
 .who{margin-top:52px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 28px 10px 10px;width:fit-content;max-width:100%}
@@ -309,15 +314,22 @@ footer .warn{width:100%;font-size:15px;color:var(--ink);opacity:.8}
   .facts .wrap > div{border-left:0;padding:18px 0;border-top:1px solid var(--line)}
   .facts .wrap > div:first-child{border-top:0}
   header.nav .tlink{display:none}
-  .chip{top:auto;bottom:5%;left:0;right:auto}
-  .bento{grid-template-columns:1fr;grid-template-rows:none}
-  .cell{min-height:200px}.cell.big{grid-row:auto;min-height:340px}
+  .visual{margin-bottom:150px}
+  .chip{z-index:3;top:calc(100% + 16px);bottom:auto;left:50%;right:auto;margin-left:-150px;width:300px;max-width:none;background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid var(--line);box-shadow:0 18px 36px -20px var(--shadow);text-align:center;padding:14px 18px}
+  .bento{grid-template-columns:1fr 1fr;grid-template-rows:none;gap:12px}
+  .cell{min-height:230px;padding:16px}.cell.big{grid-row:auto;min-height:230px}
+  .cell:last-child{grid-column:1/3;min-height:200px}
+  .cell h3{font-size:16.5px;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:anywhere}
+  .cell p{display:none}
+  .cell:last-child p{display:block;font-size:14px;line-height:1.4;margin-top:6px}
+  .cell{min-height:190px}.cell.big{min-height:190px}
+  .cell .go{width:34px;height:34px;font-size:16px;top:12px;right:12px;opacity:1;transform:none}
   .doc .wrap,.prices .wrap,.contacts .wrap{grid-template-columns:1fr;gap:28px}
   .hero .btn{padding:16px 26px;font-size:16.5px}
   .offer .box{grid-template-columns:1fr;padding:36px 26px}
   .steps,.faq,.clean{grid-template-columns:1fr;gap:28px}
   .conn{display:none}
-  .steps::before{content:"";position:absolute;left:31px;top:70px;bottom:60px;border-left:2px dashed var(--acc);opacity:.55;transform-origin:top;transition:transform 2.2s cubic-bezier(.65,0,.35,1) .3s}
+  .steps::before{content:"";position:absolute;left:31px;top:70px;bottom:60px;border-left:2px dashed var(--acc);opacity:.55;transform-origin:top;transition:transform 1.3s cubic-bezier(.65,0,.35,1) .2s}
   html.js .seq:not(.in)::before{transform:scaleY(0)}
   .step .n{margin-bottom:16px}
   .who{border-radius:var(--r-lg);padding:14px 18px}
@@ -331,7 +343,7 @@ footer .warn{width:100%;font-size:15px;color:var(--ink);opacity:.8}
 @media (max-width:520px){
   .wrap{padding:0 16px}
   .top .wrap{gap:14px}
-  .chip{max-width:190px}
+  .chip{width:280px;margin-left:-140px}
   .cbox{padding:28px 22px}
   .rev.big q{font-size:22px}
 }
