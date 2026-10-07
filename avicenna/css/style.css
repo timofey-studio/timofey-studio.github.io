@@ -48,7 +48,25 @@ header.nav .wrap{display:flex;align-items:center;gap:30px;height:72px}
 .links{display:flex;gap:26px;margin-left:auto;font-size:15.5px}
 .links a{text-decoration:none;color:var(--mut);transition:color .2s}
 .links a:hover{color:var(--ink)}
-.burger{display:none;margin-left:auto;font-size:26px;background:none;border:0;color:var(--ink)}
+.burger{display:none;margin-left:auto;width:46px;height:46px;border-radius:50%;font-size:24px;background:var(--tint);border:0;color:var(--ink);cursor:pointer;place-items:center;transition:background .2s,color .2s}
+.burger:active{transform:scale(.95)}
+.menu-open .burger{background:var(--acc);color:#fff}
+/* меню для телефона: панель под шапкой (вешается на body — у шапки blur, внутри неё fixed не работает) */
+.mnav{display:none}
+@media (max-width:980px){
+  .mnav{display:block;position:fixed;left:0;right:0;bottom:0;top:var(--mtop,72px);z-index:19;background:#fff;padding:8px 20px 28px;overflow-y:auto;overscroll-behavior:contain;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .28s,transform .35s cubic-bezier(.16,1,.3,1),visibility .28s}
+  .menu-open .mnav{opacity:1;visibility:visible;transform:none}
+  .mnav nav a{display:flex;justify-content:space-between;align-items:center;padding:17px 2px;border-bottom:1px solid var(--line);font:600 24px/1.2 Geologica;letter-spacing:-.02em;color:var(--ink);text-decoration:none;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .45s cubic-bezier(.16,1,.3,1),color .2s}
+  .mnav nav a i{font-size:22px;color:var(--mut);transition:transform .25s,color .2s}
+  .mnav nav a:active i,.mnav nav a:hover i{transform:translateX(4px);color:var(--acc)}
+  .mnav nav a[aria-current]{color:var(--acc)}
+  .menu-open .mnav nav a{opacity:1;transform:none}
+  .mnav .m-cta{display:grid;gap:14px;margin-top:26px;justify-items:start}
+  .mnav .m-cta .btn{width:100%;justify-content:center;padding:17px 24px;font-size:17px}
+  .mnav .m-cta .tlink{font-size:19px}
+  .mnav .m-cta small{color:var(--mut);font-size:14.5px}
+  .menu-open{overflow:hidden}
+}
 
 /* ---------- первый экран ---------- */
 .hero{overflow:clip}
@@ -244,7 +262,7 @@ footer .warn{width:100%;font-size:15px;color:var(--ink);opacity:.8}
 
 /* ---------- телефон ---------- */
 @media (max-width:980px){
-  .links{display:none}.burger{display:block}header.nav .btn{display:none}
+  .links{display:none}.burger{display:grid}header.nav .btn{display:none}
   .top .hide-m{display:none}
   .hero .wrap{grid-template-columns:1fr;min-height:0;max-height:none;padding-top:28px;gap:36px}
   .visual{max-width:380px}

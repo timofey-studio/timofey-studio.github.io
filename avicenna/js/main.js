@@ -24,6 +24,29 @@ if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelecto
   document.addEventListener('keydown',function(e){if(!box.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(i-1);if(e.key==='ArrowRight')show(i+1)});
 })();
 
+/* меню для телефона: собираем из тех же ссылок, что в шапке */
+(function(){
+  var head=document.querySelector('header.nav'),btn=head&&head.querySelector('.burger');if(!btn)return;
+  var panel=document.createElement('div');panel.className='mnav';panel.id='mnav';
+  var nav=document.createElement('nav');nav.setAttribute('aria-label','Меню');
+  head.querySelectorAll('.links a').forEach(function(a,i){var c=a.cloneNode(true);c.insertAdjacentHTML('beforeend','<i class="ph ph-arrow-right" aria-hidden="true"></i>');c.style.transitionDelay=(60+i*40)+'ms';nav.appendChild(c)});
+  var cta=document.createElement('div');cta.className='m-cta';
+  var book=head.querySelector('.btn'),tel=head.querySelector('.tlink');
+  if(book)cta.appendChild(book.cloneNode(true));
+  if(tel){cta.appendChild(tel.cloneNode(true));cta.insertAdjacentHTML('beforeend','<small>Пн-пт 9:00-16:00 · звонок или WhatsApp</small>')}
+  panel.appendChild(nav);panel.appendChild(cta);document.body.appendChild(panel);
+  btn.setAttribute('aria-controls','mnav');btn.setAttribute('aria-expanded','false');
+  function set(o){
+    if(o)document.documentElement.style.setProperty('--mtop',Math.max(0,head.getBoundingClientRect().bottom)+'px');
+    document.body.classList.toggle('menu-open',o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Закрыть меню':'Меню');
+    btn.innerHTML=o?'<i class="ph ph-x"></i>':'<i class="ph ph-list"></i>';
+  }
+  btn.addEventListener('click',function(){set(!document.body.classList.contains('menu-open'))});
+  panel.addEventListener('click',function(e){if(e.target.closest('a'))set(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.body.classList.contains('menu-open')){set(false);btn.focus()}});
+  addEventListener('resize',function(){if(innerWidth>980)set(false)});
+})();
+
 /* форма записи — макет: проверяем поля, но пока никуда не отправляем */
 (function(){
   var f=document.getElementById('zapis');if(!f)return;
