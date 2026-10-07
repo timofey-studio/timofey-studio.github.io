@@ -60,16 +60,29 @@
   </section>
   <section class="sec contacts" id="contacts" style="padding-top:0;padding-bottom:96px">
     <div class="wrap">
-      <div class="cbox rv" id="zapis">
-        <h2>Запись и контакты</h2>
-        <div class="crow"><i class="ph ph-phone"></i><div><b><a href="tel:+79968981620" style="text-decoration:none">+7 996 898-16-20</a></b><span>Звонок или WhatsApp</span></div></div>
-        <div class="crow"><i class="ph ph-map-pin"></i><div><b>г. Шадринск, ул. Свердлова, 120</b><span>Вход с улицы, вывеска «Авиценна»</span></div></div>
-        <div class="crow"><i class="ph ph-clock"></i><div><b>Пн-пт 9:00-16:00</b><span>Суббота и воскресенье: выходной</span></div></div>
-        <div class="crow"><i class="ph ph-envelope-simple"></i><div><b><a href="mailto:stom_avicenna@mail.ru" style="text-decoration:none">stom_avicenna@mail.ru</a></b><span>Для документов и вопросов</span></div></div>
-        <a class="btn" href="tel:+79968981620">Записаться на приём</a>
-      </div>
-      <div class="map rv" style="--d:1">
-        <iframe title="Стоматология «Авиценна» на карте" loading="lazy" src="https://yandex.ru/map-widget/v1/?text=%D0%A8%D0%B0%D0%B4%D1%80%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%A1%D0%B2%D0%B5%D1%80%D0%B4%D0%BB%D0%BE%D0%B2%D0%B0%2C%20120&amp;z=16"></iframe>
+      <form class="cbox form rv" id="zapis" novalidate>
+        <h2>Записаться на приём</h2>
+        <p class="fnote">Заполните форму, и администратор свяжется с вами в течение 30 рабочих минут. Или сразу звоните: <a href="tel:+79968981620">+7 996 898-16-20</a></p>
+        <div class="field"><label for="f-name">Как вас зовут</label><input id="f-name" name="name" autocomplete="name" required><small class="err"></small></div>
+        <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 900 000-00-00" required><small class="err"></small></div>
+        <div class="field"><label for="f-svc">С чем обратиться</label>
+          <select id="f-svc" name="service"><option>Первичный приём</option><option>Лечение зубов</option><option>Протезирование</option><option>Профессиональная чистка</option><option>Художественная реставрация</option><option>Скайсы</option><option>Вопрос врачу</option></select></div>
+        <div class="field"><label for="f-msg">Комментарий <span>(необязательно)</span></label><textarea id="f-msg" name="message" rows="3" placeholder="Удобное время или вопрос врачу"></textarea></div>
+        <label class="check"><input type="checkbox" name="consent" required><span>Соглашаюсь на обработку персональных данных по <a href="dokumenty.html">политике клиники</a></span></label>
+        <small class="err" data-for="consent"></small>
+        <button class="btn" type="submit">Записаться на приём</button>
+        <div class="fstatus" role="status" aria-live="polite"></div>
+      </form>
+      <div class="cinfo">
+        <div class="cbox rv">
+          <div class="crow"><i class="ph ph-phone"></i><div><b><a href="tel:+79968981620" style="text-decoration:none">+7 996 898-16-20</a></b><span>Звонок или WhatsApp</span></div></div>
+          <div class="crow"><i class="ph ph-map-pin"></i><div><b>г. Шадринск, ул. Свердлова, 120</b><span>Вход с улицы, вывеска «Авиценна»</span></div></div>
+          <div class="crow"><i class="ph ph-clock"></i><div><b>Пн-пт 9:00-16:00</b><span>Суббота и воскресенье: выходной</span></div></div>
+          <div class="crow"><i class="ph ph-envelope-simple"></i><div><b><a href="mailto:stom_avicenna@mail.ru" style="text-decoration:none">stom_avicenna@mail.ru</a></b><span>Для документов и вопросов</span></div></div>
+        </div>
+        <div class="map rv" style="--d:1">
+          <iframe title="Стоматология «Авиценна» на карте" loading="lazy" src="https://yandex.ru/map-widget/v1/?text=%D0%A8%D0%B0%D0%B4%D1%80%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%A1%D0%B2%D0%B5%D1%80%D0%B4%D0%BB%D0%BE%D0%B2%D0%B0%2C%20120&amp;z=16"></iframe>
+        </div>
       </div>
     </div>
   </section>
