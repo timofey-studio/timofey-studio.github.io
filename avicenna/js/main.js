@@ -33,7 +33,7 @@ if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelecto
   var cta=document.createElement('div');cta.className='m-cta';
   var book=head.querySelector('.btn'),tel=head.querySelector('.tlink');
   if(book)cta.appendChild(book.cloneNode(true));
-  if(tel){cta.appendChild(tel.cloneNode(true));cta.insertAdjacentHTML('beforeend','<small>Пн-пт 9:00-16:00 · звонок или WhatsApp</small>')}
+  if(tel){cta.appendChild(tel.cloneNode(true));cta.insertAdjacentHTML('beforeend','<small>Пн-пт 9:00-16:00 · звонок или MAX</small>')}
   panel.appendChild(nav);panel.appendChild(cta);document.body.appendChild(panel);
   btn.setAttribute('aria-controls','mnav');btn.setAttribute('aria-expanded','false');
   function set(o){
