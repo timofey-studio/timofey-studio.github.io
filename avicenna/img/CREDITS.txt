@@ -3,3 +3,5 @@ svc-clean.jpg   https://www.pexels.com/photo/4269943/
 svc-skais.jpg   https://www.pexels.com/photo/3762453/
 Остальные фото — собственные фото клиники (старый сайт avicenna45.ru и присланные Тимофеем:
 doctor-hero.jpg, protez-1.jpg, protez-2.jpg).
+
+Значки соцсетей: MAX — официальный значок с max.ru (img/max.png), ВКонтакте — Simple Icons (CC0), встроен в страницы.

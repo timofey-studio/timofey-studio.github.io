@@ -34,6 +34,7 @@ if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelecto
   var book=head.querySelector('.btn'),tel=head.querySelector('.tlink');
   if(book)cta.appendChild(book.cloneNode(true));
   if(tel){cta.appendChild(tel.cloneNode(true));cta.insertAdjacentHTML('beforeend','<small>Пн-пт 9:00-16:00 · звонок или MAX</small>')}
+  var soc=document.querySelectorAll('.top .msg a.soc');if(soc.length){var row=document.createElement('div');row.className='m-soc';soc.forEach(function(a){row.appendChild(a.cloneNode(true))});cta.appendChild(row)}
   panel.appendChild(nav);panel.appendChild(cta);document.body.appendChild(panel);
   btn.setAttribute('aria-controls','mnav');btn.setAttribute('aria-expanded','false');
   function set(o){

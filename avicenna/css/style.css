@@ -42,12 +42,20 @@ p{margin:0;text-wrap:pretty}
 .top .msg{margin-left:auto;display:flex;gap:6px}
 .top .msg a{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--tint);font-size:17px;text-decoration:none;transition:background .2s,color .2s}
 .top .msg a:hover{background:var(--acc);color:var(--acc-ink)}
-.top .msg a.max{width:auto;padding:0 11px;border-radius:999px;font:700 11.5px/1 Geologica,sans-serif;letter-spacing:.08em;color:var(--ink)}
+.top .msg{gap:8px}
+.top .msg a.soc{width:auto;height:32px;display:inline-flex;align-items:center;gap:7px;padding:0 13px 0 6px;border-radius:999px;font:600 13px/1 Geologica,sans-serif;color:var(--ink)}
+.top .msg a.soc img{width:21px;height:21px;border-radius:6px}
+.top .msg a.soc svg{width:21px;height:21px;color:#0077FF;transition:color .2s}
+.top .msg a.soc:hover svg{color:#fff}
+.mnav .m-soc{display:flex;gap:10px;margin-top:6px}
+.mnav .m-soc a{display:inline-flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;background:var(--tint);font:600 15px/1 Geologica,sans-serif;text-decoration:none;color:var(--ink)}
+.mnav .m-soc img,.mnav .m-soc svg{width:24px;height:24px;border-radius:7px}
+.mnav .m-soc svg{color:#0077FF}
 header.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 header.nav .wrap{display:flex;align-items:center;gap:30px;height:72px}
 .logo{display:flex;align-items:center;gap:10px;font:600 18px/1 Geologica;letter-spacing:.06em;text-decoration:none}
 .logo svg{width:30px;height:33px;flex:none;color:var(--acc)}
-.links{display:flex;gap:26px;margin-left:auto;font-size:15.5px}
+.links{display:flex;gap:22px;margin-left:auto;font-size:15.5px}
 .links a{text-decoration:none;color:var(--mut);transition:color .2s}
 .links a:hover{color:var(--ink)}
 .burger{display:none;margin-left:auto;width:46px;height:46px;border-radius:50%;font-size:24px;background:var(--tint);border:0;color:var(--ink);cursor:pointer;place-items:center;transition:background .2s,color .2s}
@@ -93,9 +101,9 @@ header.nav .tlink:hover,.hero .cta .tlink:hover,.mnav .m-cta .tlink:hover{border
 .hero{overflow:clip}
 .hero .wrap{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center;padding-top:56px;padding-bottom:72px;min-height:min(calc(100dvh - 114px),880px)}
 /* название клиники: буквы появляются по очереди, по слову пробегает блик */
-.brand{display:flex;flex-direction:column;gap:6px;margin:0 0 18px}
-.brand .bs{font:600 clamp(12px,1.05vw,15px)/1 Onest,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:var(--mut);padding-left:.2em}
-.brand .bn{position:relative;font:700 clamp(46px,5.2vw,82px)/1 Geologica,sans-serif;letter-spacing:.01em;color:var(--acc);width:fit-content}
+.brand{display:flex;flex-direction:column;gap:2px;margin:0 0 22px}
+.brand .bs{font:500 clamp(32px,3.5vw,52px)/1.05 Geologica,sans-serif;letter-spacing:-.02em;color:var(--ink)}
+.brand .bn{position:relative;font:700 clamp(42px,4.7vw,70px)/1.05 Geologica,sans-serif;letter-spacing:-.01em;color:var(--acc);width:fit-content}
 .brand .ls span{display:inline-block}
 .brand .bn::after{content:attr(data-t);position:absolute;left:0;top:0;color:transparent;pointer-events:none;
   background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.95) 48%,rgba(255,214,218,.9) 52%,transparent 65%) 0 0/250% 100% no-repeat;
@@ -371,6 +379,8 @@ footer .warn{width:100%;font-size:15px;color:var(--ink);opacity:.8}
 @media (max-width:520px){
   .wrap{padding:0 16px}
   .top .wrap{gap:14px}
+  .top .msg a.soc{padding:0;width:32px;justify-content:center}
+  .top .msg a.soc span{display:none}
   .chip{width:280px;margin-left:-140px}
   .cbox{padding:28px 22px}
   .rev.big q{font-size:22px}
