@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /avicenna/
 
 Sitemap: https://timofey-studio.github.io/sitemap.xml
