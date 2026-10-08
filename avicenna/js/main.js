@@ -35,16 +35,20 @@ if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelecto
   if(book)cta.appendChild(book.cloneNode(true));
   if(tel){cta.appendChild(tel.cloneNode(true));cta.insertAdjacentHTML('beforeend','<small>Пн-пт 9:00-16:00 · звонок или MAX</small>')}
   var soc=document.querySelectorAll('.top .msg a.soc');if(soc.length){var row=document.createElement('div');row.className='m-soc';soc.forEach(function(a){row.appendChild(a.cloneNode(true))});cta.appendChild(row)}
-  panel.appendChild(nav);panel.appendChild(cta);document.body.appendChild(panel);
+  var bar=document.createElement('div');bar.className='mtop';
+  var lg=head.querySelector('.logo');if(lg)bar.appendChild(lg.cloneNode(true));
+  var x=document.createElement('button');x.className='mclose';x.type='button';x.setAttribute('aria-label','Закрыть меню');x.innerHTML='<i class="ph ph-x"></i>';bar.appendChild(x);
+  panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-label','Меню');
+  panel.appendChild(bar);panel.appendChild(nav);panel.appendChild(cta);document.body.appendChild(panel);
   btn.setAttribute('aria-controls','mnav');btn.setAttribute('aria-expanded','false');
   function set(o){
-    if(o)document.documentElement.style.setProperty('--mtop',Math.max(0,head.getBoundingClientRect().bottom)+'px');
-    document.body.classList.toggle('menu-open',o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Закрыть меню':'Меню');
-    btn.innerHTML=o?'<i class="ph ph-x"></i>':'<i class="ph ph-list"></i>';
+    document.documentElement.classList.toggle('menu-open',o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Закрыть меню':'Меню');
+    if(o)setTimeout(function(){x.focus()},50);
   }
-  btn.addEventListener('click',function(){set(!document.body.classList.contains('menu-open'))});
+  btn.addEventListener('click',function(){set(true)});
+  x.addEventListener('click',function(){set(false);btn.focus()});
   panel.addEventListener('click',function(e){if(e.target.closest('a'))set(false)});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.body.classList.contains('menu-open')){set(false);btn.focus()}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.documentElement.classList.contains('menu-open')){set(false);btn.focus()}});
   addEventListener('resize',function(){if(innerWidth>980)set(false)});
 })();
 
