@@ -5,5 +5,5 @@ svc-skais.jpg   https://www.pexels.com/photo/3762453/
 doctor-hero.jpg, protez-1.jpg, protez-2.jpg).
 
 Значки соцсетей: MAX — официальный значок с max.ru (img/max.png), ВКонтакте — Simple Icons (CC0), встроен в страницы.
-svc-clean-2.jpg https://www.pexels.com/photo/5622270/
+svc-clean-2.jpg https://www.pexels.com/photo/3958092/
 svc-skais-2.jpg https://www.pexels.com/photo/3762441/
