@@ -256,6 +256,14 @@ header.nav .tlink:hover,.hero .cta .tlink:hover,.mnav .m-cta .tlink:hover{border
 .clinic figure a{display:block;width:100%;height:100%;cursor:zoom-in}
 .clinic figure img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
 .clinic figure:hover img{transform:scale(1.07)}
+/* фото кабинета сменяют друг друга: мягкое растворение, по очереди */
+.clinic figure a{position:relative}
+.clinic figure img.cf{position:absolute;inset:0;opacity:0}
+@media (prefers-reduced-motion:no-preference){.clinic figure img.cf{animation:cfade 12s ease-in-out infinite}}
+@keyframes cfade{0%,40%{opacity:0;transform:scale(1.05)}50%,90%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.05)}}
+.zhint{position:absolute;right:14px;bottom:14px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--ink);display:grid;place-items:center;font-size:19px;opacity:0;transform:scale(.8);transition:opacity .3s,transform .3s cubic-bezier(.16,1,.3,1);z-index:1}
+.clinic figure:hover .zhint{opacity:1;transform:none}
+@media (hover:none){.zhint{opacity:.9;transform:none;width:34px;height:34px;font-size:16px}}
 .clinic .g1{grid-row:1/3}
 .clinic .g1 img{object-position:15% 50%}
 .clinic .g4{grid-column:2/4}
