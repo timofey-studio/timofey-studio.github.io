@@ -1,4 +1,7 @@
 document.documentElement.classList.add('js');
+/* при обновлении страницы — всегда в начало (если в адресе нет раздела вроде #prices) */
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+if(!location.hash)scrollTo(0,0);
 (function(){
   var els=document.querySelectorAll('.rv');
   if(!('IntersectionObserver' in window)||/static/.test(location.search)){els.forEach(function(e){e.classList.add('in')});return}

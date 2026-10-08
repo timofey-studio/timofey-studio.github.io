@@ -7,7 +7,7 @@
 /* сайт всегда светлый: тёмную тему не включаем */
 :root{color-scheme:light}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;overflow-x:clip}
+html{scroll-behavior:smooth;overflow-x:clip;scroll-padding-top:88px}
 body{overflow-x:clip}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 /* узор: зубы и инструменты тонкими линиями, неподвижный слой за всем содержимым */
