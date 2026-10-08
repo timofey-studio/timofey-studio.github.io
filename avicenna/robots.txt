@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+Sitemap: https://timofey-studio.github.io/avicenna/sitemap.xml
