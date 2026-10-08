@@ -177,9 +177,9 @@ header.nav .tlink:hover,.hero .cta .tlink:hover,.mnav .m-cta .tlink:hover{border
 /* второе фото раскрывается из середины, как створки */
 .cell.shot img.alt,.svc .pic img.alt{clip-path:inset(0 50% 0 50%);transition:clip-path .75s cubic-bezier(.65,0,.35,1),transform .8s cubic-bezier(.16,1,.3,1)}
 .cell.shot:hover img.alt,.cell.shot:focus-visible img.alt,.svc:hover .pic img.alt{clip-path:inset(0 0 0 0)}
-.cell.shot img.alt{transform:scale(1.25);transform-origin:55% 72%}
-.cell.shot:hover img.alt{transform:scale(1.3)}
-.svc .pic img.alt{transform:scale(1.25);transform-origin:55% 72%}
+.cell.shot img.alt.zoom{transform:scale(1.25);transform-origin:55% 72%}
+.cell.shot:hover img.alt.zoom{transform:scale(1.3)}
+.svc .pic img.alt.zoom{transform:scale(1.25);transform-origin:55% 72%}
 @media (hover:none){.cell.shot img.alt,.svc .pic img.alt{animation:altswap 7s cubic-bezier(.65,0,.35,1) 1.5s infinite}}
 @keyframes altswap{0%,38%{clip-path:inset(0 50% 0 50%)}50%,88%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 50% 0 50%)}}
 .cell .go{position:absolute!important;top:18px;right:18px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:var(--ink);font-size:20px;transform:scale(.8);opacity:0;transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .35s}
@@ -274,10 +274,16 @@ header.nav .tlink:hover,.hero .cta .tlink:hover,.mnav .m-cta .tlink:hover{border
 
 /* ---------- цены ---------- */
 .prices .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
-.plist{display:grid;gap:10px}
+.plist{display:grid;gap:0;padding:38px;border-radius:34px;background:#FBEDEE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%23CF2F3C' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 17C41 8 25 4 15 13 4 23 7 41 12 53c4 10 6 22 8 35 2 13 10 16 14 8 4-8 4-22 10-26 3-2 9-2 12 0 6 4 6 18 10 26 4 8 12 5 14-8 2-13 4-25 8-35 5-12 8-30-3-40-10-9-26-5-35 4Z' transform='translate(12 12) scale(.26)' stroke-opacity='.5' stroke-width='7'/%3E%3Cg transform='translate(78 30) rotate(32)' stroke-opacity='.38' stroke-width='2.2'%3E%3Crect width='38' height='6' rx='3'/%3E%3Crect x='35' y='-2' width='17' height='10' rx='3'/%3E%3C/g%3E%3Cg transform='translate(34 112) rotate(-32)' stroke-opacity='.38' stroke-width='2.2'%3E%3Ccircle r='9'/%3E%3Cpath d='M9 0h30'/%3E%3C/g%3E%3Cpath d='M50 17C41 8 25 4 15 13 4 23 7 41 12 53c4 10 6 22 8 35 2 13 10 16 14 8 4-8 4-22 10-26 3-2 9-2 12 0 6 4 6 18 10 26 4 8 12 5 14-8 2-13 4-25 8-35 5-12 8-30-3-40-10-9-26-5-35 4Z' transform='translate(96 92) scale(.2)' stroke-opacity='.42' stroke-width='8'/%3E%3Cpath d='M128 60q1.5 6 7.5 7.5q-6 1.5-7.5 7.5q-1.5-6-7.5-7.5q6-1.5 7.5-7.5z' stroke-opacity='.45' stroke-width='1.6'/%3E%3Cpath d='M70 84q1 4 5 5q-4 1-5 5q-1-4-5-5q4-1 5-5z' stroke-opacity='.4' stroke-width='1.4'/%3E%3C/g%3E%3C/svg%3E") 6px 6px/104px 104px;box-shadow:0 30px 60px -40px rgba(207,47,60,.45)}
+.plist .prow{border-radius:0;border-bottom:1.5px dashed #EED9DB;padding:21px 28px;transition:background .25s}
+.plist .prow:first-child{border-radius:18px 18px 0 0}
+.plist .prow{box-shadow:0 0 0 1px rgba(207,47,60,.06)}
+.plist .prow:last-child{border-radius:0 0 18px 18px;border-bottom:0}
+.plist .prow:hover{background:#FFF8F8}
+.plist .prow b{font-size:17.5px}
 .prow{display:flex;justify-content:space-between;gap:16px;align-items:baseline;background:var(--surface);border-radius:var(--r-md);padding:18px 22px}
 .prow span{color:var(--mut)}
-.prow em{font-style:normal;color:var(--mut)}
+.prow em{font-style:normal;color:var(--mut);white-space:nowrap}
 .prow strong{font:600 19px/1.2 Geologica,sans-serif;color:var(--acc);white-space:nowrap}
 
 /* ---------- вопросы ---------- */
@@ -366,6 +372,8 @@ footer .warn{width:100%;font-size:15px;color:var(--ink);opacity:.8}
   .cell p{display:none}
   .cell{min-height:190px}.cell.big{min-height:190px}
   .cell .go{width:34px;height:34px;font-size:16px;top:12px;right:12px;opacity:1;transform:none}
+  .plist{padding:26px;border-radius:26px;background-size:84px 84px!important}
+  .plist .prow{padding:17px 18px}
   .doc .wrap,.prices .wrap,.contacts .wrap{grid-template-columns:1fr;gap:28px}
   .hero .btn{padding:16px 26px;font-size:16.5px}
   .offer .box{grid-template-columns:1fr;padding:36px 26px}
