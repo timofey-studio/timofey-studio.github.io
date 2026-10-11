@@ -81,7 +81,7 @@
   <link rel="stylesheet" href="css/fonts.css?v=11" />
 
   <link rel="expect" href="#pvRow" blocking="render" />
-  <link rel="stylesheet" href="css/style.css?v=16" />
+  <link rel="stylesheet" href="css/style.css?v=17" />
 </head>
 <body>
   <!-- Логотип CHESH «Код-луна»: светящийся серп-C и знак кода «›» в иконке -->
@@ -574,7 +574,7 @@
                   </div>
                 </div>
                 <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="3" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea><small class="err" aria-live="polite"></small><small class="count" aria-hidden="true"></small></label>
-                <input class="lead-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                <input class="lead-hp" name="leadhp" tabindex="-1" autocomplete="off" aria-hidden="true" />
                 <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Даю <a href="soglasie.html" target="_blank" rel="noopener">согласие на&nbsp;обработку персональных данных</a></span></label>
                 <button class="btn btn-main" type="submit" id="leadSend">Отправить заявку <span class="arr" aria-hidden="true">→</span></button>
                 <div class="lead-safe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Заявка уходит по&nbsp;защищённому соединению и&nbsp;видна только мне. Без рассылок, не&nbsp;продаю и&nbsp;не&nbsp;передаю чужим. Подробно&nbsp;— в&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a>.</span></div>
@@ -591,6 +591,7 @@
                 <h3>Не&nbsp;получилось отправить</h3>
                 <p>Ничего страшного: нажмите кнопку&nbsp;— откроется Telegram с&nbsp;уже готовым текстом заявки, останется нажать «Отправить».</p>
                 <a class="btn btn-main" id="leadFbBtn" href="#contact" target="_blank" rel="noopener">Отправить через Telegram <span class="arr" aria-hidden="true">→</span></a>
+                <small class="lead-why" id="leadWhy"></small>
                 <button type="button" class="lead-back" id="leadBack">← вернуться к&nbsp;форме</button>
               </div>
             </div>
@@ -620,6 +621,6 @@
   </div>
 
   <script src="js/metrika.js?v=3" defer></script>
-  <script src="js/main.js?v=16"></script>
+  <script src="js/main.js?v=17"></script>
 </body>
 </html>

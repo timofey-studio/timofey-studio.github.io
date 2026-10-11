@@ -841,11 +841,33 @@ function initLead() {
     d.services.length ? "Нужно: " + d.services.join(", ") : "",
     d.message ? "Задача: " + d.message : "",
   ].filter(Boolean).join("\n");
-  const fallback = (d) => {
+  // Почему не получилось — мелкой строкой под кнопкой, чтобы было понятно, что чинить
+  const WHY = {
+    network: "Сервер заявок недоступен из вашей сети — возможно, его блокирует провайдер или блокировщик рекламы.",
+    timeout: "Сервер заявок слишком долго не отвечал.",
+    too_many: "Слишком много попыток подряд — подождите 10 минут или отправьте через Telegram.",
+    telegram: "Telegram временно не ответил.",
+  };
+  const fallback = (d, err) => {
     const text = textOf(d);
     document.getElementById("leadFbBtn").href = "https://t.me/" + TG_USER + "?text=" + encodeURIComponent(text);
     if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {}); // на всякий случай текст и в буфере
+    const code = err ? err.message : "";
+    document.getElementById("leadWhy").textContent = code ? "Причина: " + (WHY[code] || "сервер ответил «" + code + "».") : "";
+    if (err) console.warn("Заявка не ушла:", code);
     state("fallback");
+  };
+  const wait = (ms) => new Promise((ok) => setTimeout(ok, ms));
+  const post = async (d) => {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 12000);
+    try {
+      return await fetch(LEAD_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d), signal: ctrl.signal });
+    } catch (e) {
+      throw new Error(e.name === "AbortError" ? "timeout" : "network");
+    } finally {
+      clearTimeout(timer);
+    }
   };
   document.getElementById("leadBack").addEventListener("click", () => state(null));
 
@@ -856,29 +878,33 @@ function initLead() {
       contact: field("contact").value.trim(),
       services: pick.filter((b) => b.getAttribute("aria-pressed") === "true").map((b) => b.textContent),
       message: field("message").value.trim(),
-      website: field("website").value, // ловушка для ботов: человек это поле не видит
+      website: "", // посредник по-прежнему ждёт это поле — шлём пустым (ловушка теперь leadhp)
     };
+    const trap = field("leadhp").value; // ловушка для ботов: человек это поле не видит, а браузеры не заполняют
+    const fast = Date.now() - opened < 2500; // отправили быстрее, чем человек успевает
     const okAll = [check("name"), check("contact"), check("message")].every(Boolean);
     if (!okAll) { msg.textContent = "Проверьте поля, отмеченные красным, — под ними подсказка"; form.querySelector(".field.bad input, .field.bad textarea").focus(); return; }
     if (!field("agree").checked) { document.getElementById("leadConsent").classList.add("bad"); msg.textContent = "Поставьте галочку согласия — без неё не могу принять заявку"; return; }
     msg.textContent = "";
-    if (d.website || Date.now() - opened < 2500) { state("sent"); return; } // это бот — делаем вид, что всё хорошо
+    // Раньше такую заявку молча выбрасывали. Теперь она приходит с пометкой — живой клиент не потеряется.
+    if (trap || fast) d.message = "⚠️ Возможно, бот (" + (trap ? "заполнено скрытое поле" : "отправлено за 2 секунды") + ")\n" + d.message;
     if (!LEAD_ENDPOINT) { fallback(d); return; }
 
     send.disabled = true;
     try {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 12000);
-      const r = await fetch(LEAD_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d), signal: ctrl.signal });
-      clearTimeout(timer);
+      // одна автоматическая повторная попытка, если связь сорвалась или сервер ответил ошибкой 5xx
+      let r;
+      try { r = await post(d); } catch (e) { await wait(1500); r = await post(d); }
+      if (r.status >= 500) { await wait(1500); r = await post(d); }
       const j = await r.json().catch(() => ({}));
       if (!r.ok || !j.ok) throw new Error(j.error || r.status);
       document.getElementById("leadWho").textContent = d.contact;
+      document.getElementById("leadWhy").textContent = "";
       form.reset();
       pick.forEach((b) => b.setAttribute("aria-pressed", "false"));
       state("sent");
     } catch (err) {
-      fallback(d);
+      fallback(d, err);
     } finally {
       send.disabled = false;
     }
