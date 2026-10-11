@@ -40,7 +40,7 @@
       if (!a) return;
       var href = a.getAttribute("href") || "";
       if (href.indexOf("t.me/chesh_leads_bot") !== -1) reach("tg_click");
-      else if (href.indexOf("t.me/chesh_studio") !== -1) reach("channel_click");
+      else if (href.indexOf("t.me/+5XXJl5LXZBExM2Ji") !== -1) reach("channel_click");
       else if (a.classList.contains("pv") || a.classList.contains("win-work")) reach("case_open");
     }, true);
     var root = document.documentElement, lead = document.getElementById("lead");
