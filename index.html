@@ -82,6 +82,7 @@
 
   <link rel="expect" href="#pvRow" blocking="render" />
   <link rel="stylesheet" href="css/style.css?v=17" />
+  <link rel="stylesheet" href="css/v3.css?v=3" />
 </head>
 <body>
   <!-- Логотип CHESH «Код-луна»: светящийся серп-C и знак кода «›» в иконке -->
@@ -103,173 +104,69 @@
 
   <div class="bg-space" aria-hidden="true"></div>
   <div class="bg-nebula" aria-hidden="true"></div>
-  <div class="stars" aria-hidden="true"><canvas id="starCanvas"></canvas><span class="shoot s1"></span><span class="shoot s2"></span></div>
-  <div class="bg-sky" aria-hidden="true"></div>
-  <div class="bg-grain" aria-hidden="true"></div>
-  <div class="world" id="world" aria-hidden="true">
-    <div class="world-glow"></div>
-    <div class="world-ball"><div class="world-tex"></div></div>
-    <div class="world-sun"></div>
+  <!-- ═══ CHESH v3: новое начало сайта (собрано site-tools/build_v3.py) ═══ -->
+  <div class="c3 c3-box">
+  <div class="c3-hero c3-box-hero" id="top">
+    <div class="c3-hero-bg" id="heroBg"></div>
+    <div class="c3-hero-shade"></div>
+    <div class="c3-nav" role="navigation" aria-label="Разделы">
+      <a class="c3-logo" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#f5f4f1"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#c9ab6c" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
+      <div class="c3-nav-links"><a href="#work">Кейсы</a><a href="#about">Обо мне</a><a href="#process">Как работаю</a><a href="#faq">Вопросы</a></div>
+      <a class="c3-btn c3-btn-glow" href="#contact">Оставить заявку</a>
+    </div>
+    <div class="c3-hero-body">
+      <span class="c3-pill c3-rv"><b>CHESH</b> студия Тимофея Чешегорова</span>
+      <h1 class="c3-rv">Сайты и&nbsp;чат-боты, которые <i class="c3-acc">приводят</i> клиентов</h1>
+      <p class="c3-rv">Сайты, чат-боты и&nbsp;автоматизация для экспертов: психологов, врачей, тренеров и&nbsp;преподавателей.</p>
+      <div class="c3-hero-cta c3-rv">
+        <a class="c3-btn c3-btn-glow" href="#contact">Оставить заявку <svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+        <a class="c3-btn c3-btn-glass" href="#work">Смотреть кейсы</a>
+        <a class="c3-btn c3-btn-glass" href="#about">Обо мне</a>
+      </div>
+    </div>
+    <div class="c3-how">
+      <article class="c3-how-card c3-rv">
+        <div class="c3-how-head"><span class="c3-how-num">01</span><h3>Разбор</h3></div>
+        <p>Смотрю, где вы&nbsp;теряете клиентов, и&nbsp;предлагаю решение. Срок и&nbsp;цена письменно.</p>
+        <div class="c3-how-art" aria-hidden="true"><div class="c3-mini-page"><i></i><i class="c3-bad"></i><i></i><i></i><i class="c3-bad"></i><i></i></div><span class="c3-lens"></span></div>
+      </article>
+      <article class="c3-how-card c3-rv">
+        <div class="c3-how-head"><span class="c3-how-num">02</span><h3>Макет</h3></div>
+        <p>Показываю, как всё будет выглядеть. Правим, пока не&nbsp;понравится, и&nbsp;только потом код.</p>
+        <div class="c3-how-art" aria-hidden="true"><div class="c3-wire"><b></b><b></b><b></b><b></b></div><span class="c3-cursor"></span></div>
+      </article>
+      <article class="c3-how-card c3-rv">
+        <div class="c3-how-head"><span class="c3-how-num">03</span><h3>Запуск</h3></div>
+        <p>Запускаю, передаю доступы и&nbsp;инструкцию. Заявки сразу приходят вам в&nbsp;Telegram.</p>
+        <div class="c3-how-art" aria-hidden="true"><div class="c3-launch"><div class="c3-bar"><i></i></div>
+          <div class="c3-notif c3-n1"><span class="c3-ic"><svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg></span><span><b>Новая заявка с&nbsp;сайта</b><small>Анна, запись на&nbsp;консультацию</small></span></div>
+          <div class="c3-notif c3-n2"><span class="c3-ic"><svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg></span><span><b>Новая заявка с&nbsp;сайта</b><small>Олег, вопрос о&nbsp;цене</small></span></div></div></div>
+      </article>
+    </div>
   </div>
-
-  <!-- ШАПКА -->
-  <header>
-    <div class="header-inner">
-      <a class="logo" href="#top" aria-label="CHESH — Тимофей Чешегоров, наверх">
-        <svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg>
-        <span>
-          <span class="logo-name">CHESH</span><br />
-          <span class="logo-sub">Тимофей Чешегоров</span>
-        </span>
-      </a>
-      <nav class="nav" aria-label="Разделы">
-        <a href="#about">Обо мне</a>
-        <a href="#cases">Кейсы</a>
-        <a href="#trust">Почему я</a>
-        <a href="#contact">Контакты</a>
-      </nav>
-      <div class="header-actions">
-        <button class="tg-head" id="tgHead" type="button" aria-label="Telegram: написать мне или открыть канал" aria-expanded="false" aria-controls="tgPop" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg></button>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Переключить тему: светлая / тёмная" title="Светлая / тёмная тема">
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2 6 6M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
-        </button>
-        <button class="menu-btn" id="menuBtn" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><i></i><i></i><i></i></button>
-      </div>
-    </div>
-    <!-- меню Telegram из шапки: написать в бота или открыть канал -->
-    <div class="tg-pop" id="tgPop" hidden>
-      <a class="tg-opt" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener"><span class="tg-ico tg-ico-chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg></span><span><b>Написать в&nbsp;Telegram</b><small>Обсудим задачу, отвечу в&nbsp;течение дня</small></span></a>
-      <a class="tg-opt" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener"><img class="tg-ico" src="img/ch-avatar.jpg" alt="" width="40" height="40" /><span><b>Канал CHESH</b><small>Кейсы, «было&nbsp;→&nbsp;стало» и&nbsp;сказки про бизнес</small></span></a>
-    </div>
-    <!-- меню на телефоне -->
-    <div class="mnav" id="mnav" hidden>
-      <nav class="mnav-inner" aria-label="Меню">
-        <a class="mnav-link" href="#about" style="--i:0"><span>01</span>Обо мне</a>
-        <a class="mnav-link" href="#cases" style="--i:1"><span>02</span>Кейсы</a>
-        <div class="mnav-cases" style="--i:2">
-          <a href="case-bot.html">Telegram-бот FadePoint</a>
-          <a href="case-zerno.html">Сайт кофейни «Зерно»</a>
-          <a href="case-cards.html">Карточки товаров</a>
-          <a href="case-ad.html">Реклама отеля «Тишина»</a>
+  <div class="c3-slides" style="padding-bottom:40px">
+    <section class="c3-cases c3-rv" id="work" aria-label="Кейсы">
+      <div class="c3-wheel-area" id="wheelArea"><div class="c3-wheel" id="wheel">
+        <div class="c3-card c3-soon" style="--i:-2"><div><b>Сайт агентства недвижимости</b><small>Скоро</small></div></div>
+        <a class="c3-card" style="--i:-1" href="case-fadepoint.html" draggable="false"><img src="video/fadepoint-bot-poster.jpg" alt="" loading="lazy" draggable="false" /><span class="c3-lbl"><small>Чат-бот</small><b>Бот FadePoint</b></span></a>
+        <a class="c3-card" style="--i:0" href="case-avicenna.html" draggable="false"><img src="img/v3/av-now-index.webp" alt="" loading="lazy" draggable="false" /><span class="c3-lbl"><small>Сайт</small><b>Сайт стоматологии «Авиценна»</b></span></a>
+        <div class="c3-card c3-soon" style="--i:1"><div><b>Интернет-магазин одежды</b><small>Скоро</small></div></div>
+        <div class="c3-card c3-soon" style="--i:2"><div><b>Бот: заявки с сайта в Telegram</b><small>Скоро</small></div></div>
+      </div></div>
+      <div class="c3-cases-head">
+        <div>
+          <div class="c3-meta"><span>Кейсы</span></div>
+          <h2 class="c3-big">Мои<span>работы</span></h2>
+          <p class="c3-txt">Листайте колесо мышкой, пальцем или стрелками. Нажмите на&nbsp;работу, чтобы открыть кейс.</p>
         </div>
-        <a class="mnav-link" href="#trust" style="--i:3"><span>03</span>Почему я</a>
-        <a class="mnav-link" href="#process" style="--i:4"><span>04</span>Как работаю</a>
-        <a class="mnav-link" href="#faq" style="--i:5"><span>05</span>Вопросы</a>
-        <a class="mnav-link" href="#contact" style="--i:6"><span>06</span>Контакты</a>
-        <a class="btn btn-main mnav-tg" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener" style="--i:7">Написать в&nbsp;Telegram <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="mnav-ch" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener" style="--i:8"><span class="tg-dot"><svg class="tg-i" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg></span>Канал CHESH<span class="mnav-ch-sub">подписаться</span></a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Навигация слева (компьютер): линия заполняется по мере прокрутки, текущий раздел подписан -->
-  <nav class="side-nav" id="sideNav" aria-label="Разделы страницы">
-    <span class="sn-track" aria-hidden="true"><span class="sn-fill"></span></span>
-    <a href="#top"><i aria-hidden="true"></i><span>Начало</span></a>
-    <a href="#about"><i aria-hidden="true"></i><span>Обо мне</span></a>
-    <a href="#cases"><i aria-hidden="true"></i><span>Кейсы</span></a>
-    <a href="#trust"><i aria-hidden="true"></i><span>Почему я</span></a>
-    <a href="#process"><i aria-hidden="true"></i><span>Как работаю</span></a>
-    <a href="#faq"><i aria-hidden="true"></i><span>Вопросы</span></a>
-    <a href="#contact"><i aria-hidden="true"></i><span>Контакты</span></a>
-  </nav>
-
-  <!-- HERO: ноутбук под углом слева, телефон справа; за ними — горизонт тёмной планеты -->
-  <section class="hero" id="top">
-    <div class="brandmark" aria-hidden="true">CHESH</div>
-
-    <div class="stage" id="stage">
-      <div class="scene">
-        <div class="scene-shadow" aria-hidden="true"></div>
-        <div class="laptop" id="laptop">
-          <div class="lid">
-            <div class="lid-back" aria-hidden="true"></div>
-            <div class="lid-glow" aria-hidden="true"></div>
-            <div class="bezel">
-              <span class="cam" aria-hidden="true"></span>
-              <div class="screen">
-                <div class="wallpaper" aria-hidden="true"></div>
-
-                <div class="menubar">
-                  <svg class="mb-mark" aria-hidden="true"><use href="#logo"/></svg>
-                  <a href="#about">Обо мне</a>
-                  <a href="#cases">Кейсы</a>
-                  <a href="#contact">Контакты</a>
-                  <div class="right">
-                    <span data-clock>00:00</span>
-                  </div>
-                </div>
-
-                <div class="win win-main">
-                  <div class="win-bar" aria-hidden="true"><i></i><i></i><i></i><span>привет.txt — Тимофей Чешегоров</span></div>
-                  <div class="win-body">
-                    <h1 class="hero-title" id="heroTitle" data-type>Делаю ваш бизнес <em class="accent-word">заметным</em></h1>
-                    <div class="hero-more" id="heroMore">
-                      <p class="hero-desc hero-late">Сайты, Telegram-боты, презентации, видео, карточки для маркетплейсов и&nbsp;многое другое. Нахожу, где вы теряете клиентов, и&nbsp;исправляю саму причину.</p>
-                      <div class="hero-actions hero-late">
-                        <a href="#cases" class="btn btn-main">Смотреть работы <span class="arr">↓</span></a>
-                        <a href="#about" class="btn btn-ghost">Обо мне</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Кадр из моей рекламы отеля «Тишина» (кейс 04) — ведёт на кейс -->
-                <a class="win win-robot win-work" href="case-ad.html" aria-label="Кейс: реклама отеля «Тишина»">
-                  <span class="win-bar" aria-hidden="true"><i></i><i></i><i></i><span>tishina.mp4</span></span>
-                  <span class="ph"><img src="img/hero-tishina.jpg" alt="" width="560" height="850" /></span>
-                </a>
-
-                <nav class="dock" aria-label="Быстрые ссылки">
-                  <a href="#top" class="active" aria-label="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-5-6-5M12 19h8"/></svg></a>
-                  <a href="#about" aria-label="Обо мне"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
-                  <a href="#cases" class="tg" aria-label="Кейс: Telegram-бот"><svg viewBox="0 0 24 24" fill="#fff"><path d="M21.5 4.2 18.4 19c-.2 1-.9 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.8-7.9c.4-.3-.1-.5-.6-.2L6.3 13 1.6 11.5c-1-.3-1-1 .2-1.5L20.1 3c.9-.3 1.6.2 1.4 1.2z"/></svg></a>
-                  <a href="#cases" aria-label="Кейсы"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></a>
-                  <a href="#contact" aria-label="Контакты"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></a>
-                </nav>
-
-                <div class="screen-flash" aria-hidden="true"></div>
-              </div>
-            </div>
-          </div>
-          <div class="deck" aria-hidden="true">
-            <div class="hinge"></div><div class="spk l"></div><div class="spk r"></div>
-            <div class="keys"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w2"></i><i class="w2"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w2"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w2"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w2"></i><i></i><i></i><i></i><i></i><i class="sp"></i><i></i><i></i><i></i><i></i></div>
-            <div class="pad"></div><div class="notch"></div><div class="front"></div><div class="side"></div>
-          </div>
-        </div>
+        <div class="c3-cases-nav"><button type="button" id="wheelPrev" aria-label="Назад"><svg class="c3-ico" style="transform:scaleX(-1)" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button><button type="button" id="wheelNext" aria-label="Вперёд"><svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button></div>
       </div>
-
-      <!-- Телефон: реклама CHESH про цветочный «Пион» (ролик 30 с, по кругу; на мобильных открывается крупно) -->
-      <div class="phone-wrap" data-cursor="open">
-        <div class="phone">
-          <div class="p-screen">
-            <div class="p-splash">
-              <span class="p-emblem"><svg aria-hidden="true"><use href="#logo"/></svg></span>
-              <span class="p-brand">CHESH</span>
-              <span class="p-load"><i></i><i></i><i></i></span>
-            </div>
-            <video class="p-ad" id="phoneAd" muted loop playsinline preload="none" poster="video/chesh-live-poster.jpg"></video>
-          </div>
-        </div>
-      </div>
-      <span class="phone-hint" id="phoneHint" aria-hidden="true">
-        <span class="th-text"><span data-type="hint" id="hintL1">нажми на&nbsp;телефон&nbsp;—</span><span data-type="hint" id="hintL2">там реклама</span></span>
-        <svg class="ph-arr-d" viewBox="0 0 90 70" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M80 8C60 6 34 14 22 38c-3 6-5 13-5 22"/><path d="M8 48l9 13 11-11"/></svg>
-        <svg class="ph-arr-r" viewBox="0 0 70 46" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26C20 8 42 6 62 18"/><path d="M50 9l13 9-13 7"/></svg>
-      </span>
-    </div>
-
-    <div class="container hero-under">
-      <div>
-        <div class="hero-more-slot" id="heroMoreSlot"></div>
-        <div class="services hero-late">
-          <span class="services-label">Что я делаю</span><span class="chip" style="--i:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="M3 9h18M7 7h.01M10 7h.01"/></svg><span>Сайты и&nbsp;лендинги</span></span><span class="chip" style="--i:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 4.2 18.4 19c-.2 1-.9 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.8-7.9"/><path d="M6.3 13 1.6 11.5c-1-.3-1-1 .2-1.5L20.1 3"/></svg><span>Telegram-боты</span></span><span class="chip" style="--i:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18M5 4v10h14V4M12 14v3M8 21l4-4 4 4"/></svg><span>Презентации</span></span><span class="chip" style="--i:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><span>Видео и&nbsp;рилсы</span></span><span class="chip" style="--i:4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><path d="M7.5 7.5h.01"/></svg><span>Карточки для маркетплейсов</span></span><a class="chip chip-more" href="#contact" style="--i:5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span>Другая задача? Спросите</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="c3-cases-me">Works</div>
+      <div class="c3-cases-hint">тяните, чтобы листать</div>
+    </section>
+  </div>
+  </div>
+  <!-- ═══ конец нового начала ═══ -->
 
   <main>
     <!-- ОБО МНЕ -->
@@ -377,59 +274,6 @@
     </section>
 
     <!-- КЕЙСЫ -->
-    <section class="section" id="cases">
-      <div class="container">
-        <div class="cases-head">
-          <div>
-            <div class="kicker" data-type="scroll">Кейсы</div>
-            <h2 class="section-title reveal">Примеры работ</h2>
-          </div>
-        </div>
-        <!-- CASES:START — блок собирает site-tools/build_pages.py, правьте тексты там -->
-        <div class="pv-scroll" id="pvScroll">
-          <div class="pv-row pv-home" id="pvRow">
-          <a class="pv pv-feat glass" href="case-ad.html" data-hover-video="video/tishina-ad.mp4">
-            <span class="pv-pic"><img class="pv-img" src="video/tishina-ad-cover.jpg" alt="" loading="lazy" width="720" height="960" /></span>
-            <span class="pv-body">
-              <span class="pv-tag">Видео-реклама</span>
-              <h3 class="pv-title">Реклама отеля «Тишина», которую досматривают</h3>
-              <span class="pv-text">30 секунд без&nbsp;диктора: уведомления, пробка&nbsp;— и&nbsp;резкая тишина у&nbsp;озера.</span>
-              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-            </span>
-          </a>
-          <a class="pv glass" href="case-bot.html">
-            <span class="pv-pic"><img class="pv-img for-dark" src="video/fadepoint-bot-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/fadepoint-bot-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /></span>
-            <span class="pv-body">
-              <span class="pv-tag">Telegram-бот</span>
-              <h3 class="pv-title">Запись в&nbsp;барбершоп без звонков</h3>
-              <span class="pv-text">Клиент записывается к&nbsp;мастеру сам за&nbsp;минуту, владелец видит каждую запись.</span>
-              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-            </span>
-          </a>
-          <a class="pv glass" href="case-zerno.html">
-            <span class="pv-pic"><img class="pv-img for-dark" src="video/zerno-demo-poster.jpg" alt="" loading="lazy" width="640" height="800" /><img class="pv-img for-light" src="video/zerno-demo-light-poster.jpg" alt="" loading="lazy" width="640" height="800" /></span>
-            <span class="pv-body">
-              <span class="pv-tag">Редизайн сайта</span>
-              <h3 class="pv-title">Кофейня «Зерно»: сайт, с&nbsp;которого заказывают</h3>
-              <span class="pv-text">Старый сайт кофейни превращается в&nbsp;новый, с&nbsp;которого удобно заказать.</span>
-              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-            </span>
-          </a>
-          <a class="pv glass" href="case-cards.html">
-            <span class="pv-pic"><img class="pv-img" src="img/cards/coffee-1.jpg?v=2" alt="" loading="lazy" width="720" height="960" /></span>
-            <span class="pv-body">
-              <span class="pv-tag">Карточки товаров</span>
-              <h3 class="pv-title">Карточки, мимо которых не&nbsp;пролистнуть</h3>
-              <span class="pv-text">Четыре товара&nbsp;— четыре стиля. Фото «с&nbsp;ковра» → карточка, которая продаёт.</span>
-              <span class="pv-more">Смотреть кейс <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-            </span>
-          </a>
-          </div>
-          <span class="pv-hint" aria-hidden="true">листай <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </div>
-        <!-- CASES:END -->
-      </div>
-    </section>
 
     <!-- ПОЧЕМУ МНЕ МОЖНО ДОВЕРЯТЬ -->
     <section class="section" id="trust">
@@ -622,5 +466,6 @@
 
   <script src="js/metrika.js?v=4" defer></script>
   <script src="js/main.js?v=17"></script>
+  <script src="js/v3.js?v=3" defer></script>
 </body>
 </html>

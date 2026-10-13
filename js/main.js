@@ -352,7 +352,8 @@ function applyTheme(theme) {
   syncCaseVideo();
   syncPhoneAd();
 }
-document.getElementById("themeToggle").addEventListener("click", () => {
+// кнопка темы есть не на всех страницах (на новой главной её нет) — без неё скрипт не должен падать
+if (document.getElementById("themeToggle")) document.getElementById("themeToggle").addEventListener("click", () => {
   const next = isLight() ? "dark" : "light";
   applyTheme(next);
   try { localStorage.setItem("theme", next); } catch (e) {}
