@@ -1,0 +1,51 @@
+/* CHESH v4 — юридические страницы: тёмная шапка с узором, документ на белом листе, содержание сбоку */
+.legal { background: var(--bg) url(../img/v4/topo.svg) 0 0 / 1200px 900px; }
+.lg-hero { width: min(1180px, calc(100% - 72px)); margin: 0 auto; padding: 130px 0 40px; }
+.lg-back { min-height: 44px; padding: 0 18px; font-size: 14.5px; }
+.lg-back .ico { font-size: 17px; }
+.lg-hero .eyebrow { margin-top: 34px; }
+.lg-hero h1 { margin-top: 16px; max-width: 18em; font: 600 clamp(30px, 3vw, 46px)/1.05 var(--osw); text-transform: uppercase; }
+.lg-date { margin-top: 14px; color: var(--mute); font-size: 14px; }
+.lg-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.lg-tabs a { padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); font-size: 14px; text-decoration: none; transition: border-color 0.3s, background-color 0.3s, color 0.3s; }
+.lg-tabs a:hover { border-color: var(--beige); }
+.lg-tabs a[aria-current="page"] { background: var(--beige); border-color: var(--beige); color: #111; }
+
+.lg-wrap { width: min(1180px, calc(100% - 72px)); margin: 0 auto 90px; display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 28px; align-items: start; }
+.lg-toc { position: sticky; top: 100px; padding: 22px; border-radius: 20px; background: rgba(22, 22, 24, 0.85); border: 1px solid var(--line); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.lg-toc b { display: block; margin-bottom: 12px; font: 500 11.5px var(--body); letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); }
+.lg-toc ol { list-style: none; counter-reset: t; display: grid; gap: 2px; }
+.lg-toc li { counter-increment: t; }
+.lg-toc a { display: grid; grid-template-columns: 24px 1fr; padding: 7px 8px; border-radius: 10px; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; text-decoration: none; transition: background-color 0.25s, color 0.25s; }
+.lg-toc a::before { content: counter(t, decimal-leading-zero); font: 500 12px/1.6 var(--osw); color: var(--dim); }
+.lg-toc a:hover { color: var(--ink); background: rgba(255, 255, 255, 0.04); }
+.lg-toc a.on { color: #111; background: var(--beige); } .lg-toc a.on::before { color: #5f594f; }
+
+/* сам документ: белый лист с тонкими линиями сетки */
+.lg-paper { padding: 54px clamp(28px, 5vw, 70px) 60px; border-radius: 28px; color: #1b1a17; font-size: 16px; line-height: 1.7;
+  background: #fbfaf8 repeating-linear-gradient(90deg, transparent 0 119px, rgba(27, 26, 23, 0.035) 119px 120px); box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8); }
+.lg-paper > :first-child { margin-top: 0; }
+.lg-paper .lead { padding: 20px 24px; border-radius: 16px; background: #ece5d8; font-size: 16.5px; line-height: 1.6; }
+.lg-paper h2 { margin: 42px 0 12px; padding-top: 22px; border-top: 1px solid rgba(27, 26, 23, 0.12); font: 600 23px/1.15 var(--osw); text-transform: uppercase; letter-spacing: 0.01em; scroll-margin-top: 100px; }
+.lg-paper p { margin-top: 12px; color: #3d3a35; }
+.lg-paper ul { margin-top: 12px; padding-left: 0; list-style: none; display: grid; gap: 8px; }
+.lg-paper li { position: relative; padding-left: 22px; color: #3d3a35; }
+.lg-paper li::before { content: ""; position: absolute; left: 4px; top: 0.72em; width: 7px; height: 7px; border-radius: 50%; background: #b9a888; }
+.lg-paper b { color: #1b1a17; font-weight: 600; }
+.lg-paper a { color: #1b1a17; text-decoration-color: #b9a888; text-underline-offset: 3px; }
+.lg-paper .note { margin-top: 36px; padding: 18px 22px; border-radius: 16px; background: #1b1a17; color: #e9e6e0; }
+.lg-paper .note a { color: var(--beige); }
+.lg-paper .date { display: none; }
+.lg-paper .ym-reset { padding: 2px 10px; border-radius: 999px; border: 1px solid #b9a888; background: #fff; font: inherit; font-size: 14px; cursor: pointer; }
+.legal .foot .legal-links { display: flex; gap: 18px; } .legal .foot a { color: var(--mute); text-decoration: none; }
+
+@media (max-width: 900px) {
+  .lg-wrap { grid-template-columns: 1fr; }
+  .lg-toc { position: static; }
+}
+@media (max-width: 640px) {
+  .lg-hero, .lg-wrap { width: calc(100% - 24px); }
+  .lg-hero { padding-top: 100px; }
+  .lg-paper { padding: 30px 20px 36px; border-radius: 22px; font-size: 15.5px; }
+  .legal .foot { flex-direction: column; align-items: flex-start; } .legal .foot .legal-links { flex-direction: column; gap: 8px; }
+}

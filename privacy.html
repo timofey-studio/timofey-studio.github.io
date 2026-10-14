@@ -1,24 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Политика конфиденциальности · CHESH</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Политика конфиденциальности и обработки персональных данных · CHESH</title>
   <meta name="robots" content="noindex" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <script>
-    // та же тема, что выбрана на сайте
-    try { if (localStorage.getItem("theme") === "light") document.documentElement.setAttribute("data-theme", "light"); } catch (e) {}
-  </script>
-  <link rel="stylesheet" href="css/fonts.css?v=11" />
-  <link rel="stylesheet" href="css/legal.css?v=12" />
-  <script src="js/metrika.js?v=3" defer></script>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
+  <!-- Шаблон юридических страниц v4: текст документа вставляет build.py из privacy.html без изменений, меняется только оформление -->
+  <link rel="stylesheet" href="css/v4.css?v=1" />
+  <link rel="stylesheet" href="css/v4-legal.css?v=1" />
 </head>
-<body>
+<body class="legal">
+  <header class="top" id="top">
+    <a class="logo" href="index.html" aria-label="CHESH, на главную"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="index.html#work">Кейсы</a><a href="index.html#about">Обо мне</a><a href="index.html#how">Как работаю</a><a href="index.html#faq">Вопросы</a>
+    </nav>
+    <a class="btn btn-glow" href="index.html#contact">Оставить заявку</a>
+  </header>
+
   <main>
-    <a class="back" href="./#contact">← Вернуться на сайт</a>
-    <h1>Политика конфиденциальности и&nbsp;обработки персональных данных</h1>
+    <section class="lg-hero">
+      <a class="btn btn-line lg-back" href="index.html#contact"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>Вернуться к&nbsp;заявке</a>
+      <div class="eyebrow">Документы CHESH</div>
+      <h1>Политика конфиденциальности и&nbsp;обработки персональных данных</h1>
+      <p class="lg-date">Сайт CHESH · timofey-studio.github.io · редакция от 3 октября 2026 г.</p>
+      <nav class="lg-tabs" aria-label="Документы"><a href="privacy.html" aria-current="page">Политика конфиденциальности</a><a href="soglasie.html">Согласие на обработку данных</a><a href="soglasie-otzyv.html">Согласие на публикацию отзыва</a></nav>
+    </section>
+    <div class="lg-wrap">
+      <aside class="lg-toc" aria-label="Содержание"><b>Содержание</b><ol id="toc"></ol></aside>
+      <article class="lg-paper" id="doc">
+
     <p class="date">Сайт CHESH · timofey-studio.github.io · редакция от 3 октября 2026 г.</p>
 
     <p class="lead">Коротко: я&nbsp;получаю только то, что вы&nbsp;сами мне пишете, использую это, чтобы ответить вам и&nbsp;сделать работу, не&nbsp;делаю рассылок, не&nbsp;продаю и&nbsp;не&nbsp;передаю данные чужим. Ниже&nbsp;— подробно и&nbsp;честно.</p>
@@ -85,6 +97,39 @@
     <p>Если я&nbsp;поменяю эту политику, новая редакция появится на&nbsp;этой странице с&nbsp;новой датой.</p>
 
     <p class="note">Остались вопросы о&nbsp;данных? Напишите в&nbsp;<a href="https://t.me/chesh_leads_bot">@chesh_leads_bot</a>&nbsp;— объясню простыми словами.</p>
+  
+      </article>
+    </div>
   </main>
+
+  <footer class="foot">
+    <a class="logo" href="index.html" aria-label="CHESH, на главную"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
+    <span>© 2026 CHESH, Тимофей Чешегоров</span>
+    <span class="legal-links"><a href="privacy.html">Политика конфиденциальности</a><a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
+  </footer>
+
+  <script>
+    // Содержание сбоку: собираем из заголовков документа и подсвечиваем раздел, который сейчас читают
+    (function () {
+      var toc = document.getElementById("toc"), hs = document.querySelectorAll("#doc h2");
+      hs.forEach(function (h, i) {
+        h.id = "p" + (i + 1);
+        var li = document.createElement("li"), a = document.createElement("a");
+        a.href = "#" + h.id; a.textContent = h.textContent.replace(/^\d+\.\s*/, "");
+        li.appendChild(a); toc.appendChild(li);
+      });
+      if (!("IntersectionObserver" in window)) return;
+      var links = toc.querySelectorAll("a");
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          links.forEach(function (l) { l.classList.toggle("on", l.getAttribute("href") === "#" + e.target.id); });
+        });
+      }, { rootMargin: "-20% 0px -70% 0px" });
+      hs.forEach(function (h) { io.observe(h); });
+    })();
+  </script>
+  <script src="js/v4.js?v=1" defer></script>
+  <script src="js/metrika.js?v=4" defer></script>
 </body>
 </html>

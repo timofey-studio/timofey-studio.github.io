@@ -3,469 +3,275 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CHESH · Делаю бизнес заметным</title>
-  <meta name="description" content="Тимофей Чешегоров — сайты, Telegram-боты, презентации, видео, карточки для маркетплейсов — и не только. Нахожу, где бизнес теряет клиентов, и исправляю саму причину." />
-  <!-- подтверждение владения сайтом для Яндекс Вебмастера -->
+  <title>CHESH · Сайты, лендинги, чат-боты и ИИ-агенты</title>
+  <meta name="description" content="Тимофей Чешегоров, студия CHESH: сайты и лендинги за 5-10 дней, чат-боты и ИИ-агенты, автоматизация и личный бренд. Кейсы, понятные этапы, цена письменно до старта." />
   <meta name="yandex-verification" content="9b74f074fb7781ac" />
-  <!-- «визитка» для поисковиков: кто такой CHESH -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"CHESH","alternateName":["CHESH студия","Тимофей Чешегоров"],
-   "description":"Сайты, Telegram-боты, презентации, видео и карточки для маркетплейсов — и не только.",
+   "description":"Сайты, лендинги, чат-боты и ИИ-агенты, которые приводят клиентов.",
    "url":"https://timofey-studio.github.io/","logo":"https://timofey-studio.github.io/img/og-cover.jpg","image":"https://timofey-studio.github.io/img/og-cover.jpg",
-   "founder":{"@type":"Person","name":"Тимофей Чешегоров"},"areaServed":"RU",
-   "sameAs":["https://t.me/+5XXJl5LXZBExM2Ji"]}
+   "founder":{"@type":"Person","name":"Тимофей Чешегоров"},"areaServed":"RU","sameAs":["https://t.me/+5XXJl5LXZBExM2Ji"]}
   </script>
-  <!-- превью ссылки в Telegram, VK и других мессенджерах -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="CHESH" />
   <meta property="og:locale" content="ru_RU" />
-  <meta property="og:title" content="Ваш бизнес — как ниндзя? 🥷 Исправим" />
-  <meta property="og:description" content="Сайты, Telegram-боты, презентации, рилсы, карточки товаров и многое другое — чтобы вас наконец заметили. CHESH · Тимофей Чешегоров" />
+  <meta property="og:title" content="CHESH · Сайты, лендинги, чат-боты и ИИ-агенты" />
+  <meta property="og:description" content="Сайты и лендинги за 5-10 дней, чат-боты и ИИ-агенты, которые приводят клиентов. Студия Тимофея Чешегорова." />
   <meta property="og:url" content="https://timofey-studio.github.io/" />
   <meta property="og:image" content="https://timofey-studio.github.io/img/og-cover.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="CHESH: ноутбук с надписью «Делаю ваш бизнес заметным» и телефон с рекламой" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#07070a" />
+  <meta name="theme-color" content="#0d0d0e" />
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
   <script>
-    // До отрисовки: тема (сохранённый выбор, иначе тёмная), цвет свечения и флаг «JS работает»
-    (function () {
-      var d = document.documentElement, t = null;
-      d.classList.add("js");
-      try { t = localStorage.getItem("theme"); } catch (e) {}
-      var q = location.search.match(/[?&]theme=(light|dark)/);
-      if (q) t = q[1]; // ссылка с нужной темой, например ?theme=light
-      var g = location.search.match(/[?&]glow=(amber|lime|rose|ice)/);
-      d.setAttribute("data-glow", g ? g[1] : "amber"); // цвет свечения (пока примеряем)
-      var sk = location.search.match(/[?&]sky=(cool|classic)/);
-      d.setAttribute("data-sky", sk ? sk[1] : "cool"); // «холодный космос» (выбран Тимофеем); ?sky=classic — прежнее небо
-      // облегчённый режим для телефонов и слабых компьютеров: без размытия стекла, небо и планета не плывут, звёзд меньше
-      var lt = location.search.match(/[?&]lite=([01])/), nav = navigator;
-      var weak = (window.matchMedia && matchMedia("(pointer: coarse)").matches) || (nav.deviceMemory && nav.deviceMemory <= 4) ||
-        (nav.hardwareConcurrency && nav.hardwareConcurrency <= 4) || (nav.connection && nav.connection.saveData);
-      if (lt ? lt[1] === "1" : weak) d.classList.add("lite");
-      if (t === "light") d.setAttribute("data-theme", "light");
-      // Плавные переходы между страницами. Браузеры без них (Firefox) получают простое затухание — см. main.js
-      if (!("onpagereveal" in window)) d.classList.add("no-vt");
-      // Обновили страницу — открываем её с начала, а не с того места, где были
-      try {
-        var ne = performance.getEntriesByType("navigation")[0];
-        if (ne && ne.type === "reload" && "scrollRestoration" in history) {
-          history.scrollRestoration = "manual";
-          if (location.hash) history.replaceState(null, "", location.pathname + location.search);
-          window.addEventListener("load", function () {
-            window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-            setTimeout(function () { history.scrollRestoration = "auto"; }, 0);
-          });
-        }
-      } catch (e) {}
-      // Пришли на главную со страницы кейса — его карточка на главной «принимает» раскрытый кейс обратно
-      window.addEventListener("pagereveal", function (e) {
-        var nav = window.navigation, from = nav && nav.activation && nav.activation.from;
-        if (!e.viewTransition || !from || document.querySelector(".case-page")) return;
-        var page = new URL(from.url).pathname.split("/").pop();
-        var pv = document.querySelector('a.pv[href="' + page + '"]');
-        if (!pv) return;
-        pv.style.viewTransitionName = "case-hero";
-        e.viewTransition.finished.then(function () { pv.style.viewTransitionName = ""; });
-      });
-    })();
+    document.documentElement.classList.add("js");
+    window.HERO_BG = "img/v4/bg-2.jpg";
   </script>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='.85' y1='.08' x2='.2' y2='.95'%3E%3Cstop offset='0' stop-color='%23ffe3c7'/%3E%3Cstop offset='.45' stop-color='%23ff9a4a'/%3E%3Cstop offset='1' stop-color='%23e2580f'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='64' height='64' fill='%23fff'/%3E%3Ccircle cx='40' cy='31' r='20.5' fill='%23000'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='1' y='1' width='62' height='62' rx='17' fill='%23141418'/%3E%3Cg transform='translate%286 6%29 scale%28.81%29'%3E%3Ccircle cx='30' cy='32' r='25' fill='url%28%23g%29' mask='url%28%23m%29'/%3E%3Cpath d='M41 23.5 49 31l-8 7.5' fill='none' stroke='%23fff1e2' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E" />
-
-  <!-- Защита: странице можно загружать только свои файлы, шрифты Google и отправлять заявки только нашему посреднику.
-       Чужой скрипт (если его как-то подсунут) браузер просто не выполнит и никуда не отправит данные. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://mc.yandex.com https://yastatic.net; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://mc.yandex.ru https://mc.yandex.com; media-src 'self'; connect-src 'self' https://chesh-leads.chesh.workers.dev https://mc.yandex.ru https://mc.yandex.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src blob: https://mc.yandex.ru https://mc.yandex.com; child-src blob: https://mc.yandex.ru https://mc.yandex.com; upgrade-insecure-requests" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="stylesheet" href="css/fonts.css?v=11" />
-
-  <link rel="expect" href="#pvRow" blocking="render" />
-  <link rel="stylesheet" href="css/style.css?v=17" />
-  <link rel="stylesheet" href="css/v3.css?v=3" />
+  <link rel="preload" as="image" href="video/v4/tb-desktop.jpg" />
+  <link rel="stylesheet" href="css/v4.css?v=1" />
 </head>
 <body>
-  <!-- Логотип CHESH «Код-луна»: светящийся серп-C и знак кода «›» в иконке -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <defs>
-      <linearGradient id="logoGrad" x1="0.85" y1="0.08" x2="0.2" y2="0.95">
-        <stop offset="0" stop-color="#ffe3c7"/><stop offset="0.45" stop-color="#ff9a4a"/><stop offset="1" stop-color="#e2580f"/>
-      </linearGradient>
-      <mask id="logoCut"><rect width="64" height="64" fill="#fff"/><circle cx="40" cy="31" r="20.5" fill="#000"/></mask>
-      <symbol id="logo" viewBox="0 0 64 64">
-        <rect x="1" y="1" width="62" height="62" rx="17" fill="#141418" stroke="rgba(255,255,255,.16)"/>
-        <g transform="translate(6 6) scale(.81)">
-          <circle cx="30" cy="32" r="25" fill="url(#logoGrad)" mask="url(#logoCut)"/>
-          <path d="M41 23.5 49 31l-8 7.5" fill="none" stroke="#fff1e2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        </g>
-      </symbol>
-    </defs>
-  </svg>
-
-  <div class="bg-space" aria-hidden="true"></div>
-  <div class="bg-nebula" aria-hidden="true"></div>
-  <!-- ═══ CHESH v3: новое начало сайта (собрано site-tools/build_v3.py) ═══ -->
-  <div class="c3 c3-box">
-  <div class="c3-hero c3-box-hero" id="top">
-    <div class="c3-hero-bg" id="heroBg"></div>
-    <div class="c3-hero-shade"></div>
-    <div class="c3-nav" role="navigation" aria-label="Разделы">
-      <a class="c3-logo" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#f5f4f1"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#c9ab6c" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
-      <div class="c3-nav-links"><a href="#work">Кейсы</a><a href="#about">Обо мне</a><a href="#process">Как работаю</a><a href="#faq">Вопросы</a></div>
-      <a class="c3-btn c3-btn-glow" href="#contact">Оставить заявку</a>
-    </div>
-    <div class="c3-hero-body">
-      <span class="c3-pill c3-rv"><b>CHESH</b> студия Тимофея Чешегорова</span>
-      <h1 class="c3-rv">Сайты и&nbsp;чат-боты, которые <i class="c3-acc">приводят</i> клиентов</h1>
-      <p class="c3-rv">Сайты, чат-боты и&nbsp;автоматизация для экспертов: психологов, врачей, тренеров и&nbsp;преподавателей.</p>
-      <div class="c3-hero-cta c3-rv">
-        <a class="c3-btn c3-btn-glow" href="#contact">Оставить заявку <svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
-        <a class="c3-btn c3-btn-glass" href="#work">Смотреть кейсы</a>
-        <a class="c3-btn c3-btn-glass" href="#about">Обо мне</a>
-      </div>
-    </div>
-    <div class="c3-how">
-      <article class="c3-how-card c3-rv">
-        <div class="c3-how-head"><span class="c3-how-num">01</span><h3>Разбор</h3></div>
-        <p>Смотрю, где вы&nbsp;теряете клиентов, и&nbsp;предлагаю решение. Срок и&nbsp;цена письменно.</p>
-        <div class="c3-how-art" aria-hidden="true"><div class="c3-mini-page"><i></i><i class="c3-bad"></i><i></i><i></i><i class="c3-bad"></i><i></i></div><span class="c3-lens"></span></div>
-      </article>
-      <article class="c3-how-card c3-rv">
-        <div class="c3-how-head"><span class="c3-how-num">02</span><h3>Макет</h3></div>
-        <p>Показываю, как всё будет выглядеть. Правим, пока не&nbsp;понравится, и&nbsp;только потом код.</p>
-        <div class="c3-how-art" aria-hidden="true"><div class="c3-wire"><b></b><b></b><b></b><b></b></div><span class="c3-cursor"></span></div>
-      </article>
-      <article class="c3-how-card c3-rv">
-        <div class="c3-how-head"><span class="c3-how-num">03</span><h3>Запуск</h3></div>
-        <p>Запускаю, передаю доступы и&nbsp;инструкцию. Заявки сразу приходят вам в&nbsp;Telegram.</p>
-        <div class="c3-how-art" aria-hidden="true"><div class="c3-launch"><div class="c3-bar"><i></i></div>
-          <div class="c3-notif c3-n1"><span class="c3-ic"><svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg></span><span><b>Новая заявка с&nbsp;сайта</b><small>Анна, запись на&nbsp;консультацию</small></span></div>
-          <div class="c3-notif c3-n2"><span class="c3-ic"><svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg></span><span><b>Новая заявка с&nbsp;сайта</b><small>Олег, вопрос о&nbsp;цене</small></span></div></div></div>
-      </article>
-    </div>
-  </div>
-  <div class="c3-slides" style="padding-bottom:40px">
-    <section class="c3-cases c3-rv" id="work" aria-label="Кейсы">
-      <div class="c3-wheel-area" id="wheelArea"><div class="c3-wheel" id="wheel">
-        <div class="c3-card c3-soon" style="--i:-2"><div><b>Сайт агентства недвижимости</b><small>Скоро</small></div></div>
-        <a class="c3-card" style="--i:-1" href="case-fadepoint.html" draggable="false"><img src="video/fadepoint-bot-poster.jpg" alt="" loading="lazy" draggable="false" /><span class="c3-lbl"><small>Чат-бот</small><b>Бот FadePoint</b></span></a>
-        <a class="c3-card" style="--i:0" href="case-avicenna.html" draggable="false"><img src="img/v3/av-now-index.webp" alt="" loading="lazy" draggable="false" /><span class="c3-lbl"><small>Сайт</small><b>Сайт стоматологии «Авиценна»</b></span></a>
-        <div class="c3-card c3-soon" style="--i:1"><div><b>Интернет-магазин одежды</b><small>Скоро</small></div></div>
-        <div class="c3-card c3-soon" style="--i:2"><div><b>Бот: заявки с сайта в Telegram</b><small>Скоро</small></div></div>
-      </div></div>
-      <div class="c3-cases-head">
-        <div>
-          <div class="c3-meta"><span>Кейсы</span></div>
-          <h2 class="c3-big">Мои<span>работы</span></h2>
-          <p class="c3-txt">Листайте колесо мышкой, пальцем или стрелками. Нажмите на&nbsp;работу, чтобы открыть кейс.</p>
-        </div>
-        <div class="c3-cases-nav"><button type="button" id="wheelPrev" aria-label="Назад"><svg class="c3-ico" style="transform:scaleX(-1)" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button><button type="button" id="wheelNext" aria-label="Вперёд"><svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button></div>
-      </div>
-      <div class="c3-cases-me">Works</div>
-      <div class="c3-cases-hint">тяните, чтобы листать</div>
-    </section>
-  </div>
-  </div>
-  <!-- ═══ конец нового начала ═══ -->
+  <header class="top" id="top">
+    <a class="logo" href="#hero" aria-label="CHESH, в начало"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="#work">Кейсы</a><a href="#about">Обо мне</a><a href="#how">Как работаю</a><a href="#faq">Вопросы</a>
+    </nav>
+    <a class="btn btn-glow" href="#contact">Оставить заявку</a>
+  </header>
 
   <main>
-    <!-- ОБО МНЕ -->
-    <section class="section" id="about">
-      <div class="container about-grid">
-        <div class="flip reveal" id="profileFlipCard" tabindex="0" role="button" aria-pressed="false" aria-label="Перевернуть карточку профиля">
-          <span class="tap-hint" aria-hidden="true">
-            <span class="th-text"><span class="th-a">нажми, чтобы перевернуть</span><span class="th-b">ещё раз&nbsp;— вернётся фото</span></span>
-            <svg viewBox="0 0 90 70" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M80 8C60 6 34 14 22 38c-3 6-5 13-5 22"/><path d="M8 48l9 13 11-11"/></svg>
-          </span>
-          <div class="flip-inner">
-            <div class="face face-front">
-              <div class="photo">
-                <img src="img/tima-bw.jpg" alt="Тимофей Чешегоров" width="760" height="950" />
-                <div class="photo-badge">
-                  <svg class="pb-logo" aria-hidden="true"><use href="#logo"/></svg>
-                  <div><b>Тимофей Чешегоров</b><span lang="en">DevOps Engineer · Frontend Developer</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="face face-back">
-              <div class="kicker">Досье</div>
-              <h4>Тимофей Чешегоров</h4>
-              <div class="dossier-row"><small>Специализация</small><p lang="en">DevOps Engineer · Frontend Developer</p></div>
-              <div class="dossier-row"><small>Главный принцип</small><p>Устранять причину проблемы, а&nbsp;не&nbsp;маскировать её</p></div>
-              <div class="dossier-row"><small>Цель</small><p>Чтобы заявок стало больше, задача решилась в&nbsp;кратчайшие сроки, а&nbsp;ваши посетители уходили в&nbsp;восторге</p></div>
-              <div class="dossier-row"><small>Подход</small><p>Никаких правок ради правок&nbsp;— только польза, которую видно</p></div>
-              <div class="back-hint">↺ нажмите, чтобы вернуться к&nbsp;фото</div>
-            </div>
-          </div>
-        </div>
-
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <section class="hero" id="hero">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-in">
         <div>
-          <h2 class="section-title reveal">Не&nbsp;«ещё один редизайн», а&nbsp;решение проблемы</h2>
-          <p class="about-text reveal">
-            Часто сайту не&nbsp;нужен новый дизайн. Клиентов теряют из-за незаметных мелочей: запутанной навигации, медленной загрузки, формы, до&nbsp;которой никто не&nbsp;доходит. Я&nbsp;разбираю продукт, нахожу такие места и&nbsp;исправляю их&nbsp;— чтобы заявок и&nbsp;посетителей стало <b>заметно больше</b>.
-          </p>
-          <div class="features">
-            <div class="feature reveal">
-              <h3 class="ft-h"><button class="ft-head" type="button" aria-expanded="false" aria-controls="ft-1">
-                <span class="ft-text"><span class="ft-title">Нахожу, где теряются клиенты</span><span class="ft-short">Смотрю на&nbsp;сайт глазами посетителя: где он&nbsp;путается, ждёт или уходит.</span></span>
-                <span class="plus" aria-hidden="true"></span>
-              </button></h3>
-              <div class="ft-more" id="ft-1" inert><div class="ft-clip"><div class="ft-body"><div class="ft-cols">
-                <div>
-                  <p>Прохожу путь клиента от&nbsp;первого экрана до&nbsp;заявки&nbsp;— с&nbsp;телефона и&nbsp;с&nbsp;компьютера.</p>
-                  <p>На&nbsp;выходе&nbsp;— короткий список проблем по&nbsp;важности: что исправить в&nbsp;первую очередь.</p>
-                </div>
-                <div>
-                  <span class="ft-label">Что проверяю</span>
-                  <ul>
-                    <li>быстро&nbsp;ли грузится страница;</li>
-                    <li>понятно&nbsp;ли за&nbsp;5&nbsp;секунд, что вы предлагаете и&nbsp;сколько это стоит;</li>
-                    <li>легко&nbsp;ли найти контакты и&nbsp;оставить заявку;</li>
-                    <li>не&nbsp;ломается&nbsp;ли вёрстка на&nbsp;телефоне.</li>
-                  </ul>
-                </div>
-              </div></div></div></div>
-            </div>
-            <div class="feature reveal">
-              <h3 class="ft-h"><button class="ft-head" type="button" aria-expanded="false" aria-controls="ft-2">
-                <span class="ft-text"><span class="ft-title">Исправляю причину</span><span class="ft-short">Без правок ради галочки&nbsp;— меняю то, что реально мешает заявкам.</span></span>
-                <span class="plus" aria-hidden="true"></span>
-              </button></h3>
-              <div class="ft-more" id="ft-2" inert><div class="ft-clip"><div class="ft-body"><div class="ft-cols">
-                <div>
-                  <p>Не&nbsp;перекрашиваю кнопки наугад, а&nbsp;устраняю то, что нашёл при проверке.</p>
-                  <p>Каждое изменение объясняю простыми словами: что было, что стало и&nbsp;зачем.</p>
-                </div>
-                <div>
-                  <span class="ft-label">Что исправляю</span>
-                  <ul>
-                    <li>ускоряю загрузку и&nbsp;довожу мобильную версию;</li>
-                    <li>упрощаю навигацию и&nbsp;формы;</li>
-                    <li>переписываю непонятные тексты и&nbsp;заголовки;</li>
-                    <li>делаю заметными цену, контакты и&nbsp;кнопку заявки.</li>
-                  </ul>
-                </div>
-              </div></div></div></div>
-            </div>
-            <div class="feature reveal">
-              <h3 class="ft-h"><button class="ft-head" type="button" aria-expanded="false" aria-controls="ft-3">
-                <span class="ft-text"><span class="ft-title">Автоматизирую рутину</span><span class="ft-short">Боты и&nbsp;формы, которые записывают, отвечают и&nbsp;присылают заявки в&nbsp;Telegram.</span></span>
-                <span class="plus" aria-hidden="true"></span>
-              </button></h3>
-              <div class="ft-more" id="ft-3" inert><div class="ft-clip"><div class="ft-body"><div class="ft-cols">
-                <div>
-                  <p>Снимаю с&nbsp;вас повторяющиеся задачи&nbsp;— вы тратите время на&nbsp;клиентов, а&nbsp;не&nbsp;на&nbsp;переписку.</p>
-                  <a class="ft-link" href="#cases">Пример&nbsp;— мой бот FadePoint <span class="arr">↓</span></a>
-                </div>
-                <div>
-                  <span class="ft-label">Что могу настроить</span>
-                  <ul>
-                    <li>Telegram-бот записывает клиентов на&nbsp;свободное время;</li>
-                    <li>вы сразу получаете уведомление о&nbsp;каждой записи;</li>
-                    <li>заявки с&nbsp;сайта приходят в&nbsp;Telegram, а&nbsp;не&nbsp;теряются в&nbsp;почте;</li>
-                    <li>на&nbsp;частые вопросы бот отвечает сам.</li>
-                  </ul>
-                </div>
-              </div></div></div></div>
-            </div>
+          <div class="eyebrow enter" style="--d:0.05">Студия Тимофея Чешегорова</div>
+          <h1><span class="enter" style="--d:0.15;display:block">Сайты, лендинги, <span class="nw">чат-боты</span> и&nbsp;<span class="nw">ИИ-агенты,</span></span><span class="gray enter" style="--d:0.3">которые приводят клиентов</span></h1>
+          <ul class="offer">
+            <li class="enter" style="--d:0.45"><span class="ico-box"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z"/></svg></span><span><b>Лендинги</b> за&nbsp;5-10&nbsp;дней</span></li>
+            <li class="enter" style="--d:0.55"><span class="ico-box"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z"/></svg></span><span><b>Чат-боты и&nbsp;ИИ-агенты:</b> ответы клиентам, запись и&nbsp;обработка заявок</span></li>
+            <li class="enter" style="--d:0.65"><span class="ico-box"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg></span><span><b>Личный бренд:</b> упаковка, контент-план и&nbsp;продвижение с&nbsp;ИИ</span></li>
+          </ul>
+          <div class="hero-cta enter" style="--d:0.8">
+            <a class="btn btn-light" href="#contact">Оставить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+            <a class="btn btn-line" href="#work">Смотреть кейсы</a>
           </div>
+        </div>
+        <div class="devices" aria-hidden="true">
+          <div class="laptop"><div class="lid"><div class="scr"><video src="video/v4/tb-desktop.mp4" poster="video/v4/tb-desktop.jpg" autoplay muted loop playsinline preload="auto"></video></div></div><div class="base"></div></div>
+          <div class="phone"><div class="scr"><video src="video/v4/tb-phone.mp4" poster="video/v4/tb-phone.jpg" autoplay muted loop playsinline preload="auto"></video></div></div>
         </div>
       </div>
     </section>
 
-    <!-- КЕЙСЫ -->
-
-    <!-- ПОЧЕМУ МНЕ МОЖНО ДОВЕРЯТЬ -->
-    <section class="section" id="trust">
-      <div class="container">
-        <div class="trust-head">
-          <div>
-            <h2 class="section-title reveal">Работаю так, чтобы вам было спокойно</h2>
-          </div>
-          <p class="trust-lead reveal">Стопроцентных гарантий не&nbsp;даёт никто&nbsp;— и&nbsp;я&nbsp;не&nbsp;буду обещать того, чего нет. Зато расскажу, почему мне <b>важно вас не&nbsp;подвести</b>, и&nbsp;что я&nbsp;обещаю каждому клиенту.</p>
-        </div>
-        <div class="trust-body">
-            <div class="trust-card w1 reveal">
-              <span class="trust-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span>
-              <h3>Репутация дороже любого заказа</h3>
-              <p>Я&nbsp;только начинаю, и&nbsp;каждый проект&nbsp;— это отзыв, который увидят следующие клиенты. Мне важнее, чтобы вы&nbsp;остались довольны, вернулись и&nbsp;посоветовали меня знакомым.</p>
-            </div>
-            <div class="trust-card w2 reveal">
-              <span class="trust-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span>
-              <h3>Мне это по-настоящему интересно</h3>
-              <p>Для меня каждый проект&nbsp;— способ разобраться в&nbsp;новом: в&nbsp;технологиях, в&nbsp;вашем бизнесе, в&nbsp;людях. Чем лучше получится ваш сайт или бот, тем больше вырасту я&nbsp;сам. Делать «лишь&nbsp;бы сдать» мне просто неинтересно.</p>
-            </div>
-          <div class="promises glass glow reveal">
-            <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
-              <defs><path id="sealPath" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0"/></defs>
-              <circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
-              <circle cx="50" cy="50" r="29" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
-              <g class="ring"><text textLength="236" lengthAdjust="spacing"><textPath href="#sealPath" textLength="236" lengthAdjust="spacing">ЧЕСТНОЕ СЛОВО ✦ ЧЕСТНОЕ СЛОВО ✦</textPath></text></g>
-              <use href="#logo" x="34" y="34" width="32" height="32"/>
-            </svg>
-            <h3>Мои обещания</h3>
-            <p class="sub">Каждому клиенту&nbsp;— без мелкого шрифта.</p>
-            <ul>
-              <li><svg class="pr-check" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15" cy="15" r="13"/><path d="m9.5 15.5 3.7 3.7 7.3-7.7"/></svg><div><b>Показываю работу на&nbsp;каждом шаге</b><span>Макет, тестовая ссылка, первая версия бота&nbsp;— вы&nbsp;всегда знаете, что уже сделано и&nbsp;что дальше.</span></div></li>
-              <li><svg class="pr-check" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15" cy="15" r="13"/><path d="m9.5 15.5 3.7 3.7 7.3-7.7"/></svg><div><b>Условия&nbsp;— письменно, до&nbsp;старта</b><span>Что делаю, в&nbsp;какой срок и&nbsp;за&nbsp;сколько&nbsp;— фиксируем в&nbsp;переписке, чтобы потом не&nbsp;было вопросов.</span></div></li>
-              <li><svg class="pr-check" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15" cy="15" r="13"/><path d="m9.5 15.5 3.7 3.7 7.3-7.7"/></svg><div><b>Оплата по&nbsp;этапам</b><span>Платите за&nbsp;каждый этап по&nbsp;ходу работы, а&nbsp;не&nbsp;всю сумму вперёд.</span></div></li>
-              <li><svg class="pr-check" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15" cy="15" r="13"/><path d="m9.5 15.5 3.7 3.7 7.3-7.7"/></svg><div><b>Месяц бесплатных исправлений</b><span>Если после сдачи всплыла моя ошибка&nbsp;— исправлю бесплатно.</span></div></li>
-              <li><svg class="pr-check" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15" cy="15" r="13"/><path d="m9.5 15.5 3.7 3.7 7.3-7.7"/></svg><div><b>Всё остаётся у&nbsp;вас</b><span>После расчёта код, доступы и&nbsp;файлы полностью ваши, без привязки ко&nbsp;мне.</span></div></li>
-            </ul>
-          </div>
-          <figure class="trust-quote reveal">
-            <blockquote>Обманом можно заработать один раз. <em>Честной работой&nbsp;— всегда.</em> Хочу делать проекты, за&nbsp;которые не&nbsp;стыдно,&nbsp;— и&nbsp;чтобы ко&nbsp;мне возвращались.</blockquote>
-            <figcaption class="trust-sign"><svg aria-hidden="true"><use href="#logo"/></svg><span><b>Тимофей Чешегоров</b> · CHESH</span></figcaption>
-          </figure>
-        </div>
-        <div class="reviews reveal">
-          <div class="rv-quotes" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-          <div class="rv-text">
-            <h3 id="rvTitle">Здесь будут отзывы моих первых клиентов</h3>
-            <p>Я&nbsp;только начинаю и&nbsp;не&nbsp;выдумываю отзывы. Станьте одним из&nbsp;первых: первые проекты делаю дешевле в&nbsp;обмен на&nbsp;честный отзыв&nbsp;— какой&nbsp;бы он&nbsp;ни&nbsp;был.</p>
-          </div>
-          <a class="btn btn-main" href="#contact" data-lead-msg="Хочу стать одним из первых клиентов — со скидкой в обмен на честный отзыв."><span id="rvBtnText">Стать первым клиентом</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <div class="rv-list" id="rvList" hidden></div>
-          <p class="rv-honest" hidden>Отзывы оставляют только мои клиенты&nbsp;— по&nbsp;личной ссылке после сдачи проекта. Текст не&nbsp;правлю. Публикую и&nbsp;похвалу, и&nbsp;критику. Не&nbsp;публикую только оскорбления, чужие личные данные и&nbsp;рекламу.</p>
-        </div>
+    <!-- ЛЕНТА БЛОКОВ: от «Как я работаю» до заявки, между блоками волны -->
+    <div class="band">
+    <!-- КАК Я РАБОТАЮ -->
+    <section class="how" id="how">
+      <div class="how-head">
+        <h2 data-rv="clip">Как я&nbsp;<span>работаю</span></h2>
+        <p data-rv="blur" style="--d:0.15">Три шага от&nbsp;заявки до&nbsp;готового проекта. На&nbsp;каждом вы&nbsp;видите результат и&nbsp;решаете, идём ли дальше.</p>
+      </div>
+      <div class="steps" id="steps">
+        <article class="step" data-rv="up" style="--d:0">
+          <span class="step-num">01</span>
+          <h3>Разбор</h3>
+          <p>Нахожу, где сайт теряет клиентов: спрятанная цена, незаметная кнопка, долгая загрузка. Предлагаю решение, срок и&nbsp;цену письменно.</p>
+          <div class="panel" aria-hidden="true"><video src="video/v4/step-razbor.mp4" poster="video/v4/step-razbor.jpg" muted loop playsinline preload="none"></video></div>
+        </article>
+        <article class="step" data-rv="up" style="--d:0.15">
+          <span class="step-num">02</span>
+          <h3>Макет</h3>
+          <p>Собираю структуру и&nbsp;дизайн будущего сайта. Правим, пока не&nbsp;понравится, и&nbsp;только потом пишу код.</p>
+          <div class="panel" aria-hidden="true"><video src="video/v4/step-maket.mp4" poster="video/v4/step-maket.jpg" muted loop playsinline preload="none"></video></div>
+        </article>
+        <article class="step" data-rv="up" style="--d:0.3">
+          <span class="step-num">03</span>
+          <h3>Запуск</h3>
+          <p>Вы&nbsp;оформляете домен и&nbsp;хостинг на&nbsp;себя, я&nbsp;загружаю туда готовый сайт и&nbsp;передаю файлы с&nbsp;инструкцией. Всё остаётся у&nbsp;вас.</p>
+          <div class="panel" aria-hidden="true"><video src="video/v4/step-zapusk.mp4" poster="video/v4/step-zapusk.jpg" muted loop playsinline preload="none"></video></div>
+        </article>
       </div>
     </section>
 
-    <!-- КАК ПРОХОДИТ РАБОТА -->
-    <section class="section" id="process">
-      <div class="container">
-        <div class="flow-head">
-          <div>
-            <div class="kicker" data-type="scroll">Как проходит работа</div>
-            <h2 class="section-title reveal">От&nbsp;заявки до&nbsp;запуска&nbsp;— без сюрпризов</h2>
-          </div>
-          <p class="flow-lead reveal">Пять понятных шагов. На&nbsp;каждом вы&nbsp;видите результат и&nbsp;решаете, идём ли дальше, а&nbsp;в&nbsp;конце получаете всё на&nbsp;своё имя.</p>
+    <svg class="wave" style="--to:#141416" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#ece5d8"/></svg>
+    <!-- КЕЙСЫ: дуга карточек на всю ширину -->
+    <section class="cases" id="work" aria-label="Кейсы">
+      <div class="cases-head">
+        <div>
+          <div class="eyebrow" data-rv="up">Работы и демо</div>
+          <h2 data-rv="clip">Кейсы</h2>
+          <p data-rv="blur" style="--d:0.15">Листайте стрелками, колесом мыши или тяните карточки. Нажмите на&nbsp;работу, чтобы открыть кейс.</p>
         </div>
-        <div class="pv-scroll flow-scroll">
-        <div class="flow reveal">
-          <div class="step" style="--i:0"><span class="dot">01</span><div><h3>Заявка</h3><p>Пишете в&nbsp;Telegram или оставляете заявку на&nbsp;сайте. Отвечаю и&nbsp;договариваемся о&nbsp;коротком созвоне или переписке.</p><span class="when">в&nbsp;тот же день</span></div></div>
-          <div class="step" style="--i:1"><span class="dot">02</span><div><h3>Разбор и&nbsp;условия</h3><p>Задаю пару вопросов, разбираюсь в&nbsp;задаче и&nbsp;предлагаю решение. Что, срок и&nbsp;цена&nbsp;— письменно, до&nbsp;старта.</p><span class="when">1–2 дня</span></div></div>
-          <div class="step" style="--i:2"><span class="dot">03</span><div><h3>Макет</h3><p>Показываю, как всё будет выглядеть. Правим, пока вам не&nbsp;понравится, — только потом берусь за&nbsp;код.</p><span class="when">этап 1 оплаты</span></div></div>
-          <div class="step" style="--i:3"><span class="dot">04</span><div><h3>Разработка</h3><p>Собираю по&nbsp;частям и&nbsp;даю тестовую ссылку: вы&nbsp;видите живой сайт или бота ещё до&nbsp;запуска.</p><span class="when">этап 2 оплаты</span></div></div>
-          <div class="step" style="--i:4"><span class="dot">05</span><div><h3>Запуск и&nbsp;передача</h3><p>Запускаем, передаю вам все доступы и&nbsp;инструкцию. Месяц бесплатно исправляю свои ошибки.</p><span class="when">месяц поддержки</span></div></div>
+        <div class="cases-ctrl" data-rv="up" style="--d:0.2">
+          <span class="count"><b id="cNow">03</b> / <span id="cAll">05</span></span>
+          <button type="button" id="cPrev" aria-label="Предыдущий кейс"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button>
+          <button type="button" id="cNext" aria-label="Следующий кейс"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button>
         </div>
-          <span class="pv-hint" aria-hidden="true">листай <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+      <div class="wheel-area" id="wheelArea" tabindex="0" aria-label="Кейсы, листайте стрелками">
+        <div class="wheel" id="wheel">
+        <div class="card soon" style="--i:-2"><div class="card-in">
+          <div class="media"><span class="soon-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></span></div>
+          <div class="info"><small>Скоро · демо-проект</small><b>Сайт агентства недвижимости</b></div>
+        </div></div>
+        <a class="card" style="--i:-1" href="case-fadepoint.html" draggable="false"><div class="card-in">
+          <div class="media"><div class="ph"><img src="img/v4/fp-phone.jpg" alt="" width="388" height="640" loading="lazy" draggable="false" /></div></div>
+          <div class="info"><small>Чат-бот · барбершоп</small><b>FadePoint: запись без звонков</b><span class="go">Открыть кейс <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span></div>
+        </div></a>
+        <a class="card" style="--i:0" href="case-avicenna.html" draggable="false"><div class="card-in">
+          <div class="media"><div class="web"><div class="br"><i></i><i></i><i></i></div><img src="img/work/avicenna-desktop.webp" alt="" width="1440" height="900" loading="lazy" draggable="false" /></div></div>
+          <div class="info"><small>Сайт · стоматология</small><b>Клиника «Авиценна»: новый сайт</b><span class="go">Открыть кейс <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span></div>
+        </div></a>
+        <div class="card soon" style="--i:1"><div class="card-in">
+          <div class="media"><span class="soon-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M247.59,61.22,195.83,33A8,8,0,0,0,192,32H160a8,8,0,0,0-8,8,24,24,0,0,1-48,0,8,8,0,0,0-8-8H64a8,8,0,0,0-3.84,1L8.41,61.22A15.76,15.76,0,0,0,1.82,82.48l19.27,36.81A16.37,16.37,0,0,0,35.67,128H56v80a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V128h20.34a16.37,16.37,0,0,0,14.58-8.71l19.27-36.81A15.76,15.76,0,0,0,247.59,61.22ZM35.67,112a.62.62,0,0,1-.41-.13L16.09,75.26,56,53.48V112ZM184,208H72V48h16.8a40,40,0,0,0,78.38,0H184Zm36.75-96.14a.55.55,0,0,1-.41.14H200V53.48l39.92,21.78Z"/></svg></span></div>
+          <div class="info"><small>Скоро · демо-проект</small><b>Интернет-магазин одежды</b></div>
+        </div></div>
+        <div class="card soon" style="--i:2"><div class="card-in">
+          <div class="media"><span class="soon-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg></span></div>
+          <div class="info"><small>Скоро · демо-проект</small><b>Бот: заявки с сайта в Telegram</b></div>
+        </div></div>
         </div>
-        <div class="handover reveal">
-          <span class="ho-key" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.7-8.7M16 7l2.5 2.5M13.5 9.5l2 2"/></svg></span>
-          <div class="ho-text">
-            <h3>В&nbsp;конце&nbsp;— всё ваше</h3>
-            <p>Домен, код и&nbsp;бот оформлены на&nbsp;вас, пароли знаете только вы. Захотите&nbsp;— продолжим вместе, захотите&nbsp;— передадите другому разработчику. Вы&nbsp;ни&nbsp;от&nbsp;кого не&nbsp;зависите.</p>
-          </div>
-          <ul class="ho-list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Домен на&nbsp;ваше имя</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Код сайта и&nbsp;архив</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Telegram-бот</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Доступы с&nbsp;вашими паролями</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Инструкция «как поменять цены и&nbsp;фото»</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Акт приёма-передачи</li>
+      </div>
+      <div class="cases-foot"><span id="cName">Клиника «Авиценна»: новый сайт</span><div class="bar"><i id="cBar"></i></div></div>
+    </section>
+    <svg class="wave flip" style="--to:#fbfaf8" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#141416"/></svg>
+    <!-- БЛОКИ ПОСЛЕ КЕЙСОВ: как referens/primer1.png: фото до края, рядом короткий текст; следующий блок зеркально.
+         Блоки разделены тёмным промежутком, у каждого свой фон: белый, бежевый, тёмный, светло-серый, белый. -->
+    <div class="splits">
+      <!-- 1. Обо мне -->
+      <section class="split s-white" id="about">
+        <div class="sp-media" data-rv="left"><img src="img/v4/about-work.jpg" alt="" width="1400" height="933" loading="lazy" /><span class="sp-cap"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"/></svg>Здесь будет ваше фото</span><span class="sp-badge b-tr"><i class="dot"></i>На&nbsp;связи · беру новые проекты</span></div>
+        <div class="sp-tx">
+          <div class="sp-meta" data-rv="up">01 · Обо мне</div>
+          <h2 data-rv="clip">Тимофей <span>Чешегоров</span></h2>
+          <i class="sp-rule" data-rv="up"></i>
+          <p data-rv="up" style="--d:0.1">Делаю сайты, лендинги, чат-ботов и&nbsp;ИИ-агентов для экспертов и&nbsp;небольшого бизнеса.</p>
+          <p data-rv="up" style="--d:0.15">Беру немного проектов, чтобы каждый довести до&nbsp;результата.</p>
+          <div class="chips" data-rv="up" style="--d:0.2"><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z"/></svg>Ищу причину, а&nbsp;не&nbsp;маскирую</span><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg>Оплата по&nbsp;этапам</span><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216.57,39.43A80,80,0,0,0,83.91,120.78L28.69,176A15.86,15.86,0,0,0,24,187.31V216a16,16,0,0,0,16,16H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A79.73,79.73,0,0,0,160,176h.1A80,80,0,0,0,216.57,39.43ZM224,98.1c-1.09,34.09-29.75,61.86-63.89,61.9H160a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A63.72,63.72,0,0,1,96,95.92c0-34.14,27.81-62.8,61.9-63.89A64,64,0,0,1,224,98.1ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>Всё остаётся у&nbsp;вас</span></div>
+          <a class="btn btn-dark" href="#contact" data-rv="up" style="--d:0.25">Обсудить задачу <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+        </div>
+      </section>
+
+      <svg class="wave" style="--to:#ece5d8" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#fbfaf8"/></svg>
+      <!-- 2. Чем помогаю -->
+      <section class="split flip s-beige" id="help">
+        <div class="sp-media" data-rv="right">
+          <img src="img/v4/help-desk.jpg" alt="" width="1200" height="800" loading="lazy" />
+          <div class="sp-web"><div class="bar"><i></i><i></i><i></i></div><img src="img/v4/tb-shot.jpg" alt="" width="1440" height="900" loading="lazy" /></div>
+          <div class="sp-phone"><img src="img/v4/fp-phone.jpg" alt="" width="388" height="640" loading="lazy" /></div>
+        </div>
+        <div class="sp-tx">
+          <div class="sp-meta" data-rv="up">02 · Чем помогаю</div>
+          <h2 data-rv="clip">Четыре <span>направления</span></h2>
+          <i class="sp-rule" data-rv="up"></i>
+          <ul class="dirs">
+            <li data-rv="up"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z"/></svg><b>Сайты и&nbsp;лендинги</b><small>за&nbsp;5-10 дней</small></li>
+            <li data-rv="up" style="--d:0.08"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z"/></svg><b>Чат-боты и&nbsp;ИИ-агенты</b><small>ответы, запись, заявки</small></li>
+            <li data-rv="up" style="--d:0.16"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg><b>Автоматизация</b><small>меньше рутины</small></li>
+            <li data-rv="up" style="--d:0.24"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg><b>Личный бренд</b><small>упаковка и&nbsp;контент</small></li>
           </ul>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ЧАСТЫЕ ВОПРОСЫ -->
-    <section class="section" id="faq">
-      <div class="container faq-wrap">
-        <div class="faq-head">
-          <h2 class="section-title reveal">Отвечаю заранее</h2>
-          <p class="faq-lead reveal">Не&nbsp;нашли свой вопрос? Напишите&nbsp;— отвечу в&nbsp;тот&nbsp;же день.</p>
-          <a class="btn btn-ghost reveal" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener">Написать в&nbsp;Telegram</a>
+      <svg class="wave flip" style="--to:#161618" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#ece5d8"/></svg>
+      <!-- 3. Как я работаю подробно -->
+      <section class="split s-dark" id="flow">
+        <div class="sp-media" data-rv="left"><img src="img/v4/flow-sketch.jpg" alt="" width="1400" height="933" loading="lazy" /><span class="sp-stage"><small>Этап 3 из&nbsp;5</small><b><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Макет согласован</b><i class="bar"><i></i></i></span></div>
+        <div class="sp-tx">
+          <div class="sp-meta" data-rv="up">03 · Как я&nbsp;работаю</div>
+          <h2 data-rv="clip">Без <span>сюрпризов</span></h2>
+          <i class="sp-rule" data-rv="up"></i>
+          <ol class="steps5">
+            <li data-rv="up"><em>01</em><b>Заявка</b><small>в&nbsp;тот же день</small></li>
+            <li data-rv="up" style="--d:0.06"><em>02</em><b>Разбор и&nbsp;цена письменно</b><small>1-2 дня</small></li>
+            <li data-rv="up" style="--d:0.12"><em>03</em><b>Макет, правим до&nbsp;«нравится»</b><small>этап 1 оплаты</small></li>
+            <li data-rv="up" style="--d:0.18"><em>04</em><b>Разработка и&nbsp;тестовая ссылка</b><small>этап 2 оплаты</small></li>
+            <li data-rv="up" style="--d:0.24"><em>05</em><b>Запуск на&nbsp;вашем домене</b><small>месяц поддержки</small></li>
+          </ol>
+          <div class="chips dark" data-rv="up" style="--d:0.3"><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z"/></svg>Месяц исправлений бесплатно</span><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216.57,39.43A80,80,0,0,0,83.91,120.78L28.69,176A15.86,15.86,0,0,0,24,187.31V216a16,16,0,0,0,16,16H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A79.73,79.73,0,0,0,160,176h.1A80,80,0,0,0,216.57,39.43ZM224,98.1c-1.09,34.09-29.75,61.86-63.89,61.9H160a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A63.72,63.72,0,0,1,96,95.92c0-34.14,27.81-62.8,61.9-63.89A64,64,0,0,1,224,98.1ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>Домен и&nbsp;хостинг на&nbsp;вас</span></div>
         </div>
-        <div class="faq-list reveal">
-          <details class="faq-item"><summary>Сколько это стоит?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Зависит от&nbsp;задачи. После короткого разговора называю цену письменно&nbsp;— до&nbsp;начала работы, и&nbsp;она не&nbsp;меняется по&nbsp;ходу. Первые проекты делаю дешевле в&nbsp;обмен на&nbsp;честный отзыв.</p></div></details>
-          <details class="faq-item"><summary>Сколько времени займёт?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Точный срок называю до&nbsp;старта и&nbsp;фиксирую в&nbsp;переписке. Карточки и&nbsp;презентации&nbsp;— обычно дни, лендинг или бот&nbsp;— недели. На&nbsp;каждом этапе вы&nbsp;видите, что уже готово.</p></div></details>
-          <details class="faq-item"><summary>Что нужно от&nbsp;меня?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Рассказать о&nbsp;бизнесе и&nbsp;о&nbsp;том, что хочется изменить. Тексты и&nbsp;фото&nbsp;— если есть; если нет, помогу подобрать. Дальше&nbsp;— смотреть результат на&nbsp;каждом шаге и&nbsp;говорить, что нравится, а&nbsp;что нет.</p></div></details>
-          <details class="faq-item"><summary>А&nbsp;если мне не&nbsp;понравится?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Сначала согласуем макет&nbsp;— до&nbsp;того, как я&nbsp;начну код. Правим, пока не&nbsp;понравится. Оплата по&nbsp;этапам: вы&nbsp;платите только за&nbsp;то, что уже увидели и&nbsp;приняли.</p></div></details>
-          <details class="faq-item"><summary>Кому будет принадлежать сайт или бот?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Вам. Домен, код и&nbsp;бот оформляются на&nbsp;вас, пароли знаете только вы. Отдаю инструкцию и&nbsp;подписываем акт приёма-передачи.</p></div></details>
-          <details class="faq-item"><summary>Смогу&nbsp;ли я&nbsp;потом что-то менять сам?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Да. Могу подключить простую панель для текстов, цен и&nbsp;фото&nbsp;— или вносить изменения сам по&nbsp;договорённости. Месяц после сдачи исправляю свои ошибки бесплатно.</p></div></details>
-          <details class="faq-item"><summary>Вы&nbsp;работаете удалённо?<span class="faq-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-a"><p>Да, по&nbsp;всей России. Всё обсуждаем в&nbsp;Telegram, созваниваемся&nbsp;— по&nbsp;желанию.</p></div></details>
+      </section>
+
+      <svg class="wave" style="--to:#e7e7e4" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#161618"/></svg>
+      <!-- 4. Вопросы -->
+      <section class="split flip s-grey" id="faq">
+        <div class="sp-media" data-rv="right"><img src="img/v4/faq-chat.jpg" alt="" width="1400" height="933" loading="lazy" />
+          <div class="sp-chat"><span class="m in">Сколько стоит лендинг?</span><span class="m out">Назову цену после короткого разговора, письменно и&nbsp;до&nbsp;старта</span></div></div>
+        <div class="sp-tx">
+          <div class="sp-meta" data-rv="up">04 · Вопросы</div>
+          <h2 data-rv="clip">Отвечаю <span>заранее</span></h2>
+          <i class="sp-rule" data-rv="up"></i>
+          <div class="faq-list" data-rv="up" style="--d:0.1">
+            <details><summary>Сколько это стоит?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Зависит от&nbsp;задачи. Цену называю письменно до&nbsp;начала работы, и&nbsp;она не&nbsp;меняется. Первые проекты дешевле в&nbsp;обмен на&nbsp;честный отзыв.</p></details>
+            <details><summary>Сколько времени займёт?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Лендинг обычно 5-10 дней. Срок бота или большого сайта называю до&nbsp;старта и&nbsp;фиксирую в&nbsp;переписке.</p></details>
+            <details><summary>Что нужно от&nbsp;меня?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Рассказать о&nbsp;бизнесе и&nbsp;что хочется изменить. Тексты и&nbsp;фото, если есть; если нет, помогу подобрать.</p></details>
+            <details><summary>А&nbsp;если мне не&nbsp;понравится?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Сначала согласуем макет и&nbsp;правим, пока не&nbsp;понравится. Платите только за&nbsp;то, что уже увидели и&nbsp;приняли.</p></details>
+            <details><summary>Кому будет принадлежать сайт?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Вам. Домен и&nbsp;хостинг вы&nbsp;оформляете на&nbsp;себя, код и&nbsp;бота передаю вам, пароли знаете только вы.</p></details>
+            <details><summary>Вы&nbsp;работаете удалённо?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Да, по&nbsp;всей России. Всё обсуждаем в&nbsp;Telegram, созваниваемся по&nbsp;желанию.</p></details>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- КОНТАКТЫ -->
-    <section class="section" id="contact">
-      <div class="container">
-        <div class="contact glass glow reveal">
-          <div class="contact-grid">
-            <div class="contact-side">
-              <div class="kicker" data-type="scroll">Контакты</div>
-              <h2 class="section-title">Есть задача? <em class="grad-text">Давайте обсудим</em></h2>
-              <p>Расскажите, что есть сейчас и&nbsp;что хочется улучшить,&nbsp;— предложу решение и&nbsp;честно скажу, сколько это займёт.</p>
-              <a class="tg-btn" id="tgBtn" href="#contact" target="_blank" rel="noopener">
-                <span class="tg-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg></span>
-                <span><b>Написать в&nbsp;Telegram</b><small id="tgUser"></small></span>
-              </a>
-              <a class="ch-card" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener"><img src="img/ch-avatar.jpg" alt="" width="48" height="48" /><span class="ch-text"><b>Telegram-канал CHESH</b><small>Кейсы, «было&nbsp;→&nbsp;стало» и&nbsp;сказки про бизнес</small></span><span class="ch-sub">Подписаться</span></a>
-            </div>
-
-            <div class="lead" id="lead">
-              <form id="leadForm" class="ym-hide-content" novalidate>
-                <div class="lead-title">Оставить заявку</div>
+      <svg class="wave flip" style="--to:#fbfaf8" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#e7e7e4"/></svg>
+      <!-- 5. Заявка: та же форма, что на старом сайте (логика в lead.js без изменений) -->
+      <section class="split s-white" id="contact">
+        <div class="sp-media" data-rv="left">
+          <img src="img/v4/contact-phone.jpg" alt="" width="1400" height="933" loading="lazy" />
+          <span class="sp-badge b-bl"><i class="dot"></i>Отвечаю в&nbsp;тот же день</span>
+        </div>
+        <div class="sp-tx">
+          <div class="sp-meta" data-rv="up">05 · Заявка</div>
+          <h2 data-rv="clip">Есть <span>задача?</span></h2>
+          <p data-rv="up" style="--d:0.1">Быстрее всего написать в&nbsp;Telegram. Или оставьте заявку, я&nbsp;сам напишу вам.</p>
+          <div class="tg-row" data-rv="up" style="--d:0.15">
+            <a class="tg-btn" id="tgBtn" href="#contact" target="_blank" rel="noopener"><span class="tg-ic"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg></span><span><b>Написать в&nbsp;Telegram</b><small id="tgUser"></small></span></a>
+            <a class="ch-card" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener"><img src="img/ch-avatar.jpg" alt="" width="48" height="48" /><span><b>Канал CHESH</b><small>Кейсы и&nbsp;«было → стало»</small></span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a>
+          </div>
+          <div class="or" data-rv="up" style="--d:0.2"><span>или оставьте заявку</span></div>
+          <div class="lead" id="lead" data-rv="up" style="--d:0.25">
+            <form id="leadForm" class="ym-hide-content" novalidate>
+              <div class="row2">
                 <label class="field"><span>Как вас зовут</span><input name="name" autocomplete="name" maxlength="60" placeholder="Например, Анна" /><small class="err" aria-live="polite"></small></label>
-                <label class="field"><span>Как с&nbsp;вами связаться</span><input name="contact" maxlength="80" placeholder="@telegram, телефон или почта" spellcheck="false" autocapitalize="off" /><small class="err" aria-live="polite"></small><small class="hint">Telegram, телефон, почта&nbsp;— любой способ, который вам удобнее</small></label>
-                <div class="field"><span>Что нужно</span>
-                  <div class="pick" id="leadPick">
-                    <button type="button" aria-pressed="false">Сайт</button><button type="button" aria-pressed="false">Telegram-бот</button><button type="button" aria-pressed="false">Презентация</button><button type="button" aria-pressed="false">Видео / рилс</button><button type="button" aria-pressed="false">Карточки товаров</button><button type="button" aria-pressed="false">Другое</button><button type="button" aria-pressed="false">Пока не знаю</button>
-                  </div>
-                </div>
-                <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="3" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea><small class="err" aria-live="polite"></small><small class="count" aria-hidden="true"></small></label>
-                <input class="lead-hp" name="leadhp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-                <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Даю <a href="soglasie.html" target="_blank" rel="noopener">согласие на&nbsp;обработку персональных данных</a></span></label>
-                <button class="btn btn-main" type="submit" id="leadSend">Отправить заявку <span class="arr" aria-hidden="true">→</span></button>
-                <div class="lead-safe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Заявка уходит по&nbsp;защищённому соединению и&nbsp;видна только мне. Без рассылок, не&nbsp;продаю и&nbsp;не&nbsp;передаю чужим. Подробно&nbsp;— в&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a>.</span></div>
-                <div class="lead-msg" id="leadMsg" role="alert"></div>
-              </form>
-              <div class="lead-done" role="status">
-                <div class="big" aria-hidden="true">😎</div>
-                <h3>Заявка у&nbsp;меня!</h3>
-                <p>Скоро напишу вам: <b id="leadWho"></b></p>
-                <small>ваш бизнес больше не&nbsp;прячется 🥷</small>
+                <label class="field"><span>Как с&nbsp;вами связаться</span><input name="contact" maxlength="80" placeholder="@telegram, телефон или почта" spellcheck="false" autocapitalize="off" /><small class="err" aria-live="polite"></small></label>
               </div>
-              <div class="lead-fb" role="status">
-                <div class="big" aria-hidden="true">😕</div>
-                <h3>Не&nbsp;получилось отправить</h3>
-                <p>Ничего страшного: нажмите кнопку&nbsp;— откроется Telegram с&nbsp;уже готовым текстом заявки, останется нажать «Отправить».</p>
-                <a class="btn btn-main" id="leadFbBtn" href="#contact" target="_blank" rel="noopener">Отправить через Telegram <span class="arr" aria-hidden="true">→</span></a>
-                <small class="lead-why" id="leadWhy"></small>
-                <button type="button" class="lead-back" id="leadBack">← вернуться к&nbsp;форме</button>
+              <div class="field"><span>Что нужно</span>
+                <div class="pick" id="leadPick"><button type="button" aria-pressed="false">Сайт или лендинг</button><button type="button" aria-pressed="false">Чат-бот или ИИ-агент</button><button type="button" aria-pressed="false">Автоматизация</button><button type="button" aria-pressed="false">Личный бренд</button><button type="button" aria-pressed="false">Пока не&nbsp;знаю</button></div>
               </div>
+              <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="2" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea><small class="err" aria-live="polite"></small><small class="count" aria-live="polite"></small></label>
+              <input class="lead-hp" name="leadhp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Даю <a href="soglasie.html" target="_blank" rel="noopener">согласие на&nbsp;обработку персональных данных</a></span></label>
+              <button class="btn btn-dark" type="submit" id="leadSend">Отправить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button>
+              <div class="lead-safe">Заявка видна только мне. Без рассылок. Подробно в&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a>.</div>
+              <div class="lead-msg" id="leadMsg" role="alert"></div>
+            </form>
+            <div class="lead-done" role="status">
+              <span class="ld-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span>
+              <h3>Заявка у&nbsp;меня!</h3>
+              <p>Скоро напишу вам: <b id="leadWho"></b></p>
+            </div>
+            <div class="lead-fb" role="status">
+              <span class="ld-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"/></svg></span>
+              <h3>Не&nbsp;получилось отправить</h3>
+              <p>Нажмите кнопку: откроется Telegram с&nbsp;уже готовым текстом заявки, останется нажать «Отправить».</p>
+              <a class="btn btn-dark" id="leadFbBtn" href="#contact" target="_blank" rel="noopener">Отправить через Telegram <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+              <small class="lead-why" id="leadWhy"></small>
+              <button type="button" class="lead-back" id="leadBack"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>Вернуться к&nbsp;форме</button>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <span>© 2026 CHESH · Тимофей Чешегоров</span>
-      <a class="foot-ch" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener"><svg class="tg-i" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.6zM9.6 14.2l8.6-7.7-6.9 8.9-.3 3.2-1.4-4.4z"/></svg>Канал CHESH</a>
-      <span>Сделано вручную · работаю по&nbsp;всей России</span>
-      <span class="foot-legal"><a href="privacy.html">Политика конфиденциальности</a> · <a href="soglasie.html">Согласие на&nbsp;обработку персональных данных</a></span>
+      </section>
     </div>
+    </div>
+  </main>
+  <footer class="foot">
+    <a class="logo" href="#hero" aria-label="CHESH, в начало"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
+    <span>© 2026 CHESH, Тимофей Чешегоров · работаю по&nbsp;всей России</span>
+    <span class="legal"><a href="privacy.html">Политика конфиденциальности</a><a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
   </footer>
 
-  <div class="toast" id="copyToast"><span>✓</span> <span id="toastMsg">Скопировано в буфер</span></div>
-
-
-  <!-- Телефон с рекламой, открытый крупно (на мобильных) -->
-  <div class="ad-overlay" id="adOverlay" hidden>
-    <button class="ad-close" id="adClose" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    <div class="ad-fly" id="adFly"></div>
-    <div class="ad-tip">нажми, чтобы закрыть</div>
-  </div>
-
+  <script src="js/v4.js?v=1" defer></script>
+  <script src="js/v4-lead.js?v=1" defer></script>
   <script src="js/metrika.js?v=4" defer></script>
-  <script src="js/main.js?v=17"></script>
-  <script src="js/v3.js?v=3" defer></script>
 </body>
 </html>
