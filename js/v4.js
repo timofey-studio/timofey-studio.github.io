@@ -217,10 +217,36 @@
   }
 })();
 
-// Вопросы: открыт только один ответ (для браузеров, где не работает <details name>)
+// Вопросы: ответ раскрывается и сворачивается плавно; открыт только один
 (function () {
   const all = Array.from(document.querySelectorAll(".faq-list details"));
-  all.forEach((d) => d.addEventListener("toggle", () => { if (d.open) all.forEach((x) => { if (x !== d) x.open = false; }); }));
+  if (!all.length) return;
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  all.forEach((d) => d.removeAttribute("name")); // за «один открытый» отвечаем сами — так можно анимировать закрытие
+  const anim = new Map();
+  const toggle = (d, open) => {
+    const sum = d.querySelector("summary");
+    if (anim.has(d)) anim.get(d).cancel();
+    const from = d.offsetHeight;
+    if (open) d.open = true;
+    const to = open ? d.scrollHeight : sum.offsetHeight;
+    if (calm) { if (!open) d.open = false; return; }
+    d.style.overflow = "hidden";
+    const a = d.animate({ height: [from + "px", to + "px"] }, { duration: 420, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
+    anim.set(d, a);
+    a.onfinish = () => { anim.delete(d); if (!open) { d.open = false; d.classList.remove("closing"); } d.style.overflow = ""; };
+    a.oncancel = () => anim.delete(d);
+  };
+  all.forEach((d) => {
+    d.querySelector("summary").addEventListener("click", (e) => {
+      e.preventDefault();
+      const willOpen = !d.open || d.classList.contains("closing");
+      d.classList.toggle("closing", !willOpen);
+      if (willOpen) all.forEach((x) => { if (x !== d && x.open) { x.classList.add("closing"); toggle(x, false); } });
+      toggle(d, willOpen);
+      if (willOpen) d.classList.remove("closing");
+    });
+  });
 })();
 
 // Отзывы: опубликованные (одобренные в Telegram-боте) берём у сервера заявок; пока их нет, остаётся «станьте первым»
