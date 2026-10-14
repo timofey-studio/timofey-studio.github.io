@@ -33,10 +33,24 @@
   <header class="top" id="top">
     <a class="logo" href="#hero" aria-label="CHESH, в начало"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
     <nav class="menu" aria-label="Разделы">
-      <a href="#work">Кейсы</a><a href="#about">Обо мне</a><a href="#how">Как работаю</a><a href="#faq">Вопросы</a>
+      <a href="#work">Кейсы</a><a href="#about">Обо мне</a><a href="#how">Как работаю</a><a href="#reviews">Отзывы</a><a href="#faq">Вопросы</a><a href="dokumenty.html">Документы</a>
     </nav>
-    <a class="btn btn-glow" href="#contact">Оставить заявку</a>
+    <div class="top-r">
+      <a class="btn btn-glow" href="#contact">Оставить заявку</a>
+      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
+    </div>
   </header>
+  <!-- меню на телефоне и планшете: разделы, заявка, Telegram и канал -->
+  <div class="mnav" id="mnav" hidden>
+    <nav class="mnav-links" aria-label="Разделы">
+      <a href="#work"><em>01</em>Кейсы</a><a href="#about"><em>02</em>Обо мне</a><a href="#how"><em>03</em>Как работаю</a><a href="#reviews"><em>04</em>Отзывы</a><a href="#faq"><em>05</em>Вопросы</a><a href="dokumenty.html"><em>06</em>Документы</a>
+    </nav>
+    <div class="mnav-cta">
+      <a class="btn btn-light" href="#contact">Оставить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+      <a class="btn btn-line" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg>Написать в&nbsp;Telegram</a>
+      <a class="btn btn-line" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Канал CHESH</a>
+    </div>
+  </div>
 
   <main>
     <!-- ГЛАВНЫЙ ЭКРАН -->
@@ -44,28 +58,31 @@
       <div class="hero-bg" id="heroBg"></div>
       <div class="hero-shade"></div>
       <div class="hero-in">
-        <div>
-          <div class="eyebrow enter" style="--d:0.05">Студия Тимофея Чешегорова</div>
-          <h1><span class="enter" style="--d:0.15;display:block">Сайты, лендинги, <span class="nw">чат-боты</span> и&nbsp;<span class="nw">ИИ-агенты,</span></span><span class="gray enter" style="--d:0.3">которые приводят клиентов</span></h1>
-          <ul class="offer">
-            <li class="enter" style="--d:0.45"><span class="ico-box"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z"/></svg></span><span><b>Лендинги</b> за&nbsp;5-10&nbsp;дней</span></li>
-            <li class="enter" style="--d:0.55"><span class="ico-box"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z"/></svg></span><span><b>Чат-боты и&nbsp;ИИ-агенты:</b> ответы клиентам, запись и&nbsp;обработка заявок</span></li>
-            <li class="enter" style="--d:0.65"><span class="ico-box"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg></span><span><b>Личный бренд:</b> упаковка, контент-план и&nbsp;продвижение с&nbsp;ИИ</span></li>
-          </ul>
+        <div class="hero-tx">
+          <div class="studio enter" style="--d:0.05"><i class="dot"></i>Студия Тимофея Чешегорова</div>
+          <h1><span class="h1a enter" style="--d:0.15">Сайты, лендинги, <span class="nw">чат-боты</span> и&nbsp;<span class="nw">ИИ-агенты,</span></span><span class="h1b enter" style="--d:0.3">которые приводят клиентов</span></h1>
+          <ol class="offer" id="offer">
+            <li class="enter" style="--d:0.45"><span class="o-num">01</span><span class="o-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z"/></svg></span><span class="o-tx"><b>Лендинги и&nbsp;сайты</b><small>за&nbsp;5-10&nbsp;дней, с&nbsp;формой заявки</small></span><i class="o-bar"></i></li>
+            <li class="enter" style="--d:0.55"><span class="o-num">02</span><span class="o-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z"/></svg></span><span class="o-tx"><b>Чат-боты и&nbsp;ИИ-агенты</b><small>ответы клиентам, запись и&nbsp;обработка заявок</small></span><i class="o-bar"></i></li>
+            <li class="enter" style="--d:0.65"><span class="o-num">03</span><span class="o-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg></span><span class="o-tx"><b>Личный бренд</b><small>упаковка, контент-план и&nbsp;продвижение с&nbsp;ИИ</small></span><i class="o-bar"></i></li>
+          </ol>
           <div class="hero-cta enter" style="--d:0.8">
             <a class="btn btn-light" href="#contact">Оставить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
             <a class="btn btn-line" href="#work">Смотреть кейсы</a>
           </div>
         </div>
         <div class="devices" aria-hidden="true">
-          <div class="laptop"><div class="lid"><div class="scr"><video src="video/v4/tb-desktop.mp4" poster="video/v4/tb-desktop.jpg" autoplay muted loop playsinline preload="auto"></video></div></div><div class="base"></div></div>
-          <div class="phone"><div class="scr"><video src="video/v4/tb-phone.mp4" poster="video/v4/tb-phone.jpg" autoplay muted loop playsinline preload="auto"></video></div></div>
+          <div class="laptop">
+            <div class="lid"><div class="bezel"><i class="cam"></i><div class="scr"><video src="video/v4/tb-desktop.mp4" poster="video/v4/tb-desktop.jpg" autoplay muted loop playsinline preload="auto"></video></div></div></div>
+            <div class="deck"><i class="notch"></i></div>
+          </div>
+          <div class="phone"><i class="btns"></i><div class="scr"><video src="video/v4/tb-phone.mp4" poster="video/v4/tb-phone.jpg" autoplay muted loop playsinline preload="auto"></video><i class="island"></i><i class="home"></i></div></div>
         </div>
       </div>
     </section>
 
-    <!-- ЛЕНТА БЛОКОВ: от «Как я работаю» до заявки, между блоками волны -->
-    <div class="band">
+    <!-- волна: главный экран → «Как я работаю» -->
+    <div class="wv b-how" aria-hidden="true"></div>
     <!-- КАК Я РАБОТАЮ -->
     <section class="how" id="how">
       <div class="how-head">
@@ -94,8 +111,8 @@
       </div>
     </section>
 
-    <svg class="wave" style="--to:#141416" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#ece5d8"/></svg>
-    <!-- КЕЙСЫ: дуга карточек на всю ширину -->
+    <div class="wv flip b-cases" aria-hidden="true"></div>
+    <!-- КЕЙСЫ: дуга белых карточек на всю ширину, у каждой номер (центр: 01) -->
     <section class="cases" id="work" aria-label="Кейсы">
       <div class="cases-head">
         <div>
@@ -104,30 +121,30 @@
           <p data-rv="blur" style="--d:0.15">Листайте стрелками, колесом мыши или тяните карточки. Нажмите на&nbsp;работу, чтобы открыть кейс.</p>
         </div>
         <div class="cases-ctrl" data-rv="up" style="--d:0.2">
-          <span class="count"><b id="cNow">03</b> / <span id="cAll">05</span></span>
+          <span class="count"><b id="cNow">01</b> / <span id="cAll">05</span></span>
           <button type="button" id="cPrev" aria-label="Предыдущий кейс"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button>
           <button type="button" id="cNext" aria-label="Следующий кейс"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button>
         </div>
       </div>
       <div class="wheel-area" id="wheelArea" tabindex="0" aria-label="Кейсы, листайте стрелками">
         <div class="wheel" id="wheel">
-        <div class="card soon" style="--i:-2"><div class="card-in">
+        <div class="card soon" style="--i:-2" data-n="04"><div class="card-in">
           <div class="media"><span class="soon-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></span></div>
           <div class="info"><small>Скоро · демо-проект</small><b>Сайт агентства недвижимости</b></div>
         </div></div>
-        <a class="card" style="--i:-1" href="case-fadepoint.html" draggable="false"><div class="card-in">
+        <a class="card" style="--i:-1" data-n="02" href="case-fadepoint.html" draggable="false"><div class="card-in">
           <div class="media"><div class="ph"><img src="img/v4/fp-phone.jpg" alt="" width="388" height="640" loading="lazy" draggable="false" /></div></div>
           <div class="info"><small>Чат-бот · барбершоп</small><b>FadePoint: запись без звонков</b><span class="go">Открыть кейс <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span></div>
         </div></a>
-        <a class="card" style="--i:0" href="case-avicenna.html" draggable="false"><div class="card-in">
+        <a class="card" style="--i:0" data-n="01" href="case-avicenna.html" draggable="false"><div class="card-in">
           <div class="media"><div class="web"><div class="br"><i></i><i></i><i></i></div><img src="img/work/avicenna-desktop.webp" alt="" width="1440" height="900" loading="lazy" draggable="false" /></div></div>
           <div class="info"><small>Сайт · стоматология</small><b>Клиника «Авиценна»: новый сайт</b><span class="go">Открыть кейс <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span></div>
         </div></a>
-        <div class="card soon" style="--i:1"><div class="card-in">
+        <div class="card soon" style="--i:1" data-n="03"><div class="card-in">
           <div class="media"><span class="soon-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M247.59,61.22,195.83,33A8,8,0,0,0,192,32H160a8,8,0,0,0-8,8,24,24,0,0,1-48,0,8,8,0,0,0-8-8H64a8,8,0,0,0-3.84,1L8.41,61.22A15.76,15.76,0,0,0,1.82,82.48l19.27,36.81A16.37,16.37,0,0,0,35.67,128H56v80a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V128h20.34a16.37,16.37,0,0,0,14.58-8.71l19.27-36.81A15.76,15.76,0,0,0,247.59,61.22ZM35.67,112a.62.62,0,0,1-.41-.13L16.09,75.26,56,53.48V112ZM184,208H72V48h16.8a40,40,0,0,0,78.38,0H184Zm36.75-96.14a.55.55,0,0,1-.41.14H200V53.48l39.92,21.78Z"/></svg></span></div>
           <div class="info"><small>Скоро · демо-проект</small><b>Интернет-магазин одежды</b></div>
         </div></div>
-        <div class="card soon" style="--i:2"><div class="card-in">
+        <div class="card soon" style="--i:2" data-n="05"><div class="card-in">
           <div class="media"><span class="soon-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg></span></div>
           <div class="info"><small>Скоро · демо-проект</small><b>Бот: заявки с сайта в Telegram</b></div>
         </div></div>
@@ -135,139 +152,186 @@
       </div>
       <div class="cases-foot"><span id="cName">Клиника «Авиценна»: новый сайт</span><div class="bar"><i id="cBar"></i></div></div>
     </section>
-    <svg class="wave flip" style="--to:#fbfaf8" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#141416"/></svg>
-    <!-- БЛОКИ ПОСЛЕ КЕЙСОВ: как referens/primer1.png: фото до края, рядом короткий текст; следующий блок зеркально.
-         Блоки разделены тёмным промежутком, у каждого свой фон: белый, бежевый, тёмный, светло-серый, белый. -->
-    <div class="splits">
-      <!-- 1. Обо мне -->
-      <section class="split s-white" id="about">
-        <div class="sp-media" data-rv="left"><img src="img/v4/about-work.jpg" alt="" width="1400" height="933" loading="lazy" /><span class="sp-cap"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"/></svg>Здесь будет ваше фото</span><span class="sp-badge b-tr"><i class="dot"></i>На&nbsp;связи · беру новые проекты</span></div>
-        <div class="sp-tx">
-          <div class="sp-meta" data-rv="up">01 · Обо мне</div>
-          <h2 data-rv="clip">Тимофей <span>Чешегоров</span></h2>
-          <i class="sp-rule" data-rv="up"></i>
-          <p data-rv="up" style="--d:0.1">Делаю сайты, лендинги, чат-ботов и&nbsp;ИИ-агентов для экспертов и&nbsp;небольшого бизнеса.</p>
-          <p data-rv="up" style="--d:0.15">Беру немного проектов, чтобы каждый довести до&nbsp;результата.</p>
-          <div class="chips" data-rv="up" style="--d:0.2"><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z"/></svg>Ищу причину, а&nbsp;не&nbsp;маскирую</span><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg>Оплата по&nbsp;этапам</span><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216.57,39.43A80,80,0,0,0,83.91,120.78L28.69,176A15.86,15.86,0,0,0,24,187.31V216a16,16,0,0,0,16,16H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A79.73,79.73,0,0,0,160,176h.1A80,80,0,0,0,216.57,39.43ZM224,98.1c-1.09,34.09-29.75,61.86-63.89,61.9H160a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A63.72,63.72,0,0,1,96,95.92c0-34.14,27.81-62.8,61.9-63.89A64,64,0,0,1,224,98.1ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>Всё остаётся у&nbsp;вас</span></div>
-          <a class="btn btn-dark" href="#contact" data-rv="up" style="--d:0.25">Обсудить задачу <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
-        </div>
-      </section>
 
-      <svg class="wave" style="--to:#ece5d8" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#fbfaf8"/></svg>
-      <!-- 2. Чем помогаю -->
-      <section class="split flip s-beige" id="help">
-        <div class="sp-media" data-rv="right">
-          <img src="img/v4/help-desk.jpg" alt="" width="1200" height="800" loading="lazy" />
-          <div class="sp-web"><div class="bar"><i></i><i></i><i></i></div><img src="img/v4/tb-shot.jpg" alt="" width="1440" height="900" loading="lazy" /></div>
-          <div class="sp-phone"><img src="img/v4/fp-phone.jpg" alt="" width="388" height="640" loading="lazy" /></div>
-        </div>
-        <div class="sp-tx">
-          <div class="sp-meta" data-rv="up">02 · Чем помогаю</div>
-          <h2 data-rv="clip">Четыре <span>направления</span></h2>
-          <i class="sp-rule" data-rv="up"></i>
-          <ul class="dirs">
-            <li data-rv="up"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z"/></svg><b>Сайты и&nbsp;лендинги</b><small>за&nbsp;5-10 дней</small></li>
-            <li data-rv="up" style="--d:0.08"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z"/></svg><b>Чат-боты и&nbsp;ИИ-агенты</b><small>ответы, запись, заявки</small></li>
-            <li data-rv="up" style="--d:0.16"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg><b>Автоматизация</b><small>меньше рутины</small></li>
-            <li data-rv="up" style="--d:0.24"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg><b>Личный бренд</b><small>упаковка и&nbsp;контент</small></li>
-          </ul>
-        </div>
-      </section>
+    <!-- БЛОКИ ПОСЛЕ КЕЙСОВ: фото до края, рядом короткий текст; следующий блок зеркально. Между блоками волны. -->
+    <div class="wv s-white" aria-hidden="true"></div>
+    <!-- 1. Обо мне -->
+    <section class="split s-white" id="about">
+      <div class="sp-media me" data-rv="left">
+        <i class="me-ring"></i>
+        <img class="me-photo" src="img/v4/tima-cut.webp" alt="Тимофей Чешегоров" width="863" height="1200" loading="lazy" />
+        <span class="sp-badge b-tr"><i class="dot"></i>На&nbsp;связи · беру новые проекты</span>
+        <span class="me-name"><b>Тимофей Чешегоров</b><small>студия CHESH</small></span>
+      </div>
+      <div class="sp-tx">
+        <div class="sp-meta" data-rv="up">01 · Обо мне</div>
+        <h2 data-rv="clip">Тимофей <span>Чешегоров</span></h2>
+        <i class="sp-rule" data-rv="up"></i>
+        <p data-rv="up" style="--d:0.1">Делаю сайты, лендинги, чат-ботов и&nbsp;ИИ-агентов для экспертов и&nbsp;небольшого бизнеса.</p>
+        <p data-rv="up" style="--d:0.15">Беру немного проектов, чтобы каждый довести до&nbsp;результата.</p>
+        <div class="chips" data-rv="up" style="--d:0.2"><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z"/></svg>Ищу причину, а&nbsp;не&nbsp;маскирую</span><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg>Оплата по&nbsp;этапам</span><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216.57,39.43A80,80,0,0,0,83.91,120.78L28.69,176A15.86,15.86,0,0,0,24,187.31V216a16,16,0,0,0,16,16H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A79.73,79.73,0,0,0,160,176h.1A80,80,0,0,0,216.57,39.43ZM224,98.1c-1.09,34.09-29.75,61.86-63.89,61.9H160a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A63.72,63.72,0,0,1,96,95.92c0-34.14,27.81-62.8,61.9-63.89A64,64,0,0,1,224,98.1ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>Всё остаётся у&nbsp;вас</span></div>
+        <a class="btn btn-dark" href="#contact" data-rv="up" style="--d:0.25">Обсудить задачу <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+      </div>
+    </section>
 
-      <svg class="wave flip" style="--to:#161618" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#ece5d8"/></svg>
-      <!-- 3. Как я работаю подробно -->
-      <section class="split s-dark" id="flow">
-        <div class="sp-media" data-rv="left"><img src="img/v4/flow-sketch.jpg" alt="" width="1400" height="933" loading="lazy" /><span class="sp-stage"><small>Этап 3 из&nbsp;5</small><b><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Макет согласован</b><i class="bar"><i></i></i></span></div>
-        <div class="sp-tx">
-          <div class="sp-meta" data-rv="up">03 · Как я&nbsp;работаю</div>
-          <h2 data-rv="clip">Без <span>сюрпризов</span></h2>
-          <i class="sp-rule" data-rv="up"></i>
-          <ol class="steps5">
-            <li data-rv="up"><em>01</em><b>Заявка</b><small>в&nbsp;тот же день</small></li>
-            <li data-rv="up" style="--d:0.06"><em>02</em><b>Разбор и&nbsp;цена письменно</b><small>1-2 дня</small></li>
-            <li data-rv="up" style="--d:0.12"><em>03</em><b>Макет, правим до&nbsp;«нравится»</b><small>этап 1 оплаты</small></li>
-            <li data-rv="up" style="--d:0.18"><em>04</em><b>Разработка и&nbsp;тестовая ссылка</b><small>этап 2 оплаты</small></li>
-            <li data-rv="up" style="--d:0.24"><em>05</em><b>Запуск на&nbsp;вашем домене</b><small>месяц поддержки</small></li>
-          </ol>
-          <div class="chips dark" data-rv="up" style="--d:0.3"><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z"/></svg>Месяц исправлений бесплатно</span><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216.57,39.43A80,80,0,0,0,83.91,120.78L28.69,176A15.86,15.86,0,0,0,24,187.31V216a16,16,0,0,0,16,16H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A79.73,79.73,0,0,0,160,176h.1A80,80,0,0,0,216.57,39.43ZM224,98.1c-1.09,34.09-29.75,61.86-63.89,61.9H160a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A63.72,63.72,0,0,1,96,95.92c0-34.14,27.81-62.8,61.9-63.89A64,64,0,0,1,224,98.1ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>Домен и&nbsp;хостинг на&nbsp;вас</span></div>
-        </div>
-      </section>
-
-      <svg class="wave" style="--to:#e7e7e4" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#161618"/></svg>
-      <!-- 4. Вопросы -->
-      <section class="split flip s-grey" id="faq">
-        <div class="sp-media" data-rv="right"><img src="img/v4/faq-chat.jpg" alt="" width="1400" height="933" loading="lazy" />
-          <div class="sp-chat"><span class="m in">Сколько стоит лендинг?</span><span class="m out">Назову цену после короткого разговора, письменно и&nbsp;до&nbsp;старта</span></div></div>
-        <div class="sp-tx">
-          <div class="sp-meta" data-rv="up">04 · Вопросы</div>
-          <h2 data-rv="clip">Отвечаю <span>заранее</span></h2>
-          <i class="sp-rule" data-rv="up"></i>
-          <div class="faq-list" data-rv="up" style="--d:0.1">
-            <details><summary>Сколько это стоит?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Зависит от&nbsp;задачи. Цену называю письменно до&nbsp;начала работы, и&nbsp;она не&nbsp;меняется. Первые проекты дешевле в&nbsp;обмен на&nbsp;честный отзыв.</p></details>
-            <details><summary>Сколько времени займёт?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Лендинг обычно 5-10 дней. Срок бота или большого сайта называю до&nbsp;старта и&nbsp;фиксирую в&nbsp;переписке.</p></details>
-            <details><summary>Что нужно от&nbsp;меня?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Рассказать о&nbsp;бизнесе и&nbsp;что хочется изменить. Тексты и&nbsp;фото, если есть; если нет, помогу подобрать.</p></details>
-            <details><summary>А&nbsp;если мне не&nbsp;понравится?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Сначала согласуем макет и&nbsp;правим, пока не&nbsp;понравится. Платите только за&nbsp;то, что уже увидели и&nbsp;приняли.</p></details>
-            <details><summary>Кому будет принадлежать сайт?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Вам. Домен и&nbsp;хостинг вы&nbsp;оформляете на&nbsp;себя, код и&nbsp;бота передаю вам, пароли знаете только вы.</p></details>
-            <details><summary>Вы&nbsp;работаете удалённо?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Да, по&nbsp;всей России. Всё обсуждаем в&nbsp;Telegram, созваниваемся по&nbsp;желанию.</p></details>
+    <div class="wv flip s-beige" aria-hidden="true"></div>
+    <!-- 2. Чем помогаю: четыре живые сцены, по одной на направление -->
+    <section class="split flip s-beige" id="help">
+      <div class="sp-media scenes" data-rv="right" id="scenes">
+        <figure class="sc sc-site" data-k="0"><figcaption><em>01</em>Сайт</figcaption>
+          <div class="sc-win"><div class="sc-bar"><i></i><i></i><i></i><span>тихий-берег.рф</span></div><div class="sc-scroll"></div></div>
+        </figure>
+        <figure class="sc sc-bot" data-k="1"><figcaption><em>02</em>Чат-бот</figcaption>
+          <div class="sc-chat">
+            <span class="m in">Хочу записаться на&nbsp;чистку</span>
+            <span class="m out">Свободно завтра:<br><u>11:00</u> <u class="on">14:30</u> <u>17:00</u></span>
+            <span class="m in">14:30</span>
+            <span class="m out ok"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Записал! Напомню за&nbsp;час</span>
           </div>
-        </div>
-      </section>
-
-      <svg class="wave flip" style="--to:#fbfaf8" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V34C1180 98 900 98 720 58C540 18 260 12 0 72Z" fill="#e7e7e4"/></svg>
-      <!-- 5. Заявка: та же форма, что на старом сайте (логика в lead.js без изменений) -->
-      <section class="split s-white" id="contact">
-        <div class="sp-media" data-rv="left">
-          <img src="img/v4/contact-phone.jpg" alt="" width="1400" height="933" loading="lazy" />
-          <span class="sp-badge b-bl"><i class="dot"></i>Отвечаю в&nbsp;тот же день</span>
-        </div>
-        <div class="sp-tx">
-          <div class="sp-meta" data-rv="up">05 · Заявка</div>
-          <h2 data-rv="clip">Есть <span>задача?</span></h2>
-          <p data-rv="up" style="--d:0.1">Быстрее всего написать в&nbsp;Telegram. Или оставьте заявку, я&nbsp;сам напишу вам.</p>
-          <div class="tg-row" data-rv="up" style="--d:0.15">
-            <a class="tg-btn" id="tgBtn" href="#contact" target="_blank" rel="noopener"><span class="tg-ic"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg></span><span><b>Написать в&nbsp;Telegram</b><small id="tgUser"></small></span></a>
-            <a class="ch-card" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener"><img src="img/ch-avatar.jpg" alt="" width="48" height="48" /><span><b>Канал CHESH</b><small>Кейсы и&nbsp;«было → стало»</small></span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a>
+        </figure>
+        <figure class="sc sc-auto" data-k="2"><figcaption><em>03</em>Автоматизация</figcaption>
+          <div class="sc-flow">
+            <span class="node form"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z"/></svg><b>Заявка с&nbsp;сайта</b><small>Анна · лендинг</small></span>
+            <span class="pipe"><i></i></span>
+            <span class="node tg"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg><b>Telegram</b><small>Новая заявка!</small></span>
+            <span class="pipe two"><i></i></span>
+            <span class="node sheet"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg><b>Таблица</b><small>+1 строка</small></span>
           </div>
-          <div class="or" data-rv="up" style="--d:0.2"><span>или оставьте заявку</span></div>
-          <div class="lead" id="lead" data-rv="up" style="--d:0.25">
-            <form id="leadForm" class="ym-hide-content" novalidate>
-              <div class="row2">
-                <label class="field"><span>Как вас зовут</span><input name="name" autocomplete="name" maxlength="60" placeholder="Например, Анна" /><small class="err" aria-live="polite"></small></label>
-                <label class="field"><span>Как с&nbsp;вами связаться</span><input name="contact" maxlength="80" placeholder="@telegram, телефон или почта" spellcheck="false" autocapitalize="off" /><small class="err" aria-live="polite"></small></label>
-              </div>
-              <div class="field"><span>Что нужно</span>
-                <div class="pick" id="leadPick"><button type="button" aria-pressed="false">Сайт или лендинг</button><button type="button" aria-pressed="false">Чат-бот или ИИ-агент</button><button type="button" aria-pressed="false">Автоматизация</button><button type="button" aria-pressed="false">Личный бренд</button><button type="button" aria-pressed="false">Пока не&nbsp;знаю</button></div>
-              </div>
-              <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="2" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea><small class="err" aria-live="polite"></small><small class="count" aria-live="polite"></small></label>
-              <input class="lead-hp" name="leadhp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-              <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Даю <a href="soglasie.html" target="_blank" rel="noopener">согласие на&nbsp;обработку персональных данных</a></span></label>
-              <button class="btn btn-dark" type="submit" id="leadSend">Отправить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button>
-              <div class="lead-safe">Заявка видна только мне. Без рассылок. Подробно в&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a>.</div>
-              <div class="lead-msg" id="leadMsg" role="alert"></div>
-            </form>
-            <div class="lead-done" role="status">
-              <span class="ld-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span>
-              <h3>Заявка у&nbsp;меня!</h3>
-              <p>Скоро напишу вам: <b id="leadWho"></b></p>
+        </figure>
+        <figure class="sc sc-brand" data-k="3"><figcaption><em>04</em>Личный бренд</figcaption>
+          <div class="sc-post">
+            <div class="p-head"><i class="ava">ЭК</i><span><b>Эксперт</b><small>3 мин назад</small></span></div>
+            <div class="p-img"></div>
+            <div class="p-foot"><span class="likes"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/></svg><b class="cnt" data-to="248">0</b></span><span class="subs">+12 подписчиков</span></div>
+            <i class="heart h1"></i><i class="heart h2"></i><i class="heart h3"></i>
+          </div>
+        </figure>
+      </div>
+      <div class="sp-tx">
+        <div class="sp-meta" data-rv="up">02 · Чем помогаю</div>
+        <h2 data-rv="clip">Четыре <span>направления</span></h2>
+        <i class="sp-rule" data-rv="up"></i>
+        <ul class="dirs" id="dirs">
+          <li data-rv="up" data-k="0"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z"/></svg><b>Сайты и&nbsp;лендинги</b><small>за&nbsp;5-10 дней</small></li>
+          <li data-rv="up" data-k="1" style="--d:0.08"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z"/></svg><b>Чат-боты и&nbsp;ИИ-агенты</b><small>ответы, запись, заявки</small></li>
+          <li data-rv="up" data-k="2" style="--d:0.16"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg><b>Автоматизация</b><small>меньше рутины</small></li>
+          <li data-rv="up" data-k="3" style="--d:0.24"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg><b>Личный бренд</b><small>упаковка и&nbsp;контент</small></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="wv s-dark" aria-hidden="true"></div>
+    <!-- 3. Как я работаю подробно -->
+    <section class="split s-dark" id="flow">
+      <div class="sp-media" data-rv="left"><img src="img/v4/flow-sketch.jpg" alt="" width="1400" height="933" loading="lazy" /><span class="sp-stage"><small>Этап 3 из&nbsp;5</small><b><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Макет согласован</b><i class="bar"><i></i></i></span></div>
+      <div class="sp-tx">
+        <div class="sp-meta" data-rv="up">03 · Как я&nbsp;работаю</div>
+        <h2 data-rv="clip">Без <span>сюрпризов</span></h2>
+        <i class="sp-rule" data-rv="up"></i>
+        <ol class="steps5">
+          <li data-rv="up"><em>01</em><b>Заявка</b><small>в&nbsp;тот же день</small></li>
+          <li data-rv="up" style="--d:0.06"><em>02</em><b>Разбор и&nbsp;цена письменно</b><small>1-2 дня</small></li>
+          <li data-rv="up" style="--d:0.12"><em>03</em><b>Макет, правим до&nbsp;«нравится»</b><small>этап 1 оплаты</small></li>
+          <li data-rv="up" style="--d:0.18"><em>04</em><b>Разработка и&nbsp;тестовая ссылка</b><small>этап 2 оплаты</small></li>
+          <li data-rv="up" style="--d:0.24"><em>05</em><b>Запуск на&nbsp;вашем домене</b><small>месяц поддержки</small></li>
+        </ol>
+        <div class="chips dark" data-rv="up" style="--d:0.3"><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z"/></svg>Месяц исправлений бесплатно</span><span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216.57,39.43A80,80,0,0,0,83.91,120.78L28.69,176A15.86,15.86,0,0,0,24,187.31V216a16,16,0,0,0,16,16H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A79.73,79.73,0,0,0,160,176h.1A80,80,0,0,0,216.57,39.43ZM224,98.1c-1.09,34.09-29.75,61.86-63.89,61.9H160a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A63.72,63.72,0,0,1,96,95.92c0-34.14,27.81-62.8,61.9-63.89A64,64,0,0,1,224,98.1ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>Домен и&nbsp;хостинг на&nbsp;вас</span></div>
+      </div>
+    </section>
+
+    <div class="wv flip s-grey" aria-hidden="true"></div>
+    <!-- 4. Вопросы: открыт только один ответ -->
+    <section class="split flip s-grey" id="faq">
+      <div class="sp-media" data-rv="right"><img src="img/v4/faq-chat.jpg" alt="" width="1400" height="933" loading="lazy" />
+        <div class="sp-chat"><span class="m in">Сколько стоит лендинг?</span><span class="m out">Назову цену после короткого разговора, письменно и&nbsp;до&nbsp;старта</span></div></div>
+      <div class="sp-tx">
+        <div class="sp-meta" data-rv="up">04 · Вопросы</div>
+        <h2 data-rv="clip">Отвечаю <span>заранее</span></h2>
+        <i class="sp-rule" data-rv="up"></i>
+        <div class="faq-list" data-rv="up" style="--d:0.1">
+          <details name="faq" open><summary>Сколько это стоит?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Зависит от&nbsp;задачи. Цену называю письменно до&nbsp;начала работы, и&nbsp;она не&nbsp;меняется. Первые проекты дешевле в&nbsp;обмен на&nbsp;честный отзыв.</p></details>
+          <details name="faq"><summary>Сколько времени займёт?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Лендинг обычно 5-10 дней. Срок бота или большого сайта называю до&nbsp;старта и&nbsp;фиксирую в&nbsp;переписке.</p></details>
+          <details name="faq"><summary>Что нужно от&nbsp;меня?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Рассказать о&nbsp;бизнесе и&nbsp;что хочется изменить. Тексты и&nbsp;фото, если есть; если нет, помогу подобрать.</p></details>
+          <details name="faq"><summary>А&nbsp;если мне не&nbsp;понравится?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Сначала согласуем макет и&nbsp;правим, пока не&nbsp;понравится. Платите только за&nbsp;то, что уже увидели и&nbsp;приняли.</p></details>
+          <details name="faq"><summary>Кому будет принадлежать сайт?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Вам. Домен и&nbsp;хостинг вы&nbsp;оформляете на&nbsp;себя, код и&nbsp;бота передаю вам, пароли знаете только вы.</p></details>
+          <details name="faq"><summary>Вы&nbsp;работаете удалённо?<svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></summary><p>Да, по&nbsp;всей России. Всё обсуждаем в&nbsp;Telegram, созваниваемся по&nbsp;желанию.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <div class="wv s-ink" aria-hidden="true"></div>
+    <!-- 5. Отзывы: опубликованные отзывы с сервера заявок (одобряю в Telegram-боте); пока их нет, «станьте первым» -->
+    <section class="reviews s-ink" id="reviews">
+      <div class="rv-head">
+        <div class="sp-meta" data-rv="up">05 · Отзывы</div>
+        <h2 data-rv="clip">Что говорят <span>клиенты</span></h2>
+      </div>
+      <div class="rv-list" id="rvList" hidden></div>
+      <div class="rv-first" id="rvFirst" data-rv="scale">
+        <span class="q"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M100,56H40A16,16,0,0,0,24,72v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,100,56Zm0,80H40V72h60ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Zm0,80H156V72h60Z"/></svg></span>
+        <div>
+          <h3>Здесь будут отзывы моих первых клиентов</h3>
+          <p>Я&nbsp;только начинаю и&nbsp;не&nbsp;выдумываю отзывы. Каждый приходит от&nbsp;настоящего клиента по&nbsp;личной ссылке после сдачи проекта, текст я&nbsp;не&nbsp;правлю. Станьте одним из&nbsp;первых: первые проекты делаю дешевле в&nbsp;обмен на&nbsp;честный отзыв.</p>
+        </div>
+        <a class="btn btn-light" href="#contact" data-lead-msg="Хочу стать одним из первых клиентов со скидкой в обмен на честный отзыв.">Стать первым клиентом <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+      </div>
+      <p class="rv-rules" id="rvRules" hidden>Публикую и&nbsp;похвалу, и&nbsp;критику. Не&nbsp;публикую только оскорбления, чужие личные данные и&nbsp;рекламу.</p>
+    </section>
+
+    <div class="wv flip s-white" aria-hidden="true"></div>
+    <!-- 6. Заявка: та же форма, что на старом сайте (логика в lead.js без изменений) -->
+    <section class="split s-white" id="contact">
+      <div class="sp-media" data-rv="left">
+        <img src="img/v4/contact-phone.jpg" alt="" width="1400" height="933" loading="lazy" />
+        <span class="sp-badge b-bl"><i class="dot"></i>Отвечаю в&nbsp;тот же день</span>
+      </div>
+      <div class="sp-tx ct">
+        <div class="sp-meta" data-rv="up">06 · Заявка</div>
+        <h2 data-rv="clip">Есть <span>задача?</span></h2>
+        <p data-rv="up" style="--d:0.1">Быстрее всего написать в&nbsp;Telegram. Или оставьте заявку, я&nbsp;сам напишу вам.</p>
+        <div class="tg-row" data-rv="up" style="--d:0.15">
+          <a class="tg-btn" id="tgBtn" href="#contact" target="_blank" rel="noopener"><span class="tg-ic"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg></span><span><b>Написать в&nbsp;Telegram</b><small id="tgUser"></small></span></a>
+          <a class="ch-card" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener"><img src="img/ch-avatar.jpg" alt="" width="48" height="48" /><span><b>Канал CHESH</b><small>Кейсы и&nbsp;«было → стало»</small></span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a>
+        </div>
+        <div class="or" data-rv="up" style="--d:0.2"><span>или оставьте заявку</span></div>
+        <div class="lead" id="lead" data-rv="up" style="--d:0.25">
+          <form id="leadForm" class="ym-hide-content" novalidate>
+            <div class="row2">
+              <label class="field"><span>Как вас зовут</span><input name="name" autocomplete="name" maxlength="60" placeholder="Например, Анна" /><small class="err" aria-live="polite"></small></label>
+              <label class="field"><span>Как с&nbsp;вами связаться</span><input name="contact" maxlength="80" placeholder="@telegram, телефон или почта" spellcheck="false" autocapitalize="off" /><small class="err" aria-live="polite"></small></label>
             </div>
-            <div class="lead-fb" role="status">
-              <span class="ld-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"/></svg></span>
-              <h3>Не&nbsp;получилось отправить</h3>
-              <p>Нажмите кнопку: откроется Telegram с&nbsp;уже готовым текстом заявки, останется нажать «Отправить».</p>
-              <a class="btn btn-dark" id="leadFbBtn" href="#contact" target="_blank" rel="noopener">Отправить через Telegram <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
-              <small class="lead-why" id="leadWhy"></small>
-              <button type="button" class="lead-back" id="leadBack"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>Вернуться к&nbsp;форме</button>
+            <div class="field"><span>Что нужно</span>
+              <div class="pick" id="leadPick"><button type="button" aria-pressed="false">Сайт или лендинг</button><button type="button" aria-pressed="false">Чат-бот или ИИ-агент</button><button type="button" aria-pressed="false">Автоматизация</button><button type="button" aria-pressed="false">Личный бренд</button><button type="button" aria-pressed="false">Пока не&nbsp;знаю</button></div>
             </div>
+            <label class="field"><span>Коротко о&nbsp;задаче</span><textarea name="message" rows="3" maxlength="1000" placeholder="Например: есть сайт кофейни, но заказов с него почти нет"></textarea><small class="err" aria-live="polite"></small><small class="count" aria-live="polite"></small></label>
+            <input class="lead-hp" name="leadhp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <label class="consent" id="leadConsent"><input type="checkbox" name="agree" /><span>Даю <a href="soglasie.html" target="_blank" rel="noopener">согласие на&nbsp;обработку персональных данных</a></span></label>
+            <button class="btn btn-dark" type="submit" id="leadSend">Отправить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button>
+            <div class="lead-safe">Заявка видна только мне. Без рассылок. Подробно в&nbsp;<a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a>.</div>
+            <div class="lead-msg" id="leadMsg" role="alert"></div>
+          </form>
+          <div class="lead-done" role="status">
+            <span class="ld-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span>
+            <h3>Заявка у&nbsp;меня!</h3>
+            <p>Скоро напишу вам: <b id="leadWho"></b></p>
+          </div>
+          <div class="lead-fb" role="status">
+            <span class="ld-ico"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"/></svg></span>
+            <h3>Не&nbsp;получилось отправить</h3>
+            <p>Нажмите кнопку: откроется Telegram с&nbsp;уже готовым текстом заявки, останется нажать «Отправить».</p>
+            <a class="btn btn-dark" id="leadFbBtn" href="#contact" target="_blank" rel="noopener">Отправить через Telegram <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+            <small class="lead-why" id="leadWhy"></small>
+            <button type="button" class="lead-back" id="leadBack"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>Вернуться к&nbsp;форме</button>
           </div>
         </div>
-      </section>
-    </div>
-    </div>
+      </div>
+    </section>
+    <div class="wv b-foot" aria-hidden="true"></div>
   </main>
   <footer class="foot">
     <a class="logo" href="#hero" aria-label="CHESH, в начало"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
     <span>© 2026 CHESH, Тимофей Чешегоров · работаю по&nbsp;всей России</span>
-    <span class="legal"><a href="privacy.html">Политика конфиденциальности</a><a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
+    <span class="legal-links"><a href="dokumenty.html">Документы</a><a href="privacy.html">Политика конфиденциальности</a><a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
   </footer>
 
   <script src="js/v4.js?v=1" defer></script>

@@ -12,12 +12,26 @@
 </head>
 <body class="legal">
   <header class="top" id="top">
-    <a class="logo" href="index.html" aria-label="CHESH, на главную"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
+    <a class="logo" href="index.html#hero" aria-label="CHESH, в начало"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
     <nav class="menu" aria-label="Разделы">
-      <a href="index.html#work">Кейсы</a><a href="index.html#about">Обо мне</a><a href="index.html#how">Как работаю</a><a href="index.html#faq">Вопросы</a>
+      <a href="index.html#work">Кейсы</a><a href="index.html#about">Обо мне</a><a href="index.html#how">Как работаю</a><a href="index.html#reviews">Отзывы</a><a href="index.html#faq">Вопросы</a><a href="dokumenty.html">Документы</a>
     </nav>
-    <a class="btn btn-glow" href="index.html#contact">Оставить заявку</a>
+    <div class="top-r">
+      <a class="btn btn-glow" href="index.html#contact">Оставить заявку</a>
+      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
+    </div>
   </header>
+  <!-- меню на телефоне и планшете: разделы, заявка, Telegram и канал -->
+  <div class="mnav" id="mnav" hidden>
+    <nav class="mnav-links" aria-label="Разделы">
+      <a href="index.html#work"><em>01</em>Кейсы</a><a href="index.html#about"><em>02</em>Обо мне</a><a href="index.html#how"><em>03</em>Как работаю</a><a href="index.html#reviews"><em>04</em>Отзывы</a><a href="index.html#faq"><em>05</em>Вопросы</a><a href="dokumenty.html"><em>06</em>Документы</a>
+    </nav>
+    <div class="mnav-cta">
+      <a class="btn btn-light" href="index.html#contact">Оставить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+      <a class="btn btn-line" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg>Написать в&nbsp;Telegram</a>
+      <a class="btn btn-line" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Канал CHESH</a>
+    </div>
+  </div>
 
   <main>
     <section class="lg-hero">
@@ -73,9 +87,9 @@
   </main>
 
   <footer class="foot">
-    <a class="logo" href="index.html" aria-label="CHESH, на главную"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
-    <span>© 2026 CHESH, Тимофей Чешегоров</span>
-    <span class="legal-links"><a href="privacy.html">Политика конфиденциальности</a><a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
+    <a class="logo" href="index.html#hero" aria-label="CHESH, в начало"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e9e6e0"/><path d="M21.5 11.2a7.2 7.2 0 1 0 0 9.6" fill="none" stroke="#0d0d0e" stroke-width="3.4" stroke-linecap="round"/></svg>CHESH</a>
+    <span>© 2026 CHESH, Тимофей Чешегоров · работаю по&nbsp;всей России</span>
+    <span class="legal-links"><a href="dokumenty.html">Документы</a><a href="privacy.html">Политика конфиденциальности</a><a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
   </footer>
 
   <script>

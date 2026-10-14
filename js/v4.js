@@ -17,15 +17,15 @@
   tick();
 
   // фото в блоках чуть «плывут» при прокрутке (параллакс), считаем только для видимых
-  const pics = Array.from(document.querySelectorAll(".sp-media > img"));
+  const pics = Array.from(document.querySelectorAll(".sp-media > img:not(.me-photo)"));
   if (pics.length && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
     const vis = new Set();
     const po = new IntersectionObserver((list) => list.forEach((e) => (e.isIntersecting ? vis.add(e.target) : vis.delete(e.target))));
-    pics.forEach((p) => { p.style.scale = "1.1"; po.observe(p); });
+    pics.forEach((p) => { p.style.scale = "1.08"; po.observe(p); });
     let busy = false;
     const move = () => {
       busy = false;
-      vis.forEach((p) => { const r = p.parentElement.getBoundingClientRect(); const k = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; p.style.translate = "0 " + (k * -40).toFixed(1) + "px"; });
+      vis.forEach((p) => { const r = p.parentElement.getBoundingClientRect(); const k = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; p.style.translate = "0 " + (k * -26).toFixed(1) + "px"; });
     };
     addEventListener("scroll", () => { if (!busy) { busy = true; requestAnimationFrame(move); } }, { passive: true });
     move();
@@ -65,7 +65,11 @@
   const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const pad = (n) => String(n).padStart(2, "0");
   document.getElementById("cAll").textContent = pad(cards.length);
-  cards.forEach((c, k) => c.style.setProperty("--k", Math.abs(idx[k])));
+  cards.forEach((c, k) => {
+    c.style.setProperty("--k", Math.abs(idx[k]));
+    // номер карточки: центр 01, по бокам 02 и 03, по краям 04 и 05 (referens/Расположение.png)
+    if (c.dataset.n) { const s = document.createElement("span"); s.className = "num"; s.textContent = c.dataset.n; c.querySelector(".card-in").appendChild(s); }
+  });
 
   let R = 0, step = 0, cur = 0, target = 0, raf = 0, active = null;
   const measure = () => {
@@ -82,7 +86,7 @@
     active = i;
     cards.forEach((c, k) => c.classList.toggle("on", idx[k] === i));
     const k = idx.indexOf(i);
-    now.textContent = pad(k + 1);
+    now.textContent = cards[k].dataset.n || pad(k + 1);
     name.textContent = cards[k].querySelector("b").textContent;
     bar.style.transform = "translateX(" + k * 100 + "%)";
     prev.disabled = i === lo; next.disabled = i === hi;
@@ -151,3 +155,96 @@
   addEventListener("resize", () => { clearTimeout(rw); rw = setTimeout(() => { const i = active; measure(); active = null; cur = target = -i * step; frame(); }, 120); });
 })();
 
+// Меню на телефоне и планшете: кнопка открывает список разделов, заявку, Telegram и канал
+(function () {
+  const btn = document.getElementById("burger"), nav = document.getElementById("mnav");
+  if (!btn || !nav) return;
+  const set = (open) => {
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+    document.body.classList.toggle("menu-open", open);
+    if (open) { nav.hidden = false; requestAnimationFrame(() => nav.classList.add("open")); }
+    else { nav.classList.remove("open"); setTimeout(() => { if (btn.getAttribute("aria-expanded") === "false") nav.hidden = true; }, 350); }
+  };
+  btn.addEventListener("click", () => set(btn.getAttribute("aria-expanded") !== "true"));
+  nav.addEventListener("click", (e) => { if (e.target.closest("a")) set(false); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") set(false); });
+  addEventListener("resize", () => { if (innerWidth > 1100 && btn.getAttribute("aria-expanded") === "true") set(false); });
+})();
+
+// Главный экран: строки направлений подсвечиваются по очереди (наведение: сразу нужная строка и пауза)
+(function () {
+  const list = document.getElementById("offer");
+  if (!list) return;
+  const li = Array.from(list.children), T = 3200;
+  let at = -1, paused = false;
+  list.style.setProperty("--t", T / 1000 + "s");
+  const show = (k) => { at = k; li.forEach((x, n) => x.classList.toggle("on", n === k)); };
+  const next = () => { if (!paused) show((at + 1) % li.length); setTimeout(next, T); };
+  setTimeout(next, 1700); // после появления текста
+  li.forEach((x, k) => {
+    x.addEventListener("mouseenter", () => { paused = true; show(k); });
+    x.addEventListener("mouseleave", () => { paused = false; });
+  });
+})();
+
+// «Четыре направления»: строка списка и её сцена подсвечиваются вместе (по очереди сами, при наведении нужная)
+(function () {
+  const box = document.getElementById("scenes"), dirs = document.getElementById("dirs");
+  if (!box || !dirs) return;
+  const sc = Array.from(box.querySelectorAll(".sc")), rows = Array.from(dirs.children);
+  let at = -1, hold = false;
+  const show = (k) => {
+    at = k;
+    box.classList.toggle("has-on", k >= 0);
+    sc.forEach((s, n) => s.classList.toggle("on", n === k));
+    rows.forEach((r, n) => r.classList.toggle("on", n === k));
+  };
+  [...sc, ...rows].forEach((el) => {
+    el.addEventListener("mouseenter", () => { hold = true; show(+el.dataset.k); });
+    el.addEventListener("mouseleave", () => { hold = false; });
+  });
+  setInterval(() => { if (!hold && box.classList.contains("in")) show((at + 1) % sc.length); }, 2600);
+  // лайки в сцене «Личный бренд» растут, когда сцену видно
+  const cnt = box.querySelector(".cnt");
+  if (cnt && "IntersectionObserver" in window) {
+    let n = 0, run = 0;
+    new IntersectionObserver(([e]) => {
+      clearInterval(run);
+      if (!e.isIntersecting) return;
+      run = setInterval(() => { n = n >= +cnt.dataset.to ? 120 : n + 3; cnt.textContent = n; }, 60);
+    }).observe(cnt);
+  }
+})();
+
+// Вопросы: открыт только один ответ (для браузеров, где не работает <details name>)
+(function () {
+  const all = Array.from(document.querySelectorAll(".faq-list details"));
+  all.forEach((d) => d.addEventListener("toggle", () => { if (d.open) all.forEach((x) => { if (x !== d) x.open = false; }); }));
+})();
+
+// Отзывы: опубликованные (одобренные в Telegram-боте) берём у сервера заявок; пока их нет, остаётся «станьте первым»
+(function () {
+  const list = document.getElementById("rvList");
+  if (!list || !window.fetch) return;
+  const plural = (n, a, b, c) => (n % 10 === 1 && n % 100 !== 11 ? a : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? b : c);
+  const month = (d) => { try { return new Date(d).toLocaleDateString("ru-RU", { month: "long", year: "numeric" }); } catch (e) { return ""; } };
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  fetch("https://chesh-leads.chesh.workers.dev/reviews").then((r) => r.json()).then((d) => {
+    const items = (d && d.reviews) || [];
+    if (!items.length) return;
+    // всё, что написал клиент, вставляем только как текст: никакой HTML из отзыва не выполнится
+    items.slice(0, 9).forEach((it) => {
+      const card = el("figure", "rv-card");
+      const st = el("div", "rv-stars", "★".repeat(it.rating)); st.setAttribute("aria-label", "Оценка " + it.rating + " из 5"); st.appendChild(el("span", null, "★".repeat(5 - it.rating)));
+      const who = el("figcaption", "rv-who"), ava = el("span", "rv-ava", (it.name || "?").trim().charAt(0).toUpperCase()), t = el("span");
+      ava.setAttribute("aria-hidden", "true"); t.appendChild(el("b", null, it.name)); t.appendChild(document.createTextNode([it.business, month(it.date)].filter(Boolean).join(" · ")));
+      who.append(ava, t); card.append(st, el("blockquote", null, it.text), who);
+      if (it.answer) { const a = el("div", "rv-answer"); a.append(el("b", null, "Ответ Тимофея"), el("p", null, it.answer)); card.appendChild(a); }
+      list.appendChild(card);
+    });
+    list.hidden = false;
+    document.getElementById("rvRules").hidden = false;
+    document.getElementById("rvFirst").querySelector("h3").textContent = "Хотите так же? Уже " + items.length + " " + plural(items.length, "отзыв", "отзыва", "отзывов");
+  }).catch(() => {});
+})();

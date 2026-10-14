@@ -49,3 +49,16 @@
   .lg-paper { padding: 30px 20px 36px; border-radius: 22px; font-size: 15.5px; }
   .legal .foot { flex-direction: column; align-items: flex-start; } .legal .foot .legal-links { flex-direction: column; gap: 8px; }
 }
+
+/* страница «Документы»: три карточки-документа */
+.docs { width: min(1180px, calc(100% - 72px)); margin: 0 auto 100px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.doc { display: flex; flex-direction: column; gap: 10px; padding: 30px 28px; border-radius: 24px; background: #fbfaf8; color: #1b1a17; text-decoration: none; min-height: 290px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8); transition: transform 0.5s var(--ease), box-shadow 0.4s; }
+.doc:hover { transform: translateY(-6px); box-shadow: 0 0 0 2px var(--beige), 0 0 50px -6px rgba(217, 198, 165, 0.6), 0 30px 60px -30px rgba(0, 0, 0, 0.8); }
+.doc-ico { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; background: #1b1a17; color: var(--beige); font-size: 26px; }
+.doc b { margin-top: 10px; font: 600 24px/1.1 var(--osw); text-transform: uppercase; }
+.doc small { color: #5f594f; font-size: 16px; line-height: 1.5; }
+.doc-go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
+.doc-go .ico { transition: transform 0.3s var(--ease); } .doc:hover .doc-go .ico { transform: translate(2px, -2px); }
+@media (max-width: 900px) { .docs { grid-template-columns: 1fr; } .doc { min-height: 0; } }
+@media (max-width: 640px) { .docs { width: calc(100% - 24px); } }
