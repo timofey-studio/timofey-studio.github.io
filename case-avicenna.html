@@ -16,13 +16,16 @@
 </head>
 <body class="case">
   <script>
-  // масштаб сайта на компьютере: образец: вид 2094×1006 (ноутбук Тимофея при масштабе 90%).
-  // Окно больше или меньше сайт пропорционально крупнее или мельче, но не меньше 0.75 (текст читается) и не больше 1.25.
+  // масштаб сайта на компьютере. Образец: ноутбук Тимофея (окно около 1536x730) выглядит как прежние 90%.
+  // Окно больше или меньше: сайт пропорционально крупнее или мельче (от 0.8 до 1.25).
+  // Считаем по настоящему размеру окна, без учёта масштаба браузера (bz), поэтому Ctrl+плюс/минус работает как обычно.
   (function () {
     var d = document.documentElement;
     function fit() {
-      var w = innerWidth, h = innerHeight, z = 1;
-      if (w > 1100) z = Math.max(0.75, Math.min(1.25, Math.min(w / 2094, h / 1006)));
+      var bz = outerWidth > 0 && innerWidth > 0 ? Math.round(outerWidth / innerWidth * 20) / 20 : 1;
+      if (bz < 0.25 || bz > 5) bz = 1;
+      var w = innerWidth * bz, h = innerHeight * bz, z = 1;
+      if (innerWidth > 1100) z = Math.max(0.8, Math.min(1.25, Math.min(w / 1707, h / 805)));
       d.style.setProperty("--z", z.toFixed(3));
     }
     fit();
