@@ -92,3 +92,13 @@
 .rv-box .btn-dark { width: 100%; min-height: 58px; }
 .rv-box .lead-msg { margin-top: 10px; font-size: 15px; color: #c23b30; } .rv-box .lead-msg:empty { display: none; }
 @media (max-width: 640px) { .rv-box .row2 { grid-template-columns: 1fr; gap: 0; } .rvp-state h2 { font-size: 27px; } .stars-pick label { font-size: 38px; } }
+
+/* страница 404: большие цифры контуром, кнопки и быстрые ссылки на разделы */
+.nf .rvp-hero { padding: 150px 0 90px; min-height: calc(100vh - 120px); min-height: calc(100dvh - 120px); }
+.nf-code { font: 600 clamp(120px, 20vw, 230px)/0.9 var(--osw); letter-spacing: 0.02em; color: transparent; -webkit-text-stroke: 1.5px #c9a66b; margin-bottom: 26px; }
+.nf .lg-date { max-width: 30em; margin-left: auto; margin-right: auto; }
+.nf-acts { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 34px; }
+.nf-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-top: 40px; font-size: 15px; }
+.nf-links a { color: var(--mute); text-decoration: none; border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s; }
+.nf-links a:hover { color: var(--ink); border-color: var(--beige); }
+@media (max-width: 640px) { .nf .rvp-hero { padding-top: 120px; } .nf-acts .btn { width: 100%; } }
