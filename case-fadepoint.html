@@ -3,56 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Бот FadePoint · CHESH</title>
-  <meta name="description" content="Кейс CHESH: Telegram-бот для онлайн-записи." />
+  <title>Бот FadePoint: запись в барбершоп без звонков · Тимофей Чешегоров</title>
+  <meta name="description" content="Кейс Тимофея Чешегорова: Telegram-бот FadePoint для записи в барбершоп. Клиент сам выбирает мастера и время, владелец сразу видит запись." />
   <link rel="canonical" href="https://chesh-studio.ru/case-fadepoint.html" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="img/favicon-120.png" type="image/png" sizes="120x120" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="css/v3.css?v=3" />
+  <link rel="stylesheet" href="css/v4.css?v=038b31e1" />
+  <link rel="stylesheet" href="css/v4-case.css?v=d51b2da2" />
 </head>
-<body class="c3">
-  <div class="c3-case-top">
-    <a class="c3-back" href="index.html#work"><svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>Все кейсы</a>
-    <a class="c3-btn c3-btn-glow" href="index.html#contact">Оставить заявку</a>
+<body class="case">
+  <header class="top" id="top">
+    <a class="logo" href="index.html#hero" aria-label="Тимофей Чешегоров, в начало"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="1" y="1" width="62" height="62" rx="15" fill="#161617" stroke="#c9a66b" stroke-opacity=".5" stroke-width="1.5"/><g transform="translate(12.53 13.52) scale(0.66)"><path d="M0 4H40V22A4 4 0 0 0 44 26H49V4H59V52H49V36H44A14 14 0 0 1 30 22V14H25V52H15V14H0Z" fill="none" stroke="#c9a66b" stroke-width="2.8"/><path d="M44.5 9.9Q44.5 13.5 48.1 13.5Q44.5 13.5 44.5 17.1Q44.5 13.5 40.9 13.5Q44.5 13.5 44.5 9.9Z" fill="#c9a66b"/></g></svg><span>Тимофей Чешегоров</span></a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="index.html#work">Кейсы</a><a href="index.html#about">Обо мне</a><a href="index.html#how">Как работаю</a><a href="index.html#reviews">Отзывы</a><a href="index.html#faq">Вопросы</a><a href="dokumenty.html">Документы</a>
+    </nav>
+    <div class="top-r">
+      <a class="btn btn-glow" href="index.html#contact">Оставить заявку</a>
+      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
+    </div>
+  </header>
+  <!-- меню на телефоне и планшете: разделы, заявка, Telegram и канал -->
+  <div class="mnav" id="mnav" hidden>
+    <nav class="mnav-links" aria-label="Разделы">
+      <a href="index.html#work"><em>01</em>Кейсы</a><a href="index.html#about"><em>02</em>Обо мне</a><a href="index.html#how"><em>03</em>Как работаю</a><a href="index.html#reviews"><em>04</em>Отзывы</a><a href="index.html#faq"><em>05</em>Вопросы</a><a href="dokumenty.html"><em>06</em>Документы</a>
+    </nav>
+    <div class="mnav-cta">
+      <a class="btn btn-light" href="index.html#contact">Оставить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+      <a class="btn btn-line" href="https://t.me/chesh_leads_bot?start=site" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg>Написать в&nbsp;Telegram</a>
+      <a class="btn btn-line" href="https://t.me/+5XXJl5LXZBExM2Ji" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Telegram-канал</a>
+    </div>
   </div>
 
-  <header class="c3-case-hero">
-    <div>
-      <div class="c3-meta"><span>Кейс&nbsp;&nbsp;&nbsp;Чат-бот</span></div>
-      <h1 class="c3-big" style="margin-top:22px">Бот<span>FadePoint</span></h1>
-      <p class="c3-lead" style="margin-top:22px">Демо-проект: Telegram-бот для записи в&nbsp;барбершоп. Клиент сам выбирает мастера и&nbsp;время, владелец получает уведомление о&nbsp;каждой записи.</p>
-      <div class="c3-case-tags"><span>Telegram-бот</span><span>Онлайн-запись</span><span>Демо</span></div>
-    </div>
-    <div class="c3-rv" style="display:grid;justify-items:center"><div class="c3-phone-frame"><video src="video/fadepoint-bot.mp4" poster="video/fadepoint-bot-poster.jpg" muted loop playsinline data-autoplay aria-label="Запись через бота FadePoint"></video></div></div>
-  </header>
+  <main>
+    <!-- 1. слева живой iPhone: клиент записывается через бота (переписку проигрывает case.js), справа рассказ -->
+    <section class="c-hero" id="hero">
+      <div class="fp-hero-ph">
+        <div class="tg-phone" data-tg="client" role="img" aria-label="Переписка клиента с ботом FadePoint: выбор мастера, услуги, дня и времени, подтверждение записи"><img class="tg-fallback" src="img/v4/fp-phone.jpg" alt="" width="388" height="640" /></div>
+        <p class="fp-cap"><b>Клиент</b>записывается сам, без звонка</p>
+      </div>
+      <div class="c-tx">
+        <a class="btn btn-line c-back enter" style="--d:0.1" href="index.html#work"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>Все кейсы</a>
+        <div class="eyebrow enter" style="--d:0.2">Кейс · Чат-бот · Демо</div>
+        <h1 class="enter one" style="--d:0.3">Бот <span>FadePoint</span></h1>
+        <i class="c-rule enter" style="--d:0.45"></i>
+        <p class="enter" style="--d:0.55">Telegram-бот для записи в&nbsp;барбершоп. Клиент сам выбирает мастера, услугу и&nbsp;свободное время, а&nbsp;владелец сразу видит новую запись.</p>
+        <p class="enter" style="--d:0.65">Это демо-проект: показываю, как работает онлайн-запись без звонков и&nbsp;администратора.</p>
+        <div class="c-tags enter" style="--d:0.75"><span>Telegram-бот</span><span>Онлайн-запись</span><span>Python · aiogram</span><span>Демо</span></div>
+        <div class="c-cta enter" style="--d:0.85">
+          <a class="btn btn-light" href="index.html#contact">Хочу такого бота <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+          <a class="btn btn-line" href="#steps">Как проходит запись</a>
+        </div>
+      </div>
+    </section>
 
-  <section class="c3-td">
-    <div class="c3-td-card c3-light c3-rv">
-      <h2 class="c3-big">Какая<span>задача</span></h2>
-      <ol class="c3-td-list">
-        <li><b>Запись без звонков</b><span>Клиент записывается сам в&nbsp;любое время, даже ночью.</span></li>
-        <li><b>Нет двойных записей</b><span>Занятое время сразу пропадает из&nbsp;выбора.</span></li>
-        <li><b>Владелец всё видит</b><span>Каждая запись приходит уведомлением.</span></li>
-      </ol>
-    </div>
-    <div class="c3-td-card c3-dark c3-rv">
-      <h2 class="c3-big">Что умеет<span>бот</span></h2>
-      <ol class="c3-td-list">
-        <li><b>Знакомит с&nbsp;мастерами</b><span>Кто чем занимается, у&nbsp;кого какая специализация.</span></li>
-        <li><b>Показывает свободное время</b><span>Только реальные окна в&nbsp;расписании.</span></li>
-        <li><b>Напоминает о&nbsp;визите</b><span>Меньше забытых записей и&nbsp;пустых окон.</span></li>
-        <li><b>Подходит экспертам</b><span>Так&nbsp;же работает запись к&nbsp;психологу, репетитору или на&nbsp;консультацию.</span></li>
-      </ol>
-    </div>
-  </section>
+    <!-- 2. задача и что умеет бот -->
+    <section class="c-td">
+      <div class="td-card" data-rv="left">
+        <span class="td-num">01</span>
+        <h2>Какая задача</h2>
+        <ol>
+          <li><b>Запись без звонков</b><span>Клиент записывается сам в&nbsp;любое время, даже ночью.</span></li>
+          <li><b>Нет двойных записей</b><span>Занятое время сразу пропадает из&nbsp;выбора.</span></li>
+          <li><b>Владелец всё видит</b><span>Каждая запись приходит ему уведомлением.</span></li>
+        </ol>
+      </div>
+      <div class="td-card td-light" data-rv="right" style="--d:0.15">
+        <span class="td-num">02</span>
+        <h2>Что умеет бот</h2>
+        <ol>
+          <li><b>Знакомит с&nbsp;мастерами</b><span>Кто чем занимается, у&nbsp;кого какая специализация.</span></li>
+          <li><b>Показывает свободное время</b><span>Только дни и&nbsp;часы, когда мастер действительно свободен.</span></li>
+          <li><b>Принимает записи вручную</b><span>Если клиент пришёл сам, владелец записывает его в&nbsp;пару нажатий.</span></li>
+          <li><b>Подходит не&nbsp;только барбершопам</b><span>Так&nbsp;же работает запись к&nbsp;психологу, репетитору, в&nbsp;салон или на&nbsp;консультацию.</span></li>
+        </ol>
+      </div>
+    </section>
 
-  <section class="c3-case-end">
-    <div class="c3-live c3-rv"><b>Нужен такой бот?</b><a class="c3-btn c3-btn-glow" href="index.html#contact">Оставить заявку <svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a></div>
-    <a class="c3-next c3-rv" href="case-avicenna.html"><span><small>Следующий кейс</small><b>Стоматология «Авиценна»</b></span><svg class="c3-ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
-  </section>
+    <!-- 3. шаги записи: клиент и владелец, рядом iPhone владельца -->
+    <section class="c-pages" id="steps">
+      <div class="c-mob fp-steps">
+        <div class="mob-tx" data-rv="left">
+          <h3>Как проходит запись</h3>
+          <div class="fp-who"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M168,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm72-8A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216,77.4,203.53a7.85,7.85,0,0,1,2.53-.42,8,8,0,0,1,4,1.08A88,88,0,0,0,216,128Z"/></svg>Клиент</div>
+          <ol class="fp-list">
+            <li>Выбирает мастера и&nbsp;услугу</li>
+            <li>Видит только дни со&nbsp;свободным временем</li>
+            <li>Выбирает свободный час</li>
+            <li>Получает подтверждение с&nbsp;адресом</li>
+          </ol>
+          <div class="fp-who"><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z"/></svg>Владелец</div>
+          <ol class="fp-list" start="5">
+            <li>Сразу получает уведомление о&nbsp;записи</li>
+            <li>Видит записи в&nbsp;своей панели</li>
+            <li>Записывает вручную тех, кто пришёл сам</li>
+            <li>Занятое время закрывается: никаких накладок</li>
+          </ol>
+        </div>
+        <div class="fp-own" data-rv="up">
+          <div class="tg-phone" data-tg="owner" role="img" aria-label="Переписка владельца с ботом: уведомление о новой записи, панель владельца и запись клиента вручную"><img class="tg-fallback" src="img/v4/fp-phone.jpg" alt="" width="388" height="640" /></div>
+          <p class="fp-cap"><b>Владелец</b>видит записи и&nbsp;закрывает время</p>
+        </div>
+      </div>
+    </section>
 
-  <footer class="c3-foot"><span>© 2026 CHESH, Тимофей Чешегоров</span><span class="c3-legal"><a href="privacy.html">Политика конфиденциальности</a></span></footer>
+    <!-- 4. финал -->
+    <section class="c-end">
+      <div class="live" data-rv="scale">
+        <div><small>Нужен такой бот?</small><b>Запись без звонков</b></div>
+        <a class="btn btn-glow" href="index.html#contact">Оставить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+      </div>
+      <a class="next" href="case-avicenna.html" data-rv="up" style="--d:0.1">
+        <img src="img/v3/av-ph-index.webp" alt="" width="390" height="800" loading="lazy" />
+        <span><small>Следующий кейс</small><b>Стоматология «Авиценна»</b></span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
+      </a>
+    </section>
+  </main>
+  <footer class="c-foot"><a class="btn btn-glow home" href="index.html"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>На главную</a><span>© 2026 Тимофей Чешегоров</span></footer>
+
+  <script src="js/v4.js?v=dd596543" defer></script>
+  <script src="js/v4-case.js?v=b7fca895" defer></script>
   <script src="js/metrika.js?v=4" defer></script>
-  <script src="js/v3.js?v=3" defer></script>
 </body>
 </html>

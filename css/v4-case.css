@@ -146,3 +146,69 @@
   .lb-prev, .lb-next { position: absolute; bottom: 24px; } .lb-prev { left: calc(50% - 64px); } .lb-next { right: calc(50% - 64px); }
   .c-foot { flex-direction: column; gap: 16px; } .c-foot .home { width: 100%; justify-content: center; }
 }
+
+/* кейс FadePoint: живой iPhone с Telegram (классическая светлая тема, зелёные обои), переписку проигрывает case.js */
+.fp-hero-ph { align-self: center; justify-self: center; display: grid; justify-items: center; gap: 16px; padding: 20px 0 30px 24px; }
+.fp-cap { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--mute); }
+.fp-cap b { padding: 5px 12px; border-radius: 999px; background: rgba(217, 198, 165, 0.14); color: var(--beige); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+.fp-steps { grid-template-columns: 1.1fr 1fr; }
+.fp-who { display: flex; align-items: center; gap: 10px; margin-top: 26px; font: 600 15px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--beige); }
+.fp-who .ico { font-size: 20px; }
+.fp-list { margin: 12px 0 0; padding: 0; list-style: none; counter-reset: fp; }
+.fp-list[start="5"] { counter-reset: fp 4; }
+.fp-list li { counter-increment: fp; display: grid; grid-template-columns: 34px 1fr; align-items: baseline; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 17px; color: var(--ink-2); }
+.fp-list li::before { content: counter(fp, decimal-leading-zero); font: 500 13px/1 var(--mono); color: var(--mute); }
+.fp-own { justify-self: center; display: grid; justify-items: center; gap: 16px; }
+
+.c-tx h1.one { font-size: clamp(40px, 4.6vw, 70px); white-space: nowrap; }
+.c-tx h1.one span { display: inline; }
+/* корпус iPhone: рамка, кнопки по бокам, Dynamic Island, полоска «домой» */
+.tg-phone { --w: min(330px, calc((100dvh - 190px) * 0.462)); position: relative; width: var(--w); aspect-ratio: 390 / 844; padding: 11px; border-radius: 58px; background: #0b0b0c;
+  box-shadow: 0 0 0 2px #6c6f75, 0 0 0 4px #2c2d31, 0 50px 90px -30px rgba(0, 0, 0, 0.95), 0 0 120px -20px rgba(140, 200, 140, 0.18); }
+.tg-phone::before, .tg-phone::after { content: ""; position: absolute; left: -6px; width: 4px; border-radius: 3px 0 0 3px; background: #55585e; }
+.tg-phone::before { top: 21%; height: 7%; } .tg-phone::after { top: 30%; height: 7%; }
+.tg-phone .side { position: absolute; right: -6px; top: 25%; width: 4px; height: 12%; border-radius: 0 3px 3px 0; background: #55585e; }
+.tg-scr { position: relative; height: 100%; border-radius: 47px; overflow: hidden; display: flex; flex-direction: column; font: 400 13.5px/1.32 -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; color: #000; letter-spacing: -0.01em;
+  background: #b9d8a2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' fill='none' stroke='%23477a3f' stroke-opacity='.16' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='20' cy='22' r='7'/%3E%3Cpath d='M70 14l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z'/%3E%3Cpath d='M18 78c6-8 14-8 20 0M18 86c6-8 14-8 20 0'/%3E%3Crect x='76' y='70' width='20' height='16' rx='4'/%3E%3Cpath d='M100 104l8-8M104 108l8-8M48 104a6 6 0 1 0 12 0a6 6 0 1 0-12 0'/%3E%3C/svg%3E") 0 0 / 120px 120px; }
+.tg-scr::before { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(232, 240, 170, 0.55), rgba(150, 205, 160, 0.25) 55%, rgba(120, 190, 175, 0.45)); pointer-events: none; }
+.tg-scr > * { position: relative; }
+.tg-island { position: absolute !important; z-index: 5; left: 50%; top: 10px; width: 29%; height: 30px; transform: translateX(-50%); border-radius: 999px; background: #000; }
+.tg-home { position: absolute !important; z-index: 5; left: 50%; bottom: 7px; width: 36%; height: 5px; transform: translateX(-50%); border-radius: 5px; background: #111; }
+.tg-status { display: flex; justify-content: space-between; align-items: center; height: 50px; padding: 4px 20px 0 30px; background: rgba(247, 247, 247, 0.94); font: 600 15px/1 -apple-system, "SF Pro Text", "Segoe UI", sans-serif; }
+.tg-status svg { height: 11px; width: auto; }
+.tg-status .ic { gap: 4px !important; }
+.tg-head { display: grid; grid-template-columns: 62px minmax(0, 1fr) 62px; align-items: center; padding: 4px 10px 8px; background: rgba(247, 247, 247, 0.94); border-bottom: 0.5px solid rgba(0, 0, 0, 0.18); }
+.tg-back { color: #3478f6; font-size: 15px; display: flex; align-items: center; gap: 2px; }
+.tg-back svg { height: 18px; }
+.tg-title { text-align: center; line-height: 1.15; min-width: 0; } .tg-title b { display: block; font-size: 14.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .tg-title small { color: #8a8a8e; font-size: 12px; }
+.tg-ava { justify-self: end; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(160deg, #6fd48b, #2e9f69); color: #fff; font-weight: 700; font-size: 13px; }
+.tg-chat { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 5px; padding: 10px 9px 8px; }
+.tg-chat > :first-child { margin-top: auto; }
+.tg-day { align-self: center; margin: 2px 0 6px; padding: 3px 10px; border-radius: 999px; background: rgba(60, 100, 60, 0.32); color: #fff; font-size: 12px; font-weight: 600; }
+.tg-msg { max-width: 84%; padding: 6px 10px 5px; border-radius: 17px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12); white-space: pre-line; animation: tgIn 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; }
+.tg-msg.bot { align-self: flex-start; background: #fff; border-bottom-left-radius: 5px; }
+.tg-msg.me { align-self: flex-end; background: #e1fec6; border-bottom-right-radius: 5px; }
+.tg-msg b { font-weight: 600; }
+.tg-t { float: right; margin: 6px 0 -3px 8px; font-size: 11px; color: #8a8a8e; }
+.tg-msg.me .tg-t { color: #4fae4e; }
+.tg-kb { align-self: flex-start; width: 84%; display: grid; gap: 4px; margin-top: -1px; animation: tgIn 0.35s ease both; }
+.tg-kb .row { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; }
+.tg-kb span { padding: 8px 4px; border-radius: 10px; text-align: center; font-size: 12.5px; font-weight: 600; color: #fff; background: rgba(62, 112, 66, 0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: background 0.2s, transform 0.2s; }
+.tg-kb span.tap { background: rgba(38, 78, 44, 0.75); transform: scale(0.95); }
+.tg-bar { display: flex; align-items: center; gap: 8px; padding: 7px 10px 26px; background: rgba(247, 247, 247, 0.96); border-top: 0.5px solid rgba(0, 0, 0, 0.15); }
+.tg-menu { display: flex; align-items: center; gap: 5px; padding: 6px 11px; border-radius: 999px; background: #3e88f7; color: #fff; font-size: 13px; font-weight: 600; }
+.tg-input { flex: 1; padding: 7px 12px; border-radius: 999px; background: #fff; border: 0.5px solid rgba(0, 0, 0, 0.18); color: #a1a1a6; font-size: 13.5px; }
+.tg-bar svg { height: 20px; color: #8a8a8e; }
+.tg-push { position: absolute !important; z-index: 6; left: 8px; right: 8px; top: 48px; display: grid; grid-template-columns: 34px 1fr; gap: 9px; padding: 10px 12px; border-radius: 20px; background: rgba(245, 245, 245, 0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); transform: translateY(calc(-100% - 70px)); opacity: 0; transition: transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.1), opacity 0.3s; font-size: 12.5px; }
+.tg-push.on { transform: none; opacity: 1; }
+.tg-push .tg-ava { width: 34px; height: 34px; font-size: 11px; }
+.tg-push b { display: flex; justify-content: space-between; font-size: 13px; } .tg-push b small { color: #8a8a8e; font-weight: 400; }
+.tg-fade { transition: opacity 0.6s; } .tg-fade.out { opacity: 0; }
+.tg-fallback { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.js .tg-fallback { display: none; }
+@keyframes tgIn { from { opacity: 0; transform: translateY(10px) scale(0.97); } }
+@media (prefers-reduced-motion: reduce) { .tg-msg, .tg-kb { animation: none; } }
+@media (max-width: 1100px) { .fp-hero-ph { padding: 26px 0 0; } .fp-steps { grid-template-columns: 1fr; } .tg-phone { --w: min(320px, 82vw); } }
+@media (max-width: 640px) { .tg-phone { --w: min(300px, 80vw); padding: 9px; border-radius: 50px; } .tg-scr { border-radius: 41px; font-size: 12.5px; } .fp-list li { font-size: 16px; } }
+.tg-status .ic { display: flex; gap: 5px; align-items: center; }
+.tg-bar .tg-menu svg { height: 11px; color: #fff; }
