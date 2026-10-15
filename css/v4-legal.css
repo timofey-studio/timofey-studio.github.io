@@ -62,3 +62,33 @@
 .doc-go .ico { transition: transform 0.3s var(--ease); } .doc:hover .doc-go .ico { transform: translate(2px, -2px); }
 @media (max-width: 900px) { .docs { grid-template-columns: 1fr; } .doc { min-height: 0; } }
 @media (max-width: 640px) { .docs { width: calc(100% - 24px); } }
+
+/* страница отзыва по личной ссылке: состояния «проверяю / ссылка не работает / форма / спасибо» (data-state на #reviewBox) */
+.rvp-hero { text-align: center; padding-bottom: 30px; }
+.rvp-hero .eyebrow { justify-content: center; margin-top: 0; }
+.rvp-hero h1 { max-width: none; } .rvp-hero h1 span { color: var(--beige); }
+.rvp-hero .lg-date { font-size: 18px; color: var(--ink-2); }
+.rv-box { width: min(760px, calc(100% - 32px)); margin: 0 auto 100px; padding: 40px clamp(22px, 5vw, 48px) 44px; border-radius: 28px; color: #1b1a17;
+  background: url(../img/v4/topo-beige.svg) 0 0 / 1200px 900px, #fbfaf8; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8); }
+.rvp-state, .st-form { display: none; }
+.rv-box[data-state="load"] .st-load, .rv-box[data-state="bad"] .st-bad, .rv-box[data-state="sent"] .st-sent { display: grid; justify-items: center; text-align: center; gap: 14px; }
+.rv-box[data-state="form"] .st-form { display: block; }
+.rvp-state h2 { font: 600 32px/1.05 var(--osw); text-transform: uppercase; }
+.rvp-state p { max-width: 32em; color: #4f4a42; font-size: 18px; }
+.rvp-ico { width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; font-size: 38px; }
+.rvp-ico.ok { background: #e3efe5; color: #3f8f55; } .rvp-ico.bad { background: #f3e7d6; color: #a0763a; }
+.spin { width: 34px; height: 34px; border-radius: 50%; border: 3px solid #e6e0d6; border-top-color: #1b1a17; animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* звёзды: справа налево, чтобы при наведении подсвечивались все до выбранной */
+.stars-pick { display: inline-flex; flex-direction: row-reverse; gap: 6px; }
+.stars-pick input { position: absolute; opacity: 0; pointer-events: none; }
+.stars-pick label { font-size: 42px; line-height: 1; color: #ddd5c6; cursor: pointer; transition: color 0.2s, transform 0.3s var(--ease); }
+.stars-pick label:hover, .stars-pick label:hover ~ label, .stars-pick input:checked ~ label { color: #c9a66b; }
+.stars-pick label:hover { transform: scale(1.15); }
+.stars-pick input:focus-visible + label { outline: 2px solid #1b1a17; outline-offset: 3px; border-radius: 6px; }
+.rv-box .field .count { display: block; margin-top: 5px; font-size: 13.5px; color: #8a8175; }
+.rv-note { display: flex; gap: 10px; align-items: flex-start; margin: 6px 0 18px; padding: 14px 16px; border-radius: 14px; background: #ece5d8; color: #4f4a42; font-size: 15.5px; }
+.rv-note .ico { flex: none; font-size: 20px; margin-top: 2px; color: #8a7350; }
+.rv-box .btn-dark { width: 100%; min-height: 58px; }
+.rv-box .lead-msg { margin-top: 10px; font-size: 15px; color: #c23b30; } .rv-box .lead-msg:empty { display: none; }
+@media (max-width: 640px) { .rv-box .row2 { grid-template-columns: 1fr; gap: 0; } .rvp-state h2 { font-size: 27px; } .stars-pick label { font-size: 38px; } }

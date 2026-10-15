@@ -56,8 +56,8 @@ a { color: inherit; }
 /* ── шапка: логотип слева, меню по центру, заявка справа; на телефоне — кнопка меню ── */
 .top { position: fixed; z-index: 50; left: 0; right: 0; top: 0; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; padding: 20px 36px; transition: background-color 0.4s, padding 0.4s; }
 .top.scrolled { background: rgba(13, 13, 14, 0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding: 12px 36px; }
-.logo { justify-self: start; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font: 600 23px/1 var(--osw); letter-spacing: 0.16em; }
-.logo svg { width: 32px; height: 32px; }
+.logo { justify-self: start; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font: 600 21px/1 var(--osw); letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; }
+.logo svg { width: 40px; height: 40px; flex: none; }
 .menu { display: flex; gap: 2px; padding: 6px; border-radius: 999px; background: rgba(20, 20, 22, 0.55); border: 1px solid var(--line); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
 .menu a { padding: 10px 17px; border-radius: 999px; text-decoration: none; font-size: 16.5px; color: var(--ink-2); transition: color 0.25s, background-color 0.25s, box-shadow 0.3s; }
 .menu a:hover { color: #fff; background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 20px -4px rgba(217, 198, 165, 0.45); }
@@ -456,7 +456,7 @@ a { color: inherit; }
 
 /* подвал */
 .foot { width: min(1400px, calc(100% - 72px)); margin: 0 auto; padding: 36px 0 46px; display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: 15.5px; color: var(--dim); }
-.foot .logo { font-size: 19px; } .foot .logo svg { width: 28px; height: 28px; }
+.foot .logo { font-size: 18px; } .foot .logo svg { width: 34px; height: 34px; }
 .foot .legal-links { display: flex; gap: 20px; } .foot a { color: var(--mute); text-decoration: none; transition: color 0.25s; } .foot .legal-links a:hover { color: var(--beige); }
 
 /* ── появление при прокрутке: разные анимации ── */
@@ -498,7 +498,7 @@ a { color: inherit; }
   :root { --wh: 44px; }
   body { font-size: 17.5px; }
   .top { padding: 12px 14px; } .top.scrolled { padding: 8px 14px; }
-  .logo { font-size: 19px; } .logo svg { width: 28px; height: 28px; }
+  .logo { font-size: 17px; gap: 9px; } .logo svg { width: 34px; height: 34px; }
   .top .btn-glow { display: none; }
   .hero { padding: 92px 0 calc(30px + var(--wh)); }
   .hero-in { width: calc(100% - 32px); gap: 26px; }

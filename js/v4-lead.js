@@ -60,7 +60,7 @@ function initLead() {
 
   const state = (name) => { box.classList.remove("sent", "fallback"); if (name) box.classList.add(name); };
   const textOf = (d) => [
-    "Здравствуйте! Заявка с сайта CHESH",
+    "Здравствуйте! Заявка с сайта",
     "Имя: " + d.name,
     "Связь: " + d.contact,
     d.services.length ? "Нужно: " + d.services.join(", ") : "",
