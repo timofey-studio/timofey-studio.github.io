@@ -296,8 +296,34 @@ a { color: inherit; }
 .me-name b { display: block; font: 600 20px/1.1 var(--osw); text-transform: uppercase; letter-spacing: 0.04em; } .me-name small { font-size: 14.5px; color: var(--beige); }
 
 /* 2. четыре направления: четыре живые сцены (сайт, бот, автоматизация, личный бренд) */
-.dirs { list-style: none; }
-.dirs li { display: grid; grid-template-columns: 44px 1fr auto; gap: 16px; align-items: center; padding: 15px 12px; margin: 0 -12px; border-radius: 14px; border-bottom: 1px solid rgba(27, 26, 23, 0.12); cursor: default; transition: background-color 0.35s, box-shadow 0.35s; }
+.dirs { list-style: none; position: relative; }
+.dirs li { cursor: pointer; column-gap: 12px; }
+.dirs li b { white-space: nowrap; } .dirs li small { line-height: 1.25; }
+.dirs li:focus-visible { outline: 2px solid var(--beige); outline-offset: 2px; }
+.dirs li .ico.more { width: 26px; height: 26px; padding: 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px rgba(27, 26, 23, 0.14); color: #1b1a17; transition: transform 0.35s var(--ease), background-color 0.25s, color 0.25s; }
+.dirs li:hover .ico.more, .dirs li.open .ico.more { background: #1b1a17; color: #fff; }
+.dirs li.open .ico.more { transform: rotate(45deg); }
+/* окошко с сутью направления */
+.dir-pop { position: absolute; z-index: 5; left: -12px; right: -12px; visibility: hidden; opacity: 0; pointer-events: none; transform: translateY(-6px); clip-path: inset(0 0 100% 0 round 18px);
+  transition: opacity 0.3s ease, transform 0.5s var(--ease), clip-path 0.55s var(--ease), visibility 0s linear 0.55s; padding: 20px 46px 18px 22px; border-radius: 18px; background: #1b1a17; color: #f2f0ec; box-shadow: 0 24px 50px -18px rgba(27, 26, 23, 0.55), 0 0 0 1px rgba(217, 198, 165, 0.35); text-align: left; }
+.dir-pop[hidden] { display: none; }
+.dirs .dir-pop .ico { width: 18px; height: 18px; padding: 0; border-radius: 0; background: none; color: inherit; } /* окошко внутри списка: не брать стиль иконок строк */
+.dir-pop .dp-x { display: grid; place-items: center; }
+.dir-pop .dp-t { display: block; font: 600 20px/1.15 var(--osw); text-transform: uppercase; letter-spacing: 0.02em; color: var(--beige); }
+.dir-pop .dp-p { margin-top: 10px; font-size: 16.5px; line-height: 1.55; color: #dcd7cf; }
+.dir-pop .dp-go { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; color: #fff; font-weight: 500; font-size: 15.5px; text-decoration: none; border-bottom: 1px solid rgba(217, 198, 165, 0.6); }
+.dir-pop .dp-go:hover { border-color: var(--beige); color: var(--beige); }
+.dir-pop .dp-x { position: absolute; right: 10px; top: 10px; width: 30px; height: 30px; padding: 7px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #fff; cursor: pointer; }
+.dir-pop .dp-x:hover { background: rgba(255, 255, 255, 0.2); }
+.dir-pop.up { transform: translateY(6px); clip-path: inset(100% 0 0 0 round 18px); }
+.dir-pop.side { left: calc(100% + 36px); right: auto; width: 440px; transform: translateX(-36px); clip-path: inset(0 100% 0 0 round 18px); }
+.dir-pop.show { visibility: visible; opacity: 1; pointer-events: auto; transform: none; clip-path: inset(0 0 0 0 round 18px); transition: opacity 0.3s ease, transform 0.5s var(--ease), clip-path 0.55s var(--ease), visibility 0s; }
+/* телефон и планшет: описание раскрывается прямо под строкой и сдвигает остальные вниз */
+.dir-pop.inline { position: relative; left: auto; right: auto; top: auto; bottom: auto; margin: 0 -12px; max-height: 0; padding-top: 0; padding-bottom: 0; transform: none; clip-path: none;
+  transition: max-height 0.5s var(--ease), padding 0.5s var(--ease), margin 0.5s var(--ease), opacity 0.3s ease, visibility 0s linear 0.5s; overflow: hidden; }
+.dir-pop.inline.show { max-height: 420px; padding-top: 20px; padding-bottom: 18px; margin: 8px -12px 10px; transition: max-height 0.5s var(--ease), padding 0.5s var(--ease), margin 0.5s var(--ease), opacity 0.3s ease, visibility 0s; }
+@media (prefers-reduced-motion: reduce) { .dir-pop, .dir-pop.show { transition: none; } }
+.dirs li { display: grid; grid-template-columns: 44px 1fr auto 26px; gap: 16px; align-items: center; padding: 15px 12px; margin: 0 -12px; border-radius: 14px; border-bottom: 1px solid rgba(27, 26, 23, 0.12); cursor: default; transition: background-color 0.35s, box-shadow 0.35s; }
 .dirs li.on { background: rgba(255, 255, 255, 0.65); box-shadow: 0 0 0 1px rgba(217, 198, 165, 0.8), 0 0 24px -6px rgba(217, 198, 165, 0.9); border-bottom-color: transparent; }
 .dirs .ico { width: 44px; height: 44px; padding: 10px; border-radius: 13px; background: #1b1a17; color: var(--beige); }
 .dirs b { font-weight: 500; font-size: 20.5px; } .dirs small { font-size: 16.5px; color: #6b655c; text-align: right; }

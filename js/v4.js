@@ -194,7 +194,7 @@
 (function () {
   const box = document.getElementById("scenes"), dirs = document.getElementById("dirs");
   if (!box || !dirs) return;
-  const sc = Array.from(box.querySelectorAll(".sc")), rows = Array.from(dirs.children);
+  const sc = Array.from(box.querySelectorAll(".sc")), rows = Array.from(dirs.querySelectorAll("li"));
   let at = -1, hold = false;
   const show = (k) => {
     at = k;
@@ -206,7 +206,7 @@
     el.addEventListener("mouseenter", () => { hold = true; show(+el.dataset.k); });
     el.addEventListener("mouseleave", () => { hold = false; });
   });
-  setInterval(() => { if (!hold && box.classList.contains("in")) show((at + 1) % sc.length); }, 2600);
+  setInterval(() => { if (!hold && !dirs.querySelector("li.open") && box.classList.contains("in")) show((at + 1) % sc.length); }, 2600);
   // лайки в сцене «Личный бренд» растут, когда сцену видно
   const cnt = box.querySelector(".cnt");
   if (cnt && "IntersectionObserver" in window) {
@@ -217,6 +217,81 @@
       run = setInterval(() => { n = n >= +cnt.dataset.to ? 120 : n + 3; cnt.textContent = n; }, 60);
     }).observe(cnt);
   }
+})();
+
+// «Четыре направления»: по нажатию на строку её описание выезжает вбок (на компьютере) или раскрывается у строки (на телефоне).
+// Открыли другое: прежнее плавно уезжает обратно. Закрывают крестик, повторное нажатие, Esc и клик мимо.
+(function () {
+  const dirs = document.getElementById("dirs"), tpl = document.getElementById("dirPop");
+  if (!dirs || !tpl) return;
+  const rows = Array.from(dirs.querySelectorAll("li"));
+  let cur = null;
+  const pops = rows.map((li) => {
+    const p = tpl.cloneNode(true);
+    p.removeAttribute("id"); p.removeAttribute("hidden");
+    p.querySelector(".dp-t").textContent = li.querySelector("b").textContent;
+    p.querySelector(".dp-p").innerHTML = li.dataset.about; // текст свой, из разметки сайта
+    p.setAttribute("aria-label", li.querySelector("b").textContent);
+    p.querySelector(".dp-x").addEventListener("click", (e) => { e.stopPropagation(); close(true); });
+    p.querySelector(".dp-go").addEventListener("click", () => close());
+    dirs.appendChild(p);
+    return p;
+  });
+  tpl.remove();
+  const place = (li, p) => {
+    const k = rows.indexOf(li), side = innerWidth > 1100, low = k >= rows.length / 2;
+    p.classList.toggle("side", side);
+    p.classList.toggle("inline", !side);
+    p.style.top = p.style.bottom = "";
+    if (side) {
+      if (p.parentNode !== dirs || p.previousElementSibling === li) dirs.appendChild(p);
+      p.style.top = (low ? li.offsetTop + li.offsetHeight - p.offsetHeight : li.offsetTop) + "px";
+    } else if (li.nextElementSibling !== p) li.after(p); // на телефоне окошко стоит прямо под своей строкой
+  };
+  function close(focus) {
+    if (!cur) return;
+    const li = cur; cur = null;
+    li.classList.remove("open"); li.setAttribute("aria-expanded", "false");
+    pops[rows.indexOf(li)].classList.remove("show");
+    if (focus) li.focus();
+  }
+  const open = (li) => {
+    if (cur === li) { close(true); return; }
+    close();
+    const p = pops[rows.indexOf(li)];
+    place(li, p);
+    cur = li;
+    li.classList.add("open"); li.setAttribute("aria-expanded", "true");
+    requestAnimationFrame(() => p.classList.add("show"));
+  };
+  rows.forEach((li) => {
+    li.setAttribute("aria-expanded", "false");
+    li.addEventListener("click", () => open(li));
+    li.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(li); } });
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(true); });
+  document.addEventListener("click", (e) => { if (cur && !pops.some((p) => p.contains(e.target)) && !cur.contains(e.target)) close(); });
+  addEventListener("resize", () => { if (cur) place(cur, pops[rows.indexOf(cur)]); });
+})();
+
+// Вопросы: фото рядом ровно от строки «04 · Вопросы» до последней черты списка (считаем по закрытым вопросам, чтобы фото не прыгало)
+(function () {
+  const sec = document.getElementById("faq");
+  if (!sec) return;
+  const media = sec.querySelector(".sp-media"), meta = sec.querySelector(".sp-meta"), list = sec.querySelector(".faq-list");
+  const top = (el) => { let y = 0; for (let e = el; e && e !== sec; e = e.offsetParent) y += e.offsetTop; return y; };
+  const fit = () => {
+    if (innerWidth <= 1100) { media.style.marginTop = media.style.height = ""; return; }
+    const y0 = top(meta);
+    let y1 = top(list);
+    list.querySelectorAll("details").forEach((d) => { y1 += d.querySelector("summary").offsetHeight + 1; });
+    media.style.marginTop = y0 + "px";
+    media.style.height = Math.max(300, y1 - y0) + "px";
+  };
+  fit();
+  addEventListener("load", fit);
+  addEventListener("resize", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();
 
 // Вопросы: ответ раскрывается и сворачивается плавно; открыт только один
