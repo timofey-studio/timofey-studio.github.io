@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /avicenna/
+Disallow: /review.html
 
-Sitemap: https://timofey-studio.github.io/sitemap.xml
+Sitemap: https://chesh-studio.ru/sitemap.xml

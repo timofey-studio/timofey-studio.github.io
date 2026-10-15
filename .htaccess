@@ -1,0 +1,33 @@
+# Хостинг REG.RU (Apache). На GitHub Pages этот файл ни на что не влияет.
+AddDefaultCharset UTF-8
+ErrorDocument 404 /404.html
+Options -Indexes
+
+RewriteEngine On
+# всегда https и без www: один адрес сайта для людей и поисковиков
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://chesh-studio.ru/$1 [R=301,L]
+# /index.html -> /
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?] [NC]
+RewriteRule ^index\.html$ https://chesh-studio.ru/ [R=301,L]
+
+# стили и скрипты подключены с меткой версии (?v=...), их можно долго хранить в браузере
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType video/mp4 "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+AddType font/woff2 .woff2
+AddType image/webp .webp
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript image/svg+xml application/json text/plain application/xml
+</IfModule>
