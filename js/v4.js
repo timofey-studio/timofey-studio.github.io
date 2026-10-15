@@ -114,20 +114,22 @@
 
   // перетаскивание: карточки идут ровно за пальцем, после отпускания докатываются по инерции до ближайшей
   let dragging = false, down = false, x0 = 0, t0 = 0, moved = 0, lastX = 0, lastT = 0, v = 0;
+  // сайт на компьютере уменьшен (zoom 0.9): координаты мыши переводим в пиксели страницы, чтобы карточки шли ровно за пальцем
+  const zk = () => parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
   const toDeg = (px) => (px / R) * 180 / Math.PI;
   area.addEventListener("pointerdown", (e) => {
     if (e.button !== 0) return;
-    down = true; moved = 0; x0 = lastX = e.clientX; t0 = target; lastT = performance.now(); v = 0;
+    down = true; moved = 0; x0 = lastX = (e.clientX / zk()); t0 = target; lastT = performance.now(); v = 0;
   });
   area.addEventListener("pointermove", (e) => {
     if (!down) return;
-    const dx = e.clientX - x0;
+    const dx = (e.clientX / zk()) - x0;
     moved = Math.max(moved, Math.abs(dx));
     if (moved < 6) return; // пока это нажатие, а не перетаскивание
     if (!dragging) { dragging = true; area.setPointerCapture(e.pointerId); }
     const t = performance.now();
-    v = 0.8 * v + 0.2 * ((e.clientX - lastX) / Math.max(1, t - lastT));
-    lastX = e.clientX; lastT = t;
+    v = 0.8 * v + 0.2 * (((e.clientX / zk()) - lastX) / Math.max(1, t - lastT));
+    lastX = (e.clientX / zk()); lastT = t;
     target = clampDeg(t0 + toDeg(dx)); run();
   });
   const up = () => {

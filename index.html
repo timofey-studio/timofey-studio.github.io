@@ -34,10 +34,24 @@
     window.HERO_BG = "img/v4/bg-2.jpg";
   </script>
   <link rel="preload" as="image" href="video/v4/tb-desktop.jpg" />
-  <link rel="stylesheet" href="css/v4.css?v=038b31e1" />
+  <link rel="stylesheet" href="css/v4.css?v=257aaa02" />
 </head>
 <body>
-  <header class="top" id="top">
+  <script>
+  // масштаб сайта на компьютере: образец: вид 2094×1006 (ноутбук Тимофея при масштабе 90%).
+  // Окно больше или меньше сайт пропорционально крупнее или мельче, но не меньше 0.75 (текст читается) и не больше 1.25.
+  (function () {
+    var d = document.documentElement;
+    function fit() {
+      var w = innerWidth, h = innerHeight, z = 1;
+      if (w > 1100) z = Math.max(0.75, Math.min(1.25, Math.min(w / 2094, h / 1006)));
+      d.style.setProperty("--z", z.toFixed(3));
+    }
+    fit();
+    addEventListener("resize", fit);
+  })();
+</script>
+<header class="top" id="top">
     <a class="logo" href="#hero" aria-label="Тимофей Чешегоров, в начало"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="1" y="1" width="62" height="62" rx="15" fill="#161617" stroke="#c9a66b" stroke-opacity=".5" stroke-width="1.5"/><g transform="translate(12.53 13.52) scale(0.66)"><path d="M0 4H40V22A4 4 0 0 0 44 26H49V4H59V52H49V36H44A14 14 0 0 1 30 22V14H25V52H15V14H0Z" fill="none" stroke="#c9a66b" stroke-width="2.8"/><path d="M44.5 9.9Q44.5 13.5 48.1 13.5Q44.5 13.5 44.5 17.1Q44.5 13.5 40.9 13.5Q44.5 13.5 44.5 9.9Z" fill="#c9a66b"/></g></svg><span>Тимофей Чешегоров</span></a>
     <nav class="menu" aria-label="Разделы">
       <a href="#work">Кейсы</a><a href="#about">Обо мне</a><a href="#how">Как работаю</a><a href="#reviews">Отзывы</a><a href="#faq">Вопросы</a><a href="dokumenty.html">Документы</a>
@@ -164,9 +178,8 @@
     <div class="wv s-white" aria-hidden="true"></div>
     <!-- 1. Обо мне -->
     <section class="split s-white" id="about">
-      <div class="sp-media me v1" data-rv="left">
-        <i class="me-ring"></i>
-        <img class="me-photo" src="img/v4/tima-cut.webp" alt="Тимофей Чешегоров" width="863" height="1200" loading="lazy" />
+      <div class="sp-media me v1 va" data-rv="left">
+        <div class="me-fit"><img src="img/v4/tima-photo.jpg" alt="Тимофей Чешегоров" width="640" height="853" loading="lazy" /></div>
         <span class="sp-badge b-tr"><i class="dot"></i>На&nbsp;связи · беру новые проекты</span>
         <span class="me-name"><b>Тимофей Чешегоров</b><small>Воплощаю ваши задумки в&nbsp;реальность</small></span>
       </div>
@@ -341,7 +354,7 @@
     <span class="legal-links"><a href="dokumenty.html">Документы</a><a href="privacy.html">Политика конфиденциальности</a><a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
   </footer>
 
-  <script src="js/v4.js?v=dd596543" defer></script>
+  <script src="js/v4.js?v=e38863bd" defer></script>
   <script src="js/v4-lead.js?v=f1f8e6d0" defer></script>
   <script src="js/metrika.js?v=4" defer></script>
 </body>
