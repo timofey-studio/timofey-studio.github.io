@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chesh-studio.ru/sitemap.xml
