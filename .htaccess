@@ -5,7 +5,8 @@ Options -Indexes
 
 RewriteEngine On
 # всегда https и без www: один адрес сайта для людей и поисковиков
-RewriteCond %{HTTPS} off [OR]
+# (https проверяем по порту, как в правиле, которое REG.RU ставит сам: %{HTTPS} за их прокси ненадёжен)
+RewriteCond %{SERVER_PORT} !^443$ [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^(.*)$ https://chesh-studio.ru/$1 [R=301,L]
 # /index.html -> /
