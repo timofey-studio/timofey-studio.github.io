@@ -28,6 +28,8 @@ async function initReviewPage() {
   const count = form.querySelector(".count");
   f("text").addEventListener("input", () => { const l = f("text").value.trim().length; count.textContent = l < 20 ? `ещё ${20 - l} ${plural(20 - l, "символ", "символа", "символов")}` : `${l} / 1000`; });
   const ERR = { name: "Имя — только буквами", business: "В названии бизнеса не нужны ссылки и символы < >", rating: "Поставьте оценку звёздами", short: "Напишите хотя бы пару предложений", text: "Ссылки и символы < > в отзыве не нужны", invite: "Ссылка уже использована или устарела — напишите мне в Telegram", too_many: "Слишком много попыток — попробуйте через 10 минут" };
+  let tried = false; // была попытка, оборвавшаяся без ответа: отзыв мог уже дойти
+  const done = () => { state("sent"); window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); };
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const d = { code, name: f("name").value.trim(), business: f("business").value.trim(), text: f("text").value.trim(), rating: Number((form.querySelector('[name="rating"]:checked') || {}).value || 0), website: f("website").value };
@@ -40,15 +42,20 @@ async function initReviewPage() {
     msg.textContent = err;
     if (err) return;
     const btn = form.querySelector("button[type=submit]");
-    btn.disabled = true;
+    const label = btn.innerHTML;
+    btn.disabled = true; btn.classList.add("sending"); btn.textContent = "Отправляю…"; msg.textContent = "";
     try {
       const r = await fetch(LEAD_ENDPOINT + "/review", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) });
       const j = await r.json().catch(() => ({}));
-      if (!r.ok || !j.ok) { msg.textContent = ERR[j.error] || "Не получилось отправить — попробуйте ещё раз или напишите мне в Telegram"; return; }
-      state("sent");
-      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
-    } catch (e2) { msg.textContent = "Нет связи — проверьте интернет и попробуйте ещё раз"; }
-    finally { btn.disabled = false; }
+      if (!r.ok || !j.ok) {
+        // прошлая попытка оборвалась, а ссылка уже использована: значит, отзыв тогда дошёл
+        if (j.error === "invite" && tried) { done(); return; }
+        msg.textContent = ERR[j.error] || "Не получилось отправить — попробуйте ещё раз или напишите мне в Telegram";
+        return;
+      }
+      done();
+    } catch (e2) { tried = true; msg.textContent = "Нет связи — проверьте интернет и попробуйте ещё раз"; }
+    finally { btn.disabled = false; btn.classList.remove("sending"); btn.innerHTML = label; }
   });
 }
 

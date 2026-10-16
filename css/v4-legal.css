@@ -90,6 +90,7 @@
 .rv-note { display: flex; gap: 10px; align-items: flex-start; margin: 6px 0 18px; padding: 14px 16px; border-radius: 14px; background: #ece5d8; color: #4f4a42; font-size: 15.5px; }
 .rv-note .ico { flex: none; font-size: 20px; margin-top: 2px; color: #8a7350; }
 .rv-box .btn-dark { width: 100%; min-height: 58px; }
+.rv-box .btn-dark.sending { opacity: 0.6; cursor: progress; } /* пока отзыв отправляется */
 .rv-box .lead-msg { margin-top: 10px; font-size: 15px; color: #c23b30; } .rv-box .lead-msg:empty { display: none; }
 @media (max-width: 640px) { .rv-box .row2 { grid-template-columns: 1fr; gap: 0; } .rvp-state h2 { font-size: 27px; } .stars-pick label { font-size: 38px; } }
 
