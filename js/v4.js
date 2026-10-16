@@ -355,6 +355,29 @@
   const plural = (n, a, b, c) => (n % 10 === 1 && n % 100 !== 11 ? a : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? b : c);
   const month = (d) => { try { return new Date(d).toLocaleDateString("ru-RU", { month: "long", year: "numeric" }); } catch (e) { return ""; } };
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  // длинный отзыв сворачиваем: мерка — первый отзыв на сайте (Светлана, 385 символов); всё длиннее — с кнопкой «Развернуть»
+  const LONG = 385;
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const short = (t) => { const cut = t.slice(0, LONG - 10); const sp = cut.lastIndexOf(" "); return (sp > LONG * 0.6 ? cut.slice(0, sp) : cut).replace(/[\s.,;:!?…-]+$/, "") + "…"; };
+  const body = (text, card) => {
+    const box = el("div", "rv-body"), q = el("blockquote", null, text);
+    box.appendChild(q);
+    if (text.length <= LONG) return box;
+    const btn = el("button", "rv-more", "Развернуть");
+    btn.type = "button"; btn.setAttribute("aria-expanded", "false");
+    q.textContent = short(text);
+    btn.addEventListener("click", () => {
+      const open = btn.getAttribute("aria-expanded") !== "true";
+      const from = q.offsetHeight;
+      q.textContent = open ? text : short(text);
+      btn.textContent = open ? "Свернуть" : "Развернуть";
+      btn.setAttribute("aria-expanded", String(open));
+      if (!calm) { q.style.overflow = "hidden"; q.animate({ height: [from + "px", q.offsetHeight + "px"] }, { duration: 380, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }).onfinish = () => { q.style.overflow = ""; }; }
+      if (!open && card.getBoundingClientRect().top < 0) card.scrollIntoView({ block: "start", behavior: calm ? "auto" : "smooth" });
+    });
+    box.appendChild(btn);
+    return box;
+  };
   fetch("https://chesh-leads.chesh.workers.dev/reviews").then((r) => r.json()).then((d) => {
     const items = (d && d.reviews) || [];
     if (!items.length) return;
@@ -364,7 +387,7 @@
       const st = el("div", "rv-stars", "★".repeat(it.rating)); st.setAttribute("aria-label", "Оценка " + it.rating + " из 5"); st.appendChild(el("span", null, "★".repeat(5 - it.rating)));
       const who = el("figcaption", "rv-who"), ava = el("span", "rv-ava", (it.name || "?").trim().charAt(0).toUpperCase()), t = el("span");
       ava.setAttribute("aria-hidden", "true"); t.appendChild(el("b", null, it.name)); t.appendChild(document.createTextNode([it.business, month(it.date)].filter(Boolean).join(" · ")));
-      who.append(ava, t); card.append(st, el("blockquote", null, it.text), who);
+      who.append(ava, t); card.append(st, body(it.text || "", card), who);
       if (it.answer) { const a = el("div", "rv-answer"); a.append(el("b", null, "Ответ Тимофея"), el("p", null, it.answer)); card.appendChild(a); }
       list.appendChild(card);
     });
