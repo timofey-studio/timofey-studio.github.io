@@ -212,3 +212,53 @@
 @media (max-width: 640px) { .tg-phone { --w: min(300px, calc(80vw / var(--z))); } .fp-list li { font-size: 16px; } }
 .tg-status .ic { display: flex; gap: 1.62cqw; align-items: center; }
 .tg-bar .tg-menu svg { height: 3.57cqw; color: #fff; }
+
+/* тема MAX для телефона (кейс бота в MAX): светлый чат без обоев, фиолетово-синие акценты, белые кнопки бота */
+.tg-phone.max .tg-scr { background: #eef0f5; }
+.tg-phone.max .tg-scr::before { display: none; }
+.tg-phone.max .tg-status, .tg-phone.max .tg-head, .tg-phone.max .tg-bar { background: rgba(255, 255, 255, 0.96); }
+.tg-phone.max .tg-back { color: #5a4bff; }
+.tg-phone.max .tg-ava { background: linear-gradient(140deg, #3d8bff, #8a4dff); }
+.tg-phone.max .tg-day { background: rgba(60, 64, 80, 0.12); color: #555b6e; }
+.tg-phone.max .tg-msg.bot { background: #fff; }
+.tg-phone.max .tg-msg.me { background: #e4e0ff; }
+.tg-phone.max .tg-msg.me .tg-t { color: #6c5cff; }
+.tg-phone.max .tg-msg.upd { box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.55), 0 1px 1px rgba(0, 0, 0, 0.12); transition: box-shadow 0.4s; }
+.tg-phone.max .tg-kb span { background: #fff; color: #5a4bff; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.tg-phone.max .tg-kb span.tap { background: #ece9ff; transform: scale(0.95); }
+.tg-phone.max .tg-menu { background: linear-gradient(120deg, #3d8bff, #8a4dff); }
+.tg-phone.max .tg-input { background: #f1f2f6; border-color: transparent; }
+.tg-phone.max { box-shadow: 0 0 0 2px #6c6f75, 0 0 0 4px #2c2d31, 0 50px 90px -30px rgba(0, 0, 0, 0.95), 0 0 120px -20px rgba(120, 110, 255, 0.22); }
+/* блоки кейса MAX: оформление на организацию и что ещё умеет бот */
+.mx-org { width: min(1320px, calc(100% - 72px)); margin: 0 auto; padding: 30px 0 0; }
+.mx-org .box { display: grid; grid-template-columns: 1fr 1.15fr; gap: 40px; align-items: center; padding: 46px 50px; border-radius: 32px; background: #ece5d8; color: #1b1a17; }
+.mx-org h3 { font: 600 clamp(26px, 2.3vw, 38px)/1.02 var(--osw); text-transform: uppercase; }
+.mx-org h3 span { color: #8a7a5c; }
+.mx-org .box > div > p { margin-top: 16px; font-size: 18px; line-height: 1.55; color: #4f4a42; }
+.mx-steps { list-style: none; counter-reset: mx; display: grid; gap: 12px; }
+.mx-steps li { counter-increment: mx; display: grid; grid-template-columns: 46px 1fr; gap: 14px; align-items: start; padding: 16px 18px; border-radius: 18px; background: #fbf9f5; box-shadow: 0 0 0 1px rgba(27, 26, 23, 0.08); }
+.mx-steps li::before { content: counter(mx, decimal-leading-zero); display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: #1b1a17; color: var(--beige); font: 500 15px var(--mono); }
+.mx-steps b { display: block; font-size: 18px; font-weight: 500; } .mx-steps small { display: block; margin-top: 4px; font-size: 15.5px; line-height: 1.45; color: #6b655c; }
+.mx-fx { width: min(1320px, calc(100% - 72px)); margin: 0 auto; padding: 90px 0 0; }
+.mx-fx > h3 { font: 600 clamp(28px, 2.6vw, 42px)/1.02 var(--osw); text-transform: uppercase; }
+.mx-fx > h3 span { color: var(--beige); }
+.mx-fx > p { margin-top: 14px; max-width: 46em; color: var(--mute); font-size: 18px; }
+.mx-grid { margin-top: 34px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.mx-grid div { padding: 26px 24px; border-radius: 22px; background: rgba(255, 255, 255, 0.04); box-shadow: 0 0 0 1px var(--line-2); }
+.mx-grid .ico { width: 46px; height: 46px; padding: 11px; border-radius: 14px; background: #1b1a17; color: var(--beige); box-shadow: 0 0 0 1px rgba(217, 198, 165, 0.3); }
+.mx-grid b { display: block; margin-top: 18px; font: 600 22px/1.1 var(--osw); text-transform: uppercase; }
+.mx-grid small { display: block; margin-top: 10px; font-size: 16px; line-height: 1.5; color: var(--ink-2); }
+.mx-grid .now { display: inline-block; margin-top: 14px; padding: 4px 10px; border-radius: 999px; background: rgba(76, 138, 90, 0.18); color: #9fd1a8; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+@media (max-width: 1100px) { .mx-org .box { grid-template-columns: 1fr; padding: 34px 28px; } .mx-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .mx-org, .mx-fx { width: calc(100% - 32px); } .mx-grid { grid-template-columns: 1fr; } .mx-fx { padding-top: 60px; } }
+
+/* заголовок «Пример» перед задачей и решением (бот — общий, конкретный проект — пример) */
+.c-ex { width: min(1320px, calc(100% - 72px)); margin: 0 auto; padding: 110px 0 0; }
+.c-ex h2 { margin-top: 14px; font: 600 clamp(28px, 2.6vw, 42px)/1.04 var(--osw); text-transform: uppercase; }
+.c-ex h2 span { color: var(--beige); }
+.c-ex p { margin-top: 14px; max-width: 46em; color: var(--mute); font-size: 18px; }
+.c-ex + .c-td { padding-top: 36px; }
+.mx-many { margin-top: 18px; display: flex; align-items: center; gap: 16px; padding: 20px 24px; border-radius: 20px; background: rgba(217, 198, 165, 0.08); box-shadow: 0 0 0 1px rgba(217, 198, 165, 0.25); font-size: 17.5px; line-height: 1.5; color: var(--ink-2); }
+.mx-many .ico { flex: none; width: 44px; height: 44px; padding: 10px; border-radius: 13px; background: #1b1a17; color: var(--beige); }
+.mx-fx + .c-ex { padding-top: 90px; }
+@media (max-width: 640px) { .c-ex { width: calc(100% - 32px); padding-top: 70px; } .mx-many { align-items: flex-start; } }

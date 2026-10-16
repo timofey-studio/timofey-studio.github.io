@@ -91,16 +91,46 @@
       { bot: "<b>✅ Время занято</b> · запись №13\nМаксим · завтра, 16:00 · Иван\nКлиенты бота больше не смогут записаться на это время." },
     ],
   };
+  // кейс бота в MAX: клиника получает отзыв с сайта и публикует его одной кнопкой; пациент узнаёт цены и записывается
+  SCRIPTS["max-owner"] = [
+    { push: "Новый отзыв с сайта ★★★★★" },
+    { bot: "<b>Новый отзыв с сайта</b>  ★★★★★\n<b>Ирина</b>, 14.10.2026\n\nБоялась идти, но всё прошло спокойно и без боли. Доктор всё объяснил, спасибо!\n\nТелефон: +7 9•• •••-••-12 <i>(на сайте не показывается)</i>", t: "14:05",
+      kb: [["✅ Опубликовать", "✖ Отклонить"]], tap: [0, 0] },
+    { edit: "\n\n✅ <b>Опубликован на сайте</b>", kb: [["Снять с сайта"]], wait: 2600 },
+    { bot: "Отзыв уже на сайте avicenna45.ru: в ленте на главной и на странице «Отзывы».", t: "14:05" },
+  ];
+  SCRIPTS["max-client"] = [
+    { me: "Здравствуйте! Сколько стоит лечение кариеса?", t: "18:42" },
+    { bot: "Здравствуйте! Лечение кариеса: от 3 500 ₽, точнее скажет врач на осмотре.\nЗаписать вас?", kb: [["📅 Записаться", "📍 Адрес и часы"]], tap: [0, 0] },
+    { bot: "Выберите удобный день:", kb: [["Пн 20.10", "Вт 21.10", "Ср 22.10"]], tap: [0, 1] },
+    { bot: "Свободное время во вторник:", kb: [["10:00", "12:30", "15:00"]], tap: [0, 1] },
+    { bot: "<b>Вы записаны!</b>\nВт 21.10 · 12:30\nНапомню за день до приёма 🔔", t: "18:43" },
+  ];
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   function build(ph) {
+    // название чата, буквы на аватарке и тема берутся из разметки: data-title, data-ava, data-theme («max» — светлая тема MAX)
+    const title = ph.dataset.title || "FadePoint Barbershop", ava = ph.dataset.ava || "FP";
+    if (ph.dataset.theme) ph.classList.add(ph.dataset.theme);
     ph.innerHTML = '<i class="side"></i><div class="tg-scr"><i class="tg-island"></i>' +
       `<div class="tg-status"><span class="tg-clock">12:30</span><span class="ic">${I.signal}${I.wifi}${I.battery}</span></div>` +
-      `<div class="tg-head"><span class="tg-back">${I.back}Чаты</span><span class="tg-title"><b>FadePoint Barbershop</b><small>бот</small></span><span class="tg-ava">FP</span></div>` +
+      `<div class="tg-head"><span class="tg-back">${I.back}Чаты</span><span class="tg-title"><b>${title}</b><small>бот</small></span><span class="tg-ava">${ava}</span></div>` +
       '<div class="tg-chat tg-fade"></div>' +
       `<div class="tg-bar"><span class="tg-menu">${I.menu}Меню</span><span class="tg-input">Сообщение</span>${I.mic}</div>` +
-      '<div class="tg-push"><span class="tg-ava">FP</span><span><b>FadePoint Barbershop <small>сейчас</small></b><span class="push-tx"></span></span></div>' +
+      `<div class="tg-push"><span class="tg-ava">${ava}</span><span><b>${title} <small>сейчас</small></b><span class="push-tx"></span></span></div>` +
       '<i class="tg-home"></i></div>';
+  }
+  // бот обновляет своё последнее сообщение: дописывает строку и меняет кнопки
+  function edit(chat, s) {
+    const bots = chat.querySelectorAll(".tg-msg.bot"), m = bots[bots.length - 1];
+    if (!m) return;
+    const t = m.querySelector(".tg-t");
+    m.insertAdjacentHTML("beforeend", "");
+    t.insertAdjacentHTML("beforebegin", s.edit);
+    const kb = m.nextElementSibling && m.nextElementSibling.classList.contains("tg-kb") ? m.nextElementSibling : null;
+    if (kb) kb.remove();
+    if (s.kb) { const k = keyboard(chat, s.kb); m.after(k); }
+    m.classList.add("upd");
   }
   function msg(chat, who, html, t) {
     const clock = chat.parentNode.querySelector(".tg-clock");
@@ -124,7 +154,7 @@
     const chat = ph.querySelector(".tg-chat");
     let t = "12:30";
     chat.innerHTML = '<div class="tg-day">Сегодня</div>';
-    steps.forEach((s) => { if (s.push) return; if (s.t) t = s.t; msg(chat, s.me ? "me" : "bot", s.me || s.bot, t); if (s.kb) keyboard(chat, s.kb); });
+    steps.forEach((s) => { if (s.push) return; if (s.edit) { edit(chat, s); return; } if (s.t) t = s.t; msg(chat, s.me ? "me" : "bot", s.me || s.bot, t); if (s.kb) keyboard(chat, s.kb); });
     down(chat);
   }
 
@@ -144,6 +174,7 @@
           await sleep(500);
           continue;
         }
+        if (s.edit) { await sleep(500); edit(chat, s); down(chat); await sleep(s.wait || 2200); continue; }
         if (s.t) t = s.t;
         await sleep(s.me ? 700 : 950);
         msg(chat, s.me ? "me" : "bot", s.me || s.bot, t);
