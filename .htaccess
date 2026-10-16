@@ -9,6 +9,10 @@ RewriteEngine On
 RewriteCond %{SERVER_PORT} !^443$ [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^(.*)$ https://chesh-studio.ru/$1 [R=301,L]
+# старые страницы (сайт CHESH до переезда) — постоянная переадресация на новые
+RewriteRule ^case-bot\.html$ https://chesh-studio.ru/case-fadepoint.html [R=301,L]
+RewriteRule ^case-(ad|cards|zerno)\.html$ https://chesh-studio.ru/ [R=301,L]
+RewriteRule ^avicenna(/.*)?$ https://avicenna45.ru/ [R=301,L]
 # /index.html -> /
 RewriteCond %{THE_REQUEST} \s/index\.html[\s?] [NC]
 RewriteRule ^index\.html$ https://chesh-studio.ru/ [R=301,L]
