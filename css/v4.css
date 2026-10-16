@@ -387,6 +387,29 @@ a { color: inherit; }
 /* 4. вопросы: открыт только один ответ; фото и текст прижаты к верху, поэтому фото не двигается, когда ответ раскрывается */
 #faq { align-items: start; }
 #faq .sp-media { height: min(640px, calc(76vh / var(--z))); min-height: 0; }
+/* телефон на тёмном переливающемся фоне: пятна плывут сами, а на компьютере тянутся за мышкой (--mx, --my, --gx, --gy ставит v4.js) */
+#faq .faq-ph { --mx: 0; --my: 0; --gx: 0; --gy: 0; background: #161618; isolation: isolate; }
+.faq-ph .fx { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.faq-ph .fx::after { content: ""; position: absolute; inset: 0; background: url(../img/v4/topo.svg) center / 1200px 900px; opacity: 0.4; }
+.faq-ph .fx i { position: absolute; border-radius: 50%; will-change: transform; transition: translate 1.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.faq-ph .b1 { left: -15%; top: -30%; width: 75%; height: 100%; background: radial-gradient(closest-side, rgba(217, 198, 165, 0.62), transparent); translate: calc(var(--mx) * 46px) calc(var(--my) * 34px); }
+.faq-ph .b2 { left: 45%; top: -35%; width: 65%; height: 95%; background: radial-gradient(closest-side, rgba(168, 128, 70, 0.72), transparent); translate: calc(var(--mx) * -34px) calc(var(--my) * 42px); }
+.faq-ph .b3 { left: 50%; top: 40%; width: 70%; height: 100%; background: radial-gradient(closest-side, rgba(96, 138, 84, 0.55), transparent); translate: calc(var(--mx) * 30px) calc(var(--my) * -38px); }
+.faq-ph .b4 { left: -10%; top: 50%; width: 60%; height: 90%; background: radial-gradient(closest-side, rgba(240, 226, 200, 0.3), transparent); translate: calc(var(--mx) * -40px) calc(var(--my) * -30px); }
+.faq-ph .fx .glow { left: -210px; top: -210px; width: 420px; height: 420px; background: radial-gradient(closest-side, rgba(240, 222, 186, 0.32), transparent); opacity: 0; translate: calc(var(--gx) * 1px) calc(var(--gy) * 1px); transition: translate 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s; }
+.faq-ph.hot .fx .glow { opacity: 1; }
+.faq-ph .faq-phone { position: absolute; left: 50%; top: 50%; height: 86%; aspect-ratio: 524 / 1100; translate: calc(-50% + var(--mx) * -12px) calc(-50% + var(--my) * -9px); transition: translate 1.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.faq-ph .faq-phone img { display: block; width: 100%; height: 100%; transform: rotate(-4deg); filter: drop-shadow(0 34px 40px rgba(0, 0, 0, 0.6)); }
+@keyframes fxA { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(14%, 10%) scale(1.15); } 66% { transform: translate(-8%, 16%) scale(0.95); } }
+@keyframes fxB { 0%, 100% { transform: translate(0, 0) scale(1.05); } 50% { transform: translate(-18%, 20%) scale(0.9); } }
+@keyframes fxC { 0%, 100% { transform: translate(0, 0) scale(1); } 40% { transform: translate(-16%, -18%) scale(1.2); } 75% { transform: translate(8%, -6%) scale(1); } }
+@keyframes fxD { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(20%, -14%) scale(1.15); } }
+@keyframes phFloat { 0%, 100% { transform: translateY(-1.4%) rotate(-4deg); } 50% { transform: translateY(1.4%) rotate(-2.8deg); } }
+@media (prefers-reduced-motion: no-preference) {
+  .faq-ph .b1 { animation: fxA 17s ease-in-out infinite; } .faq-ph .b2 { animation: fxB 21s ease-in-out infinite; }
+  .faq-ph .b3 { animation: fxC 19s ease-in-out infinite; } .faq-ph .b4 { animation: fxD 23s ease-in-out infinite; }
+  .faq-ph .faq-phone img { animation: phFloat 7s ease-in-out infinite; }
+}
 #faq .sp-tx { align-self: start; padding-top: 70px; }
 .faq-list details { border-bottom: 1px solid rgba(27, 26, 23, 0.14); }
 .faq-list summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 0; font-size: 20.5px; font-weight: 500; cursor: pointer; transition: color 0.25s; }
@@ -428,7 +451,7 @@ a { color: inherit; }
 .ch-card:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px var(--beige), 0 0 26px 0 rgba(217, 198, 165, 0.7); }
 .tg-ic { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--beige); color: #111; font-size: 21px; }
 .tg-btn b { display: block; font-weight: 500; font-size: 17.5px; } .tg-btn small { display: block; font-size: 14px; color: #a7a198; }
-.ch-card { display: flex; align-items: center; gap: 10px; padding: 9px 18px 9px 9px; border-radius: 999px; background: #fff; color: #1b1a17; text-decoration: none; box-shadow: 0 0 0 1px rgba(27, 26, 23, 0.12); transition: transform 0.3s var(--ease), box-shadow 0.3s; text-align: left; }
+.ch-card { display: flex; align-items: center; gap: 10px; padding: 9px 18px 9px 9px; border-radius: 999px; background: #fff; color: #1b1a17; text-decoration: none; box-shadow: 0 0 0 1.5px rgba(27, 26, 23, 0.26), 0 12px 26px -16px rgba(60, 45, 25, 0.45); transition: transform 0.3s var(--ease), box-shadow 0.3s; text-align: left; }
 .ch-card img { width: 42px; height: 42px; border-radius: 50%; }
 .ch-card b { display: block; font-weight: 500; font-size: 17.5px; } .ch-card small { display: block; font-size: 14px; color: #6b655c; }
 .ch-card > .ico { margin-left: 6px; font-size: 16px; }
@@ -497,6 +520,7 @@ a { color: inherit; }
   .js [data-rv="blur"] { filter: blur(10px); transform: translateY(16px); }
   .js [data-rv="clip"] { clip-path: inset(0 0 100% 0); opacity: 1; }
   .js [data-rv].in { opacity: 1; transform: none; filter: none; clip-path: inset(0 0 0 0); }
+  .js .tg-row[data-rv].in { clip-path: none; } /* иначе обрезаются контур и тень кнопок */
 }
 
 /* ── планшет и телефон ── */
@@ -552,6 +576,7 @@ a { color: inherit; }
   .sp-tx > p { font-size: 18.5px; }
   .dirs b { font-size: 19px; } .steps5 b { font-size: 18.5px; } .faq-list summary { font-size: 18.5px; } .faq-list details p { font-size: 17.5px; padding-right: 0; }
   #faq .sp-media { height: auto; } #faq .sp-tx { padding-top: 26px; }
+  #faq .faq-ph { aspect-ratio: 4 / 3.4; } .faq-ph .faq-phone { height: 88%; }
   .scenes { gap: 8px; padding: 8px; min-height: 480px; } .sc { padding: 10px; } .sc figcaption { font-size: 12.5px; }
   .sc-chat .m { font-size: 12.5px; padding: 6px 9px; } .sc-flow .node { grid-template-columns: 24px 1fr; padding: 5px 7px; } .sc-flow .node .ico { width: 24px; height: 24px; padding: 4px; } .sc-flow .node small { display: none; }
   .row2 { grid-template-columns: 1fr; gap: 0; }

@@ -11,9 +11,13 @@ async function initReviewPage() {
   const f = (n) => form.querySelector(`[name="${n}"]`);
   const msg = document.getElementById("rvMsg");
   if (!/^[a-z0-9]{10}$/.test(code)) { state("bad"); return; }
+  const retry = document.getElementById("rvRetry");
+  if (retry) retry.addEventListener("click", () => location.reload());
+  let r;
+  try { r = await fetch(LEAD_ENDPOINT + "/invite?c=" + code); } catch (e) { state("net"); return; } // нет связи с сервером
+  if (r.status === 404) { state("bad"); return; } // ссылки правда нет: использована или устарела
+  if (!r.ok) { state("net"); return; } // сервер занят или сбой: ссылка, скорее всего, в порядке
   try {
-    const r = await fetch(LEAD_ENDPOINT + "/invite?c=" + code);
-    if (!r.ok) throw new Error(r.status);
     const j = await r.json();
     f("name").value = j.name || "";
     f("business").value = j.business || "";

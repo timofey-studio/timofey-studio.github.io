@@ -294,6 +294,28 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();
 
+// Вопросы: фон под телефоном тянется за мышкой, по нему ходит блик (только мышь; на телефоне фон плывёт сам)
+(function () {
+  const box = document.getElementById("faqPh");
+  if (!box || !matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let raf = 0, ev = null;
+  box.addEventListener("pointermove", (e) => {
+    ev = e;
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      const r = box.getBoundingClientRect();
+      const fx = Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width)), fy = Math.min(1, Math.max(0, (ev.clientY - r.top) / r.height));
+      box.style.setProperty("--mx", (fx * 2 - 1).toFixed(3));
+      box.style.setProperty("--my", (fy * 2 - 1).toFixed(3));
+      box.style.setProperty("--gx", Math.round(fx * box.offsetWidth));
+      box.style.setProperty("--gy", Math.round(fy * box.offsetHeight));
+      box.classList.add("hot");
+    });
+  });
+  box.addEventListener("pointerleave", () => { box.style.setProperty("--mx", 0); box.style.setProperty("--my", 0); box.classList.remove("hot"); });
+})();
+
 // Вопросы: ответ раскрывается и сворачивается плавно; открыт только один
 (function () {
   const all = Array.from(document.querySelectorAll(".faq-list details"));

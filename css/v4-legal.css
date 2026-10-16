@@ -71,7 +71,7 @@
 .rv-box { width: min(760px, calc(100% - 32px)); margin: 0 auto 100px; padding: 40px clamp(22px, calc(5vw / var(--z)), 48px) 44px; border-radius: 28px; color: #1b1a17;
   background: url(../img/v4/topo-beige.svg) 0 0 / 1200px 900px, #fbfaf8; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8); }
 .rvp-state, .st-form { display: none; }
-.rv-box[data-state="load"] .st-load, .rv-box[data-state="bad"] .st-bad, .rv-box[data-state="sent"] .st-sent { display: grid; justify-items: center; text-align: center; gap: 14px; }
+.rv-box[data-state="load"] .st-load, .rv-box[data-state="bad"] .st-bad, .rv-box[data-state="net"] .st-net, .rv-box[data-state="sent"] .st-sent { display: grid; justify-items: center; text-align: center; gap: 14px; }
 .rv-box[data-state="form"] .st-form { display: block; }
 .rvp-state h2 { font: 600 32px/1.05 var(--osw); text-transform: uppercase; }
 .rvp-state p { max-width: 32em; color: #4f4a42; font-size: 18px; }
