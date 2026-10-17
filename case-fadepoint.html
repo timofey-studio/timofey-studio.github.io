@@ -11,10 +11,10 @@
   <link rel="icon" href="img/favicon-120.png" type="image/png" sizes="120x120" />
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="css/v4.css?v=3ff4adac" />
-  <link rel="stylesheet" href="css/v4-case.css?v=e2123c39" />
+  <link rel="stylesheet" href="css/v4.css?v=898a39b4" />
+  <link rel="stylesheet" href="css/v4-case.css?v=164620ee" />
 </head>
-<body class="case">
+<body class="case fp">
   <script>
   // масштаб сайта на компьютере. Образец: ноутбук Тимофея (окно около 1536x730) выглядит как прежние 90%.
   // Окно больше или меньше: сайт пропорционально крупнее или мельче (от 0.8 до 1.25).
@@ -25,7 +25,7 @@
       var bz = outerWidth > 0 && innerWidth > 0 ? Math.round(outerWidth / innerWidth * 20) / 20 : 1;
       if (bz < 0.25 || bz > 5) bz = 1;
       var w = innerWidth * bz, h = innerHeight * bz, z = 1;
-      if (innerWidth > 1100) z = Math.max(0.8, Math.min(1.25, Math.min(w / 1707, h / 805)));
+      if (innerWidth > 1100) z = Math.max(0.8, Math.min(1.5, Math.min(w / 1707, h / 805)));
       d.style.setProperty("--z", z.toFixed(3));
     }
     fit();
@@ -58,7 +58,7 @@
     <!-- 1. слева живой iPhone: клиент записывается через бота (переписку проигрывает case.js), справа рассказ -->
     <section class="c-hero" id="hero">
       <div class="fp-hero-ph">
-        <div class="tg-phone" data-tg="client" role="img" aria-label="Переписка клиента с ботом FadePoint: выбор мастера, услуги, дня и времени, подтверждение записи"><img class="tg-fallback" src="img/v4/fp-phone.jpg" alt="" width="388" height="640" /></div>
+        <div class="tg-phone" data-tg="client" role="img" aria-label="Переписка клиента с ботом FadePoint: выбор мастера, услуги, дня и времени, подтверждение записи"><img class="tg-fallback" src="img/v4/fp-screen.jpg" alt="" width="450" height="998" /></div>
         <p class="fp-cap"><b>Пример</b>запись в&nbsp;барбершоп без звонка</p>
       </div>
       <div class="c-tx">
@@ -91,11 +91,15 @@
 
     <!-- 3. пример: бот записи для барбершопа FadePoint -->
     <section class="c-ex" id="example">
-      <div class="eyebrow" data-rv="up">Пример</div>
+      <div class="eyebrow" data-rv="up">Пример · бот в&nbsp;Telegram</div>
       <h2 data-rv="up" style="--d:0.08">Бот записи для барбершопа <span>FadePoint</span></h2>
       <p data-rv="up" style="--d:0.16">Готовое решение, показанное на&nbsp;примере барбершопа: онлайн-запись без звонков и&nbsp;администратора. Так&nbsp;же работает запись к&nbsp;психологу, репетитору, в&nbsp;салон или на&nbsp;консультацию.</p>
     </section>
-    <section class="c-td">
+    <!-- липкая сцена (компьютер): телефон стоит по центру, переписка идёт за прокруткой, потом он уезжает влево, справа выплывают карточки -->
+    <section class="c-scene">
+      <div class="sc-stick">
+        <div class="sc-ph" aria-hidden="true"><div class="tg-phone" data-tg="scene-fp"></div></div>
+        <div class="c-td">
       <div class="td-card" data-rv="left">
         <span class="td-num">01</span>
         <h2>Какая задача</h2>
@@ -115,6 +119,8 @@
           <li><b>Подходит не&nbsp;только барбершопам</b><span>Так&nbsp;же работает запись к&nbsp;психологу, репетитору, в&nbsp;салон или на&nbsp;консультацию.</span></li>
         </ol>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- 3. шаги записи: клиент и владелец, рядом iPhone владельца -->
@@ -130,7 +136,7 @@
           </ol>
         </div>
         <div class="fp-own" data-rv="up">
-          <div class="tg-phone" data-tg="owner" role="img" aria-label="Переписка владельца с ботом: уведомление о новой записи, панель владельца и запись клиента вручную"><img class="tg-fallback" src="img/v4/fp-phone.jpg" alt="" width="388" height="640" /></div>
+          <div class="tg-phone" data-tg="owner" role="img" aria-label="Переписка владельца с ботом: уведомление о новой записи, панель владельца и запись клиента вручную"><img class="tg-fallback" src="img/v4/fp-screen.jpg" alt="" width="450" height="998" /></div>
           <p class="fp-cap"><b>Владелец</b>видит записи и&nbsp;закрывает время</p>
         </div>
       </div>
@@ -142,16 +148,16 @@
         <div><small>Нужен бот?</small><b>Бот в&nbsp;Telegram для бизнеса</b></div>
         <a class="btn btn-glow" href="index.html#contact">Оставить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
       </div>
-      <a class="next" href="case-avicenna.html" data-rv="up" style="--d:0.1">
-        <img src="img/v3/av-ph-index.webp" alt="" width="390" height="800" loading="lazy" />
-        <span><small>Следующий кейс</small><b>Сайт «Авиценны»</b></span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
+      <a class="next nx-web" href="case-avicenna.html" data-rv="up" style="--d:0.1">
+        <span class="nx-win"><span class="br"><i></i><i></i><i></i></span><img src="img/work/avicenna-desktop.webp" alt="" width="1440" height="900" loading="lazy" /></span>
+        <span><small>Следующий кейс · <em>Сайт</em></small><b>Клиника «Авиценна»: новый сайт</b></span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
       </a>
     </section>
   </main>
   <footer class="c-foot"><a class="btn btn-glow home" href="index.html"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>На главную</a><span>© 2026 Тимофей Чешегоров</span></footer>
 
-  <script src="js/v4.js?v=6e9757b9" defer></script>
-  <script src="js/v4-case.js?v=4a6dc5cb" defer></script>
+  <script src="js/v4.js?v=64b4d280" defer></script>
+  <script src="js/v4-case.js?v=908686bd" defer></script>
   <script src="js/metrika.js?v=4" defer></script>
 </body>
 </html>

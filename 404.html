@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
   <script>document.documentElement.classList.add("js");</script>
   <!-- Страница 404: хостинг отдаёт её на любой несуществующий адрес, в том числе вложенный (/a/b/c), поэтому на сайте у неё base href="/" (ставит build_v4.py) -->
-  <link rel="stylesheet" href="css/v4.css?v=3ff4adac" />
+  <link rel="stylesheet" href="css/v4.css?v=898a39b4" />
   <link rel="stylesheet" href="css/v4-legal.css?v=d4046e56" />
 </head>
 <body class="legal">
@@ -26,7 +26,7 @@
       var bz = outerWidth > 0 && innerWidth > 0 ? Math.round(outerWidth / innerWidth * 20) / 20 : 1;
       if (bz < 0.25 || bz > 5) bz = 1;
       var w = innerWidth * bz, h = innerHeight * bz, z = 1;
-      if (innerWidth > 1100) z = Math.max(0.8, Math.min(1.25, Math.min(w / 1707, h / 805)));
+      if (innerWidth > 1100) z = Math.max(0.8, Math.min(1.5, Math.min(w / 1707, h / 805)));
       d.style.setProperty("--z", z.toFixed(3));
     }
     fit();
@@ -76,7 +76,7 @@
     <span>© 2026 Тимофей Чешегоров · работаю по&nbsp;всей России</span>
     <span class="legal-links"><a href="dokumenty.html">Документы</a><a href="privacy.html">Политика конфиденциальности</a><a href="soglasie.html">Согласие на&nbsp;обработку данных</a></span>
   </footer>
-  <script src="js/v4.js?v=6e9757b9" defer></script>
+  <script src="js/v4.js?v=64b4d280" defer></script>
   <script src="js/metrika.js?v=4" defer></script>
 </body>
 </html>

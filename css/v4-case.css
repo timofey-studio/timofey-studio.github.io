@@ -1,6 +1,6 @@
 /* CHESH v4 — страница кейса. Основа (шапка, кнопки, шрифты, появление) в v4.css.
    Верх как referens/primer1.png: слева главный экран сайта, справа рассказ. «Было / Стало» — блоки «ёлочкой» (primer.png). */
-.case main { overflow: hidden; }
+.case main { position: relative; overflow: hidden; overflow: clip; } /* clip, а не hidden: иначе не работает липкая сцена */
 
 /* ── 1. верх ── */
 .c-hero { position: relative; min-height: calc(100dvh / var(--z)); display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); align-items: stretch; padding-top: 86px; }
@@ -88,9 +88,9 @@
 .mob-tx h3 { font: 600 clamp(26px, calc(2.3vw / var(--z)), 36px)/1 var(--osw); text-transform: uppercase; }
 .mob-tx p { margin-top: 16px; color: var(--mute); max-width: 24em; }
 .phones { display: flex; justify-content: center; gap: 22px; }
-.phn { width: 30%; max-width: 200px; border-radius: 30px; padding: 7px; background: #0b0b0c; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset, 0 30px 60px -24px rgba(0, 0, 0, 0.9); transition: transform 0.6s var(--ease); }
+.phn { width: 30%; max-width: 200px; border-radius: 15% / 7%; padding: 4px; background: #050506; box-shadow: 0 0 0 1px #3a3d45, 0 30px 60px -24px rgba(0, 0, 0, 0.9); transition: transform 0.6s var(--ease); }
 .phn:nth-child(2) { transform: translateY(-24px); }
-.phn img { width: 100%; border-radius: 24px; aspect-ratio: 390 / 800; object-fit: cover; object-position: top; }
+.phn img { width: 100%; border-radius: 13% / 6%; aspect-ratio: 9 / 19.5; object-fit: cover; object-position: top; }
 .phn:hover { transform: translateY(-10px); } .phn:nth-child(2):hover { transform: translateY(-34px); }
 
 /* ── 5. финал ── */
@@ -99,7 +99,7 @@
 .live small { display: block; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b655c; }
 .live b { display: block; margin-top: 6px; font: 600 clamp(26px, calc(2.4vw / var(--z)), 36px)/1 var(--osw); text-transform: uppercase; }
 .next { display: grid; grid-template-columns: 72px 1fr auto; align-items: center; gap: 20px; padding: 20px 30px 20px 20px; border-radius: 28px; border: 1px solid var(--line-2); text-decoration: none; font-size: 22px; transition: border-color 0.3s, background-color 0.3s; }
-.next img { width: 72px; height: 100px; border-radius: 14px; object-fit: cover; object-position: top; }
+.next img { justify-self: center; width: 56px; height: auto; aspect-ratio: 9 / 19.5; padding: 3px; border-radius: 16% / 7.4%; background: #050506; box-shadow: 0 0 0 1px #3a3d45, 0 12px 26px -10px rgba(0, 0, 0, 0.8); object-fit: cover; object-position: top; }
 .next small { display: block; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); }
 .next b { display: block; margin-top: 6px; font: 600 24px/1.1 var(--osw); text-transform: uppercase; }
 .next .ico { transition: transform 0.4s var(--ease); }
@@ -139,9 +139,9 @@
   .ba-block { width: 100%; padding: 26px 18px; border-radius: 24px; }
   .ba-head { flex-direction: column; align-items: flex-start; gap: 12px; }
   .ba-arrow { width: 52px; height: 52px; }
-  .c-mob { padding: 30px 18px; } .phones { gap: 10px; } .phn { padding: 4px; border-radius: 20px; } .phn img { border-radius: 16px; }
+  .c-mob { padding: 30px 18px; } .phones { gap: 10px; } .phn { padding: 3px; }
   .live { flex-direction: column; align-items: flex-start; padding: 28px 22px; }
-  .next { grid-template-columns: 56px 1fr auto; padding: 14px 20px 14px 14px; } .next img { width: 56px; height: 78px; } .next b { font-size: 20px; }
+  .next { grid-template-columns: 56px 1fr auto; padding: 14px 20px 14px 14px; } .next img { width: 44px; padding: 2px; } .next b { font-size: 20px; }
   .lb { grid-template-columns: 1fr; padding: 16px; } .lb figure { grid-column: 1; } .lb img { width: 100%; }
   .lb-prev, .lb-next { position: absolute; bottom: 24px; } .lb-prev { left: calc(50% - 64px); } .lb-next { right: calc(50% - 64px); }
   .c-foot { flex-direction: column; gap: 16px; } .c-foot .home { width: 100%; justify-content: center; }
@@ -166,12 +166,12 @@
 .c-tx h1.one { font-size: clamp(34px, calc(4vw / var(--z)), 58px); white-space: nowrap; }
 .c-tx h1.one span { display: inline; }
 /* корпус iPhone: рамка, кнопки по бокам, Dynamic Island, полоска «домой» */
-.tg-phone { --w: clamp(272px, calc((calc(100dvh / var(--z)) - 190px) * 0.462), 330px); container-type: inline-size; position: relative; width: var(--w); aspect-ratio: 390 / 844; padding: calc(var(--w) * 0.0333); border-radius: calc(var(--w) * 0.176); background: #0b0b0c;
-  box-shadow: 0 0 0 2px #6c6f75, 0 0 0 4px #2c2d31, 0 50px 90px -30px rgba(0, 0, 0, 0.95), 0 0 120px -20px rgba(140, 200, 140, 0.18); }
-.tg-phone::before, .tg-phone::after { content: ""; position: absolute; left: -6px; width: 4px; border-radius: 3px 0 0 3px; background: #55585e; }
+.tg-phone { --w: clamp(272px, calc((calc(100dvh / var(--z)) - 190px) * 0.462), 330px); container-type: inline-size; position: relative; width: var(--w); aspect-ratio: 390 / 844; padding: calc(var(--w) * 0.02); border-radius: calc(var(--w) * 0.135); background: #050506;
+  box-shadow: 0 0 0 1px #3a3d45, 0 0 0 2.5px #16181c, 0 40px 80px -30px rgba(0, 0, 0, 0.9), 0 0 120px -10px rgba(38, 120, 80, 0.35); }
+.tg-phone::before, .tg-phone::after { content: ""; position: absolute; left: -4px; width: 3px; border-radius: 3px 0 0 3px; background: #3a3d45; }
 .tg-phone::before { top: 21%; height: 7%; } .tg-phone::after { top: 30%; height: 7%; }
-.tg-phone .side { position: absolute; right: -6px; top: 25%; width: 4px; height: 12%; border-radius: 0 3px 3px 0; background: #55585e; }
-.tg-scr { position: relative; height: 100%; border-radius: 15.26cqw; overflow: hidden; display: flex; flex-direction: column; font: 400 4.38cqw/1.32 -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; color: #000; letter-spacing: -0.01em;
+.tg-phone .side { position: absolute; right: -4px; top: 25%; width: 3px; height: 12%; border-radius: 0 3px 3px 0; background: #3a3d45; }
+.tg-scr { position: relative; height: 100%; border-radius: 12cqw; overflow: hidden; display: flex; flex-direction: column; font: 400 4.38cqw/1.32 -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; color: #000; letter-spacing: -0.01em;
   background: #b9d8a2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' fill='none' stroke='%23477a3f' stroke-opacity='.16' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='20' cy='22' r='7'/%3E%3Cpath d='M70 14l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z'/%3E%3Cpath d='M18 78c6-8 14-8 20 0M18 86c6-8 14-8 20 0'/%3E%3Crect x='76' y='70' width='20' height='16' rx='4'/%3E%3Cpath d='M100 104l8-8M104 108l8-8M48 104a6 6 0 1 0 12 0a6 6 0 1 0-12 0'/%3E%3C/svg%3E") 0 0 / 120px 120px; }
 .tg-scr::before { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(232, 240, 170, 0.55), rgba(150, 205, 160, 0.25) 55%, rgba(120, 190, 175, 0.45)); pointer-events: none; }
 .tg-scr > * { position: relative; }
@@ -231,7 +231,7 @@
 .tg-phone.max .tg-kb span.tap { background: #ece9ff; transform: scale(0.95); }
 .tg-phone.max .tg-menu { background: linear-gradient(120deg, #3d8bff, #8a4dff); }
 .tg-phone.max .tg-input { background: #f1f2f6; border-color: transparent; }
-.tg-phone.max { box-shadow: 0 0 0 2px #6c6f75, 0 0 0 4px #2c2d31, 0 50px 90px -30px rgba(0, 0, 0, 0.95), 0 0 120px -20px rgba(120, 110, 255, 0.22); }
+.tg-phone.max { box-shadow: 0 0 0 1px #3a3d45, 0 0 0 2.5px #16181c, 0 40px 80px -30px rgba(0, 0, 0, 0.9), 0 0 120px -10px rgba(0, 163, 255, 0.18); }
 /* блоки кейса MAX: оформление на организацию и что ещё умеет бот */
 .mx-org { width: min(1320px, calc(100% - 72px)); margin: 0 auto; padding: 30px 0 0; }
 .mx-org .box { display: grid; grid-template-columns: 1fr 1.15fr; gap: 40px; align-items: center; padding: 46px 50px; border-radius: 32px; background: #ece5d8; color: #1b1a17; }
@@ -303,3 +303,49 @@
 .td-light li::before { color: #7a6a4c; }
 .td-num { -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.38); }
 .td-light .td-num { -webkit-text-stroke-color: rgba(27, 26, 23, 0.5); }
+/* ══ ТЗ №4 ══ */
+/* глубокий фон страниц кейсов: градиент стоит на месте, линии рельефа едут вместе со страницей */
+body.case { background: #0c0d10; }
+body.case::before { content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none; background: radial-gradient(circle at 50% 25%, #18191f 0%, #0c0d10 85%); }
+.case main::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url(../img/v4/topo.svg) 0 0 / 1200px 900px; }
+/* подсветка за мокапом у каждого кейса своя: «Авиценна» и её бот холодная голубая, FadePoint янтарная */
+.case { --glow: rgba(217, 198, 165, 0.08); }
+.case.av, .case.mx { --glow: rgba(0, 163, 255, 0.08); }
+.case.fp { --glow: rgba(212, 160, 55, 0.08); }
+.c-hero::after { background: radial-gradient(40% 60% at 25% 52%, var(--glow), transparent 72%), radial-gradient(50% 60% at 78% 45%, rgba(217, 198, 165, 0.04), transparent 70%); }
+
+/* светлая карточка «Что сделано»: матовая слоновая кость, текст антрацит, цифры плотнее */
+.td-card.td-light { background: #f4f4f6; color: #1c1d21; }
+.td-light li { border-color: rgba(28, 29, 33, 0.14); }
+.td-light li span { color: #34363c; }
+.td-num { -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.5); }
+.td-light .td-num { -webkit-text-stroke-color: rgba(28, 29, 33, 0.62); }
+
+/* «Следующий кейс»: что это (сайт, бот в Telegram, бот в MAX); у сайта окно браузера с главным экраном */
+.next small em { font-style: normal; color: var(--beige); }
+.next.nx-web { grid-template-columns: 132px 1fr auto; }
+.nx-win { display: block; width: 132px; border-radius: 8px; overflow: hidden; background: #0f0f10; box-shadow: 0 0 0 1px #3a3d45, 0 12px 26px -10px rgba(0, 0, 0, 0.8); }
+.nx-win .br { display: flex; gap: 3px; padding: 4px 6px; background: #2b2b2f; }
+.nx-win .br i { width: 4px; height: 4px; border-radius: 50%; background: #4a4a50; }
+.next.nx-web img { display: block; justify-self: auto; width: 100%; height: auto; aspect-ratio: 16 / 10; padding: 0; border-radius: 0; background: none; box-shadow: none; object-fit: cover; object-position: top; }
+@media (max-width: 640px) { .next.nx-web { grid-template-columns: 92px 1fr auto; } .nx-win { width: 92px; } }
+
+/* липкая сцена: на телефонах и планшетах обычные карточки друг под другом, телефона нет */
+.sc-ph { display: none; }
+.c-ex + .c-scene .c-td { padding-top: 36px; }
+.tg-chat .na, .tg-chat .na.upd { animation: none !important; }
+@media (min-width: 1101px) {
+  .c-scene.sc-on { height: calc(290vh / var(--z)); margin-top: 30px; }
+  .sc-on .sc-stick { position: sticky; top: calc(16vh / var(--z)); height: calc(78vh / var(--z)); width: min(1320px, calc(100% - 72px)); margin: 0 auto; }
+  .sc-on .sc-ph { display: block; position: absolute; left: 50%; top: 0; z-index: 1; transform: translateX(-50%); will-change: transform; }
+  .sc-on .sc-ph::before { content: ""; position: absolute; inset: -25% -70%; z-index: -1; pointer-events: none; background: radial-gradient(closest-side, var(--glow), transparent); transform: scale(1.6); }
+  .sc-on .sc-ph .tg-phone { --w: min(330px, calc(76vh / var(--z) * 0.462)); }
+  .sc-on .c-td { position: absolute; right: 0; top: 50%; width: 62%; margin: 0; padding: 0; transform: translateY(-50%) scale(var(--fit, 1)); transform-origin: right center; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; }
+  .sc-on .td-card { padding: 30px 28px 26px; will-change: transform, opacity; }
+  .sc-on .td-card.td-light { margin-top: 0; }
+  .sc-on .td-card h2 { font-size: 30px; padding-right: 60px; }
+  .sc-on .td-card ol { margin-top: 18px; }
+  .sc-on .td-card li { padding: 11px 0; }
+  .sc-on .td-card li b { font-size: 16px; } .sc-on .td-card li span { font-size: 14px; }
+  .sc-on .td-num { font-size: 44px; top: 22px; right: 24px; }
+}

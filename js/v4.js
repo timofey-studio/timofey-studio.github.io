@@ -3,9 +3,13 @@
 (function () {
   const bg = document.getElementById("heroBg");
   if (bg) bg.style.backgroundImage = "url(" + (window.HERO_BG || "img/v4/bg-2.jpg") + ")";
-  // вход: когда ролик на экране ноутбука загрузился (или через 1,2 с) — запускаем появление
+  // вход: когда ролик на экране ноутбука загрузился (или через 1,2 с) — запускаем появление.
+  // Крышка ноутбука открывается один раз за визит: при возврате на главную сразу открыта.
   const hero = document.getElementById("hero");
-  const go = () => hero && hero.classList.add("loaded");
+  if (hero && hero.querySelector(".laptop")) {
+    try { if (sessionStorage.getItem("chesh-intro")) hero.classList.add("seen"); sessionStorage.setItem("chesh-intro", "1"); } catch (e) { /* без хранилища просто показываем анимацию */ }
+  }
+  const go = () => { if (!hero) return; hero.classList.add("loaded"); setTimeout(() => hero.classList.add("done"), 2600); };
   const vid = document.querySelector(".laptop video");
   if (vid && vid.readyState < 2) { vid.addEventListener("loadeddata", go, { once: true }); setTimeout(go, 1200); } else requestAnimationFrame(go);
 
@@ -65,6 +69,7 @@
   const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const pad = (n) => String(n).padStart(2, "0");
   document.getElementById("cAll").textContent = pad(cards.length);
+  bar.style.width = 100 / cards.length + "%";
   cards.forEach((c, k) => {
     c.style.setProperty("--k", Math.abs(idx[k]));
     // номер карточки: центр 01, по бокам 02 и 03, по краям 04 и 05 (referens/Расположение.png)
@@ -88,7 +93,7 @@
     const k = idx.indexOf(i);
     now.textContent = cards[k].dataset.n || pad(k + 1);
     name.textContent = cards[k].querySelector("b").textContent;
-    bar.style.transform = "translateX(" + k * 100 + "%)";
+    bar.style.transform = "translateX(" + (i - lo) * 100 + "%)"; // деление под карточкой там, где она стоит на экране
     prev.disabled = i === lo; next.disabled = i === hi;
   };
   const frame = () => {
@@ -294,28 +299,6 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();
 
-// Вопросы: фон под телефоном тянется за мышкой, по нему ходит блик (только мышь; на телефоне фон плывёт сам)
-(function () {
-  const box = document.getElementById("faqPh");
-  if (!box || !matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  let raf = 0, ev = null;
-  box.addEventListener("pointermove", (e) => {
-    ev = e;
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      raf = 0;
-      const r = box.getBoundingClientRect();
-      const fx = Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width)), fy = Math.min(1, Math.max(0, (ev.clientY - r.top) / r.height));
-      box.style.setProperty("--mx", (fx * 2 - 1).toFixed(3));
-      box.style.setProperty("--my", (fy * 2 - 1).toFixed(3));
-      box.style.setProperty("--gx", Math.round(fx * box.offsetWidth));
-      box.style.setProperty("--gy", Math.round(fy * box.offsetHeight));
-      box.classList.add("hot");
-    });
-  });
-  box.addEventListener("pointerleave", () => { box.style.setProperty("--mx", 0); box.style.setProperty("--my", 0); box.classList.remove("hot"); });
-})();
-
 // Вопросы: ответ раскрывается и сворачивается плавно; открыт только один
 (function () {
   const all = Array.from(document.querySelectorAll(".faq-list details"));
@@ -397,22 +380,27 @@
   }).catch(() => {});
 })();
 
-// Первый экран: ноутбук и телефон слегка наклоняются за курсором (только мышь, только компьютер, без «уменьшенного движения»)
+// Первый экран: ноутбук и телефон наклоняются за курсором (до 6° вбок и 4° вверх-вниз). Угол каждый кадр
+// догоняет цель на 8%, поэтому движение мягкое даже при резком рывке мыши. Только мышь, только компьютер.
 (function () {
   const hero = document.getElementById("hero"), dev = hero && hero.querySelector(".devices");
   if (!dev || !matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  let raf = 0, ev = null;
+  let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0;
   const cl = (v) => Math.max(-1, Math.min(1, v));
+  const loop = () => {
+    cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+    const still = Math.abs(tx - cx) < 0.01 && Math.abs(ty - cy) < 0.01;
+    if (still) { cx = tx; cy = ty; }
+    dev.style.transform = cx || cy ? `perspective(1000px) rotateX(${cy.toFixed(2)}deg) rotateY(${cx.toFixed(2)}deg)` : "";
+    raf = still ? 0 : requestAnimationFrame(loop);
+  };
+  const run = () => { if (!raf) raf = requestAnimationFrame(loop); };
   hero.addEventListener("pointermove", (e) => {
-    ev = e;
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      raf = 0;
-      if (innerWidth <= 1100) { dev.style.transform = ""; return; }
-      const r = dev.getBoundingClientRect();
-      const x = cl((ev.clientX - (r.left + r.width / 2)) / r.width), y = cl((ev.clientY - (r.top + r.height / 2)) / r.height);
-      dev.style.transform = `perspective(1000px) rotateX(${(-y * 5).toFixed(2)}deg) rotateY(${(x * 7).toFixed(2)}deg)`;
-    });
+    if (innerWidth <= 1100) { tx = ty = 0; run(); return; }
+    const r = dev.getBoundingClientRect();
+    tx = cl((e.clientX - (r.left + r.width / 2)) / (r.width / 2)) * 6;
+    ty = -cl((e.clientY - (r.top + r.height / 2)) / (r.height / 2)) * 4;
+    run();
   });
-  hero.addEventListener("pointerleave", () => { dev.style.transform = ""; });
+  hero.addEventListener("pointerleave", () => { tx = ty = 0; run(); });
 })();

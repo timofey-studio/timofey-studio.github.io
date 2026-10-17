@@ -11,10 +11,10 @@
   <link rel="icon" href="img/favicon-120.png" type="image/png" sizes="120x120" />
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="css/v4.css?v=3ff4adac" />
-  <link rel="stylesheet" href="css/v4-case.css?v=e2123c39" />
+  <link rel="stylesheet" href="css/v4.css?v=898a39b4" />
+  <link rel="stylesheet" href="css/v4-case.css?v=164620ee" />
 </head>
-<body class="case">
+<body class="case mx">
   <script>
   // масштаб сайта на компьютере. Образец: ноутбук Тимофея (окно около 1536x730) выглядит как прежние 90%.
   // Окно больше или меньше: сайт пропорционально крупнее или мельче (от 0.8 до 1.25).
@@ -25,7 +25,7 @@
       var bz = outerWidth > 0 && innerWidth > 0 ? Math.round(outerWidth / innerWidth * 20) / 20 : 1;
       if (bz < 0.25 || bz > 5) bz = 1;
       var w = innerWidth * bz, h = innerHeight * bz, z = 1;
-      if (innerWidth > 1100) z = Math.max(0.8, Math.min(1.25, Math.min(w / 1707, h / 805)));
+      if (innerWidth > 1100) z = Math.max(0.8, Math.min(1.5, Math.min(w / 1707, h / 805)));
       d.style.setProperty("--z", z.toFixed(3));
     }
     fit();
@@ -58,7 +58,7 @@
     <!-- 1. слева живой iPhone с MAX: клиника получает отзыв с сайта и публикует одной кнопкой (переписку проигрывает case.js), справа рассказ -->
     <section class="c-hero" id="hero">
       <div class="fp-hero-ph">
-        <div class="tg-phone" data-tg="max-owner" data-theme="max" data-title="Авиценна-отзывы" data-ava="А" role="img" aria-label="Бот в MAX присылает клинике новый отзыв с сайта, клиника нажимает «Опубликовать», и отзыв появляется на сайте"><img class="tg-fallback" src="img/v4/max-phone.jpg" alt="" width="388" height="640" /></div>
+        <div class="tg-phone" data-tg="max-owner" data-theme="max" data-title="Авиценна-отзывы" data-ava="А" role="img" aria-label="Бот в MAX присылает клинике новый отзыв с сайта, клиника нажимает «Опубликовать», и отзыв появляется на сайте"><img class="tg-fallback" src="img/v4/max-screen.jpg" alt="" width="450" height="998" /></div>
         <p class="fp-cap"><b>Пример</b>клиника публикует отзыв одной кнопкой</p>
       </div>
       <div class="c-tx">
@@ -78,11 +78,15 @@
 
     <!-- 2. пример: бот отзывов для стоматологии «Авиценна» -->
     <section class="c-ex" id="example">
-      <div class="eyebrow" data-rv="up">Пример из&nbsp;практики</div>
+      <div class="eyebrow" data-rv="up">Пример из&nbsp;практики · бот в&nbsp;MAX</div>
       <h2 data-rv="up" style="--d:0.08">Бот отзывов для стоматологии <span>«Авиценна»</span></h2>
       <p data-rv="up" style="--d:0.16">Пациент оставляет отзыв на&nbsp;сайте avicenna45.ru, клиника получает его в&nbsp;MAX и&nbsp;публикует одной кнопкой: отзыв сразу появляется на&nbsp;сайте.</p>
     </section>
-    <section class="c-td">
+    <!-- липкая сцена (компьютер): телефон стоит по центру, переписка идёт за прокруткой, потом он уезжает влево, справа выплывают карточки -->
+    <section class="c-scene">
+      <div class="sc-stick">
+        <div class="sc-ph" aria-hidden="true"><div class="tg-phone" data-tg="scene-max" data-theme="max" data-title="Авиценна-отзывы" data-ava="А"></div></div>
+        <div class="c-td">
       <div class="td-card" data-rv="left">
         <span class="td-num">01</span>
         <h2>Какая была задача</h2>
@@ -102,6 +106,8 @@
           <li><b>Средняя оценка сама</b><span>Значок с&nbsp;оценкой и&nbsp;числом отзывов на&nbsp;сайте пересчитывается после каждого нового отзыва.</span></li>
           <li><b>Телефон пациента виден только клинике</b><span>На&nbsp;сайт попадают только имя, оценка и&nbsp;текст.</span></li>
         </ol>
+      </div>
+        </div>
       </div>
     </section>
 
@@ -154,7 +160,7 @@
           </ol>
         </div>
         <div class="fp-own" data-rv="up">
-          <div class="tg-phone" data-tg="max-client" data-theme="max" data-title="Стоматология" data-ava="С" role="img" aria-label="Пример: пациент спрашивает цену, бот отвечает и записывает его на свободное время"><img class="tg-fallback" src="img/v4/max-phone.jpg" alt="" width="388" height="640" /></div>
+          <div class="tg-phone" data-tg="max-client" data-theme="max" data-title="Стоматология" data-ava="С" role="img" aria-label="Пример: пациент спрашивает цену, бот отвечает и записывает его на свободное время"><img class="tg-fallback" src="img/v4/max-screen.jpg" alt="" width="450" height="998" /></div>
           <p class="fp-cap"><b>Пример</b>как бот может отвечать и&nbsp;записывать</p>
         </div>
       </div>
@@ -167,15 +173,15 @@
         <a class="btn btn-glow" href="index.html#contact">Оставить заявку <svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
       </div>
       <a class="next" href="case-fadepoint.html" data-rv="up" style="--d:0.1">
-        <img src="img/v4/fp-phone.jpg" alt="" width="388" height="640" loading="lazy" />
-        <span><small>Следующий кейс</small><b>Бот онлайн-записи для&nbsp;сферы услуг</b></span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
+        <img src="img/v4/fp-screen.jpg" alt="" width="450" height="998" loading="lazy" />
+        <span><small>Следующий кейс · <em>Бот в&nbsp;Telegram</em></small><b>Бот онлайн-записи для&nbsp;сферы услуг</b></span><svg class="ico" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
       </a>
     </section>
   </main>
   <footer class="c-foot"><a class="btn btn-glow home" href="index.html"><svg class="ico flip" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>На главную</a><span>© 2026 Тимофей Чешегоров</span></footer>
 
-  <script src="js/v4.js?v=6e9757b9" defer></script>
-  <script src="js/v4-case.js?v=4a6dc5cb" defer></script>
+  <script src="js/v4.js?v=64b4d280" defer></script>
+  <script src="js/v4-case.js?v=908686bd" defer></script>
   <script src="js/metrika.js?v=4" defer></script>
 </body>
 </html>
