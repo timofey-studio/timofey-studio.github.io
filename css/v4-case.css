@@ -158,6 +158,9 @@
 .fp-list[start="5"] { counter-reset: fp 4; }
 .fp-list li { counter-increment: fp; display: grid; grid-template-columns: 34px 1fr; align-items: baseline; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 17px; color: var(--ink-2); }
 .fp-list li::before { content: counter(fp, decimal-leading-zero); font: 500 13px/1 var(--mono); color: var(--mute); }
+.fp-list.fp-4 li { display: block; position: relative; padding: 14px 0 14px 40px; line-height: 1.45; }
+.fp-list.fp-4 li::before { position: absolute; left: 0; top: 19px; }
+.fp-list.fp-4 li b { display: block; margin-bottom: 4px; font: 600 19px/1.25 var(--body); color: var(--ink); }
 .fp-own { justify-self: center; display: grid; justify-items: center; gap: 16px; }
 
 .c-tx h1.one { font-size: clamp(34px, calc(4vw / var(--z)), 58px); white-space: nowrap; }
@@ -262,3 +265,41 @@
 .mx-many .ico { flex: none; width: 44px; height: 44px; padding: 10px; border-radius: 13px; background: #1b1a17; color: var(--beige); }
 .mx-fx + .c-ex { padding-top: 90px; }
 @media (max-width: 640px) { .c-ex { width: calc(100% - 32px); padding-top: 70px; } .mx-many { align-items: flex-start; } }
+/* ── чат Telegram в цветах сайта: графит, хвойно-оливковые исходящие, золотистая кайма ── */
+.tg-scr { color: #eaf4ee; }
+.tg-phone:not(.max) .tg-scr { background: #121417 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' fill='none' stroke='%23d9c6a5' stroke-opacity='.07' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='20' cy='22' r='7'/%3E%3Cpath d='M70 14l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z'/%3E%3Cpath d='M18 78c6-8 14-8 20 0M18 86c6-8 14-8 20 0'/%3E%3Crect x='76' y='70' width='20' height='16' rx='4'/%3E%3C/svg%3E") 0 0 / 30cqw 30cqw; }
+.tg-phone:not(.max) .tg-scr::before { background: radial-gradient(90% 60% at 20% 10%, rgba(46, 125, 90, 0.16), transparent 70%), radial-gradient(80% 60% at 90% 90%, rgba(212, 175, 55, 0.08), transparent 70%); }
+.tg-phone:not(.max) .tg-status, .tg-phone:not(.max) .tg-head, .tg-phone:not(.max) .tg-bar { background: rgba(24, 26, 30, 0.96); color: #eaf4ee; border-color: rgba(255, 255, 255, 0.07); }
+.tg-phone:not(.max) .tg-back { color: #d9c6a5; }
+.tg-phone:not(.max) .tg-title small { color: #8f979f; }
+.tg-phone:not(.max) .tg-ava { background: linear-gradient(160deg, #3a8f68, #1e3a2f); color: #eaf4ee; }
+.tg-phone:not(.max) .tg-day { background: rgba(255, 255, 255, 0.08); color: #c9d1cc; }
+.tg-phone:not(.max) .tg-msg { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35); }
+.tg-phone:not(.max) .tg-msg.bot { background: #1d2025; color: #eaf4ee; box-shadow: inset 0 0 0 1px rgba(217, 198, 165, 0.16), 0 1px 2px rgba(0, 0, 0, 0.35); }
+.tg-phone:not(.max) .tg-msg.me { background: #264d3b; color: #eaf4ee; }
+.tg-phone:not(.max) .tg-t { color: #8f979f; }
+.tg-phone:not(.max) .tg-msg.me .tg-t { color: #9fd3b4; }
+.tg-phone:not(.max) .tg-kb span { color: #eaf4ee; background: rgba(38, 77, 59, 0.55); box-shadow: inset 0 0 0 1px rgba(217, 198, 165, 0.28); }
+.tg-phone:not(.max) .tg-kb span.tap { background: #2e7d5a; }
+.tg-phone:not(.max) .tg-menu { background: #264d3b; color: #eaf4ee; }
+.tg-phone:not(.max) .tg-input { background: #1b1e22; border-color: rgba(255, 255, 255, 0.08); color: #6f7780; }
+.tg-phone:not(.max) .tg-bar svg { color: #8f979f; }
+.tg-phone:not(.max) .tg-home { background: rgba(234, 244, 238, 0.65); }
+.tg-phone:not(.max) .tg-push { background: rgba(30, 33, 38, 0.94); color: #eaf4ee; }
+.tg-phone.max .tg-scr { color: #000; }
+
+/* ── печатающийся чат: «печатает…», затем сообщение, кнопки выезжают снизу ── */
+.tg-typing { align-self: flex-start; display: flex; gap: 1.3cqw; padding: 3.2cqw 4.2cqw; border-radius: 5.52cqw; border-bottom-left-radius: 1.62cqw; background: #fff; animation: tgIn 0.3s ease both; }
+.tg-phone:not(.max) .tg-typing { background: #1d2025; box-shadow: inset 0 0 0 1px rgba(217, 198, 165, 0.16); }
+.tg-typing i { width: 1.9cqw; height: 1.9cqw; border-radius: 50%; background: currentColor; opacity: 0.35; animation: tgDot 1s ease-in-out infinite; }
+.tg-typing i:nth-child(2) { animation-delay: 0.15s; } .tg-typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes tgDot { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 0.95; transform: translateY(-1cqw); } }
+.tg-kb { animation: tgKb 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) 0.12s both; }
+@keyframes tgKb { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .tg-typing i, .tg-kb { animation: none; } }
+
+/* ── контраст на светлых карточках «Что я сделал» и цифры ── */
+.td-light li span { color: #242528; }
+.td-light li::before { color: #7a6a4c; }
+.td-num { -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.38); }
+.td-light .td-num { -webkit-text-stroke-color: rgba(27, 26, 23, 0.5); }

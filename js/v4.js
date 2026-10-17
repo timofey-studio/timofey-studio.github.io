@@ -396,3 +396,23 @@
     document.getElementById("rvFirst").querySelector("h3").textContent = "Хотите так же? Уже " + items.length + " " + plural(items.length, "отзыв", "отзыва", "отзывов");
   }).catch(() => {});
 })();
+
+// Первый экран: ноутбук и телефон слегка наклоняются за курсором (только мышь, только компьютер, без «уменьшенного движения»)
+(function () {
+  const hero = document.getElementById("hero"), dev = hero && hero.querySelector(".devices");
+  if (!dev || !matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let raf = 0, ev = null;
+  const cl = (v) => Math.max(-1, Math.min(1, v));
+  hero.addEventListener("pointermove", (e) => {
+    ev = e;
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      if (innerWidth <= 1100) { dev.style.transform = ""; return; }
+      const r = dev.getBoundingClientRect();
+      const x = cl((ev.clientX - (r.left + r.width / 2)) / r.width), y = cl((ev.clientY - (r.top + r.height / 2)) / r.height);
+      dev.style.transform = `perspective(1000px) rotateX(${(-y * 5).toFixed(2)}deg) rotateY(${(x * 7).toFixed(2)}deg)`;
+    });
+  });
+  hero.addEventListener("pointerleave", () => { dev.style.transform = ""; });
+})();

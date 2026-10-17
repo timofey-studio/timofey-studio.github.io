@@ -43,7 +43,7 @@ a { color: inherit; }
   font: 500 17.5px/1 var(--body); text-decoration: none; white-space: nowrap; cursor: pointer; transition: transform 0.3s var(--ease), background-color 0.3s, border-color 0.3s, box-shadow 0.4s; }
 .btn:active { transform: scale(0.98); }
 .btn .ico { font-size: 18px; transition: transform 0.3s var(--ease); }
-.btn:hover .ico { transform: translateX(3px); }
+.btn:hover .ico { transform: translateX(4px); }
 .btn:hover .ico.flip { transform: scaleX(-1) translateX(3px); }
 .btn-light { background: var(--light); color: #111; }
 .btn-light:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 30px 4px rgba(255, 250, 240, 0.28), 0 12px 34px -10px rgba(255, 250, 240, 0.5); }
@@ -118,7 +118,7 @@ a { color: inherit; }
 .o-tx b { display: block; font: 600 21px/1.2 var(--geo); color: var(--ink); letter-spacing: -0.01em; }
 .o-tx small { display: block; margin-top: 3px; font: 400 16.5px/1.4 var(--geo); color: var(--mute); transition: color 0.4s; }
 .o-bar { position: absolute; left: -1px; top: 0; bottom: 0; width: 2px; background: var(--beige); transform: scaleY(0); transform-origin: top; }
-.offer li.on { background: linear-gradient(90deg, rgba(217, 198, 165, 0.12), rgba(255, 255, 255, 0.02)); }
+.offer li.on { background: transparent; box-shadow: inset 0 0 0 1px rgba(217, 198, 165, 0.55), 0 0 28px -8px rgba(217, 198, 165, 0.5); }
 .offer li.on .o-num { color: var(--beige); }
 .offer li.on .o-ico { background: var(--beige); color: #111; border-color: var(--beige); transform: rotate(-6deg); }
 .offer li.on small { color: var(--ink-2); }
@@ -141,6 +141,7 @@ a { color: inherit; }
 .phone .btns::before, .phone .btns::after { content: ""; position: absolute; left: -100%; right: auto; width: 3px; border-radius: 3px 0 0 3px; background: #55585e; transform: translateX(calc(-1 * (var(--pw, 0px)))); }
 .phone::before, .phone::after { content: ""; position: absolute; left: -5px; width: 3px; border-radius: 3px 0 0 3px; background: #55585e; }
 .phone::before { top: 20%; height: 8%; } .phone::after { top: 31%; height: 8%; }
+@media (min-width: 1101px) { .devices .phone { left: -9%; bottom: -6%; width: 23%; } } /* не закрывает экран ноутбука */
 .phone .scr { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 390 / 844; background: #000; }
 .phone .scr > video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .phone .island { position: absolute; left: 50%; top: 2.2%; width: 31%; height: 3.6%; transform: translateX(-50%); border-radius: 999px; background: #000; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05); }
@@ -172,9 +173,11 @@ a { color: inherit; }
 .step { position: relative; }
 .step::before { content: ""; position: absolute; left: 82px; right: -14px; top: 30px; height: 1px; background: rgba(27, 26, 23, 0.22); transform: scaleX(0); transform-origin: left; transition: transform 1.2s var(--ease) calc(var(--d, 0) * 1s + 0.3s); }
 .steps.in .step::before { transform: scaleX(1); }
-.step-num { position: relative; display: inline-block; font: 600 60px/1 var(--osw); color: transparent; -webkit-text-stroke: 1px rgba(27, 26, 23, 0.45); }
+.step-num { position: relative; display: inline-block; font: 600 60px/1 var(--osw); color: transparent; -webkit-text-stroke: 1.5px rgba(27, 26, 23, 0.72); }
 .step h3 { margin-top: 12px; font: 600 32px/1 var(--osw); text-transform: uppercase; letter-spacing: 0.02em; }
 .step p { margin-top: 10px; color: #4f4a42; font-size: 18.5px; max-width: 28em; min-height: 4.8em; }
+.step-tag { display: inline-block; margin-top: 12px; padding: 6px 13px; border-radius: 999px; background: rgba(27, 26, 23, 0.07); font: 500 14px/1.2 var(--mono); letter-spacing: 0.04em; color: #6b655c; }
+.how-chips { justify-content: center; margin-top: 34px; }
 .panel { position: relative; margin-top: 16px; aspect-ratio: 16 / 11; border-radius: var(--r); overflow: hidden; background: #f4f1eb;
   box-shadow: 0 0 0 1px rgba(27, 26, 23, 0.1), 0 30px 60px -28px rgba(60, 45, 25, 0.45); transition: transform 0.6s var(--ease), box-shadow 0.6s; }
 .panel video { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -209,14 +212,14 @@ a { color: inherit; }
   transform: rotate(calc(var(--i) * var(--step, 9deg))); text-decoration: none; color: inherit; -webkit-user-drag: none; }
 .card-in { position: relative; height: 100%; display: grid; grid-template-rows: auto 1fr; gap: 16px; padding: 14px 14px 20px; border-radius: 22px; background: #fbfaf8; color: #1b1a17; border: 1px solid rgba(27, 26, 23, 0.06);
   box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9); transition: transform 0.55s var(--ease), border-color 0.4s, box-shadow 0.5s, opacity 0.4s, filter 0.4s; }
-.card-in .num { position: absolute; right: 18px; bottom: 16px; font: 600 30px/1 var(--osw); color: transparent; -webkit-text-stroke: 1px rgba(27, 26, 23, 0.35); transition: color 0.4s, -webkit-text-stroke-color 0.4s; }
+.card-in .num { position: absolute; right: 18px; bottom: 16px; font: 600 30px/1 var(--osw); color: transparent; -webkit-text-stroke: 1.2px rgba(27, 26, 23, 0.55); transition: color 0.4s, -webkit-text-stroke-color 0.4s; }
 .media { height: 214px; border-radius: 14px; overflow: hidden; display: grid; place-items: center; background: #ece7de radial-gradient(rgba(27, 26, 23, 0.09) 1px, transparent 1.4px) 0 0 / 14px 14px; }
 .media img { pointer-events: none; }
 .web { width: calc(100% - 20px); border-radius: 8px; overflow: hidden; background: #0f0f10; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.45); }
 .web .br { display: flex; gap: 4px; padding: 6px 8px; background: #2b2b2f; }
 .web .br i { width: 6px; height: 6px; border-radius: 50%; background: #4a4a50; }
 .web img { width: 100%; aspect-ratio: 16 / 10; }
-.ph { height: 192px; aspect-ratio: 9 / 18; border-radius: 16px; padding: 5px; background: #0f0f10; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset, 0 14px 30px -12px rgba(0, 0, 0, 0.5); }
+.ph { height: 192px; aspect-ratio: 100 / 159; border-radius: 16px; padding: 5px; background: #0f0f10; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset, 0 14px 30px -12px rgba(0, 0, 0, 0.5); }
 .ph img { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; object-position: top; }
 .info { display: flex; flex-direction: column; padding: 0 6px; }
 .info small { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #9a8a6c; }
@@ -388,14 +391,15 @@ a { color: inherit; }
 #faq { align-items: start; }
 #faq .sp-media { height: min(640px, calc(76vh / var(--z))); min-height: 0; }
 /* телефон на тёмном переливающемся фоне: пятна плывут сами, а на компьютере тянутся за мышкой (--mx, --my, --gx, --gy ставит v4.js) */
-#faq .faq-ph { --mx: 0; --my: 0; --gx: 0; --gy: 0; background: #161618; isolation: isolate; }
-.faq-ph .fx { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-.faq-ph .fx::after { content: ""; position: absolute; inset: 0; background: url(../img/v4/topo.svg) center / 1200px 900px; opacity: 0.4; }
-.faq-ph .fx i { position: absolute; border-radius: 50%; will-change: transform; transition: translate 1.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
-.faq-ph .b1 { left: -15%; top: -30%; width: 75%; height: 100%; background: radial-gradient(closest-side, rgba(217, 198, 165, 0.62), transparent); translate: calc(var(--mx) * 46px) calc(var(--my) * 34px); }
-.faq-ph .b2 { left: 45%; top: -35%; width: 65%; height: 95%; background: radial-gradient(closest-side, rgba(168, 128, 70, 0.72), transparent); translate: calc(var(--mx) * -34px) calc(var(--my) * 42px); }
-.faq-ph .b3 { left: 50%; top: 40%; width: 70%; height: 100%; background: radial-gradient(closest-side, rgba(96, 138, 84, 0.55), transparent); translate: calc(var(--mx) * 30px) calc(var(--my) * -38px); }
-.faq-ph .b4 { left: -10%; top: 50%; width: 60%; height: 90%; background: radial-gradient(closest-side, rgba(240, 226, 200, 0.3), transparent); translate: calc(var(--mx) * -40px) calc(var(--my) * -30px); }
+#faq .faq-ph { --mx: 0; --my: 0; --gx: 0; --gy: 0; background: #121316; isolation: isolate; overflow: hidden; contain: paint; }
+#faq .faq-ph[data-rv].in { clip-path: none; } /* обрезка от анимации появления заставляла перерисовывать фон каждый кадр */
+.faq-ph .fx { position: absolute; inset: 0; z-index: -1; overflow: hidden; transform: translateZ(0); }
+.faq-ph .fx::after { content: ""; position: absolute; inset: 0; background: url(../img/v4/topo.svg) center / 1200px 900px; opacity: 0.28; }
+.faq-ph .fx i { position: absolute; border-radius: 50%; will-change: transform; transform: translateZ(0); backface-visibility: hidden; transition: translate 1.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.faq-ph .b1 { left: -15%; top: -30%; width: 75%; height: 100%; background: radial-gradient(closest-side, rgba(212, 175, 55, 0.2), transparent); translate: calc(var(--mx) * 46px) calc(var(--my) * 34px); }
+.faq-ph .b2 { left: 45%; top: -35%; width: 65%; height: 95%; background: radial-gradient(closest-side, rgba(46, 125, 90, 0.24), transparent); translate: calc(var(--mx) * -34px) calc(var(--my) * 42px); }
+.faq-ph .b3 { left: 50%; top: 40%; width: 70%; height: 100%; background: radial-gradient(closest-side, rgba(46, 125, 90, 0.2), transparent); translate: calc(var(--mx) * 30px) calc(var(--my) * -38px); }
+.faq-ph .b4 { left: -10%; top: 50%; width: 60%; height: 90%; background: radial-gradient(closest-side, rgba(212, 175, 55, 0.14), transparent); translate: calc(var(--mx) * -40px) calc(var(--my) * -30px); }
 .faq-ph .fx .glow { left: -210px; top: -210px; width: 420px; height: 420px; background: radial-gradient(closest-side, rgba(240, 222, 186, 0.32), transparent); opacity: 0; translate: calc(var(--gx) * 1px) calc(var(--gy) * 1px); transition: translate 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s; }
 .faq-ph.hot .fx .glow { opacity: 1; }
 .faq-ph .faq-phone { position: absolute; left: 50%; top: 50%; height: 86%; aspect-ratio: 524 / 1100; translate: calc(-50% + var(--mx) * -12px) calc(-50% + var(--my) * -9px); transition: translate 1.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -406,8 +410,8 @@ a { color: inherit; }
 @keyframes fxD { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(20%, -14%) scale(1.15); } }
 @keyframes phFloat { 0%, 100% { transform: translateY(-1.4%) rotate(-4deg); } 50% { transform: translateY(1.4%) rotate(-2.8deg); } }
 @media (prefers-reduced-motion: no-preference) {
-  .faq-ph .b1 { animation: fxA 17s ease-in-out infinite; } .faq-ph .b2 { animation: fxB 21s ease-in-out infinite; }
-  .faq-ph .b3 { animation: fxC 19s ease-in-out infinite; } .faq-ph .b4 { animation: fxD 23s ease-in-out infinite; }
+  .faq-ph .b1 { animation: fxA 18s cubic-bezier(0.4, 0, 0.2, 1) infinite; } .faq-ph .b2 { animation: fxB 20s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+  .faq-ph .b3 { animation: fxC 16s cubic-bezier(0.4, 0, 0.2, 1) infinite; } .faq-ph .b4 { animation: fxD 19s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
   .faq-ph .faq-phone img { animation: phFloat 7s ease-in-out infinite; }
 }
 #faq .sp-tx { align-self: start; padding-top: 70px; }
@@ -418,6 +422,7 @@ a { color: inherit; }
 .faq-list summary .ico { flex: none; width: 34px; height: 34px; padding: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px rgba(27, 26, 23, 0.12); transition: transform 0.4s var(--ease), background-color 0.3s, color 0.3s, box-shadow 0.3s; }
 .faq-list summary:hover .ico { box-shadow: 0 0 0 1px var(--beige), 0 0 18px -2px rgba(217, 198, 165, 0.9); }
 .faq-list details[open] summary .ico { transform: rotate(45deg); background: #1b1a17; color: #fff; }
+.faq-list details.closing summary .ico { transform: none; background: #fff; color: inherit; } /* плюс поворачивается обратно сразу при закрытии */
 .faq-list details { overflow: hidden; }
 .faq-list details p { padding: 0 44px 20px 0; color: #4f4a42; font-size: 18.5px; line-height: 1.6; }
 @keyframes faqIn { from { opacity: 0; transform: translateY(-6px); } }
@@ -481,6 +486,7 @@ a { color: inherit; }
 }
 .lead { position: relative; margin-top: 24px; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.lead .row2 { grid-template-columns: 1fr; gap: 0; } /* поля друг под другом: подсказки не обрезаются */
 .field { display: block; margin-bottom: 14px; }
 .field > span { display: block; margin-bottom: 7px; font-size: 16px; color: #4f4a42; }
 .field input, .field textarea { width: 100%; padding: 15px 17px; border-radius: 14px; border: 1px solid rgba(27, 26, 23, 0.16); background: #fff; color: #1b1a17; font: 400 17.5px/1.4 var(--body); resize: vertical; transition: border-color 0.25s, box-shadow 0.25s; }
@@ -554,7 +560,7 @@ a { color: inherit; }
   body { font-size: 17.5px; }
   .top { padding: 12px 14px; } .top.scrolled { padding: 8px 14px; }
   .logo { font-size: 17px; gap: 9px; } .logo svg { width: 34px; height: 34px; }
-  .top .btn-glow { display: none; }
+  .top .btn-top { display: none; }
   .hero { padding: 92px 0 calc(30px + var(--wh)); }
   .hero-in { width: calc(100% - 32px); gap: 26px; }
   .studio { font-size: 12.5px; letter-spacing: 0.18em; } .studio::before { width: 28px; }
@@ -568,11 +574,12 @@ a { color: inherit; }
   .how { padding: 36px 16px calc(50px + var(--wh)); }
   .how-head p, .step p { font-size: 18px; }
   .step-num { font-size: 50px; }
-  .cases { --w: 240px; --h: 350px; --gap: 18px; --R: 1800px; --top: 300px; height: calc(720px + var(--wh)); }
+  .cases { --w: 240px; --h: 386px; --gap: 18px; --R: 1800px; --top: 300px; height: calc(756px + var(--wh)); }
   .cases-head { width: calc(100% - 32px); padding-top: 40px; flex-direction: column; align-items: flex-start; gap: 18px; }
   .cases-ctrl button { width: 50px; height: 50px; }
-  .media { height: 164px; } .ph { height: 150px; border-radius: 13px; } .ph img { border-radius: 10px; }
-  .info b { font-size: 19px; }
+  .media { height: 200px; } .ph { height: 188px; border-radius: 13px; } .ph img { border-radius: 10px; }
+  .info b { font-size: 19px; padding-right: 0; }
+  .card-in .num { top: 22px; right: 24px; bottom: auto; font-size: 24px; }
   .cases-foot span { display: none; }
   .sp-media { margin: 10px; border-radius: 18px; }
   .sp-tx { padding: 26px 18px 34px; }
@@ -613,3 +620,9 @@ a { color: inherit; }
   -webkit-mask-composite: source-in; mask-image: radial-gradient(ellipse 50% 56% at 50% 50%, #000 58%, transparent 100%), linear-gradient(transparent 4%, #000 25%); mask-composite: intersect; }
 .me.va .me-fit img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 760px) { .sp-media.me.va { aspect-ratio: 4 / 5; } }
+
+/* телефоны: подсказки в полях заявки помещаются целиком (16px: меньше нельзя, иначе iPhone приближает поле) */
+@media (max-width: 640px) { .field input, .field textarea { font-size: 16px; padding: 14px; } }
+/* наклон ноутбука и телефона за курсором (v4.js ставит transform только на компьютере) */
+.devices { transition: transform 0.2s ease-out; will-change: transform; }
+@media (max-width: 380px) { .field input { padding-left: 12px; padding-right: 12px; } }

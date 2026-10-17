@@ -80,8 +80,8 @@
       { bot: "<b>✅ Вы записаны!</b> Запись №12\nМаксим · завтра, 01.10 · 15:00\n📍 ул. Примерная, 12, ждём вас!" },
     ],
     owner: [
-      { push: "🆕 Новая запись №12: Анна, Максим, завтра в 15:00" },
       { bot: "<b>🆕 Новая запись №12</b>\nАнна · Максим · завтра, 15:00", t: "12:31" },
+      { push: "🆕 Новая запись №12: Анна, Максим, завтра в 15:00" },
       { me: "/admin", t: "12:40" },
       { bot: "<b>🛠 Панель владельца</b>\nЗаписи, расписание и ручная запись", kb: [["📅 Сегодня", "🗓 Неделя"], ["📝 Запись вручную"]], tap: [1, 0] },
       { bot: "<b>📝 Запись вручную</b>\nДля какого мастера?", kb: [["Алексей", "Максим", "Денис"]], tap: [0, 1] },
@@ -93,9 +93,8 @@
   };
   // кейс бота в MAX: клиника получает отзыв с сайта и публикует его одной кнопкой; пациент узнаёт цены и записывается
   SCRIPTS["max-owner"] = [
-    { push: "Новый отзыв с сайта ★★★★★" },
     { bot: "<b>Новый отзыв с сайта</b>  ★★★★★\n<b>Ирина</b>, 14.10.2026\n\nБоялась идти, но всё прошло спокойно и без боли. Доктор всё объяснил, спасибо!\n\nТелефон: +7 9•• •••-••-12 <i>(на сайте не показывается)</i>", t: "14:05",
-      kb: [["✅ Опубликовать", "✖ Отклонить"]], tap: [0, 0] },
+      kb: [["✅ Опубликовать на сайт", "✖ Отклонить"]], tap: [0, 0] },
     { edit: "\n\n✅ <b>Опубликован на сайте</b>", kb: [["Снять с сайта"]], wait: 2600 },
     { bot: "Отзыв уже на сайте avicenna45.ru: в ленте на главной и на странице «Отзывы».", t: "14:05" },
   ];
@@ -160,11 +159,16 @@
 
   async function play(ph, steps, gate) {
     const chat = ph.querySelector(".tg-chat"), push = ph.querySelector(".tg-push");
+    // сначала видна готовая переписка; анимация начинается, когда телефон на экране
+    await gate();
+    await sleep(2600);
+    chat.classList.add("out");
+    await sleep(700);
     for (;;) {
       ph.querySelector(".tg-clock").textContent = steps[0].t || (steps[1] && steps[1].t) || "12:30";
       chat.innerHTML = '<div class="tg-day">Сегодня</div>';
       chat.classList.remove("out");
-      let t = "12:30";
+      let t = "12:30", first = true;
       for (const s of steps) {
         await gate();
         if (s.push) {
@@ -176,7 +180,16 @@
         }
         if (s.edit) { await sleep(500); edit(chat, s); down(chat); await sleep(s.wait || 2200); continue; }
         if (s.t) t = s.t;
-        await sleep(s.me ? 700 : 950);
+        if (!first && !s.me) {
+          // «печатает…» перед ответом бота
+          await sleep(250);
+          const ty = document.createElement("div");
+          ty.className = "tg-typing"; ty.innerHTML = "<i></i><i></i><i></i>";
+          chat.appendChild(ty); down(chat);
+          await sleep(750);
+          ty.remove();
+        } else await sleep(first ? 0 : 700);
+        first = false;
         msg(chat, s.me ? "me" : "bot", s.me || s.bot, t);
         const k = s.kb ? keyboard(chat, s.kb) : null;
         down(chat);
@@ -188,7 +201,7 @@
       }
       await sleep(4000);
       chat.classList.add("out");
-      await sleep(700);
+      await sleep(450);
     }
   }
 
@@ -196,7 +209,8 @@
     const steps = SCRIPTS[ph.dataset.tg];
     if (!steps) return;
     build(ph);
-    if (reduce || !("IntersectionObserver" in window)) { still(ph, steps); return; }
+    still(ph, steps);
+    if (reduce || !("IntersectionObserver" in window)) return;
     let visible = false, wake = null;
     const gate = () => (visible ? Promise.resolve() : new Promise((r) => (wake = r)));
     new IntersectionObserver((es) => es.forEach((e) => { visible = e.isIntersecting; if (visible && wake) { wake(); wake = null; } }), { threshold: 0.2 }).observe(ph);
