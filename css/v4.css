@@ -193,8 +193,8 @@ a { color: inherit; }
 @media (hover: hover) { .step:hover .panel { transform: translateY(-6px); box-shadow: 0 0 0 1px rgba(27, 26, 23, 0.14), 0 40px 70px -28px rgba(60, 45, 25, 0.55), 0 0 40px -10px rgba(217, 198, 165, 0.9); } }
 
 /* ── кейсы: дуга белых карточек на всю ширину, у каждой номер ── */
-.cases { --w: 300px; --h: 420px; --gap: 30px; --R: 3200px; --top: 230px;
-  position: relative; z-index: 1; height: calc(clamp(820px, calc(100dvh / var(--z)), 1000px) + var(--wh)); overflow: hidden; isolation: isolate; background: radial-gradient(circle at 50% 25%, #18191f 0%, #0c0d10 85%); }
+.cases { --w: 345px; --h: 500px; --gap: 30px; --R: 3200px; --top: 230px;
+  position: relative; z-index: 1; height: calc(clamp(900px, calc(100dvh / var(--z)), 1040px) + var(--wh)); overflow: hidden; isolation: isolate; background: radial-gradient(circle at 50% 25%, #18191f 0%, #0c0d10 85%); }
 .cases::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
     radial-gradient(60% 55% at 50% 62%, rgba(236, 222, 196, 0.12), transparent 70%),
@@ -222,13 +222,13 @@ a { color: inherit; }
 .card-in { position: relative; height: 100%; display: grid; grid-template-rows: auto 1fr; gap: 16px; padding: 14px 14px 20px; border-radius: 22px; background: #fbfaf8; color: #1b1a17; border: 1px solid rgba(27, 26, 23, 0.06);
   box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9); transition: transform 0.55s var(--ease), border-color 0.4s, box-shadow 0.5s, opacity 0.4s, filter 0.4s, rotate 1.3s var(--ease) calc(0.25s + var(--k, 0) * 0.08s); }
 .card-in .num { position: absolute; right: 18px; bottom: 16px; font: 600 30px/1 var(--osw); color: transparent; -webkit-text-stroke: 1.2px rgba(27, 26, 23, 0.55); transition: color 0.4s, -webkit-text-stroke-color 0.4s; }
-.media { height: 214px; border-radius: 14px; overflow: hidden; display: grid; place-items: center; background: #ece7de radial-gradient(rgba(27, 26, 23, 0.09) 1px, transparent 1.4px) 0 0 / 14px 14px; }
+.media { height: 290px; border-radius: 14px; overflow: hidden; display: grid; place-items: center; background: #ece7de radial-gradient(rgba(27, 26, 23, 0.09) 1px, transparent 1.4px) 0 0 / 14px 14px; }
 .media img { pointer-events: none; }
 .web { width: calc(100% - 20px); border-radius: 8px; overflow: hidden; background: #0f0f10; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.45); }
 .web .br { display: flex; gap: 4px; padding: 6px 8px; background: #2b2b2f; }
 .web .br i { width: 6px; height: 6px; border-radius: 50%; background: #4a4a50; }
 .web img { width: 100%; aspect-ratio: 16 / 10; }
-.ph { height: 200px; aspect-ratio: 9 / 19.5; border-radius: 16% / 7.4%; padding: 4px; background: #050506; box-shadow: 0 0 0 1px #3a3d45, inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 16px 36px -8px rgba(0, 0, 0, 0.35); }
+.ph { position: relative; height: 274px; aspect-ratio: 9 / 19.5; border-radius: 16% / 7.4%; padding: 4px; background: #050506; box-shadow: 0 0 0 1px #3a3d45, inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 16px 36px -8px rgba(0, 0, 0, 0.35); }
 .ph img { display: block; width: 100%; height: 100%; border-radius: 13% / 6.1%; object-fit: cover; object-position: top; }
 .info { display: flex; flex-direction: column; padding: 0 6px; }
 .info small { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #9a8a6c; }
@@ -413,9 +413,8 @@ a { color: inherit; }
 .faq-ph .b4 { left: -10%; top: 50%; width: 60%; height: 90%; background: radial-gradient(closest-side, rgba(212, 175, 55, 0.12), transparent); }
 .faq-ph .fx .glow { left: 20%; top: 15%; width: 60%; height: 70%; background: radial-gradient(closest-side, rgba(212, 175, 55, 0.14), transparent); opacity: 0; transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
 @media (hover: hover) {
-  .faq-ph:hover .fx { transform: translateZ(0) scale(1.08) rotate(2deg); }
+  .faq-ph:hover .fx { transform: translateZ(0) scale(1.06); } /* без поворота: поворот слоя с плавающими пятнами тяжёлый для видеокарты */
   .faq-ph:hover .fx .glow { opacity: 1; }
-  .faq-ph:hover .faq-phone { transform: scale(1.02); }
 }
 .faq-ph .faq-phone { position: absolute; left: 50%; top: 50%; height: 86%; aspect-ratio: 525 / 1100; translate: -50% -50%; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .faq-ph .faq-phone img { display: block; width: 100%; height: 100%; transform: rotate(-4deg); filter: drop-shadow(0 34px 40px rgba(0, 0, 0, 0.6)); }
@@ -430,6 +429,7 @@ a { color: inherit; }
   .faq-ph .faq-phone img { animation: phFloat 7s ease-in-out infinite; }
 }
 #faq .sp-tx { align-self: start; padding-top: 70px; }
+#faq .faq-list { align-self: stretch; text-align: left; } /* текст блока прижат вправо, список вопросов на всю ширину колонки */
 .faq-list details { border-bottom: 1px solid rgba(27, 26, 23, 0.14); }
 .faq-list summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 0; font-size: 20.5px; font-weight: 500; cursor: pointer; transition: color 0.25s; }
 .faq-list summary:hover { color: #000; }
@@ -558,8 +558,8 @@ a { color: inherit; }
   .how-head { flex-direction: column; align-items: flex-start; gap: 18px; }
   .steps { grid-template-columns: 1fr; max-width: 600px; }
   .step::before { display: none; }
-  .cases { --w: 280px; --h: 400px; --R: 2400px; --top: 300px; }
-  .media { height: 200px; } .ph { height: 186px; }
+  .cases { --w: 320px; --h: 470px; --R: 2400px; --top: 300px; }
+  .media { height: 262px; } .ph { height: 248px; }
   .split { grid-template-columns: 1fr; min-height: 0; } .split.flip .sp-media { order: 0; }
   #contact { grid-template-columns: 1fr; }
   .sp-media { min-height: 0; aspect-ratio: 16 / 10; }
@@ -589,10 +589,10 @@ a { color: inherit; }
   .how { padding: 36px 16px calc(50px + var(--wh)); }
   .how-head p, .step p { font-size: 18px; }
   .step-num { font-size: 50px; }
-  .cases { --w: 240px; --h: 386px; --gap: 18px; --R: 1800px; --top: 300px; height: calc(756px + var(--wh)); }
+  .cases { --w: 276px; --h: 446px; --gap: 18px; --R: 1800px; --top: 300px; height: calc(820px + var(--wh)); }
   .cases-head { width: calc(100% - 32px); padding-top: 40px; flex-direction: column; align-items: flex-start; gap: 18px; }
   .cases-ctrl button { width: 50px; height: 50px; }
-  .media { height: 200px; } .ph { height: 188px; }
+  .media { height: 250px; } .ph { height: 236px; }
   .info b { font-size: 19px; padding-right: 0; }
   .card-in .num { top: 22px; right: 24px; bottom: auto; font-size: 24px; }
   .cases-foot span { display: none; }
@@ -648,3 +648,12 @@ a { color: inherit; }
   .faq-ph .b3, .faq-ph .b4, .faq-ph .faq-phone img { animation: none !important; }
   .faq-ph .b1 { animation-duration: 32s !important; } .faq-ph .b2 { animation-duration: 36s !important; }
 }
+/* ── карточки кейсов: на экране телефона та же переписка, что на странице кейса (стили .tg-* в case.css).
+   Вёрстка, а не картинка: текст чёткий на любом экране. Высота телефона = прежней высоте .ph (274 / 248 / 236px). ── */
+.card .media .tg-phone { --w: 126.6px; box-shadow: 0 0 0 1px #3a3d45, 0 16px 36px -8px rgba(0, 0, 0, 0.35); }
+.card .media .tg-phone::before, .card .media .tg-phone::after { display: none; } /* без боковых кнопок */
+.card .media .tg-chat { justify-content: flex-end; } /* видны последние сообщения */
+.card .media .tg-msg, .card .media .tg-kb { animation: none; }
+.card .media .tg-kb span { backdrop-filter: none; -webkit-backdrop-filter: none; } /* карусель крутится: без размытия под кнопками легче */
+@media (max-width: 1100px) { .card .media .tg-phone { --w: 114.6px; } }
+@media (max-width: 640px) { .card .media .tg-phone { --w: 109px; } }

@@ -217,39 +217,40 @@
     play(ph, steps, gate);
   });
 
-  // Липкая сцена (страницы ботов, только компьютер шире 1100px): телефон стоит по центру, переписка идёт за колесом мыши:
-  // «печатает…» → ответ бота → выезжают кнопки. Потом телефон уменьшается и уезжает влево, справа по очереди выплывают
-  // «Задача» и «Что сделано». at — доля прокрутки сцены, с которой шаг виден. Прокрутка назад отматывает переписку.
+  // Сцена в кейсах ботов (только компьютер шире 1100px): телефон стоит по центру. Чуть прокрутил — он плавно уходит
+  // влево, переписка в нём идёт сама, как видео (печатает… → ответ → кнопки → нажатие), справа выплывают
+  // «Задача» и «Что сделано». Прокрутил обратно выше — всё возвращается. pre — сообщения, видные сразу.
   const SCENES = {
     "scene-fp": [
-      { at: 0, bot: "<b>💈 FadePoint Barbershop</b>\nПривет! Я помогу записаться к мастеру.", t: "12:29" },
-      { at: 0, me: "Хочу записаться к Максиму на завтра", t: "12:30" },
-      { at: 0.08, typing: 1 },
-      { at: 0.16, bot: "<b>💈 FadePoint Barbershop</b>\nМаксим · завтра, 01.10\nВыберите свободное время:", t: "12:30" },
-      { at: 0.24, kb: [["10:00", "12:00", "13:00"], ["15:00", "16:00", "18:00"]] },
-      { at: 0.34, tap: [1, 0] },
-      { at: 0.4, typing: 1 },
-      { at: 0.47, bot: "<b>✅ Вы записаны!</b> Запись №12\nМаксим · завтра, 01.10 · 15:00\n📍 ул. Примерная, 12, ждём вас!", t: "12:31" },
+      { pre: 1, bot: "<b>💈 FadePoint Barbershop</b>\nПривет! Я помогу записаться к мастеру.", t: "12:29" },
+      { pre: 1, me: "Хочу записаться к Максиму на завтра", t: "12:30" },
+      { typing: 1 },
+      { bot: "<b>💈 FadePoint Barbershop</b>\nМаксим · завтра, 01.10\nВыберите свободное время:", t: "12:30" },
+      { kb: [["10:00", "12:00", "13:00"], ["15:00", "16:00", "18:00"]] },
+      { tap: [1, 0] },
+      { typing: 1 },
+      { bot: "<b>✅ Вы записаны!</b> Запись №12\nМаксим · завтра, 01.10 · 15:00\n📍 ул. Примерная, 12, ждём вас!", t: "12:31" },
     ],
     "scene-max": [
-      { at: 0, bot: "Здравствуйте! Сюда приходят новые отзывы с сайта avicenna45.ru", t: "14:00" },
-      { at: 0.08, typing: 1 },
-      { at: 0.16, bot: "<b>Новый отзыв с сайта</b>  ★★★★★\n<b>Ирина</b>, 14.10.2026\n\nБоялась идти, но всё прошло спокойно и без боли. Доктор всё объяснил, спасибо!", t: "14:05" },
-      { at: 0.24, kb: [["✅ Опубликовать на сайт", "✖ Отклонить"]] },
-      { at: 0.3, tap: [0, 0] },
-      { at: 0.4, edit: "\n\n✅ <b>Опубликован на сайте</b>", kb: [["Снять с сайта"]] },
-      { at: 0.47, bot: "Отзыв уже на сайте: в ленте на главной и на странице «Отзывы».", t: "14:05" },
+      { pre: 1, bot: "Здравствуйте! Сюда приходят новые отзывы с сайта avicenna45.ru", t: "14:00" },
+      { typing: 1 },
+      { bot: "<b>Новый отзыв с сайта</b>  ★★★★★\n<b>Ирина</b>, 14.10.2026\n\nБоялась идти, но всё прошло спокойно и без боли. Доктор всё объяснил, спасибо!", t: "14:05" },
+      { kb: [["✅ Опубликовать на сайт", "✖ Отклонить"]] },
+      { tap: [0, 0] },
+      { edit: "\n\n✅ <b>Опубликован на сайте</b>", kb: [["Снять с сайта"]] },
+      { typing: 1 },
+      { bot: "Отзыв уже на сайте: в ленте на главной и на странице «Отзывы».", t: "14:05" },
     ],
   };
   const sc = document.querySelector(".c-scene"), sph = sc && sc.querySelector(".tg-phone[data-tg]");
   if (sc && sph && SCENES[sph.dataset.tg]) {
-    const acts = SCENES[sph.dataset.tg], stick = sc.querySelector(".sc-stick"), box = sc.querySelector(".sc-ph"), td = sc.querySelector(".c-td");
-    const cards = Array.from(sc.querySelectorAll(".td-card")), wide = window.matchMedia("(min-width: 1101px)");
+    const acts = SCENES[sph.dataset.tg], stick = sc.querySelector(".sc-stick"), td = sc.querySelector(".c-td");
+    const wide = window.matchMedia("(min-width: 1101px)");
+    const n0 = acts.filter((s) => s.pre).length - 1;
     build(sph);
     const chat = sph.querySelector(".tg-chat");
-    let on = false, shown = -1, raf = 0;
-    const cl = (v) => Math.max(0, Math.min(1, v)), ease = (v) => v * v * (3 - 2 * v);
-    // переписка до шага n; новые сообщения появляются с анимацией, уже бывшие (и при прокрутке назад) сразу
+    let on = false, open = false, seen = false, shown = -1, run = 0, raf = 0;
+    // переписка до шага n; новые сообщения появляются с анимацией, уже бывшие — сразу
     const render = (n) => {
       const was = shown;
       let t = acts[0].t || "12:30";
@@ -266,37 +267,60 @@
       shown = n;
       chat.scrollTop = chat.scrollHeight;
     };
-    const fit = () => td.style.setProperty("--fit", Math.min(1, (stick.offsetHeight * 0.98) / td.offsetHeight).toFixed(3));
-    const update = () => {
+    // пауза перед шагом: «печатает» висит секунду, нажатие — после того как кнопки рассмотрели
+    const pause = (s, prev) => (prev && prev.typing ? 1000 : s.typing ? 700 : s.kb ? 450 : s.tap ? 1500 : s.edit ? 700 : 900);
+    const play = async (id) => {
+      await sleep(900); // телефон сначала доезжает влево
+      for (;;) {
+        for (let i = n0 + 1; i < acts.length; i++) {
+          await sleep(pause(acts[i], acts[i - 1]));
+          if (id !== run) return;
+          render(i);
+        }
+        await sleep(4200);
+        if (id !== run) return;
+        chat.classList.add("out");
+        await sleep(450);
+        if (id !== run) return;
+        shown = -1; render(n0); chat.classList.remove("out");
+      }
+    };
+    const stop = () => { run++; shown = -1; render(n0); };
+    const setOpen = (v) => {
+      if (v === open) return;
+      open = v;
+      sc.classList.toggle("open", open);
+      if (open && seen) play(++run); else stop();
+    };
+    const fit = () => {
+      td.style.setProperty("--fit", Math.min(1, (stick.offsetHeight * 0.98) / td.offsetHeight).toFixed(3));
+      sc.style.setProperty("--dx", (stick.offsetWidth * 0.31).toFixed(1) + "px"); // телефон встаёт в левую треть
+    };
+    // открыть, когда сцену чуть прокрутили (телефон уже прилип); закрыть, когда вернулись выше
+    const check = () => {
       raf = 0;
       if (!on) return;
       const r = sc.getBoundingClientRect(), st = stick.getBoundingClientRect();
-      const p = cl((st.top - r.top) / Math.max(1, r.height - st.height));
-      let n = 0;
-      acts.forEach((s, i) => { if (p >= s.at) n = i; });
-      if (n !== shown) render(n);
-      const m = ease(cl((p - 0.42) / 0.2));
-      box.style.transform = `translateX(calc(-50% - ${(stick.offsetWidth * 0.31 * m).toFixed(1)}px)) scale(${(1 - 0.06 * m).toFixed(4)})`;
-      [cl((p - 0.56) / 0.14), cl((p - 0.7) / 0.14)].forEach((c, k) => {
-        const e = ease(c), el = cards[k];
-        if (!el) return;
-        el.style.opacity = e.toFixed(3);
-        el.style.transform = `translateX(${((1 - e) * 60).toFixed(1)}px)`;
-        el.style.pointerEvents = e > 0.5 ? "" : "none";
-      });
+      const p = (st.top - r.top) / Math.max(1, r.height - st.height);
+      if (p > 0.12) setOpen(true); else if (p <= 0.01) setOpen(false);
     };
+    // переписка идёт, только пока сцена на экране
+    if ("IntersectionObserver" in window) new IntersectionObserver((es) => es.forEach((e) => {
+      seen = e.isIntersecting;
+      if (!on || !open) return;
+      if (seen) play(++run); else stop();
+    })).observe(sc);
     const mode = () => {
       const want = wide.matches && !reduce;
       if (want !== on) {
         on = want;
         sc.classList.toggle("sc-on", on);
-        cards.forEach((el) => { el.style.transition = on ? "none" : ""; if (!on) el.style.opacity = el.style.transform = el.style.pointerEvents = ""; });
-        if (!on) { box.style.transform = ""; td.style.removeProperty("--fit"); }
-        shown = -1;
+        if (!on) { setOpen(false); td.style.removeProperty("--fit"); }
+        else render(n0);
       }
-      if (on) { fit(); update(); }
+      if (on) { fit(); check(); }
     };
-    addEventListener("scroll", () => { if (on && !raf) raf = requestAnimationFrame(update); }, { passive: true });
+    addEventListener("scroll", () => { if (on && !raf) raf = requestAnimationFrame(check); }, { passive: true });
     addEventListener("resize", mode);
     mode();
   }
