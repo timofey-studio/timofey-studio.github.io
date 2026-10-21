@@ -179,7 +179,10 @@ a { color: inherit; }
 .how-head h2 span { color: #a2998a; }
 .how-head p { max-width: 30em; color: #5f594f; font-size: 19.5px; }
 .steps { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 36px; }
-.step { position: relative; }
+.step { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+/* метка этапа и ролик во всех трёх колонках на одной линии, даже если текст в одном шаге длиннее */
+.step p { flex: 1 0 auto; }
+.step .panel { align-self: stretch; }
 .step::before { content: ""; position: absolute; left: 82px; right: -14px; top: 30px; height: 1px; background: rgba(27, 26, 23, 0.22); transform: scaleX(0); transform-origin: left; transition: transform 1.2s var(--ease) calc(var(--d, 0) * 1s + 0.3s); }
 .steps.in .step::before { transform: scaleX(1); }
 .step-num { position: relative; display: inline-block; font: 600 60px/1 var(--osw); color: transparent; -webkit-text-stroke: 1.5px rgba(27, 26, 23, 0.72); }
